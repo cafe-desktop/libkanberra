@@ -1,0 +1,31 @@
+##########################################################
+# THE FOLLOWING LINES IS USED BY docker-build
+##########################################################
+requires:
+  debian:
+    - aptitude
+    - clang-tools
+    - cppcheck
+    - expect #required for unbuffer
+    - git
+    - gnome-pkg-tools
+    - gtk-doc-tools
+    - libltdl-dev
+    - libasound2-dev
+    - libvorbis-dev
+    - libgtk-3-dev
+    - libgtk2.0-dev
+    - libtdb-dev
+    - libpulse-dev
+    - libgstreamer1.0-dev
+
+before_scripts:
+  - ./html-cppcheck
+
+build_scripts:
+  - ./before-build
+  - ./make-scanbuild
+  - ./after-build
+
+after_scripts:
+  - ./gen-index -l 20
