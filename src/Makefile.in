@@ -154,27 +154,27 @@ bin_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@am__append_26 = \
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	$(systemdsystemunit_DATA)
 
-@HAVE_GTK_ANY_TRUE@am__append_27 = \
-@HAVE_GTK_ANY_TRUE@	canberra-ctk-play
+@HAVE_CTK_ANY_TRUE@am__append_27 = \
+@HAVE_CTK_ANY_TRUE@	canberra-ctk-play
 
-@HAVE_GTK_ANY_TRUE@am__append_28 = \
-@HAVE_GTK_ANY_TRUE@	canberra-ctk.h
+@HAVE_CTK_ANY_TRUE@am__append_28 = \
+@HAVE_CTK_ANY_TRUE@	canberra-ctk.h
 
-@HAVE_GTK3_TRUE@am__append_29 = \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@am__append_29 = \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
 
-@HAVE_GTK_TRUE@am__append_30 = \
-@HAVE_GTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK_TRUE@am__append_30 = \
+@HAVE_CTK_TRUE@	libcanberra-ctk.la
 
-@HAVE_GTK_ANY_TRUE@am__append_31 = \
-@HAVE_GTK_ANY_TRUE@	libcanberra-login-sound.desktop.in \
-@HAVE_GTK_ANY_TRUE@	libcanberra-ready-sound.desktop.in \
-@HAVE_GTK_ANY_TRUE@	libcanberra-logout-sound.sh.in
+@HAVE_CTK_ANY_TRUE@am__append_31 = \
+@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop.in \
+@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop.in \
+@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh.in
 
-@HAVE_GTK_ANY_TRUE@am__append_32 = \
-@HAVE_GTK_ANY_TRUE@	libcanberra-login-sound.desktop \
-@HAVE_GTK_ANY_TRUE@	libcanberra-ready-sound.desktop \
-@HAVE_GTK_ANY_TRUE@	libcanberra-logout-sound.sh
+@HAVE_CTK_ANY_TRUE@am__append_32 = \
+@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop \
+@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop \
+@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh
 
 subdir = src
 DIST_COMMON = $(am__dist_gsdctkmodules_DATA_DIST) \
@@ -259,54 +259,54 @@ libcanberra_gstreamer_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am_libcanberra_gstreamer_la_rpath =  \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	-rpath \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	$(plugindir)
-@HAVE_GTK_TRUE@libcanberra_ctk_module_la_DEPENDENCIES =  \
-@HAVE_GTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_GTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK_TRUE@libcanberra_ctk_module_la_DEPENDENCIES =  \
+@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
+@HAVE_CTK_TRUE@	libcanberra-ctk.la
 am__libcanberra_ctk_module_la_SOURCES_DIST = canberra-ctk-module.c
-@HAVE_GTK_TRUE@am_libcanberra_ctk_module_la_OBJECTS = libcanberra_ctk_module_la-canberra-ctk-module.lo
+@HAVE_CTK_TRUE@am_libcanberra_ctk_module_la_OBJECTS = libcanberra_ctk_module_la-canberra-ctk-module.lo
 libcanberra_ctk_module_la_OBJECTS =  \
 	$(am_libcanberra_ctk_module_la_OBJECTS)
 libcanberra_ctk_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libcanberra_ctk_module_la_CFLAGS) $(CFLAGS) \
 	$(libcanberra_ctk_module_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_GTK_TRUE@am_libcanberra_ctk_module_la_rpath = -rpath \
-@HAVE_GTK_TRUE@	$(ctkmoduledir)
-@HAVE_GTK_TRUE@libcanberra_ctk_la_DEPENDENCIES =  \
-@HAVE_GTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
+@HAVE_CTK_TRUE@am_libcanberra_ctk_module_la_rpath = -rpath \
+@HAVE_CTK_TRUE@	$(ctkmoduledir)
+@HAVE_CTK_TRUE@libcanberra_ctk_la_DEPENDENCIES =  \
+@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
 am__libcanberra_ctk_la_SOURCES_DIST = canberra-ctk.h canberra-ctk.c
-@HAVE_GTK_TRUE@am_libcanberra_ctk_la_OBJECTS =  \
-@HAVE_GTK_TRUE@	libcanberra_ctk_la-canberra-ctk.lo
+@HAVE_CTK_TRUE@am_libcanberra_ctk_la_OBJECTS =  \
+@HAVE_CTK_TRUE@	libcanberra_ctk_la-canberra-ctk.lo
 libcanberra_ctk_la_OBJECTS = $(am_libcanberra_ctk_la_OBJECTS)
 libcanberra_ctk_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libcanberra_ctk_la_CFLAGS) $(CFLAGS) \
 	$(libcanberra_ctk_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_GTK_TRUE@am_libcanberra_ctk_la_rpath = -rpath $(libdir)
-@HAVE_GTK3_TRUE@libcanberra_ctk3_module_la_DEPENDENCIES =  \
-@HAVE_GTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK_TRUE@am_libcanberra_ctk_la_rpath = -rpath $(libdir)
+@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
 am__libcanberra_ctk3_module_la_SOURCES_DIST = canberra-ctk-module.c
-@HAVE_GTK3_TRUE@am_libcanberra_ctk3_module_la_OBJECTS = libcanberra_ctk3_module_la-canberra-ctk-module.lo
+@HAVE_CTK3_TRUE@am_libcanberra_ctk3_module_la_OBJECTS = libcanberra_ctk3_module_la-canberra-ctk-module.lo
 libcanberra_ctk3_module_la_OBJECTS =  \
 	$(am_libcanberra_ctk3_module_la_OBJECTS)
 libcanberra_ctk3_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libcanberra_ctk3_module_la_CFLAGS) $(CFLAGS) \
 	$(libcanberra_ctk3_module_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_GTK3_TRUE@am_libcanberra_ctk3_module_la_rpath = -rpath \
-@HAVE_GTK3_TRUE@	$(ctk3moduledir)
-@HAVE_GTK3_TRUE@libcanberra_ctk3_la_DEPENDENCIES =  \
-@HAVE_GTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
+@HAVE_CTK3_TRUE@am_libcanberra_ctk3_module_la_rpath = -rpath \
+@HAVE_CTK3_TRUE@	$(ctk3moduledir)
+@HAVE_CTK3_TRUE@libcanberra_ctk3_la_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
 am__libcanberra_ctk3_la_SOURCES_DIST = canberra-ctk.h canberra-ctk.c
-@HAVE_GTK3_TRUE@am_libcanberra_ctk3_la_OBJECTS =  \
-@HAVE_GTK3_TRUE@	libcanberra_ctk3_la-canberra-ctk.lo
+@HAVE_CTK3_TRUE@am_libcanberra_ctk3_la_OBJECTS =  \
+@HAVE_CTK3_TRUE@	libcanberra_ctk3_la-canberra-ctk.lo
 libcanberra_ctk3_la_OBJECTS = $(am_libcanberra_ctk3_la_OBJECTS)
 libcanberra_ctk3_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libcanberra_ctk3_la_CFLAGS) $(CFLAGS) \
 	$(libcanberra_ctk3_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_GTK3_TRUE@am_libcanberra_ctk3_la_rpath = -rpath $(libdir)
+@HAVE_CTK3_TRUE@am_libcanberra_ctk3_la_rpath = -rpath $(libdir)
 @BUILTIN_DSO_TRUE@libcanberra_multi_la_DEPENDENCIES = libcanberra.la
 am__libcanberra_multi_la_SOURCES_DIST = multi.c
 @BUILTIN_DSO_TRUE@am_libcanberra_multi_la_OBJECTS =  \
@@ -398,7 +398,7 @@ libcanberra_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libcanberra_la_CFLAGS) $(CFLAGS) $(libcanberra_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am__EXEEXT_1 = canberra-boot$(EXEEXT)
-@HAVE_GTK_ANY_TRUE@am__EXEEXT_2 = canberra-ctk-play$(EXEEXT)
+@HAVE_CTK_ANY_TRUE@am__EXEEXT_2 = canberra-ctk-play$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
 am__canberra_boot_SOURCES_DIST = canberra-boot.c
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am_canberra_boot_OBJECTS = canberra_boot-canberra-boot.$(OBJEXT)
@@ -410,15 +410,15 @@ canberra_boot_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(canberra_boot_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am__canberra_ctk_play_SOURCES_DIST = canberra-ctk-play.c
-@HAVE_GTK_ANY_TRUE@am_canberra_ctk_play_OBJECTS = canberra_ctk_play-canberra-ctk-play.$(OBJEXT)
+@HAVE_CTK_ANY_TRUE@am_canberra_ctk_play_OBJECTS = canberra_ctk_play-canberra-ctk-play.$(OBJEXT)
 canberra_ctk_play_OBJECTS = $(am_canberra_ctk_play_OBJECTS)
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@canberra_ctk_play_DEPENDENCIES =  \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	$(am__DEPENDENCIES_1) \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	libcanberra.la \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	libcanberra-ctk.la
-@HAVE_GTK3_TRUE@canberra_ctk_play_DEPENDENCIES =  \
-@HAVE_GTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_DEPENDENCIES =  \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra.la \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK3_TRUE@canberra_ctk_play_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
 canberra_ctk_play_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(canberra_ctk_play_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
@@ -544,23 +544,23 @@ GSTREAMER_CFLAGS = @GSTREAMER_CFLAGS@
 GSTREAMER_LIBS = @GSTREAMER_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
-GTK3_CFLAGS = @GTK3_CFLAGS@
-GTK3_LIBS = @GTK3_LIBS@
-GTK3_MODULES_DIR = @GTK3_MODULES_DIR@
-GTKDOC_CHECK = @GTKDOC_CHECK@
-GTKDOC_DEPS_CFLAGS = @GTKDOC_DEPS_CFLAGS@
-GTKDOC_DEPS_LIBS = @GTKDOC_DEPS_LIBS@
-GTKDOC_MKPDF = @GTKDOC_MKPDF@
-GTKDOC_REBASE = @GTKDOC_REBASE@
-GTK_CFLAGS = @GTK_CFLAGS@
-GTK_LIBS = @GTK_LIBS@
-GTK_MODULES_DIR = @GTK_MODULES_DIR@
+CTK3_CFLAGS = @CTK3_CFLAGS@
+CTK3_LIBS = @CTK3_LIBS@
+CTK3_MODULES_DIR = @CTK3_MODULES_DIR@
+CTKDOC_CHECK = @CTKDOC_CHECK@
+CTKDOC_DEPS_CFLAGS = @CTKDOC_DEPS_CFLAGS@
+CTKDOC_DEPS_LIBS = @CTKDOC_DEPS_LIBS@
+CTKDOC_MKPDF = @CTKDOC_MKPDF@
+CTKDOC_REBASE = @CTKDOC_REBASE@
+CTK_CFLAGS = @CTK_CFLAGS@
+CTK_LIBS = @CTK_LIBS@
+CTK_MODULES_DIR = @CTK_MODULES_DIR@
 HAVE_ALSA = @HAVE_ALSA@
 HAVE_CACHE = @HAVE_CACHE@
 HAVE_DSO = @HAVE_DSO@
 HAVE_GSTREAMER = @HAVE_GSTREAMER@
-HAVE_GTK = @HAVE_GTK@
-HAVE_GTK3 = @HAVE_GTK3@
+HAVE_CTK = @HAVE_CTK@
+HAVE_CTK3 = @HAVE_CTK3@
 HAVE_NULL = @HAVE_NULL@
 HAVE_OSS = @HAVE_OSS@
 HAVE_PULSE = @HAVE_PULSE@
@@ -573,7 +573,7 @@ INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
-LIBCANBERRA_GTK_VERSION_INFO = @LIBCANBERRA_GTK_VERSION_INFO@
+LIBCANBERRA_CTK_VERSION_INFO = @LIBCANBERRA_CTK_VERSION_INFO@
 LIBCANBERRA_VERSION_INFO = @LIBCANBERRA_VERSION_INFO@
 LIBLTDL = @LIBLTDL@
 LIBOBJS = @LIBOBJS@
@@ -676,8 +676,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-ctkmoduledir = @GTK_MODULES_DIR@
-ctk3moduledir = @GTK3_MODULES_DIR@
+ctkmoduledir = @CTK_MODULES_DIR@
+ctk3moduledir = @CTK3_MODULES_DIR@
 plugindir = $(libdir)/libcanberra-@PACKAGE_VERSION@
 gnomeshutdowndir = $(datadir)/gnome/shutdown
 gnomeautostartdir = $(datadir)/gnome/autostart
@@ -837,98 +837,98 @@ CLEANFILES = $(am__append_26) $(am__append_32)
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown.service \
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown-reboot.service
 
-@HAVE_GTK3_TRUE@ctk3module_LTLIBRARIES = \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3-module.la
+@HAVE_CTK3_TRUE@ctk3module_LTLIBRARIES = \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3-module.la
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_la_SOURCES = \
-@HAVE_GTK3_TRUE@	canberra-ctk.h \
-@HAVE_GTK3_TRUE@	canberra-ctk.c
+@HAVE_CTK3_TRUE@libcanberra_ctk3_la_SOURCES = \
+@HAVE_CTK3_TRUE@	canberra-ctk.h \
+@HAVE_CTK3_TRUE@	canberra-ctk.c
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_la_CFLAGS = \
-@HAVE_GTK3_TRUE@	$(GTK3_CFLAGS)
+@HAVE_CTK3_TRUE@libcanberra_ctk3_la_CFLAGS = \
+@HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_la_LIBADD = \
-@HAVE_GTK3_TRUE@	$(GTK3_LIBS) \
-@HAVE_GTK3_TRUE@	libcanberra.la
+@HAVE_CTK3_TRUE@libcanberra_ctk3_la_LIBADD = \
+@HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
+@HAVE_CTK3_TRUE@	libcanberra.la
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_la_LDFLAGS = \
-@HAVE_GTK3_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
+@HAVE_CTK3_TRUE@libcanberra_ctk3_la_LDFLAGS = \
+@HAVE_CTK3_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_module_la_SOURCES = \
-@HAVE_GTK3_TRUE@	canberra-ctk-module.c
+@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_SOURCES = \
+@HAVE_CTK3_TRUE@	canberra-ctk-module.c
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_module_la_CFLAGS = \
-@HAVE_GTK3_TRUE@	$(GTK3_CFLAGS)
+@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_CFLAGS = \
+@HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_module_la_LIBADD = \
-@HAVE_GTK3_TRUE@	$(GTK3_LIBS) \
-@HAVE_GTK3_TRUE@	libcanberra.la \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_LIBADD = \
+@HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
+@HAVE_CTK3_TRUE@	libcanberra.la \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
 
-@HAVE_GTK3_TRUE@libcanberra_ctk3_module_la_LDFLAGS = \
-@HAVE_GTK3_TRUE@	-avoid-version -module -export-dynamic
+@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_LDFLAGS = \
+@HAVE_CTK3_TRUE@	-avoid-version -module -export-dynamic
 
-@HAVE_GTK_TRUE@ctkmodule_LTLIBRARIES = \
-@HAVE_GTK_TRUE@	libcanberra-ctk-module.la
+@HAVE_CTK_TRUE@ctkmodule_LTLIBRARIES = \
+@HAVE_CTK_TRUE@	libcanberra-ctk-module.la
 
-@HAVE_GTK_TRUE@libcanberra_ctk_la_SOURCES = \
-@HAVE_GTK_TRUE@	canberra-ctk.h \
-@HAVE_GTK_TRUE@	canberra-ctk.c
+@HAVE_CTK_TRUE@libcanberra_ctk_la_SOURCES = \
+@HAVE_CTK_TRUE@	canberra-ctk.h \
+@HAVE_CTK_TRUE@	canberra-ctk.c
 
-@HAVE_GTK_TRUE@libcanberra_ctk_la_CFLAGS = \
-@HAVE_GTK_TRUE@	$(GTK_CFLAGS)
+@HAVE_CTK_TRUE@libcanberra_ctk_la_CFLAGS = \
+@HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_GTK_TRUE@libcanberra_ctk_la_LIBADD = \
-@HAVE_GTK_TRUE@	$(GTK_LIBS) \
-@HAVE_GTK_TRUE@	libcanberra.la
+@HAVE_CTK_TRUE@libcanberra_ctk_la_LIBADD = \
+@HAVE_CTK_TRUE@	$(CTK_LIBS) \
+@HAVE_CTK_TRUE@	libcanberra.la
 
-@HAVE_GTK_TRUE@libcanberra_ctk_la_LDFLAGS = \
-@HAVE_GTK_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
+@HAVE_CTK_TRUE@libcanberra_ctk_la_LDFLAGS = \
+@HAVE_CTK_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-@HAVE_GTK_TRUE@libcanberra_ctk_module_la_SOURCES = \
-@HAVE_GTK_TRUE@	canberra-ctk-module.c
+@HAVE_CTK_TRUE@libcanberra_ctk_module_la_SOURCES = \
+@HAVE_CTK_TRUE@	canberra-ctk-module.c
 
-@HAVE_GTK_TRUE@libcanberra_ctk_module_la_CFLAGS = \
-@HAVE_GTK_TRUE@	$(GTK_CFLAGS)
+@HAVE_CTK_TRUE@libcanberra_ctk_module_la_CFLAGS = \
+@HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_GTK_TRUE@libcanberra_ctk_module_la_LIBADD = \
-@HAVE_GTK_TRUE@	$(GTK_LIBS) \
-@HAVE_GTK_TRUE@	libcanberra.la \
-@HAVE_GTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK_TRUE@libcanberra_ctk_module_la_LIBADD = \
+@HAVE_CTK_TRUE@	$(CTK_LIBS) \
+@HAVE_CTK_TRUE@	libcanberra.la \
+@HAVE_CTK_TRUE@	libcanberra-ctk.la
 
-@HAVE_GTK_TRUE@libcanberra_ctk_module_la_LDFLAGS = \
-@HAVE_GTK_TRUE@	-avoid-version -module -export-dynamic
+@HAVE_CTK_TRUE@libcanberra_ctk_module_la_LDFLAGS = \
+@HAVE_CTK_TRUE@	-avoid-version -module -export-dynamic
 
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@canberra_ctk_play_LDADD = \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	$(GTK_LIBS) \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	libcanberra.la \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_LDADD = \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(CTK_LIBS) \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra.la \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra-ctk.la
 
-@HAVE_GTK3_TRUE@canberra_ctk_play_LDADD = \
-@HAVE_GTK3_TRUE@	$(GTK3_LIBS) \
-@HAVE_GTK3_TRUE@	libcanberra.la \
-@HAVE_GTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@canberra_ctk_play_LDADD = \
+@HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
+@HAVE_CTK3_TRUE@	libcanberra.la \
+@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
 
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@canberra_ctk_play_CFLAGS = \
-@HAVE_GTK3_FALSE@@HAVE_GTK_TRUE@	$(GTK_CFLAGS)
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_CFLAGS = \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_GTK3_TRUE@canberra_ctk_play_CFLAGS = \
-@HAVE_GTK3_TRUE@	$(GTK3_CFLAGS)
+@HAVE_CTK3_TRUE@canberra_ctk_play_CFLAGS = \
+@HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
-@HAVE_GTK_ANY_TRUE@dist_gsdctkmodules_DATA = \
-@HAVE_GTK_ANY_TRUE@	canberra-ctk-module.desktop
+@HAVE_CTK_ANY_TRUE@dist_gsdctkmodules_DATA = \
+@HAVE_CTK_ANY_TRUE@	canberra-ctk-module.desktop
 
-@HAVE_GTK_ANY_TRUE@canberra_ctk_play_SOURCES = \
-@HAVE_GTK_ANY_TRUE@	canberra-ctk-play.c
+@HAVE_CTK_ANY_TRUE@canberra_ctk_play_SOURCES = \
+@HAVE_CTK_ANY_TRUE@	canberra-ctk-play.c
 
-@HAVE_GTK_ANY_TRUE@gnomeautostart_DATA = \
-@HAVE_GTK_ANY_TRUE@	libcanberra-login-sound.desktop
+@HAVE_CTK_ANY_TRUE@gnomeautostart_DATA = \
+@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop
 
-@HAVE_GTK_ANY_TRUE@gdmautostart_DATA = \
-@HAVE_GTK_ANY_TRUE@	libcanberra-ready-sound.desktop
+@HAVE_CTK_ANY_TRUE@gdmautostart_DATA = \
+@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop
 
-@HAVE_GTK_ANY_TRUE@gnomeshutdown_SCRIPTS = \
-@HAVE_GTK_ANY_TRUE@	libcanberra-logout-sound.sh
+@HAVE_CTK_ANY_TRUE@gnomeshutdown_SCRIPTS = \
+@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh
 
 test_canberra_SOURCES = \
         test-canberra.c
@@ -1762,7 +1762,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-@HAVE_GTK3_FALSE@install-exec-hook:
+@HAVE_CTK3_FALSE@install-exec-hook:
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic clean-ctk3moduleLTLIBRARIES \
@@ -1878,21 +1878,21 @@ uninstall-am: uninstall-binPROGRAMS uninstall-dist_gsdctkmodulesDATA \
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@%.service: %.service.in
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' $< > $@
 
-@HAVE_GTK3_TRUE@install-exec-hook:
-@HAVE_GTK3_TRUE@	$(MKDIR_P) -m 755 $(DESTDIR)$(ctk3moduledir)
-@HAVE_GTK3_TRUE@	( cd $(DESTDIR)$(ctk3moduledir) && \
-@HAVE_GTK3_TRUE@		rm -f libcanberra-ctk-module.so && \
-@HAVE_GTK3_TRUE@	        $(LN_S) libcanberra-ctk3-module.so libcanberra-ctk-module.so )
+@HAVE_CTK3_TRUE@install-exec-hook:
+@HAVE_CTK3_TRUE@	$(MKDIR_P) -m 755 $(DESTDIR)$(ctk3moduledir)
+@HAVE_CTK3_TRUE@	( cd $(DESTDIR)$(ctk3moduledir) && \
+@HAVE_CTK3_TRUE@		rm -f libcanberra-ctk-module.so && \
+@HAVE_CTK3_TRUE@	        $(LN_S) libcanberra-ctk3-module.so libcanberra-ctk-module.so )
 
-@HAVE_GTK_ANY_TRUE@libcanberra-logout-sound.sh: libcanberra-logout-sound.sh.in Makefile
-@HAVE_GTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@ && \
-@HAVE_GTK_ANY_TRUE@		chmod +x $@
+@HAVE_CTK_ANY_TRUE@libcanberra-logout-sound.sh: libcanberra-logout-sound.sh.in Makefile
+@HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@ && \
+@HAVE_CTK_ANY_TRUE@		chmod +x $@
 
-@HAVE_GTK_ANY_TRUE@libcanberra-login-sound.desktop: libcanberra-login-sound.desktop.in Makefile
-@HAVE_GTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
+@HAVE_CTK_ANY_TRUE@libcanberra-login-sound.desktop: libcanberra-login-sound.desktop.in Makefile
+@HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
-@HAVE_GTK_ANY_TRUE@libcanberra-ready-sound.desktop: libcanberra-ready-sound.desktop.in Makefile
-@HAVE_GTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
+@HAVE_CTK_ANY_TRUE@libcanberra-ready-sound.desktop: libcanberra-ready-sound.desktop.in Makefile
+@HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

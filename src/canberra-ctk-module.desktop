@@ -1,6 +1,6 @@
-[GTK Module]
+[CTK Module]
 Name=canberra-ctk-module
 Description=Event Sound Module
-X-GTK-Module-Name=canberra-ctk-module
-X-GTK-Module-Enabled-Schema=org.gnome.desktop.sound
-X-GTK-Module-Enabled-Key=event-sounds
+X-CTK-Module-Name=canberra-ctk-module
+X-CTK-Module-Enabled-Schema=org.gnome.desktop.sound
+X-CTK-Module-Enabled-Key=event-sounds

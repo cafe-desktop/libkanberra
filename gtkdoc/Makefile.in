@@ -136,23 +136,23 @@ GSTREAMER_CFLAGS = @GSTREAMER_CFLAGS@
 GSTREAMER_LIBS = @GSTREAMER_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
-GTK3_CFLAGS = @GTK3_CFLAGS@
-GTK3_LIBS = @GTK3_LIBS@
-GTK3_MODULES_DIR = @GTK3_MODULES_DIR@
-GTKDOC_CHECK = @GTKDOC_CHECK@
-GTKDOC_DEPS_CFLAGS = @GTKDOC_DEPS_CFLAGS@
-GTKDOC_DEPS_LIBS = @GTKDOC_DEPS_LIBS@
-GTKDOC_MKPDF = @GTKDOC_MKPDF@
-GTKDOC_REBASE = @GTKDOC_REBASE@
-GTK_CFLAGS = @GTK_CFLAGS@
-GTK_LIBS = @GTK_LIBS@
-GTK_MODULES_DIR = @GTK_MODULES_DIR@
+CTK3_CFLAGS = @CTK3_CFLAGS@
+CTK3_LIBS = @CTK3_LIBS@
+CTK3_MODULES_DIR = @CTK3_MODULES_DIR@
+CTKDOC_CHECK = @CTKDOC_CHECK@
+CTKDOC_DEPS_CFLAGS = @CTKDOC_DEPS_CFLAGS@
+CTKDOC_DEPS_LIBS = @CTKDOC_DEPS_LIBS@
+CTKDOC_MKPDF = @CTKDOC_MKPDF@
+CTKDOC_REBASE = @CTKDOC_REBASE@
+CTK_CFLAGS = @CTK_CFLAGS@
+CTK_LIBS = @CTK_LIBS@
+CTK_MODULES_DIR = @CTK_MODULES_DIR@
 HAVE_ALSA = @HAVE_ALSA@
 HAVE_CACHE = @HAVE_CACHE@
 HAVE_DSO = @HAVE_DSO@
 HAVE_GSTREAMER = @HAVE_GSTREAMER@
-HAVE_GTK = @HAVE_GTK@
-HAVE_GTK3 = @HAVE_GTK3@
+HAVE_CTK = @HAVE_CTK@
+HAVE_CTK3 = @HAVE_CTK3@
 HAVE_NULL = @HAVE_NULL@
 HAVE_OSS = @HAVE_OSS@
 HAVE_PULSE = @HAVE_PULSE@
@@ -165,7 +165,7 @@ INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
-LIBCANBERRA_GTK_VERSION_INFO = @LIBCANBERRA_GTK_VERSION_INFO@
+LIBCANBERRA_CTK_VERSION_INFO = @LIBCANBERRA_CTK_VERSION_INFO@
 LIBCANBERRA_VERSION_INFO = @LIBCANBERRA_VERSION_INFO@
 LIBLTDL = @LIBLTDL@
 LIBOBJS = @LIBOBJS@
@@ -274,7 +274,7 @@ AUTOMAKE_OPTIONS = 1.6
 
 # This is a blank Makefile.am for using ctk-doc.
 # Copy this to your project's API docs directory and modify the variables to
-# suit your project. See the GTK+ Makefiles in ctk+/docs/reference for examples
+# suit your project. See the CTK+ Makefiles in ctk+/docs/reference for examples
 # of using the various options.
 
 # The name of the module, e.g. 'glib'.
@@ -293,7 +293,7 @@ DOC_SOURCE_DIR = ../src
 SCANGOBJ_OPTIONS = 
 
 # Extra options to supply to ctkdoc-scan.
-# e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED"
+# e.g. SCAN_OPTIONS=--deprecated-guards="CTK_DISABLE_DEPRECATED"
 SCAN_OPTIONS = 
 
 # Extra options to supply to ctkdoc-mkdb.
@@ -334,16 +334,16 @@ expand_content_files =
 # CFLAGS and LDFLAGS for compiling ctkdoc-scangobj with your library.
 # Only needed if you are using ctkdoc-scangobj to dynamically query widget
 # signals and properties.
-# e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
-# e.g. GTKDOC_LIBS=$(top_builddir)/ctk/$(ctktargetlib)
+# e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(CTK_DEBUG_FLAGS)
+# e.g. CTKDOC_LIBS=$(top_builddir)/ctk/$(ctktargetlib)
 INCLUDES = 
-GTKDOC_LIBS = 
-@GTK_DOC_USE_LIBTOOL_FALSE@GTKDOC_CC = $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-@GTK_DOC_USE_LIBTOOL_TRUE@GTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-@GTK_DOC_USE_LIBTOOL_FALSE@GTKDOC_LD = $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-@GTK_DOC_USE_LIBTOOL_TRUE@GTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-@GTK_DOC_USE_LIBTOOL_FALSE@GTKDOC_RUN = 
-@GTK_DOC_USE_LIBTOOL_TRUE@GTKDOC_RUN = $(LIBTOOL) --mode=execute
+CTKDOC_LIBS = 
+@CTK_DOC_USE_LIBTOOL_FALSE@CTKDOC_CC = $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+@CTK_DOC_USE_LIBTOOL_TRUE@CTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+@CTK_DOC_USE_LIBTOOL_FALSE@CTKDOC_LD = $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+@CTK_DOC_USE_LIBTOOL_TRUE@CTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+@CTK_DOC_USE_LIBTOOL_FALSE@CTKDOC_RUN = 
+@CTK_DOC_USE_LIBTOOL_TRUE@CTKDOC_RUN = $(LIBTOOL) --mode=execute
 
 # We set GPATH here; this gives us semantics for GNU make
 # which are more like other make's VPATH, when it comes to
@@ -381,10 +381,10 @@ REPORT_FILES = \
 	$(DOC_MODULE)-unused.txt
 
 CLEANFILES = $(SCANOBJ_FILES) $(REPORT_FILES) $(DOC_STAMPS)
-@ENABLE_GTK_DOC_TRUE@@GTK_DOC_BUILD_HTML_FALSE@HTML_BUILD_STAMP = 
-@ENABLE_GTK_DOC_TRUE@@GTK_DOC_BUILD_HTML_TRUE@HTML_BUILD_STAMP = html-build.stamp
-@ENABLE_GTK_DOC_TRUE@@GTK_DOC_BUILD_PDF_FALSE@PDF_BUILD_STAMP = 
-@ENABLE_GTK_DOC_TRUE@@GTK_DOC_BUILD_PDF_TRUE@PDF_BUILD_STAMP = pdf-build.stamp
+@ENABLE_CTK_DOC_TRUE@@CTK_DOC_BUILD_HTML_FALSE@HTML_BUILD_STAMP = 
+@ENABLE_CTK_DOC_TRUE@@CTK_DOC_BUILD_HTML_TRUE@HTML_BUILD_STAMP = html-build.stamp
+@ENABLE_CTK_DOC_TRUE@@CTK_DOC_BUILD_PDF_FALSE@PDF_BUILD_STAMP = 
+@ENABLE_CTK_DOC_TRUE@@CTK_DOC_BUILD_PDF_TRUE@PDF_BUILD_STAMP = pdf-build.stamp
 all: all-am
 
 .SUFFIXES:
@@ -586,8 +586,8 @@ uninstall-am: uninstall-local
 	uninstall-local
 
 
-@ENABLE_GTK_DOC_TRUE@all-local: $(HTML_BUILD_STAMP) $(PDF_BUILD_STAMP)
-@ENABLE_GTK_DOC_FALSE@all-local:
+@ENABLE_CTK_DOC_TRUE@all-local: $(HTML_BUILD_STAMP) $(PDF_BUILD_STAMP)
+@ENABLE_CTK_DOC_FALSE@all-local:
 
 docs: $(HTML_BUILD_STAMP) $(PDF_BUILD_STAMP)
 
@@ -629,7 +629,7 @@ scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	            scanobj_options="--verbose"; \
 	        fi; \
 	    fi; \
-	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" RUN="$(GTKDOC_RUN)" CFLAGS="$(GTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(GTKDOC_LIBS) $(LDFLAGS)" \
+	    CC="$(CTKDOC_CC)" LD="$(CTKDOC_LD)" RUN="$(CTKDOC_RUN)" CFLAGS="$(CTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(CTKDOC_LIBS) $(LDFLAGS)" \
 	    ctkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
 	else \
 	    for i in $(SCANOBJ_FILES) ; do \
@@ -765,7 +765,7 @@ install-data-local:
 	    mv -f $${installdir}/$(DOC_MODULE).devhelp2 \
 	      $${installdir}/$(DOC_MODULE)-$(DOC_MODULE_VERSION).devhelp2; \
 	  fi; \
-	  $(GTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
+	  $(CTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
 	fi
 
 uninstall-local:
@@ -779,10 +779,10 @@ uninstall-local:
 #
 # Require ctk-doc when making dist
 #
-@ENABLE_GTK_DOC_TRUE@dist-check-ctkdoc:
-@ENABLE_GTK_DOC_FALSE@dist-check-ctkdoc:
-@ENABLE_GTK_DOC_FALSE@	@echo "*** ctk-doc must be installed and enabled in order to make dist"
-@ENABLE_GTK_DOC_FALSE@	@false
+@ENABLE_CTK_DOC_TRUE@dist-check-ctkdoc:
+@ENABLE_CTK_DOC_FALSE@dist-check-ctkdoc:
+@ENABLE_CTK_DOC_FALSE@	@echo "*** ctk-doc must be installed and enabled in order to make dist"
+@ENABLE_CTK_DOC_FALSE@	@false
 
 dist-hook: dist-check-ctkdoc dist-hook-local
 	@mkdir $(distdir)/tmpl
@@ -793,7 +793,7 @@ dist-hook: dist-check-ctkdoc dist-hook-local
 	@-cp ./$(DOC_MODULE).types $(distdir)/
 	@-cp ./$(DOC_MODULE)-sections.txt $(distdir)/
 	@cd $(distdir) && rm -f $(DISTCLEANFILES)
-	@$(GTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
+	@$(CTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
 
 .PHONY : dist-hook-local docs
 
@@ -803,7 +803,7 @@ dist-hook: dist-check-ctkdoc dist-hook-local
 #DISTCLEANFILES +=
 
 # Comment this out if you want your docs-status tested during 'make check'
-#TESTS = $(GTKDOC_CHECK)
+#TESTS = $(CTKDOC_CHECK)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

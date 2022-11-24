@@ -35,13 +35,13 @@ pkgconfig_DATA = libcanberra.pc
 vapidir = $(datadir)/vala/vapi
 vapi_DATA = vala/libcanberra.vapi
 
-if HAVE_GTK_ANY
+if HAVE_CTK_ANY
 
-if HAVE_GTK
+if HAVE_CTK
 pkgconfig_DATA += libcanberra-ctk.pc
 endif
 
-if HAVE_GTK3
+if HAVE_CTK3
 pkgconfig_DATA += libcanberra-ctk3.pc
 endif
 
