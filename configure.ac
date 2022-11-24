@@ -437,7 +437,7 @@ AC_ARG_ENABLE([ctk],
 
 AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [false])
 if test "x${ctk}" != xno ; then
-    PKG_CHECK_MODULES(CTK, [ ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ],
+    PKG_CHECK_MODULES(CTK, [ ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 ],
         [
             HAVE_CTK=1
             AC_DEFINE([HAVE_CTK], 1, [Have CTK?])
@@ -473,7 +473,7 @@ AC_ARG_ENABLE([ctk3],
         [ctk3=auto])
 
 if test "x${ctk3}" != xno ; then
-    PKG_CHECK_MODULES(CTK3, [ ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ],
+    PKG_CHECK_MODULES(CTK3, [ ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 ],
         [
             HAVE_CTK3=1
             AC_DEFINE([HAVE_CTK3], 1, [Have CTK3?])

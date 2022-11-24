@@ -25,7 +25,7 @@
 #endif
 
 #include <ctk/ctk.h>
-#include <gdk/gdkx.h>
+#include <cdk/cdkx.h>
 #include <X11/Xatom.h>
 
 #include "canberra-ctk.h"
@@ -187,7 +187,7 @@ static void free_sound_event(SoundEventData *d) {
                 g_value_unset(&d->arg1);
 
         if (d->event)
-                gdk_event_free(d->event);
+                cdk_event_free(d->event);
 
         g_slice_free(SoundEventData, d);
 }
@@ -313,7 +313,7 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
 #endif
 
         if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
-                               gdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
+                               cdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
                                &data) != Success)
@@ -346,7 +346,7 @@ static gint display_get_desktop(GdkDisplay *d) {
 #endif
 
         if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), DefaultRootWindow(GDK_DISPLAY_XDISPLAY(d)),
-                               gdk_x11_get_xatom_by_name_for_display(d, "_NET_CURRENT_DESKTOP"),
+                               cdk_x11_get_xatom_by_name_for_display(d, "_NET_CURRENT_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
                                &data) != Success)
@@ -383,10 +383,10 @@ static gboolean window_is_xembed(GdkDisplay *d, GdkWindow *w) {
         /* Gnome Panel applets are XEMBED windows. We need to make sure we
          * ignore them */
 
-        xembed = gdk_x11_get_xatom_by_name_for_display(d, "_XEMBED_INFO");
+        xembed = cdk_x11_get_xatom_by_name_for_display(d, "_XEMBED_INFO");
 
         /* be robust against not existing XIDs (LP: #834403) */
-        gdk_error_trap_push();
+        cdk_error_trap_push();
         if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
                                xembed,
                                0, 2, False, xembed, &type_return,
@@ -396,10 +396,10 @@ static gboolean window_is_xembed(GdkDisplay *d, GdkWindow *w) {
         }
 
 #if CTK_CHECK_VERSION(3,0,0)
-        gdk_error_trap_pop_ignored();
+        cdk_error_trap_pop_ignored();
 #else
-        gdk_flush();
-        gdk_error_trap_pop();
+        cdk_flush();
+        cdk_error_trap_pop();
 #endif
 
         if (type_return == xembed && format_return == 32 && data)
@@ -893,9 +893,9 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
         d->signal_id = hint->signal_id;
 
         if (d->signal_id == signal_id_widget_window_state_event) {
-                d->event = gdk_event_copy(g_value_peek_pointer(&param_values[1]));
+                d->event = cdk_event_copy(g_value_peek_pointer(&param_values[1]));
         } else if ((e = ctk_get_current_event()))
-                d->event = gdk_event_copy(e);
+                d->event = cdk_event_copy(e);
 
         if (n_param_values > 1) {
                 g_value_init(&d->arg1, G_VALUE_TYPE(&param_values[1]));
@@ -906,7 +906,7 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
         g_queue_push_tail(&sound_event_queue, d);
 
         if (idle_id == 0)
-                idle_id = gdk_threads_add_idle_full(GDK_PRIORITY_REDRAW-1, (GSourceFunc) idle_cb, NULL, NULL);
+                idle_id = cdk_threads_add_idle_full(GDK_PRIORITY_REDRAW-1, (GSourceFunc) idle_cb, NULL, NULL);
 
         return TRUE;
 }

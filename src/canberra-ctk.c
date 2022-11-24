@@ -25,8 +25,8 @@
 #endif
 
 #include <ctk/ctk.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h>
+#include <cdk/cdk.h>
+#include <cdk/cdkx.h>
 #include <X11/Xatom.h>
 
 #include "canberra.h"
@@ -115,7 +115,7 @@ ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
         CtkSettings *s;
 
         if (!screen)
-                screen = gdk_screen_get_default();
+                screen = cdk_screen_get_default();
 
         if ((c = g_object_get_data(G_OBJECT(screen), "canberra::ctk::context")))
                 return c;
@@ -139,10 +139,10 @@ ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
         if ((name = ctk_window_get_default_icon_name()))
                 ca_proplist_sets(p, CA_PROP_APPLICATION_ICON_NAME, name);
 
-        if ((name = gdk_display_get_name(gdk_screen_get_display(screen))))
+        if ((name = cdk_display_get_name(cdk_screen_get_display(screen))))
                 ca_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, name);
 
-        ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", gdk_screen_get_number(screen));
+        ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen));
 
         ca_context_change_props_full(c, p);
         ca_proplist_destroy(p);
@@ -191,7 +191,7 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
 #endif
 
         if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
-                               gdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
+                               cdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
                                &data) != Success)
@@ -268,7 +268,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
                                 return ret;
 
                 if ((display = ctk_widget_get_display(CTK_WIDGET(w)))) {
-                        if ((t = gdk_display_get_name(display)))
+                        if ((t = cdk_display_get_name(display)))
                                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, t)) < 0)
                                         return ret;
 
@@ -283,18 +283,18 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
 
                 if ((screen = ctk_widget_get_screen(CTK_WIDGET(w)))) {
 
-                        if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", gdk_screen_get_number(screen))) < 0)
+                        if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen))) < 0)
                                 return ret;
 
                         if (dw)
-                                if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_MONITOR, "%i", gdk_screen_get_monitor_at_window(screen, dw))) < 0)
+                                if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_MONITOR, "%i", cdk_screen_get_monitor_at_window(screen, dw))) < 0)
                                         return ret;
                 }
 
                 /* FIXME, this might cause a round trip */
 
                 if (dw) {
-                        gdk_window_get_origin(dw, &x, &y);
+                        cdk_window_get_origin(dw, &x, &y);
 
                         if (x >= 0)
                                 if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X, "%i", x)) < 0)
@@ -314,7 +314,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
                                 return ret;
 
                 if (x >= 0 && width > 0) {
-                        screen_width = gdk_screen_get_width(ctk_widget_get_screen(CTK_WIDGET(w)));
+                        screen_width = cdk_screen_get_width(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         x += width/2;
                         x = CA_CLAMP(x, 0, screen_width-1);
@@ -329,7 +329,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
                 }
 
                 if (y >= 0 && height > 0) {
-                        screen_height = gdk_screen_get_height(ctk_widget_get_screen(CTK_WIDGET(w)));
+                        screen_height = cdk_screen_get_height(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         y += height/2;
                         y = CA_CLAMP(y, 0, screen_height-1);
@@ -368,14 +368,14 @@ int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
         ca_return_val_if_fail(!ca_detect_fork(), CA_ERROR_FORKED);
 
         if ((gw = e->any.window)) {
-                gdk_window_get_user_data(gw, (gpointer*) &w);
+                cdk_window_get_user_data(gw, (gpointer*) &w);
 
                 if (w)
                         if ((ret = ca_ctk_proplist_set_for_widget(p, w)) < 0)
                                 return ret;
         }
 
-        if (gdk_event_get_root_coords(e, &x, &y)) {
+        if (cdk_event_get_root_coords(e, &x, &y)) {
 
                 if ((ret = ca_proplist_setf(p, CA_PROP_EVENT_MOUSE_X, "%0.0f", x)) < 0)
                         return ret;
@@ -386,8 +386,8 @@ int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
                 if (w)  {
                         int width, height;
 
-                        width = gdk_screen_get_width(ctk_widget_get_screen(w));
-                        height = gdk_screen_get_height(ctk_widget_get_screen(w));
+                        width = cdk_screen_get_width(ctk_widget_get_screen(w));
+                        height = cdk_screen_get_height(ctk_widget_get_screen(w));
 
                         /* We use these strange format strings here to avoid that
                          * libc applies locale information on the formatting of
@@ -511,12 +511,12 @@ int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) {
 
         if (e->any.window)
 #if CTK_CHECK_VERSION (2, 90, 7)
-                s = gdk_window_get_screen(e->any.window);
+                s = cdk_window_get_screen(e->any.window);
 #else
-                s = gdk_drawable_get_screen(GDK_DRAWABLE(e->any.window));
+                s = cdk_drawable_get_screen(GDK_DRAWABLE(e->any.window));
 #endif
         else
-                s = gdk_screen_get_default();
+                s = cdk_screen_get_default();
 
         ret = ca_context_play_full(ca_ctk_context_get_for_screen(s), id, p, NULL, NULL);
 
