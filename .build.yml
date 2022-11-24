@@ -13,14 +13,13 @@ requires:
     - libltdl-dev
     - libasound2-dev
     - libvorbis-dev
-    - libctk-3-dev
-    - libctk2.0-dev
     - libtdb-dev
     - libpulse-dev
     - libgstreamer1.0-dev
 
 before_scripts:
   - ./html-cppcheck
+  - ./debrepo-install 'libctk-3-dev gir1.2-ctk-3.0 libctk-3-common libctk-3-0 libctk-3-doc'
 
 build_scripts:
   - ./before-build
