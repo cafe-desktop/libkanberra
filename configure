@@ -646,12 +646,12 @@ CTK_DOC_BUILD_HTML_FALSE
 CTK_DOC_BUILD_HTML_TRUE
 ENABLE_CTK_DOC_FALSE
 ENABLE_CTK_DOC_TRUE
-CTKDOC_DEPS_LIBS
-CTKDOC_DEPS_CFLAGS
+GTKDOC_DEPS_LIBS
+GTKDOC_DEPS_CFLAGS
 HTML_DIR
-CTKDOC_MKPDF
-CTKDOC_REBASE
-CTKDOC_CHECK
+GTKDOC_MKPDF
+GTKDOC_REBASE
+GTKDOC_CHECK
 CA_MINOR
 CA_MAJOR
 BUILTIN_NULL_FALSE
@@ -930,8 +930,8 @@ TDB_CFLAGS
 TDB_LIBS
 VORBIS_CFLAGS
 VORBIS_LIBS
-CTKDOC_DEPS_CFLAGS
-CTKDOC_DEPS_LIBS'
+GTKDOC_DEPS_CFLAGS
+GTKDOC_DEPS_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1624,10 +1624,10 @@ Some influential environment variables:
   VORBIS_CFLAGS
               C compiler flags for VORBIS, overriding pkg-config
   VORBIS_LIBS linker flags for VORBIS, overriding pkg-config
-  CTKDOC_DEPS_CFLAGS
-              C compiler flags for CTKDOC_DEPS, overriding pkg-config
-  CTKDOC_DEPS_LIBS
-              linker flags for CTKDOC_DEPS, overriding pkg-config
+  GTKDOC_DEPS_CFLAGS
+              C compiler flags for GTKDOC_DEPS, overriding pkg-config
+  GTKDOC_DEPS_LIBS
+              linker flags for GTKDOC_DEPS, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -20158,12 +20158,12 @@ CA_MINOR=30
 set dummy gtkdoc-check; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_CTKDOC_CHECK+:} false; then :
+if ${ac_cv_path_GTKDOC_CHECK+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  case $CTKDOC_CHECK in
+  case $GTKDOC_CHECK in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_CTKDOC_CHECK="$CTKDOC_CHECK" # Let the user override the test with a path.
+  ac_cv_path_GTKDOC_CHECK="$GTKDOC_CHECK" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -20173,7 +20173,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_CTKDOC_CHECK="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_GTKDOC_CHECK="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -20184,10 +20184,10 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-CTKDOC_CHECK=$ac_cv_path_CTKDOC_CHECK
-if test -n "$CTKDOC_CHECK"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CTKDOC_CHECK" >&5
-$as_echo "$CTKDOC_CHECK" >&6; }
+GTKDOC_CHECK=$ac_cv_path_GTKDOC_CHECK
+if test -n "$GTKDOC_CHECK"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_CHECK" >&5
+$as_echo "$GTKDOC_CHECK" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -20200,12 +20200,12 @@ do
 set dummy $ac_prog; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_CTKDOC_REBASE+:} false; then :
+if ${ac_cv_path_GTKDOC_REBASE+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  case $CTKDOC_REBASE in
+  case $GTKDOC_REBASE in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_CTKDOC_REBASE="$CTKDOC_REBASE" # Let the user override the test with a path.
+  ac_cv_path_GTKDOC_REBASE="$GTKDOC_REBASE" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -20215,7 +20215,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_CTKDOC_REBASE="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_GTKDOC_REBASE="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -20226,30 +20226,30 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-CTKDOC_REBASE=$ac_cv_path_CTKDOC_REBASE
-if test -n "$CTKDOC_REBASE"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CTKDOC_REBASE" >&5
-$as_echo "$CTKDOC_REBASE" >&6; }
+GTKDOC_REBASE=$ac_cv_path_GTKDOC_REBASE
+if test -n "$GTKDOC_REBASE"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_REBASE" >&5
+$as_echo "$GTKDOC_REBASE" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 fi
 
 
-  test -n "$CTKDOC_REBASE" && break
+  test -n "$GTKDOC_REBASE" && break
 done
-test -n "$CTKDOC_REBASE" || CTKDOC_REBASE="true"
+test -n "$GTKDOC_REBASE" || GTKDOC_REBASE="true"
 
   # Extract the first word of "gtkdoc-mkpdf", so it can be a program name with args.
 set dummy gtkdoc-mkpdf; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_CTKDOC_MKPDF+:} false; then :
+if ${ac_cv_path_GTKDOC_MKPDF+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  case $CTKDOC_MKPDF in
+  case $GTKDOC_MKPDF in
   [\\/]* | ?:[\\/]*)
-  ac_cv_path_CTKDOC_MKPDF="$CTKDOC_MKPDF" # Let the user override the test with a path.
+  ac_cv_path_GTKDOC_MKPDF="$GTKDOC_MKPDF" # Let the user override the test with a path.
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -20259,7 +20259,7 @@ do
   test -z "$as_dir" && as_dir=.
     for ac_exec_ext in '' $ac_executable_extensions; do
   if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_CTKDOC_MKPDF="$as_dir/$ac_word$ac_exec_ext"
+    ac_cv_path_GTKDOC_MKPDF="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -20270,10 +20270,10 @@ IFS=$as_save_IFS
   ;;
 esac
 fi
-CTKDOC_MKPDF=$ac_cv_path_CTKDOC_MKPDF
-if test -n "$CTKDOC_MKPDF"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CTKDOC_MKPDF" >&5
-$as_echo "$CTKDOC_MKPDF" >&6; }
+GTKDOC_MKPDF=$ac_cv_path_GTKDOC_MKPDF
+if test -n "$GTKDOC_MKPDF"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $GTKDOC_MKPDF" >&5
+$as_echo "$GTKDOC_MKPDF" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -20314,11 +20314,11 @@ fi
         if test "x$PACKAGE_NAME" != "xglib"; then
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for CTKDOC_DEPS" >&5
-$as_echo_n "checking for CTKDOC_DEPS... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTKDOC_DEPS" >&5
+$as_echo_n "checking for GTKDOC_DEPS... " >&6; }
 
-if test -n "$CTKDOC_DEPS_CFLAGS"; then
-    pkg_cv_CTKDOC_DEPS_CFLAGS="$CTKDOC_DEPS_CFLAGS"
+if test -n "$GTKDOC_DEPS_CFLAGS"; then
+    pkg_cv_GTKDOC_DEPS_CFLAGS="$GTKDOC_DEPS_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0\""; } >&5
@@ -20326,7 +20326,7 @@ if test -n "$CTKDOC_DEPS_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTKDOC_DEPS_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
+  pkg_cv_GTKDOC_DEPS_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -20334,8 +20334,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$CTKDOC_DEPS_LIBS"; then
-    pkg_cv_CTKDOC_DEPS_LIBS="$CTKDOC_DEPS_LIBS"
+if test -n "$GTKDOC_DEPS_LIBS"; then
+    pkg_cv_GTKDOC_DEPS_LIBS="$GTKDOC_DEPS_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0\""; } >&5
@@ -20343,7 +20343,7 @@ if test -n "$CTKDOC_DEPS_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTKDOC_DEPS_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
+  pkg_cv_GTKDOC_DEPS_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -20364,22 +20364,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        CTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
+	        GTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
         else
-	        CTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
+	        GTKDOC_DEPS_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$CTKDOC_DEPS_PKG_ERRORS" >&5
+	echo "$GTKDOC_DEPS_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0) were not met:
 
-$CTKDOC_DEPS_PKG_ERRORS
+$GTKDOC_DEPS_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables CTKDOC_DEPS_CFLAGS
-and CTKDOC_DEPS_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables GTKDOC_DEPS_CFLAGS
+and GTKDOC_DEPS_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -20390,15 +20390,15 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables CTKDOC_DEPS_CFLAGS
-and CTKDOC_DEPS_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables GTKDOC_DEPS_CFLAGS
+and GTKDOC_DEPS_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	CTKDOC_DEPS_CFLAGS=$pkg_cv_CTKDOC_DEPS_CFLAGS
-	CTKDOC_DEPS_LIBS=$pkg_cv_CTKDOC_DEPS_LIBS
+	GTKDOC_DEPS_CFLAGS=$pkg_cv_GTKDOC_DEPS_CFLAGS
+	GTKDOC_DEPS_LIBS=$pkg_cv_GTKDOC_DEPS_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
@@ -20426,7 +20426,7 @@ else
 fi
 
 
-  if test -z "$CTKDOC_MKPDF"; then
+  if test -z "$GTKDOC_MKPDF"; then
     enable_ctk_doc_pdf=no
   fi
 
@@ -20463,7 +20463,7 @@ else
   CTK_DOC_USE_LIBTOOL_FALSE=
 fi
 
-   if test -n "$CTKDOC_REBASE"; then
+   if test -n "$GTKDOC_REBASE"; then
   CTK_DOC_USE_REBASE_TRUE=
   CTK_DOC_USE_REBASE_FALSE='#'
 else

@@ -66,9 +66,9 @@ expand_content_files=
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties.
 # e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(CTK_DEBUG_FLAGS)
-# e.g. CTKDOC_LIBS=$(top_builddir)/ctk/$(ctktargetlib)
+# e.g. GTKDOC_LIBS=$(top_builddir)/ctk/$(ctktargetlib)
 INCLUDES=
-CTKDOC_LIBS=
+GTKDOC_LIBS=
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
 include $(top_srcdir)/gtkdoc/gtk-doc.make
@@ -83,5 +83,5 @@ EXTRA_DIST +=
 #DISTCLEANFILES +=
 
 # Comment this out if you want your docs-status tested during 'make check'
-#TESTS = $(CTKDOC_CHECK)
+#TESTS = $(GTKDOC_CHECK)
 

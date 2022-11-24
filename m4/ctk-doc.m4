@@ -11,9 +11,9 @@ AC_DEFUN([CTK_DOC_CHECK],
   AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
 
   dnl check for tools we added during development
-  AC_PATH_PROG([CTKDOC_CHECK],[gtkdoc-check])
-  AC_PATH_PROGS([CTKDOC_REBASE],[gtkdoc-rebase],[true])
-  AC_PATH_PROG([CTKDOC_MKPDF],[gtkdoc-mkpdf])
+  AC_PATH_PROG([GTKDOC_CHECK],[gtkdoc-check])
+  AC_PATH_PROGS([GTKDOC_REBASE],[gtkdoc-rebase],[true])
+  AC_PATH_PROG([GTKDOC_MKPDF],[gtkdoc-mkpdf])
 
   dnl for overriding the documentation installation directory
   AC_ARG_WITH([html-dir],
@@ -37,7 +37,7 @@ AC_DEFUN([CTK_DOC_CHECK],
     dnl don't check for glib if we build glib
     if test "x$PACKAGE_NAME" != "xglib"; then
       dnl don't fail if someone does not have glib
-      PKG_CHECK_MODULES(CTKDOC_DEPS, glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0,,)
+      PKG_CHECK_MODULES(GTKDOC_DEPS, glib-2.0 >= 2.10.0 gobject-2.0  >= 2.10.0,,)
     fi
   fi
 
@@ -54,7 +54,7 @@ AC_DEFUN([CTK_DOC_CHECK],
                      [build documentation in pdf format [[default=no]]]),,
       [enable_ctk_doc_pdf=no])
 
-  if test -z "$CTKDOC_MKPDF"; then
+  if test -z "$GTKDOC_MKPDF"; then
     enable_ctk_doc_pdf=no
   fi
 
@@ -63,5 +63,5 @@ AC_DEFUN([CTK_DOC_CHECK],
   AM_CONDITIONAL([CTK_DOC_BUILD_HTML], [test x$enable_ctk_doc_html = xyes])
   AM_CONDITIONAL([CTK_DOC_BUILD_PDF], [test x$enable_ctk_doc_pdf = xyes])
   AM_CONDITIONAL([CTK_DOC_USE_LIBTOOL], [test -n "$LIBTOOL"])
-  AM_CONDITIONAL([CTK_DOC_USE_REBASE], [test -n "$CTKDOC_REBASE"])
+  AM_CONDITIONAL([CTK_DOC_USE_REBASE], [test -n "$GTKDOC_REBASE"])
 ])

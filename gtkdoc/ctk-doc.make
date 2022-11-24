@@ -5,13 +5,13 @@
 ####################################
 
 if CTK_DOC_USE_LIBTOOL
-CTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-CTKDOC_RUN = $(LIBTOOL) --mode=execute
+GTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+GTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+GTKDOC_RUN = $(LIBTOOL) --mode=execute
 else
-CTKDOC_CC = $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CTKDOC_LD = $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-CTKDOC_RUN =
+GTKDOC_CC = $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+GTKDOC_LD = $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+GTKDOC_RUN =
 endif
 
 # We set GPATH here; this gives us semantics for GNU make
@@ -108,7 +108,7 @@ scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	            scanobj_options="--verbose"; \
 	        fi; \
 	    fi; \
-	    CC="$(CTKDOC_CC)" LD="$(CTKDOC_LD)" RUN="$(CTKDOC_RUN)" CFLAGS="$(CTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(CTKDOC_LIBS) $(LDFLAGS)" \
+	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" RUN="$(GTKDOC_RUN)" CFLAGS="$(GTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(GTKDOC_LIBS) $(LDFLAGS)" \
 	    gtkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
 	else \
 	    for i in $(SCANOBJ_FILES) ; do \
@@ -244,7 +244,7 @@ install-data-local:
 	    mv -f $${installdir}/$(DOC_MODULE).devhelp2 \
 	      $${installdir}/$(DOC_MODULE)-$(DOC_MODULE_VERSION).devhelp2; \
 	  fi; \
-	  $(CTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
+	  $(GTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
 	fi
 
 uninstall-local:
@@ -275,6 +275,6 @@ dist-hook: dist-check-gtkdoc dist-hook-local
 	@-cp ./$(DOC_MODULE).types $(distdir)/
 	@-cp ./$(DOC_MODULE)-sections.txt $(distdir)/
 	@cd $(distdir) && rm -f $(DISTCLEANFILES)
-	@$(CTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
+	@$(GTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
 
 .PHONY : dist-hook-local docs

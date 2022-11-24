@@ -24,8 +24,8 @@ if [ -f .git/hooks/pre-commit.sample -a ! -f .git/hooks/pre-commit ] ; then
         echo "Activated pre-commit hook."
 fi
 
-CTKDOCIZE=$(which gtkdocize 2>/dev/null)
-if test -z $CTKDOCIZE; then
+GTKDOCIZE=$(which gtkdocize 2>/dev/null)
+if test -z $GTKDOCIZE; then
         echo "You don't have gtk-doc installed, and thus won't be able to generate the documentation."
         echo 'EXTRA_DIST =' > gtkdoc/gtk-doc.make
 else
