@@ -182,7 +182,7 @@ Current Status
 
 Documentation
 
-   You may browse the [41]ctkdoc generated [42]programing documentation of
+   You may browse the [41]gtkdoc generated [42]programing documentation of
    the API.
 
 Requirements
@@ -281,7 +281,7 @@ References
   39. http://0pointer.de/blog/projects/sixfold-announcement.html
   40. http://mail.gnome.org/archives/devel-announce-list/2008-August/msg00001.html
   41. http://www.ctk.org/gtk-doc/
-  42. http://0pointer.de/lennart/projects/libcanberra/ctkdoc/
+  42. http://0pointer.de/lennart/projects/libcanberra/gtkdoc/
   43. http://0pointer.de/lennart/projects/libcanberra/
   44. http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
   45. http://git-scm.com/

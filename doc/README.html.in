@@ -195,8 +195,8 @@ positional event sounds.</p>
 
 <h2><a name="documentation">Documentation</a></h2>
 
-<p>You may browse the <a href="http://www.ctk.org/gtk-doc/">ctkdoc</a>
-generated <a href="http://0pointer.de/lennart/projects/libcanberra/ctkdoc/">programing
+<p>You may browse the <a href="http://www.ctk.org/gtk-doc/">gtkdoc</a>
+generated <a href="http://0pointer.de/lennart/projects/libcanberra/gtkdoc/">programing
 documentation</a> of the API.</p>
 
 <h2><a name="requirements">Requirements</a></h2>

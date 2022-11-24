@@ -11,9 +11,9 @@ AC_DEFUN([CTK_DOC_CHECK],
   AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
 
   dnl check for tools we added during development
-  AC_PATH_PROG([CTKDOC_CHECK],[ctkdoc-check])
-  AC_PATH_PROGS([CTKDOC_REBASE],[ctkdoc-rebase],[true])
-  AC_PATH_PROG([CTKDOC_MKPDF],[ctkdoc-mkpdf])
+  AC_PATH_PROG([CTKDOC_CHECK],[gtkdoc-check])
+  AC_PATH_PROGS([CTKDOC_REBASE],[gtkdoc-rebase],[true])
+  AC_PATH_PROG([CTKDOC_MKPDF],[gtkdoc-mkpdf])
 
   dnl for overriding the documentation installation directory
   AC_ARG_WITH([html-dir],
