@@ -342,6 +342,7 @@ libcanberra_gtk3_la_CFLAGS = \
 	$(GTK3_CFLAGS)
 libcanberra_gtk3_la_LIBADD = \
 	$(GTK3_LIBS) \
+	-lX11 \
 	libcanberra.la
 libcanberra_gtk3_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
@@ -352,6 +353,8 @@ libcanberra_gtk3_module_la_CFLAGS = \
 	$(GTK3_CFLAGS)
 libcanberra_gtk3_module_la_LIBADD = \
 	$(GTK3_LIBS) \
+	-lX11 \
+	-lgmodule-2.0 \
 	libcanberra.la \
 	libcanberra-gtk3.la
 libcanberra_gtk3_module_la_LDFLAGS = \
@@ -380,6 +383,7 @@ libcanberra_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS)
 libcanberra_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
+	-lX11 \
 	libcanberra.la
 libcanberra_gtk_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
@@ -390,6 +394,8 @@ libcanberra_gtk_module_la_CFLAGS = \
 	$(GTK_CFLAGS)
 libcanberra_gtk_module_la_LIBADD = \
 	$(GTK_LIBS) \
+	-lX11 \
+	-lgmodule-2.0 \
 	libcanberra.la \
 	libcanberra-gtk.la
 libcanberra_gtk_module_la_LDFLAGS = \
