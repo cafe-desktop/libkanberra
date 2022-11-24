@@ -26,11 +26,11 @@ fi
 
 CTKDOCIZE=$(which ctkdocize 2>/dev/null)
 if test -z $CTKDOCIZE; then
-        echo "You don't have ctk-doc installed, and thus won't be able to generate the documentation."
-        echo 'EXTRA_DIST =' > ctkdoc/ctk-doc.make
+        echo "You don't have gtk-doc installed, and thus won't be able to generate the documentation."
+        echo 'EXTRA_DIST =' > ctkdoc/gtk-doc.make
 else
         ctkdocize --docdir ctkdoc/
-        ctkdocargs=--enable-ctk-doc
+        ctkdocargs=--enable-gtk-doc
 fi
 
 autoreconf --force --install --symlink

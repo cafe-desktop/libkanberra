@@ -256,13 +256,13 @@ uninstall-local:
 	rm -rf $${installdir}
 
 #
-# Require ctk-doc when making dist
+# Require gtk-doc when making dist
 #
 if ENABLE_CTK_DOC
 dist-check-ctkdoc:
 else
 dist-check-ctkdoc:
-	@echo "*** ctk-doc must be installed and enabled in order to make dist"
+	@echo "*** gtk-doc must be installed and enabled in order to make dist"
 	@false
 endif
 
