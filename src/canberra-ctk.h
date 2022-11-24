@@ -1,7 +1,7 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
-#ifndef foocanberragtkhfoo
-#define foocanberragtkhfoo
+#ifndef foocanberractkhfoo
+#define foocanberractkhfoo
 
 /***
   This file is part of libcanberra.
@@ -25,25 +25,25 @@
 
 #include <canberra.h>
 #include <gdk/gdk.h>
-#include <gtk/gtk.h>
+#include <ctk/ctk.h>
 
 G_BEGIN_DECLS
 
 #ifndef GDK_MULTIHEAD_SAFE
-ca_context *ca_gtk_context_get(void);
+ca_context *ca_ctk_context_get(void);
 #endif
 
-ca_context *ca_gtk_context_get_for_screen(GdkScreen *screen);
+ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen);
 
-int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *w);
+int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *w);
 
-int ca_gtk_play_for_widget(GtkWidget *w, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
+int ca_ctk_play_for_widget(GtkWidget *w, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
-int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e);
+int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e);
 
-int ca_gtk_play_for_event(GdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
+int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
-void ca_gtk_widget_disable_sounds(GtkWidget *w, gboolean enable);
+void ca_ctk_widget_disable_sounds(GtkWidget *w, gboolean enable);
 
 G_END_DECLS
 

@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-canberra-gtk
+canberra-ctk
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -20,7 +20,7 @@ canberra-gtk
 <!-- ##### SECTION Image ##### -->
 
 
-<!-- ##### FUNCTION ca_gtk_context_get ##### -->
+<!-- ##### FUNCTION ca_ctk_context_get ##### -->
 <para>
 
 </para>
@@ -29,7 +29,7 @@ canberra-gtk
 @Returns: 
 
 
-<!-- ##### FUNCTION ca_gtk_proplist_set_for_widget ##### -->
+<!-- ##### FUNCTION ca_ctk_proplist_set_for_widget ##### -->
 <para>
 
 </para>
@@ -39,7 +39,7 @@ canberra-gtk
 @Returns: 
 
 
-<!-- ##### FUNCTION ca_gtk_play_for_widget ##### -->
+<!-- ##### FUNCTION ca_ctk_play_for_widget ##### -->
 <para>
 
 </para>
@@ -50,7 +50,7 @@ canberra-gtk
 @Returns: 
 
 
-<!-- ##### FUNCTION ca_gtk_proplist_set_for_event ##### -->
+<!-- ##### FUNCTION ca_ctk_proplist_set_for_event ##### -->
 <para>
 
 </para>
@@ -60,7 +60,7 @@ canberra-gtk
 @Returns: 
 
 
-<!-- ##### FUNCTION ca_gtk_play_for_event ##### -->
+<!-- ##### FUNCTION ca_ctk_play_for_event ##### -->
 <para>
 
 </para>
@@ -71,7 +71,7 @@ canberra-gtk
 @Returns: 
 
 
-<!-- ##### FUNCTION ca_gtk_widget_disable_sounds ##### -->
+<!-- ##### FUNCTION ca_ctk_widget_disable_sounds ##### -->
 <para>
 
 </para>

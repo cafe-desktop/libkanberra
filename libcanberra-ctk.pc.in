@@ -3,9 +3,9 @@ exec_prefix=${prefix}
 libdir=@libdir@
 includedir=@includedir@
 
-Name: libcanberra-gtk
+Name: libcanberra-ctk
 Description: Gtk Event Sound API
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -lcanberra-gtk -lX11 @PTHREAD_LIBS@
+Libs: -L${libdir} -lcanberra-ctk -lX11 @PTHREAD_LIBS@
 Cflags: -D_REENTRANT -I${includedir}
-Requires: libcanberra gdk-2.0 gtk+-2.0
+Requires: libcanberra gdk-2.0 ctk+-2.0

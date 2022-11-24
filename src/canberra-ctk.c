@@ -24,26 +24,26 @@
 #include <config.h>
 #endif
 
-#include <gtk/gtk.h>
+#include <ctk/ctk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
 
 #include "canberra.h"
-#include "canberra-gtk.h"
+#include "canberra-ctk.h"
 #include "common.h"
 #include "malloc.h"
 #include "proplist.h"
 #include "fork-detect.h"
 
 /**
- * SECTION:canberra-gtk
+ * SECTION:canberra-ctk
  * @short_description: Gtk+ libcanberra Bindings
  *
- * libcanberra-gtk provides a few functions that simplify libcanberra
+ * libcanberra-ctk provides a few functions that simplify libcanberra
  * usage from Gtk+ programs. It maintains a single ca_context object
  * per #GdkScreen that is made accessible via
- * ca_gtk_context_get_for_screen(), with a shortcut ca_gtk_context_get()
+ * ca_ctk_context_get_for_screen(), with a shortcut ca_ctk_context_get()
  * to get the context for the default screen. More importantly, it provides
  * a few functions
  * to compile event sound property lists based on GtkWidget objects or
@@ -53,7 +53,7 @@
 static void read_sound_theme_name(ca_context *c, GtkSettings *s) {
         gchar *theme_name = NULL;
 
-        g_object_get(G_OBJECT(s), "gtk-sound-theme-name", &theme_name, NULL);
+        g_object_get(G_OBJECT(s), "ctk-sound-theme-name", &theme_name, NULL);
 
         if (theme_name) {
                 ca_context_change_props(c, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
@@ -65,7 +65,7 @@ static void read_enable_event_sounds(ca_context *c, GtkSettings *s) {
         gboolean enable_event_sounds = TRUE;
 
         if (!g_getenv("CANBERRA_FORCE_EVENT_SOUNDS"))
-                g_object_get(G_OBJECT(s), "gtk-enable-event-sounds", &enable_event_sounds, NULL);
+                g_object_get(G_OBJECT(s), "ctk-enable-event-sounds", &enable_event_sounds, NULL);
 
         ca_context_change_props(c, CA_PROP_CANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
 }
@@ -79,36 +79,36 @@ static void enable_event_sounds_changed(GtkSettings *s, GParamSpec *arg1, ca_con
 }
 
 /**
- * ca_gtk_context_get:
+ * ca_ctk_context_get:
  *
  * Gets the single ca_context object for the default screen. See
- * ca_gtk_context_get_for_screen().
+ * ca_ctk_context_get_for_screen().
  *
- * Returns: a ca_context object. The object is owned by libcanberra-gtk
+ * Returns: a ca_context object. The object is owned by libcanberra-ctk
  *   and must not be destroyed
  */
-ca_context *ca_gtk_context_get(void) {
-        return ca_gtk_context_get_for_screen(NULL);
+ca_context *ca_ctk_context_get(void) {
+        return ca_ctk_context_get_for_screen(NULL);
 }
 
 /**
- * ca_gtk_context_get_for_screen:
+ * ca_ctk_context_get_for_screen:
  * @screen: the #GdkScreen to get the context for, or %NULL to use
  *   the default screen
  *
- * libcanberra-gtk maintains a single ca_context object for each
+ * libcanberra-ctk maintains a single ca_context object for each
  * #GdkScreen. Use this function to access it. The
  * %CA_PROP_CANBERRA_XDG_THEME_NAME of this context property is
  * dynamically bound to the XSETTINGS setting for the XDG theme
  * name. CA_PROP_APPLICATION_NAME is bound to
  * g_get_application_name().
  *
- * Returns: a ca_context object. The object is owned by libcanberra-gtk
+ * Returns: a ca_context object. The object is owned by libcanberra-ctk
  *   and must not be destroyed
  *
  * Since: 0.13
  */
-ca_context *ca_gtk_context_get_for_screen(GdkScreen *screen) {
+ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
         ca_context *c = NULL;
         ca_proplist *p = NULL;
         const char *name;
@@ -117,7 +117,7 @@ ca_context *ca_gtk_context_get_for_screen(GdkScreen *screen) {
         if (!screen)
                 screen = gdk_screen_get_default();
 
-        if ((c = g_object_get_data(G_OBJECT(screen), "canberra::gtk::context")))
+        if ((c = g_object_get_data(G_OBJECT(screen), "canberra::ctk::context")))
                 return c;
 
         if (ca_context_create(&c) != CA_SUCCESS)
@@ -131,12 +131,12 @@ ca_context *ca_gtk_context_get_for_screen(GdkScreen *screen) {
         if ((name = g_get_application_name()))
                 ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, name);
         else {
-                ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, "libcanberra-gtk");
+                ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, "libcanberra-ctk");
                 ca_proplist_sets(p, CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
-                ca_proplist_sets(p, CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.gtk");
+                ca_proplist_sets(p, CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.ctk");
         }
 
-        if ((name = gtk_window_get_default_icon_name()))
+        if ((name = ctk_window_get_default_icon_name()))
                 ca_proplist_sets(p, CA_PROP_APPLICATION_ICON_NAME, name);
 
         if ((name = gdk_display_get_name(gdk_screen_get_display(screen))))
@@ -147,28 +147,28 @@ ca_context *ca_gtk_context_get_for_screen(GdkScreen *screen) {
         ca_context_change_props_full(c, p);
         ca_proplist_destroy(p);
 
-        if ((s = gtk_settings_get_for_screen(screen))) {
+        if ((s = ctk_settings_get_for_screen(screen))) {
 
-                if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "gtk-sound-theme-name")) {
-                        g_signal_connect(G_OBJECT(s), "notify::gtk-sound-theme-name", G_CALLBACK(sound_theme_name_changed), c);
+                if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "ctk-sound-theme-name")) {
+                        g_signal_connect(G_OBJECT(s), "notify::ctk-sound-theme-name", G_CALLBACK(sound_theme_name_changed), c);
                         read_sound_theme_name(c, s);
                 } else
-                        g_debug("This Gtk+ version doesn't have the GtkSettings::gtk-sound-theme-name property.");
+                        g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-sound-theme-name property.");
 
-                if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "gtk-enable-event-sounds")) {
-                        g_signal_connect(G_OBJECT(s), "notify::gtk-enable-event-sounds", G_CALLBACK(enable_event_sounds_changed), c);
+                if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "ctk-enable-event-sounds")) {
+                        g_signal_connect(G_OBJECT(s), "notify::ctk-enable-event-sounds", G_CALLBACK(enable_event_sounds_changed), c);
                         read_enable_event_sounds(c, s);
                 } else
-                        g_debug("This Gtk+ version doesn't have the GtkSettings::gtk-enable-event-sounds property.");
+                        g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-enable-event-sounds property.");
         }
 
-        g_object_set_data_full(G_OBJECT(screen), "canberra::gtk::context", c, (GDestroyNotify) ca_context_destroy);
+        g_object_set_data_full(G_OBJECT(screen), "canberra::ctk::context", c, (GDestroyNotify) ca_context_destroy);
 
         return c;
 }
 
 static GtkWindow* get_toplevel(GtkWidget *w) {
-        if (!(w = gtk_widget_get_toplevel(w)))
+        if (!(w = ctk_widget_get_toplevel(w)))
                 return NULL;
 
         if (!GTK_IS_WINDOW(w))
@@ -211,7 +211,7 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
 }
 
 /**
- * ca_gtk_proplist_set_for_widget:
+ * ca_ctk_proplist_set_for_widget:
  * @p: The proplist to store these sound event properties in
  * @w: The Gtk widget to base these sound event properties on
  *
@@ -222,7 +222,7 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
+int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
         GtkWindow *w;
         int ret;
         const char *t, *role;
@@ -234,11 +234,11 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
         if (!(w = get_toplevel(widget)))
                 return CA_ERROR_INVALID;
 
-        if ((t = gtk_window_get_title(w)))
+        if ((t = ctk_window_get_title(w)))
                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_NAME, t)) < 0)
                         return ret;
 
-        if ((role = gtk_window_get_role(w))) {
+        if ((role = ctk_window_get_role(w))) {
                 if (role && t) {
                         char *id = ca_sprintf_malloc("%s#%s", t, role);
 
@@ -253,21 +253,21 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_ID, t)) < 0)
                         return ret;
 
-        if ((t = gtk_window_get_icon_name(w)))
+        if ((t = ctk_window_get_icon_name(w)))
                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_ICON_NAME, t)) < 0)
                         return ret;
 
-        if (gtk_widget_get_realized(GTK_WIDGET(w))) {
+        if (ctk_widget_get_realized(GTK_WIDGET(w))) {
                 GdkWindow *dw = NULL;
                 GdkScreen *screen = NULL;
                 GdkDisplay *display = NULL;
                 gint x = -1, y = -1, width = -1, height = -1, screen_width = -1, screen_height = -1;
 
-                if ((dw = gtk_widget_get_window(GTK_WIDGET(w))))
+                if ((dw = ctk_widget_get_window(GTK_WIDGET(w))))
                         if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) GDK_WINDOW_XID(dw))) < 0)
                                 return ret;
 
-                if ((display = gtk_widget_get_display(GTK_WIDGET(w)))) {
+                if ((display = ctk_widget_get_display(GTK_WIDGET(w)))) {
                         if ((t = gdk_display_get_name(display)))
                                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, t)) < 0)
                                         return ret;
@@ -281,7 +281,7 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                         }
                 }
 
-                if ((screen = gtk_widget_get_screen(GTK_WIDGET(w)))) {
+                if ((screen = ctk_widget_get_screen(GTK_WIDGET(w)))) {
 
                         if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", gdk_screen_get_number(screen))) < 0)
                                 return ret;
@@ -304,7 +304,7 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                                         return ret;
                 }
 
-                gtk_window_get_size(w, &width, &height);
+                ctk_window_get_size(w, &width, &height);
 
                 if (width > 0)
                         if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_WIDTH, "%i", width)) < 0)
@@ -314,7 +314,7 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                                 return ret;
 
                 if (x >= 0 && width > 0) {
-                        screen_width = gdk_screen_get_width(gtk_widget_get_screen(GTK_WIDGET(w)));
+                        screen_width = gdk_screen_get_width(ctk_widget_get_screen(GTK_WIDGET(w)));
 
                         x += width/2;
                         x = CA_CLAMP(x, 0, screen_width-1);
@@ -329,7 +329,7 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                 }
 
                 if (y >= 0 && height > 0) {
-                        screen_height = gdk_screen_get_height(gtk_widget_get_screen(GTK_WIDGET(w)));
+                        screen_height = gdk_screen_get_height(ctk_widget_get_screen(GTK_WIDGET(w)));
 
                         y += height/2;
                         y = CA_CLAMP(y, 0, screen_height-1);
@@ -344,20 +344,20 @@ int ca_gtk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
 }
 
 /**
- * ca_gtk_proplist_set_for_event:
+ * ca_ctk_proplist_set_for_event:
  * @p: The proplist to store these sound event properties in
  * @e: The Gdk event to base these sound event properties on
  *
  * Fill in a ca_proplist object for a sound event that is being
  * triggered by the specified Gdk Event. This will fill in properties
  * like %CA_PROP_EVENT_MOUSE_X or %CA_PROP_EVENT_MOUSE_BUTTON for
- * you. This will internally also cal ca_gtk_proplist_set_for_widget()
+ * you. This will internally also cal ca_ctk_proplist_set_for_widget()
  * on the widget this event belongs to.
  *
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
+int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
         gdouble x, y;
         GdkWindow *gw;
         GtkWidget *w = NULL;
@@ -371,7 +371,7 @@ int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
                 gdk_window_get_user_data(gw, (gpointer*) &w);
 
                 if (w)
-                        if ((ret = ca_gtk_proplist_set_for_widget(p, w)) < 0)
+                        if ((ret = ca_ctk_proplist_set_for_widget(p, w)) < 0)
                                 return ret;
         }
 
@@ -386,8 +386,8 @@ int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
                 if (w)  {
                         int width, height;
 
-                        width = gdk_screen_get_width(gtk_widget_get_screen(w));
-                        height = gdk_screen_get_height(gtk_widget_get_screen(w));
+                        width = gdk_screen_get_width(ctk_widget_get_screen(w));
+                        height = gdk_screen_get_height(ctk_widget_get_screen(w));
 
                         /* We use these strange format strings here to avoid that
                          * libc applies locale information on the formatting of
@@ -416,7 +416,7 @@ int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
 }
 
 /**
- * ca_gtk_play_for_widget:
+ * ca_ctk_play_for_widget:
  * @w: The Gtk widget to base these sound event properties on
  * @id: The event id that can later be used to cancel this event sound
  * using ca_context_cancel(). This can be any integer and shall be
@@ -427,7 +427,7 @@ int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
  * @...: additional event properties as pairs of strings, terminated by NULL.
  *
  * Play a sound event for the specified widget. This will internally
- * call ca_gtk_proplist_set_for_widget() and then merge them with the
+ * call ca_ctk_proplist_set_for_widget() and then merge them with the
  * properties passed in via the NULL terminated argument
  * list. Finally, it will call ca_context_play_full() to actually play
  * the event sound.
@@ -435,7 +435,7 @@ int ca_gtk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_gtk_play_for_widget(GtkWidget *w, uint32_t id, ...) {
+int ca_ctk_play_for_widget(GtkWidget *w, uint32_t id, ...) {
         va_list ap;
         int ret;
         ca_proplist *p;
@@ -447,7 +447,7 @@ int ca_gtk_play_for_widget(GtkWidget *w, uint32_t id, ...) {
         if ((ret = ca_proplist_create(&p)) < 0)
                 return ret;
 
-        if ((ret = ca_gtk_proplist_set_for_widget(p, w)) < 0)
+        if ((ret = ca_ctk_proplist_set_for_widget(p, w)) < 0)
                 goto fail;
 
         va_start(ap, id);
@@ -457,8 +457,8 @@ int ca_gtk_play_for_widget(GtkWidget *w, uint32_t id, ...) {
         if (ret < 0)
                 goto fail;
 
-        s = gtk_widget_get_screen(w);
-        ret = ca_context_play_full(ca_gtk_context_get_for_screen(s), id, p, NULL, NULL);
+        s = ctk_widget_get_screen(w);
+        ret = ca_context_play_full(ca_ctk_context_get_for_screen(s), id, p, NULL, NULL);
 
 fail:
 
@@ -468,7 +468,7 @@ fail:
 }
 
 /**
- * ca_gtk_play_for_event:
+ * ca_ctk_play_for_event:
  * @e: The Gdk event to base these sound event properties on
  * @id: The event id that can later be used to cancel this event sound
  * using ca_context_cancel(). This can be any integer and shall be
@@ -479,7 +479,7 @@ fail:
  * @...: additional event properties as pairs of strings, terminated by NULL.
  *
  * Play a sound event for the specified event. This will internally
- * call ca_gtk_proplist_set_for_event() and then merge them with the
+ * call ca_ctk_proplist_set_for_event() and then merge them with the
  * properties passed in via the NULL terminated argument
  * list. Finally, it will call ca_context_play_full() to actually play
  * the event sound.
@@ -487,7 +487,7 @@ fail:
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_gtk_play_for_event(GdkEvent *e, uint32_t id, ...) {
+int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) {
         va_list ap;
         int ret;
         ca_proplist *p;
@@ -499,7 +499,7 @@ int ca_gtk_play_for_event(GdkEvent *e, uint32_t id, ...) {
         if ((ret = ca_proplist_create(&p)) < 0)
                 return ret;
 
-        if ((ret = ca_gtk_proplist_set_for_event(p, e)) < 0)
+        if ((ret = ca_ctk_proplist_set_for_event(p, e)) < 0)
                 goto fail;
 
         va_start(ap, id);
@@ -518,7 +518,7 @@ int ca_gtk_play_for_event(GdkEvent *e, uint32_t id, ...) {
         else
                 s = gdk_screen_get_default();
 
-        ret = ca_context_play_full(ca_gtk_context_get_for_screen(s), id, p, NULL, NULL);
+        ret = ca_context_play_full(ca_ctk_context_get_for_screen(s), id, p, NULL, NULL);
 
 fail:
 
@@ -528,7 +528,7 @@ fail:
 }
 
 /**
- * ca_gtk_widget_disable_sounds:
+ * ca_ctk_widget_disable_sounds:
  * @w: The Gtk widget to disable automatic event sounds for.
  * @enable: Boolean specifying whether sound events shall be enabled or disabled for this widget.
  *
@@ -538,7 +538,7 @@ fail:
  * events.
  */
 
-void ca_gtk_widget_disable_sounds(GtkWidget *w, gboolean enable) {
+void ca_ctk_widget_disable_sounds(GtkWidget *w, gboolean enable) {
         static GQuark disable_sound_quark = 0;
 
         /* This is the same quark used by libgnomeui! */

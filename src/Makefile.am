@@ -16,8 +16,8 @@
 # License along with libcanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
-gtkmoduledir = @GTK_MODULES_DIR@
-gtk3moduledir = @GTK3_MODULES_DIR@
+ctkmoduledir = @GTK_MODULES_DIR@
+ctk3moduledir = @GTK3_MODULES_DIR@
 
 plugindir = $(libdir)/libcanberra-@PACKAGE_VERSION@
 
@@ -27,7 +27,7 @@ gnomeautostartdir = $(datadir)/gnome/autostart
 
 gdmautostartdir = $(datadir)/gdm/autostart/LoginWindow
 
-gsdgtkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/gtk-modules
+gsdctkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/ctk-modules
 
 AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"$(plugindir)\"
 #AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libcanberra/src/.libs\"
@@ -320,106 +320,106 @@ endif
 if HAVE_GTK_ANY
 
 bin_PROGRAMS += \
-	canberra-gtk-play
+	canberra-ctk-play
 
 include_HEADERS += \
-	canberra-gtk.h
+	canberra-ctk.h
 
 endif
 
 if HAVE_GTK3
 
 lib_LTLIBRARIES += \
-	libcanberra-gtk3.la
+	libcanberra-ctk3.la
 
-gtk3module_LTLIBRARIES = \
-	libcanberra-gtk3-module.la
+ctk3module_LTLIBRARIES = \
+	libcanberra-ctk3-module.la
 
-libcanberra_gtk3_la_SOURCES = \
-	canberra-gtk.h \
-	canberra-gtk.c
-libcanberra_gtk3_la_CFLAGS = \
+libcanberra_ctk3_la_SOURCES = \
+	canberra-ctk.h \
+	canberra-ctk.c
+libcanberra_ctk3_la_CFLAGS = \
 	$(GTK3_CFLAGS)
-libcanberra_gtk3_la_LIBADD = \
+libcanberra_ctk3_la_LIBADD = \
 	$(GTK3_LIBS) \
 	-lX11 \
 	libcanberra.la
-libcanberra_gtk3_la_LDFLAGS = \
+libcanberra_ctk3_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
 
-libcanberra_gtk3_module_la_SOURCES = \
-	canberra-gtk-module.c
-libcanberra_gtk3_module_la_CFLAGS = \
+libcanberra_ctk3_module_la_SOURCES = \
+	canberra-ctk-module.c
+libcanberra_ctk3_module_la_CFLAGS = \
 	$(GTK3_CFLAGS)
-libcanberra_gtk3_module_la_LIBADD = \
+libcanberra_ctk3_module_la_LIBADD = \
 	$(GTK3_LIBS) \
 	-lX11 \
 	-lgmodule-2.0 \
 	libcanberra.la \
-	libcanberra-gtk3.la
-libcanberra_gtk3_module_la_LDFLAGS = \
+	libcanberra-ctk3.la
+libcanberra_ctk3_module_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 install-exec-hook:
-	$(MKDIR_P) -m 755 $(DESTDIR)$(gtk3moduledir)
-	( cd $(DESTDIR)$(gtk3moduledir) && \
-		rm -f libcanberra-gtk-module.so && \
-	        $(LN_S) libcanberra-gtk3-module.so libcanberra-gtk-module.so )
+	$(MKDIR_P) -m 755 $(DESTDIR)$(ctk3moduledir)
+	( cd $(DESTDIR)$(ctk3moduledir) && \
+		rm -f libcanberra-ctk-module.so && \
+	        $(LN_S) libcanberra-ctk3-module.so libcanberra-ctk-module.so )
 
 endif
 
 if HAVE_GTK
 
 lib_LTLIBRARIES += \
-	libcanberra-gtk.la
+	libcanberra-ctk.la
 
-gtkmodule_LTLIBRARIES = \
-	libcanberra-gtk-module.la
+ctkmodule_LTLIBRARIES = \
+	libcanberra-ctk-module.la
 
-libcanberra_gtk_la_SOURCES = \
-	canberra-gtk.h \
-	canberra-gtk.c
-libcanberra_gtk_la_CFLAGS = \
+libcanberra_ctk_la_SOURCES = \
+	canberra-ctk.h \
+	canberra-ctk.c
+libcanberra_ctk_la_CFLAGS = \
 	$(GTK_CFLAGS)
-libcanberra_gtk_la_LIBADD = \
+libcanberra_ctk_la_LIBADD = \
 	$(GTK_LIBS) \
 	-lX11 \
 	libcanberra.la
-libcanberra_gtk_la_LDFLAGS = \
+libcanberra_ctk_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_GTK_VERSION_INFO)
 
-libcanberra_gtk_module_la_SOURCES = \
-	canberra-gtk-module.c
-libcanberra_gtk_module_la_CFLAGS = \
+libcanberra_ctk_module_la_SOURCES = \
+	canberra-ctk-module.c
+libcanberra_ctk_module_la_CFLAGS = \
 	$(GTK_CFLAGS)
-libcanberra_gtk_module_la_LIBADD = \
+libcanberra_ctk_module_la_LIBADD = \
 	$(GTK_LIBS) \
 	-lX11 \
 	-lgmodule-2.0 \
 	libcanberra.la \
-	libcanberra-gtk.la
-libcanberra_gtk_module_la_LDFLAGS = \
+	libcanberra-ctk.la
+libcanberra_ctk_module_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 endif
 
 if HAVE_GTK3
 
-canberra_gtk_play_LDADD = \
+canberra_ctk_play_LDADD = \
 	$(GTK3_LIBS) \
 	libcanberra.la \
-	libcanberra-gtk3.la
-canberra_gtk_play_CFLAGS = \
+	libcanberra-ctk3.la
+canberra_ctk_play_CFLAGS = \
 	$(GTK3_CFLAGS)
 
 else
 if HAVE_GTK
 
-canberra_gtk_play_LDADD = \
+canberra_ctk_play_LDADD = \
 	$(GTK_LIBS) \
 	libcanberra.la \
-	libcanberra-gtk.la
-canberra_gtk_play_CFLAGS = \
+	libcanberra-ctk.la
+canberra_ctk_play_CFLAGS = \
 	$(GTK_CFLAGS)
 
 endif
@@ -427,11 +427,11 @@ endif
 
 if HAVE_GTK_ANY
 
-dist_gsdgtkmodules_DATA = \
-	canberra-gtk-module.desktop
+dist_gsdctkmodules_DATA = \
+	canberra-ctk-module.desktop
 
-canberra_gtk_play_SOURCES = \
-	canberra-gtk-play.c
+canberra_ctk_play_SOURCES = \
+	canberra-ctk-play.c
 
 EXTRA_DIST += \
 	libcanberra-login-sound.desktop.in \

@@ -1,11 +1,11 @@
 <SECTION>
-<FILE>canberra-gtk</FILE>
-ca_gtk_context_get
-ca_gtk_proplist_set_for_widget
-ca_gtk_play_for_widget
-ca_gtk_proplist_set_for_event
-ca_gtk_play_for_event
-ca_gtk_widget_disable_sounds
+<FILE>canberra-ctk</FILE>
+ca_ctk_context_get
+ca_ctk_proplist_set_for_widget
+ca_ctk_play_for_widget
+ca_ctk_proplist_set_for_event
+ca_ctk_play_for_event
+ca_ctk_widget_disable_sounds
 </SECTION>
 
 <SECTION>

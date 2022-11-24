@@ -2,7 +2,7 @@
 Type=Application
 Name=GNOME System Ready Sound
 Comment=Plays a sound whenever your system is ready for login
-Exec=@bindir@/canberra-gtk-play --id="system-ready" --description="GNOME System Ready"
+Exec=@bindir@/canberra-ctk-play --id="system-ready" --description="GNOME System Ready"
 OnlyShowIn=GNOME;
 AutostartCondition=GSettings org.gnome.desktop.sound event-sounds
 X-GNOME-Autostart-Phase=Application

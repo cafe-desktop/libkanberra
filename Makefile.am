@@ -22,9 +22,9 @@ EXTRA_DIST = \
 	autogen.sh \
 	LGPL \
 	vala/libcanberra.vapi \
-	vala/libcanberra-gtk.vapi
+	vala/libcanberra-ctk.vapi
 
-SUBDIRS = src gtkdoc doc
+SUBDIRS = src ctkdoc doc
 
 MAINTAINERCLEANFILES = README
 noinst_DATA = README
@@ -38,19 +38,19 @@ vapi_DATA = vala/libcanberra.vapi
 if HAVE_GTK_ANY
 
 if HAVE_GTK
-pkgconfig_DATA += libcanberra-gtk.pc
+pkgconfig_DATA += libcanberra-ctk.pc
 endif
 
 if HAVE_GTK3
-pkgconfig_DATA += libcanberra-gtk3.pc
+pkgconfig_DATA += libcanberra-ctk3.pc
 endif
 
-vapi_DATA += vala/libcanberra-gtk.vapi
+vapi_DATA += vala/libcanberra-ctk.vapi
 
 endif
 
 DISTCHECK_CONFIGURE_FLAGS =  \
-	--enable-gtk-doc \
+	--enable-ctk-doc \
 	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
 
 ACLOCAL_AMFLAGS = -I m4
@@ -62,10 +62,10 @@ README:
 
 homepage: dist
 	test -d $$HOME/homepage/private
-	mkdir -p $$HOME/homepage/private/projects/libcanberra $$HOME/homepage/private/projects/libcanberra/gtkdoc
+	mkdir -p $$HOME/homepage/private/projects/libcanberra $$HOME/homepage/private/projects/libcanberra/ctkdoc
 	cp libcanberra-@PACKAGE_VERSION@.tar.xz $$HOME/homepage/private/projects/libcanberra
 	cp doc/README.html doc/style.css $$HOME/homepage/private/projects/libcanberra
-	cp -a gtkdoc/html/* $$HOME/homepage/private/projects/libcanberra/gtkdoc
+	cp -a ctkdoc/html/* $$HOME/homepage/private/projects/libcanberra/ctkdoc
 	ln -sf README.html $$HOME/homepage/private/projects/libcanberra/index.html
 
 .PHONY: homepage

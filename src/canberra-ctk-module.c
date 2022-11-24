@@ -24,11 +24,11 @@
 #include <config.h>
 #endif
 
-#include <gtk/gtk.h>
+#include <ctk/ctk.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
 
-#include "canberra-gtk.h"
+#include "canberra-ctk.h"
 
 typedef struct {
         guint signal_id;
@@ -112,7 +112,7 @@ static GQuark
 
 /* Make sure GCC doesn't warn us about a missing prototype for this
  * exported function */
-void gtk_module_init(gint *argc, gchar ***argv[]);
+void ctk_module_init(gint *argc, gchar ***argv[]);
 
 static const char *translate_message_tye(GtkMessageType mt) {
         static const char *const message_type_table[] = {
@@ -160,7 +160,7 @@ static gboolean is_child_of_combo_box(GtkWidget *w) {
                 if (GTK_IS_COMBO_BOX(w))
                         return TRUE;
 
-                w = gtk_widget_get_parent(w);
+                w = ctk_widget_get_parent(w);
         }
 
         return FALSE;
@@ -173,7 +173,7 @@ static GtkDialog* find_parent_dialog(GtkWidget *w) {
                 if (GTK_IS_DIALOG(w))
                         return GTK_DIALOG(w);
 
-                w = gtk_widget_get_parent(w);
+                w = ctk_widget_get_parent(w);
         }
 
         return NULL;
@@ -267,8 +267,8 @@ static SoundEventData* filter_sound_event(SoundEventData *d) {
 
                                 GdkWindowTypeHint dhint, jhint;
 
-                                dhint = gtk_window_get_type_hint(GTK_WINDOW(d->object));
-                                jhint = gtk_window_get_type_hint(GTK_WINDOW(j->object));
+                                dhint = ctk_window_get_type_hint(GTK_WINDOW(d->object));
+                                jhint = ctk_window_get_type_hint(GTK_WINDOW(j->object));
 
                                 if (is_menu_hint(dhint) && is_menu_hint(jhint)) {
 
@@ -426,7 +426,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 g_object_unref(G_OBJECT(d->event->any.window));
 
-                if ((window = gtk_widget_get_window(GTK_WIDGET(d->object))))
+                if ((window = ctk_widget_get_window(GTK_WIDGET(d->object))))
                         d->event->any.window = GDK_WINDOW(g_object_ref(G_OBJECT(window)));
                 else
                         d->event->any.window = NULL;
@@ -438,19 +438,19 @@ static void dispatch_sound_event(SoundEventData *d) {
                 /* Show/hide signals for non-windows have already been filtered out
                  * by the emission hook! */
 
-                hint = gtk_window_get_type_hint(GTK_WINDOW(d->object));
+                hint = ctk_window_get_type_hint(GTK_WINDOW(d->object));
 
                 if (is_menu_hint(hint)) {
 
                         if (!menu_is_popped_up) {
 
-                                ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                                ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-popup",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu popped up",
                                                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
                         } else {
-                                ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                                ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-replace",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu replaced",
                                                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -461,7 +461,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 } else if (hint == GDK_WINDOW_TYPE_HINT_TOOLTIP) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popup",
                                                      CA_PROP_EVENT_DESCRIPTION, "Tooltip popped up",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -474,10 +474,10 @@ static void dispatch_sound_event(SoundEventData *d) {
                         gboolean is_xembed;
 
                         is_xembed =
-                                gtk_widget_get_realized(GTK_WIDGET(d->object)) &&
+                                ctk_widget_get_realized(GTK_WIDGET(d->object)) &&
                                 window_is_xembed(
-                                                gtk_widget_get_display(GTK_WIDGET(d->object)),
-                                                gtk_widget_get_window(GTK_WIDGET(d->object)));
+                                                ctk_widget_get_display(GTK_WIDGET(d->object)),
+                                                ctk_widget_get_window(GTK_WIDGET(d->object)));
 
                         g_object_set_qdata(d->object, is_xembed_quark, GINT_TO_POINTER(is_xembed));
 
@@ -489,7 +489,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                                 if ((id = translate_message_tye(mt))) {
 
-                                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                                      CA_PROP_EVENT_ID, id,
                                                                      CA_PROP_EVENT_DESCRIPTION, "Message dialog shown",
                                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -501,9 +501,9 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         if (!played_sound &&
                             !is_xembed &&
-                            gtk_window_get_decorated(GTK_WINDOW(d->object))) {
+                            ctk_window_get_decorated(GTK_WINDOW(d->object))) {
 
-                                ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                                ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "window-new",
                                                              CA_PROP_EVENT_DESCRIPTION, "Window shown",
                                                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -522,13 +522,13 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 if ((id = translate_response(response))) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, id,
                                                      CA_PROP_EVENT_DESCRIPTION, "Dialog closed",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
                 } else {
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-close",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window closed",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -538,13 +538,13 @@ static void dispatch_sound_event(SoundEventData *d) {
         } else if (d->signal_id == signal_id_widget_hide) {
                 GdkWindowTypeHint hint;
 
-                hint = gtk_window_get_type_hint(GTK_WINDOW(d->object));
+                hint = ctk_window_get_type_hint(GTK_WINDOW(d->object));
 
                 if (is_menu_hint(hint)) {
 
-                        if (GTK_IS_MENU(gtk_bin_get_child(GTK_BIN(d->object)))) {
+                        if (GTK_IS_MENU(ctk_bin_get_child(GTK_BIN(d->object)))) {
 
-                                ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                                ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-popdown",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu popped down",
                                                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -555,7 +555,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 } else if (hint == GDK_WINDOW_TYPE_HINT_TOOLTIP) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popdown",
                                                      CA_PROP_EVENT_DESCRIPTION, "Tooltip popped down",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -569,8 +569,8 @@ static void dispatch_sound_event(SoundEventData *d) {
                         is_xembed = !!g_object_get_qdata(d->object, is_xembed_quark);
 
                         if (!is_xembed &&
-                            gtk_window_get_decorated(GTK_WINDOW(d->object)))
-                                ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                            ctk_window_get_decorated(GTK_WINDOW(d->object)))
+                                ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "window-close",
                                                              CA_PROP_EVENT_DESCRIPTION, "Window closed",
                                                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -592,11 +592,11 @@ static void dispatch_sound_event(SoundEventData *d) {
                  * minimized. We then store this information, so that we know
                  * later on when the window is unminimized again. */
 
-                if (gtk_widget_get_realized(GTK_WIDGET(d->object))) {
+                if (ctk_widget_get_realized(GTK_WIDGET(d->object))) {
                         GdkDisplay *display;
 
-                        display = gtk_widget_get_display(GTK_WIDGET(d->object));
-                        w_desktop = window_get_desktop(display, gtk_widget_get_window(GTK_WIDGET(d->object)));
+                        display = ctk_widget_get_display(GTK_WIDGET(d->object));
+                        w_desktop = window_get_desktop(display, ctk_widget_get_window(GTK_WIDGET(d->object)));
                         c_desktop = display_get_desktop(display);
                 }
 
@@ -604,7 +604,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                     (e->new_window_state & GDK_WINDOW_STATE_ICONIFIED) &&
                     (w_desktop == c_desktop || w_desktop < 0)) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-minimized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window minimized",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -615,7 +615,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 } else if ((e->changed_mask & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN)) &&
                            (e->new_window_state & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN))) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-maximized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window maximized",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -627,7 +627,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                            !(e->new_window_state & GDK_WINDOW_STATE_ICONIFIED) &&
                            g_object_get_qdata(d->object, was_iconized_quark)) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-unminimized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window unminimized",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -638,7 +638,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 } else if ((e->changed_mask & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN)) &&
                            !(e->new_window_state & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN))) {
 
-                        ret = ca_gtk_play_for_widget(GTK_WIDGET(d->object), 0,
+                        ret = ca_ctk_play_for_widget(GTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-unmaximized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window unmaximized",
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -648,14 +648,14 @@ static void dispatch_sound_event(SoundEventData *d) {
 
         if (GTK_IS_CHECK_MENU_ITEM(d->object) && d->signal_id == signal_id_check_menu_item_toggled) {
 
-                if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(d->object)))
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                if (ctk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(d->object)))
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-toggle-on",
                                                     CA_PROP_EVENT_DESCRIPTION, "Check menu item checked",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                 else
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-toggle-off",
                                                     CA_PROP_EVENT_DESCRIPTION, "Check menu item unchecked",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -663,8 +663,8 @@ static void dispatch_sound_event(SoundEventData *d) {
 
         } else if (GTK_IS_MENU_ITEM(d->object) && d->signal_id == signal_id_menu_item_activate) {
 
-                if (!gtk_menu_item_get_submenu(GTK_MENU_ITEM(d->object)))
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                if (!ctk_menu_item_get_submenu(GTK_MENU_ITEM(d->object)))
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "menu-click",
                                                     CA_PROP_EVENT_DESCRIPTION, "Menu item clicked",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -680,14 +680,14 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 /* We don't want to play this sound if this is a toggle
                                  * button belonging to combo box. */
 
-                                if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(d->object)))
-                                        ret = ca_gtk_play_for_event(d->event, 0,
+                                if (ctk_toggle_button_get_active(GTK_TOGGLE_BUTTON(d->object)))
+                                        ret = ca_ctk_play_for_event(d->event, 0,
                                                                     CA_PROP_EVENT_ID, "button-toggle-on",
                                                                     CA_PROP_EVENT_DESCRIPTION, "Toggle button checked",
                                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                                     NULL);
                                 else
-                                        ret = ca_gtk_play_for_event(d->event, 0,
+                                        ret = ca_ctk_play_for_event(d->event, 0,
                                                                     CA_PROP_EVENT_ID, "button-toggle-off",
                                                                     CA_PROP_EVENT_DESCRIPTION, "Toggle button unchecked",
                                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -698,7 +698,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         } else if (GTK_IS_LINK_BUTTON(d->object)) {
 
                 if (d->signal_id == signal_id_button_pressed) {
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "link-pressed",
                                                     CA_PROP_EVENT_DESCRIPTION, "Link pressed",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -706,7 +706,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 } else if (d->signal_id == signal_id_button_released) {
 
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "link-released",
                                                     CA_PROP_EVENT_DESCRIPTION, "Link released",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -716,7 +716,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         } else if (GTK_IS_BUTTON(d->object) && !GTK_IS_TOGGLE_BUTTON(d->object)) {
 
                 if (d->signal_id == signal_id_button_pressed) {
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-pressed",
                                                     CA_PROP_EVENT_DESCRIPTION, "Button pressed",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -732,12 +732,12 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 /* Don't play the click sound if this is a response widget
                                  * we will generate a dialog-xxx event sound anyway. */
 
-                                response = gtk_dialog_get_response_for_widget(dialog, GTK_WIDGET(d->object));
+                                response = ctk_dialog_get_response_for_widget(dialog, GTK_WIDGET(d->object));
                                 dont_play = !!translate_response(response);
                         }
 
                         if (!dont_play)
-                                ret = ca_gtk_play_for_event(d->event, 0,
+                                ret = ca_ctk_play_for_event(d->event, 0,
                                                             CA_PROP_EVENT_ID, "button-released",
                                                             CA_PROP_EVENT_DESCRIPTION, "Button released",
                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -746,7 +746,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         }
 
         if (GTK_IS_NOTEBOOK(d->object) && d->signal_id == signal_id_notebook_switch_page) {
-                ret = ca_gtk_play_for_event(d->event, 0,
+                ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "notebook-tab-changed",
                                             CA_PROP_EVENT_DESCRIPTION, "Tab changed",
                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -755,7 +755,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         }
 
         if (GTK_IS_TREE_VIEW(d->object) && d->signal_id == signal_id_tree_view_cursor_changed) {
-                ret = ca_gtk_play_for_event(d->event, 0,
+                ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "item-selected",
                                             CA_PROP_EVENT_DESCRIPTION, "Item selected",
                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -764,7 +764,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         }
 
         if (GTK_IS_ICON_VIEW(d->object) && d->signal_id == signal_id_icon_view_selection_changed) {
-                ret = ca_gtk_play_for_event(d->event, 0,
+                ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "item-selected",
                                             CA_PROP_EVENT_DESCRIPTION, "Item selected",
                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -774,14 +774,14 @@ static void dispatch_sound_event(SoundEventData *d) {
 
         if (GTK_IS_EXPANDER(d->object) && d->signal_id == signal_id_expander_activate) {
 
-                if (gtk_expander_get_expanded(GTK_EXPANDER(d->object)))
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                if (ctk_expander_get_expanded(GTK_EXPANDER(d->object)))
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "expander-toggle-on",
                                                     CA_PROP_EVENT_DESCRIPTION, "Expander expanded",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                 else
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "expander-toggle-off",
                                                     CA_PROP_EVENT_DESCRIPTION, "Expander unexpanded",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -794,7 +794,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 if (d->signal_id == signal_id_widget_drag_begin) {
 
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-start",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag started",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -803,7 +803,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 } else if (d->signal_id == signal_id_widget_drag_drop) {
 
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-accept",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag accepted",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -812,7 +812,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 } else if (d->signal_id == signal_id_widget_drag_failed) {
 
-                        ret = ca_gtk_play_for_event(d->event, 0,
+                        ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-fail",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag failed",
                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
@@ -866,13 +866,13 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
         /* g_message("signal '%s' on object of type '%s' with name '%s'", */
         /*           g_signal_name(hint->signal_id), */
         /*           G_OBJECT_TYPE_NAME(object), */
-        /*           gtk_widget_get_name(GTK_WIDGET(object))); */
+        /*           ctk_widget_get_name(GTK_WIDGET(object))); */
 
         /* if (GTK_IS_WINDOW(object)) */
         /*     g_message("window role='%s' title='%s' type='%u'", */
-        /*               gtk_window_get_role(GTK_WINDOW(object)), */
-        /*               gtk_window_get_title(GTK_WINDOW(object)), */
-        /*               gtk_window_get_type_hint(GTK_WINDOW(object))); */
+        /*               ctk_window_get_role(GTK_WINDOW(object)), */
+        /*               ctk_window_get_title(GTK_WINDOW(object)), */
+        /*               ctk_window_get_type_hint(GTK_WINDOW(object))); */
 
         /* Filter a few very often occuring signals as quickly as possible */
         if ((hint->signal_id == signal_id_widget_hide ||
@@ -883,7 +883,7 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
 
         if (hint->signal_id != signal_id_widget_hide &&
             hint->signal_id != signal_id_dialog_response &&
-            !gtk_widget_is_drawable(GTK_WIDGET (object)))
+            !ctk_widget_is_drawable(GTK_WIDGET (object)))
                 return TRUE;
 
         d = g_slice_new0(SoundEventData);
@@ -894,7 +894,7 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
 
         if (d->signal_id == signal_id_widget_window_state_event) {
                 d->event = gdk_event_copy(g_value_peek_pointer(&param_values[1]));
-        } else if ((e = gtk_get_current_event()))
+        } else if ((e = ctk_get_current_event()))
                 d->event = gdk_event_copy(e);
 
         if (n_param_values > 1) {
@@ -928,7 +928,7 @@ static void read_enable_input_feedback_sounds(GtkSettings *s) {
         if (g_getenv("CANBERRA_FORCE_INPUT_FEEDBACK_SOUNDS"))
                 disabled = FALSE;
         else {
-                g_object_get(G_OBJECT(s), "gtk-enable-input-feedback-sounds", &enabled, NULL);
+                g_object_get(G_OBJECT(s), "ctk-enable-input-feedback-sounds", &enabled, NULL);
                 disabled = !enabled;
         }
 }
@@ -944,14 +944,14 @@ static void connect_settings(void) {
         if (connected)
                 return;
 
-        if (!(s = gtk_settings_get_default()))
+        if (!(s = ctk_settings_get_default()))
                 return;
 
-        if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "gtk-enable-input-feedback-sounds")) {
-                g_signal_connect(G_OBJECT(s), "notify::gtk-enable-input-feedback-sounds", G_CALLBACK(enable_input_feedback_sounds_changed), NULL);
+        if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "ctk-enable-input-feedback-sounds")) {
+                g_signal_connect(G_OBJECT(s), "notify::ctk-enable-input-feedback-sounds", G_CALLBACK(enable_input_feedback_sounds_changed), NULL);
                 read_enable_input_feedback_sounds(s);
         } else
-                g_debug("This Gtk+ version doesn't have the GtkSettings::gtk-enable-input-feedback-sounds property.");
+                g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-enable-input-feedback-sounds property.");
 
         connected = TRUE;
 }
@@ -965,14 +965,14 @@ static gboolean quit_handler(gpointer data) {
 }
 #endif
 
-G_MODULE_EXPORT void gtk_module_init(gint *argc, gchar ***argv[]) {
+G_MODULE_EXPORT void ctk_module_init(gint *argc, gchar ***argv[]) {
 
         /* This is the same quark libgnomeui uses! */
         disable_sound_quark = g_quark_from_string("gnome_disable_sound_events");
         was_iconized_quark = g_quark_from_string("canberra_was_iconized");
         is_xembed_quark = g_quark_from_string("canberra_is_xembed");
 
-        /* Hook up the gtk setting */
+        /* Hook up the ctk setting */
         connect_settings();
 
         install_hook(GTK_TYPE_WINDOW, "show", &signal_id_widget_show);
@@ -993,7 +993,7 @@ G_MODULE_EXPORT void gtk_module_init(gint *argc, gchar ***argv[]) {
         install_hook(GTK_TYPE_EXPANDER, "activate", &signal_id_expander_activate);
 
 #if !GTK_CHECK_VERSION(3,0,0)
-        gtk_quit_add(1, quit_handler, NULL);
+        ctk_quit_add(1, quit_handler, NULL);
 #endif
 }
 

@@ -68,14 +68,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@HAVE_GTK_ANY_TRUE@@HAVE_GTK_TRUE@am__append_1 = libcanberra-gtk.pc
-@HAVE_GTK3_TRUE@@HAVE_GTK_ANY_TRUE@am__append_2 = libcanberra-gtk3.pc
-@HAVE_GTK_ANY_TRUE@am__append_3 = vala/libcanberra-gtk.vapi
+@HAVE_GTK_ANY_TRUE@@HAVE_GTK_TRUE@am__append_1 = libcanberra-ctk.pc
+@HAVE_GTK3_TRUE@@HAVE_GTK_ANY_TRUE@am__append_2 = libcanberra-ctk3.pc
+@HAVE_GTK_ANY_TRUE@am__append_3 = vala/libcanberra-ctk.vapi
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(dist_doc_DATA) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config.h.in $(srcdir)/libcanberra-gtk.pc.in \
-	$(srcdir)/libcanberra-gtk3.pc.in $(srcdir)/libcanberra.pc.in \
+	$(srcdir)/config.h.in $(srcdir)/libcanberra-ctk.pc.in \
+	$(srcdir)/libcanberra-ctk3.pc.in $(srcdir)/libcanberra.pc.in \
 	$(top_srcdir)/build-aux/ar-lib $(top_srcdir)/build-aux/compile \
 	$(top_srcdir)/build-aux/config.guess \
 	$(top_srcdir)/build-aux/config.sub \
@@ -87,7 +87,7 @@ DIST_COMMON = README $(am__configure_deps) $(dist_doc_DATA) \
 	build-aux/ltmain.sh build-aux/missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
-	$(top_srcdir)/m4/gtk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ctk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
@@ -97,8 +97,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = libcanberra.pc libcanberra-gtk.pc \
-	libcanberra-gtk3.pc
+CONFIG_CLEAN_FILES = libcanberra.pc libcanberra-ctk.pc \
+	libcanberra-ctk3.pc
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -390,9 +390,9 @@ EXTRA_DIST = \
 	autogen.sh \
 	LGPL \
 	vala/libcanberra.vapi \
-	vala/libcanberra-gtk.vapi
+	vala/libcanberra-ctk.vapi
 
-SUBDIRS = src gtkdoc doc
+SUBDIRS = src ctkdoc doc
 MAINTAINERCLEANFILES = README
 noinst_DATA = README
 pkgconfigdir = $(libdir)/pkgconfig
@@ -400,7 +400,7 @@ pkgconfig_DATA = libcanberra.pc $(am__append_1) $(am__append_2)
 vapidir = $(datadir)/vala/vapi
 vapi_DATA = vala/libcanberra.vapi $(am__append_3)
 DISTCHECK_CONFIGURE_FLAGS = \
-	--enable-gtk-doc \
+	--enable-ctk-doc \
 	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
 
 ACLOCAL_AMFLAGS = -I m4
@@ -459,9 +459,9 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 libcanberra.pc: $(top_builddir)/config.status $(srcdir)/libcanberra.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-libcanberra-gtk.pc: $(top_builddir)/config.status $(srcdir)/libcanberra-gtk.pc.in
+libcanberra-ctk.pc: $(top_builddir)/config.status $(srcdir)/libcanberra-ctk.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-libcanberra-gtk3.pc: $(top_builddir)/config.status $(srcdir)/libcanberra-gtk3.pc.in
+libcanberra-ctk3.pc: $(top_builddir)/config.status $(srcdir)/libcanberra-ctk3.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:
@@ -995,10 +995,10 @@ README:
 
 homepage: dist
 	test -d $$HOME/homepage/private
-	mkdir -p $$HOME/homepage/private/projects/libcanberra $$HOME/homepage/private/projects/libcanberra/gtkdoc
+	mkdir -p $$HOME/homepage/private/projects/libcanberra $$HOME/homepage/private/projects/libcanberra/ctkdoc
 	cp libcanberra-@PACKAGE_VERSION@.tar.xz $$HOME/homepage/private/projects/libcanberra
 	cp doc/README.html doc/style.css $$HOME/homepage/private/projects/libcanberra
-	cp -a gtkdoc/html/* $$HOME/homepage/private/projects/libcanberra/gtkdoc
+	cp -a ctkdoc/html/* $$HOME/homepage/private/projects/libcanberra/ctkdoc
 	ln -sf README.html $$HOME/homepage/private/projects/libcanberra/index.html
 
 .PHONY: homepage
