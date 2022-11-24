@@ -636,16 +636,16 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-CTK_DOC_USE_REBASE_FALSE
-CTK_DOC_USE_REBASE_TRUE
-CTK_DOC_USE_LIBTOOL_FALSE
-CTK_DOC_USE_LIBTOOL_TRUE
-CTK_DOC_BUILD_PDF_FALSE
-CTK_DOC_BUILD_PDF_TRUE
-CTK_DOC_BUILD_HTML_FALSE
-CTK_DOC_BUILD_HTML_TRUE
-ENABLE_CTK_DOC_FALSE
-ENABLE_CTK_DOC_TRUE
+GTK_DOC_USE_REBASE_FALSE
+GTK_DOC_USE_REBASE_TRUE
+GTK_DOC_USE_LIBTOOL_FALSE
+GTK_DOC_USE_LIBTOOL_TRUE
+GTK_DOC_BUILD_PDF_FALSE
+GTK_DOC_BUILD_PDF_TRUE
+GTK_DOC_BUILD_HTML_FALSE
+GTK_DOC_BUILD_HTML_TRUE
+ENABLE_GTK_DOC_FALSE
+ENABLE_GTK_DOC_TRUE
 GTKDOC_DEPS_LIBS
 GTKDOC_DEPS_CFLAGS
 HTML_DIR
@@ -20432,43 +20432,43 @@ fi
 
 
    if test x$enable_ctk_doc = xyes; then
-  ENABLE_CTK_DOC_TRUE=
-  ENABLE_CTK_DOC_FALSE='#'
+  ENABLE_GTK_DOC_TRUE=
+  ENABLE_GTK_DOC_FALSE='#'
 else
-  ENABLE_CTK_DOC_TRUE='#'
-  ENABLE_CTK_DOC_FALSE=
+  ENABLE_GTK_DOC_TRUE='#'
+  ENABLE_GTK_DOC_FALSE=
 fi
 
    if test x$enable_ctk_doc_html = xyes; then
-  CTK_DOC_BUILD_HTML_TRUE=
-  CTK_DOC_BUILD_HTML_FALSE='#'
+  GTK_DOC_BUILD_HTML_TRUE=
+  GTK_DOC_BUILD_HTML_FALSE='#'
 else
-  CTK_DOC_BUILD_HTML_TRUE='#'
-  CTK_DOC_BUILD_HTML_FALSE=
+  GTK_DOC_BUILD_HTML_TRUE='#'
+  GTK_DOC_BUILD_HTML_FALSE=
 fi
 
    if test x$enable_ctk_doc_pdf = xyes; then
-  CTK_DOC_BUILD_PDF_TRUE=
-  CTK_DOC_BUILD_PDF_FALSE='#'
+  GTK_DOC_BUILD_PDF_TRUE=
+  GTK_DOC_BUILD_PDF_FALSE='#'
 else
-  CTK_DOC_BUILD_PDF_TRUE='#'
-  CTK_DOC_BUILD_PDF_FALSE=
+  GTK_DOC_BUILD_PDF_TRUE='#'
+  GTK_DOC_BUILD_PDF_FALSE=
 fi
 
    if test -n "$LIBTOOL"; then
-  CTK_DOC_USE_LIBTOOL_TRUE=
-  CTK_DOC_USE_LIBTOOL_FALSE='#'
+  GTK_DOC_USE_LIBTOOL_TRUE=
+  GTK_DOC_USE_LIBTOOL_FALSE='#'
 else
-  CTK_DOC_USE_LIBTOOL_TRUE='#'
-  CTK_DOC_USE_LIBTOOL_FALSE=
+  GTK_DOC_USE_LIBTOOL_TRUE='#'
+  GTK_DOC_USE_LIBTOOL_FALSE=
 fi
 
    if test -n "$GTKDOC_REBASE"; then
-  CTK_DOC_USE_REBASE_TRUE=
-  CTK_DOC_USE_REBASE_FALSE='#'
+  GTK_DOC_USE_REBASE_TRUE=
+  GTK_DOC_USE_REBASE_FALSE='#'
 else
-  CTK_DOC_USE_REBASE_TRUE='#'
-  CTK_DOC_USE_REBASE_FALSE=
+  GTK_DOC_USE_REBASE_TRUE='#'
+  GTK_DOC_USE_REBASE_FALSE=
 fi
 
 
@@ -20709,24 +20709,24 @@ if test -z "${BUILTIN_NULL_TRUE}" && test -z "${BUILTIN_NULL_FALSE}"; then
   as_fn_error $? "conditional \"BUILTIN_NULL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${ENABLE_CTK_DOC_TRUE}" && test -z "${ENABLE_CTK_DOC_FALSE}"; then
-  as_fn_error $? "conditional \"ENABLE_CTK_DOC\" was never defined.
+if test -z "${ENABLE_GTK_DOC_TRUE}" && test -z "${ENABLE_GTK_DOC_FALSE}"; then
+  as_fn_error $? "conditional \"ENABLE_GTK_DOC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${CTK_DOC_BUILD_HTML_TRUE}" && test -z "${CTK_DOC_BUILD_HTML_FALSE}"; then
-  as_fn_error $? "conditional \"CTK_DOC_BUILD_HTML\" was never defined.
+if test -z "${GTK_DOC_BUILD_HTML_TRUE}" && test -z "${GTK_DOC_BUILD_HTML_FALSE}"; then
+  as_fn_error $? "conditional \"GTK_DOC_BUILD_HTML\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${CTK_DOC_BUILD_PDF_TRUE}" && test -z "${CTK_DOC_BUILD_PDF_FALSE}"; then
-  as_fn_error $? "conditional \"CTK_DOC_BUILD_PDF\" was never defined.
+if test -z "${GTK_DOC_BUILD_PDF_TRUE}" && test -z "${GTK_DOC_BUILD_PDF_FALSE}"; then
+  as_fn_error $? "conditional \"GTK_DOC_BUILD_PDF\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${CTK_DOC_USE_LIBTOOL_TRUE}" && test -z "${CTK_DOC_USE_LIBTOOL_FALSE}"; then
-  as_fn_error $? "conditional \"CTK_DOC_USE_LIBTOOL\" was never defined.
+if test -z "${GTK_DOC_USE_LIBTOOL_TRUE}" && test -z "${GTK_DOC_USE_LIBTOOL_FALSE}"; then
+  as_fn_error $? "conditional \"GTK_DOC_USE_LIBTOOL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${CTK_DOC_USE_REBASE_TRUE}" && test -z "${CTK_DOC_USE_REBASE_FALSE}"; then
-  as_fn_error $? "conditional \"CTK_DOC_USE_REBASE\" was never defined.
+if test -z "${GTK_DOC_USE_REBASE_TRUE}" && test -z "${GTK_DOC_USE_REBASE_FALSE}"; then
+  as_fn_error $? "conditional \"GTK_DOC_USE_REBASE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

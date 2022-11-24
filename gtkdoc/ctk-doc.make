@@ -4,7 +4,7 @@
 # Everything below here is generic #
 ####################################
 
-if CTK_DOC_USE_LIBTOOL
+if GTK_DOC_USE_LIBTOOL
 GTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 GTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
 GTKDOC_RUN = $(LIBTOOL) --mode=execute
@@ -51,13 +51,13 @@ REPORT_FILES = \
 
 CLEANFILES = $(SCANOBJ_FILES) $(REPORT_FILES) $(DOC_STAMPS)
 
-if ENABLE_CTK_DOC
-if CTK_DOC_BUILD_HTML
+if ENABLE_GTK_DOC
+if GTK_DOC_BUILD_HTML
 HTML_BUILD_STAMP=html-build.stamp
 else
 HTML_BUILD_STAMP=
 endif
-if CTK_DOC_BUILD_PDF
+if GTK_DOC_BUILD_PDF
 PDF_BUILD_STAMP=pdf-build.stamp
 else
 PDF_BUILD_STAMP=
@@ -258,7 +258,7 @@ uninstall-local:
 #
 # Require gtk-doc when making dist
 #
-if ENABLE_CTK_DOC
+if ENABLE_GTK_DOC
 dist-check-gtkdoc:
 else
 dist-check-gtkdoc:

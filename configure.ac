@@ -702,7 +702,7 @@ AM_CONDITIONAL([BUILTIN_NULL], [test "x$BUILTIN_NULL" = x1])
 AC_SUBST([CA_MAJOR],[ca_major])
 AC_SUBST([CA_MINOR],[ca_minor])
 
-CTK_DOC_CHECK(1.9)
+GTK_DOC_CHECK(1.9)
 
 ###################################
 #            Output               #
