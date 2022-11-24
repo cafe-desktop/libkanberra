@@ -38,19 +38,19 @@
 
 /**
  * SECTION:canberra-ctk
- * @short_description: Gtk+ libcanberra Bindings
+ * @short_description: Ctk+ libcanberra Bindings
  *
  * libcanberra-ctk provides a few functions that simplify libcanberra
- * usage from Gtk+ programs. It maintains a single ca_context object
+ * usage from Ctk+ programs. It maintains a single ca_context object
  * per #GdkScreen that is made accessible via
  * ca_ctk_context_get_for_screen(), with a shortcut ca_ctk_context_get()
  * to get the context for the default screen. More importantly, it provides
  * a few functions
- * to compile event sound property lists based on GtkWidget objects or
+ * to compile event sound property lists based on CtkWidget objects or
  * GdkEvent events.
  */
 
-static void read_sound_theme_name(ca_context *c, GtkSettings *s) {
+static void read_sound_theme_name(ca_context *c, CtkSettings *s) {
         gchar *theme_name = NULL;
 
         g_object_get(G_OBJECT(s), "ctk-sound-theme-name", &theme_name, NULL);
@@ -61,7 +61,7 @@ static void read_sound_theme_name(ca_context *c, GtkSettings *s) {
         }
 }
 
-static void read_enable_event_sounds(ca_context *c, GtkSettings *s) {
+static void read_enable_event_sounds(ca_context *c, CtkSettings *s) {
         gboolean enable_event_sounds = TRUE;
 
         if (!g_getenv("CANBERRA_FORCE_EVENT_SOUNDS"))
@@ -70,11 +70,11 @@ static void read_enable_event_sounds(ca_context *c, GtkSettings *s) {
         ca_context_change_props(c, CA_PROP_CANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
 }
 
-static void sound_theme_name_changed(GtkSettings *s, GParamSpec *arg1, ca_context *c) {
+static void sound_theme_name_changed(CtkSettings *s, GParamSpec *arg1, ca_context *c) {
         read_sound_theme_name(c, s);
 }
 
-static void enable_event_sounds_changed(GtkSettings *s, GParamSpec *arg1, ca_context *c) {
+static void enable_event_sounds_changed(CtkSettings *s, GParamSpec *arg1, ca_context *c) {
         read_enable_event_sounds(c, s);
 }
 
@@ -112,7 +112,7 @@ ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
         ca_context *c = NULL;
         ca_proplist *p = NULL;
         const char *name;
-        GtkSettings *s;
+        CtkSettings *s;
 
         if (!screen)
                 screen = gdk_screen_get_default();
@@ -153,13 +153,13 @@ ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
                         g_signal_connect(G_OBJECT(s), "notify::ctk-sound-theme-name", G_CALLBACK(sound_theme_name_changed), c);
                         read_sound_theme_name(c, s);
                 } else
-                        g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-sound-theme-name property.");
+                        g_debug("This Ctk+ version doesn't have the CtkSettings::ctk-sound-theme-name property.");
 
                 if (g_object_class_find_property(G_OBJECT_GET_CLASS(s), "ctk-enable-event-sounds")) {
                         g_signal_connect(G_OBJECT(s), "notify::ctk-enable-event-sounds", G_CALLBACK(enable_event_sounds_changed), c);
                         read_enable_event_sounds(c, s);
                 } else
-                        g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-enable-event-sounds property.");
+                        g_debug("This Ctk+ version doesn't have the CtkSettings::ctk-enable-event-sounds property.");
         }
 
         g_object_set_data_full(G_OBJECT(screen), "canberra::ctk::context", c, (GDestroyNotify) ca_context_destroy);
@@ -167,7 +167,7 @@ ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
         return c;
 }
 
-static GtkWindow* get_toplevel(GtkWidget *w) {
+static CtkWindow* get_toplevel(CtkWidget *w) {
         if (!(w = ctk_widget_get_toplevel(w)))
                 return NULL;
 
@@ -213,17 +213,17 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
 /**
  * ca_ctk_proplist_set_for_widget:
  * @p: The proplist to store these sound event properties in
- * @w: The Gtk widget to base these sound event properties on
+ * @w: The Ctk widget to base these sound event properties on
  *
  * Fill in a ca_proplist object for a sound event that shall originate
- * from the specified Gtk Widget. This will fill in properties like
+ * from the specified Ctk Widget. This will fill in properties like
  * %CA_PROP_WINDOW_NAME or %CA_PROP_WINDOW_X11_DISPLAY for you.
  *
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
-        GtkWindow *w;
+int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
+        CtkWindow *w;
         int ret;
         const char *t, *role;
 
@@ -360,7 +360,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
 int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
         gdouble x, y;
         GdkWindow *gw;
-        GtkWidget *w = NULL;
+        CtkWidget *w = NULL;
         int ret;
 
         ca_return_val_if_fail(p, CA_ERROR_INVALID);
@@ -417,7 +417,7 @@ int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
 
 /**
  * ca_ctk_play_for_widget:
- * @w: The Gtk widget to base these sound event properties on
+ * @w: The Ctk widget to base these sound event properties on
  * @id: The event id that can later be used to cancel this event sound
  * using ca_context_cancel(). This can be any integer and shall be
  * chosen be the client program. It is a good idea to pass 0 here if
@@ -435,7 +435,7 @@ int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_ctk_play_for_widget(GtkWidget *w, uint32_t id, ...) {
+int ca_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) {
         va_list ap;
         int ret;
         ca_proplist *p;
@@ -529,7 +529,7 @@ fail:
 
 /**
  * ca_ctk_widget_disable_sounds:
- * @w: The Gtk widget to disable automatic event sounds for.
+ * @w: The Ctk widget to disable automatic event sounds for.
  * @enable: Boolean specifying whether sound events shall be enabled or disabled for this widget.
  *
  * By default sound events are automatically generated for all kinds
@@ -538,7 +538,7 @@ fail:
  * events.
  */
 
-void ca_ctk_widget_disable_sounds(GtkWidget *w, gboolean enable) {
+void ca_ctk_widget_disable_sounds(CtkWidget *w, gboolean enable) {
         static GQuark disable_sound_quark = 0;
 
         /* This is the same quark used by libgnomeui! */

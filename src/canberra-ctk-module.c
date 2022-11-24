@@ -114,7 +114,7 @@ static GQuark
  * exported function */
 void ctk_module_init(gint *argc, gchar ***argv[]);
 
-static const char *translate_message_tye(GtkMessageType mt) {
+static const char *translate_message_tye(CtkMessageType mt) {
         static const char *const message_type_table[] = {
                 [CTK_MESSAGE_INFO] = "dialog-information",
                 [CTK_MESSAGE_WARNING] = "dialog-warning",
@@ -153,7 +153,7 @@ static const char *translate_response(int response) {
         return response_table[-response];
 }
 
-static gboolean is_child_of_combo_box(GtkWidget *w) {
+static gboolean is_child_of_combo_box(CtkWidget *w) {
 
         while (w) {
 
@@ -166,7 +166,7 @@ static gboolean is_child_of_combo_box(GtkWidget *w) {
         return FALSE;
 }
 
-static GtkDialog* find_parent_dialog(GtkWidget *w) {
+static CtkDialog* find_parent_dialog(CtkWidget *w) {
 
         while (w) {
 
@@ -482,7 +482,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         g_object_set_qdata(d->object, is_xembed_quark, GINT_TO_POINTER(is_xembed));
 
                         if (CTK_IS_MESSAGE_DIALOG(d->object)) {
-                                GtkMessageType mt;
+                                CtkMessageType mt;
                                 const char *id;
 
                                 g_object_get(d->object, "message_type", &mt, NULL);
@@ -723,7 +723,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                                     NULL);
 
                 } else if (d->signal_id == signal_id_button_released) {
-                        GtkDialog *dialog;
+                        CtkDialog *dialog;
                         gboolean dont_play = FALSE;
 
                         if ((dialog = find_parent_dialog(CTK_WIDGET(d->object)))) {
@@ -922,7 +922,7 @@ static void install_hook(GType type, const char *sig, guint *sn) {
         g_type_class_unref(type_class);
 }
 
-static void read_enable_input_feedback_sounds(GtkSettings *s) {
+static void read_enable_input_feedback_sounds(CtkSettings *s) {
         gboolean enabled = !disabled;
 
         if (g_getenv("CANBERRA_FORCE_INPUT_FEEDBACK_SOUNDS"))
@@ -933,12 +933,12 @@ static void read_enable_input_feedback_sounds(GtkSettings *s) {
         }
 }
 
-static void enable_input_feedback_sounds_changed(GtkSettings *s, GParamSpec *arg1, gpointer userdata) {
+static void enable_input_feedback_sounds_changed(CtkSettings *s, GParamSpec *arg1, gpointer userdata) {
         read_enable_input_feedback_sounds(s);
 }
 
 static void connect_settings(void) {
-        GtkSettings *s;
+        CtkSettings *s;
         static gboolean connected = FALSE;
 
         if (connected)
@@ -951,13 +951,13 @@ static void connect_settings(void) {
                 g_signal_connect(G_OBJECT(s), "notify::ctk-enable-input-feedback-sounds", G_CALLBACK(enable_input_feedback_sounds_changed), NULL);
                 read_enable_input_feedback_sounds(s);
         } else
-                g_debug("This Gtk+ version doesn't have the GtkSettings::ctk-enable-input-feedback-sounds property.");
+                g_debug("This Ctk+ version doesn't have the CtkSettings::ctk-enable-input-feedback-sounds property.");
 
         connected = TRUE;
 }
 
 #if CTK_CHECK_VERSION(3,0,0)
-#warning "We really need a quit handler in Gtk 3.0, https://bugzilla.gnome.org/show_bug.cgi?id=639770"
+#warning "We really need a quit handler in Ctk 3.0, https://bugzilla.gnome.org/show_bug.cgi?id=639770"
 #else
 static gboolean quit_handler(gpointer data) {
         dispatch_queue();

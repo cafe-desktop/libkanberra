@@ -4,7 +4,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: libcanberra-ctk
-Description: Gtk Event Sound API
+Description: Ctk Event Sound API
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lcanberra-ctk -lX11 @PTHREAD_LIBS@
 Cflags: -D_REENTRANT -I${includedir}
