@@ -894,9 +894,9 @@ with_systemdsystemunitdir
 enable_lynx
 with_builtin
 with_html_dir
-enable_ctk_doc
-enable_ctk_doc_html
-enable_ctk_doc_pdf
+enable_gtk_doc
+enable_gtk_doc_html
+enable_gtk_doc_pdf
 '
       ac_precious_vars='build_alias
 host_alias
@@ -20293,14 +20293,14 @@ fi
 
 
     # Check whether --enable-gtk-doc was given.
-if test "${enable_ctk_doc+set}" = set; then :
-  enableval=$enable_ctk_doc;
+if test "${enable_gtk_doc+set}" = set; then :
+  enableval=$enable_gtk_doc;
 else
-  enable_ctk_doc=no
+  enable_gtk_doc=no
 fi
 
 
-  if test x$enable_ctk_doc = xyes; then
+  if test x$enable_gtk_doc = xyes; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk-doc >= 1.9\""; } >&5
   ($PKG_CONFIG --exists --print-errors "gtk-doc >= 1.9") 2>&5
@@ -20408,30 +20408,30 @@ fi
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build gtk-doc documentation" >&5
 $as_echo_n "checking whether to build gtk-doc documentation... " >&6; }
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_ctk_doc" >&5
-$as_echo "$enable_ctk_doc" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_gtk_doc" >&5
+$as_echo "$enable_gtk_doc" >&6; }
 
     # Check whether --enable-gtk-doc-html was given.
-if test "${enable_ctk_doc_html+set}" = set; then :
-  enableval=$enable_ctk_doc_html;
+if test "${enable_gtk_doc_html+set}" = set; then :
+  enableval=$enable_gtk_doc_html;
 else
-  enable_ctk_doc_html=yes
+  enable_gtk_doc_html=yes
 fi
 
     # Check whether --enable-gtk-doc-pdf was given.
-if test "${enable_ctk_doc_pdf+set}" = set; then :
-  enableval=$enable_ctk_doc_pdf;
+if test "${enable_gtk_doc_pdf+set}" = set; then :
+  enableval=$enable_gtk_doc_pdf;
 else
-  enable_ctk_doc_pdf=no
+  enable_gtk_doc_pdf=no
 fi
 
 
   if test -z "$GTKDOC_MKPDF"; then
-    enable_ctk_doc_pdf=no
+    enable_gtk_doc_pdf=no
   fi
 
 
-   if test x$enable_ctk_doc = xyes; then
+   if test x$enable_gtk_doc = xyes; then
   ENABLE_GTK_DOC_TRUE=
   ENABLE_GTK_DOC_FALSE='#'
 else
@@ -20439,7 +20439,7 @@ else
   ENABLE_GTK_DOC_FALSE=
 fi
 
-   if test x$enable_ctk_doc_html = xyes; then
+   if test x$enable_gtk_doc_html = xyes; then
   GTK_DOC_BUILD_HTML_TRUE=
   GTK_DOC_BUILD_HTML_FALSE='#'
 else
@@ -20447,7 +20447,7 @@ else
   GTK_DOC_BUILD_HTML_FALSE=
 fi
 
-   if test x$enable_ctk_doc_pdf = xyes; then
+   if test x$enable_gtk_doc_pdf = xyes; then
   GTK_DOC_BUILD_PDF_TRUE=
   GTK_DOC_BUILD_PDF_FALSE='#'
 else
