@@ -8,4 +8,4 @@ Description: Ctk Event Sound API
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lcanberra-ctk -lX11 @PTHREAD_LIBS@
 Cflags: -D_REENTRANT -I${includedir}
-Requires: libcanberra gdk-2.0 ctk+-2.0
+Requires: libcanberra cdk-2.0 ctk+-2.0

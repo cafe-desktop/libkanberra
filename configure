@@ -19392,12 +19392,12 @@ if test -n "$CTK_CFLAGS"; then
     pkg_cv_CTK_CFLAGS="$CTK_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTK_CFLAGS=`$PKG_CONFIG --cflags " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
+  pkg_cv_CTK_CFLAGS=`$PKG_CONFIG --cflags " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19409,12 +19409,12 @@ if test -n "$CTK_LIBS"; then
     pkg_cv_CTK_LIBS="$CTK_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTK_LIBS=`$PKG_CONFIG --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
+  pkg_cv_CTK_LIBS=`$PKG_CONFIG --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19435,9 +19435,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        CTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
+	        CTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 " 2>&1`
         else
-	        CTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
+	        CTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 cdk-2.0 x11 " 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$CTK_PKG_ERRORS" >&5
@@ -19513,12 +19513,12 @@ if test -n "$CTK3_CFLAGS"; then
     pkg_cv_CTK3_CFLAGS="$CTK3_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTK3_CFLAGS=`$PKG_CONFIG --cflags " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
+  pkg_cv_CTK3_CFLAGS=`$PKG_CONFIG --cflags " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19530,12 +19530,12 @@ if test -n "$CTK3_LIBS"; then
     pkg_cv_CTK3_LIBS="$CTK3_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_CTK3_LIBS=`$PKG_CONFIG --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
+  pkg_cv_CTK3_LIBS=`$PKG_CONFIG --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19556,9 +19556,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        CTK3_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
+	        CTK3_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 " 2>&1`
         else
-	        CTK3_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
+	        CTK3_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 cdk-3.0 x11 " 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$CTK3_PKG_ERRORS" >&5
