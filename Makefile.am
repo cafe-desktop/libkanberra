@@ -20,9 +20,7 @@ dist_doc_DATA = README
 
 EXTRA_DIST = \
 	autogen.sh \
-	LGPL \
-	vala/libcanberra.vapi \
-	vala/libcanberra-ctk.vapi
+	LGPL
 
 SUBDIRS = src gtkdoc doc
 
@@ -31,9 +29,6 @@ noinst_DATA = README
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libcanberra.pc
-
-vapidir = $(datadir)/vala/vapi
-vapi_DATA = vala/libcanberra.vapi
 
 if HAVE_CTK_ANY
 
@@ -44,8 +39,6 @@ endif
 if HAVE_CTK3
 pkgconfig_DATA += libcanberra-ctk3.pc
 endif
-
-vapi_DATA += vala/libcanberra-ctk.vapi
 
 endif
 
