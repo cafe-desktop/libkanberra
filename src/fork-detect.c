@@ -34,7 +34,7 @@ int ca_detect_fork(void) {
         pid_t v, we;
 
         /* Some really stupid applications (Hey, vim, that means you!)
-         * love to fork after initializing gtk/libcanberra. This is really
+         * love to fork after initializing ctk/libcanberra. This is really
          * bad style. We however have to deal with this cleanly, so we try
          * to detect the forks making sure all our calls fail cleanly
          * after the fork. */

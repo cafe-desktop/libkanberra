@@ -1,4 +1,4 @@
-<ONLINE href="http://0pointer.de/lennart/projects/libcanberra/gtkdoc/index.html">
+<ONLINE href="http://0pointer.de/lennart/projects/libcanberra/ctkdoc/index.html">
 <ANCHOR id="libcanberra-canberra" href="libcanberra/libcanberra-canberra.html">
 <ANCHOR id="libcanberra-canberra.synopsis" href="libcanberra/libcanberra-canberra.html#libcanberra-canberra.synopsis">
 <ANCHOR id="libcanberra-canberra.description" href="libcanberra/libcanberra-canberra.html#libcanberra-canberra.description">
@@ -62,13 +62,13 @@
 <ANCHOR id="ca-proplist-sets" href="libcanberra/libcanberra-canberra.html#ca-proplist-sets">
 <ANCHOR id="ca-proplist-setf" href="libcanberra/libcanberra-canberra.html#ca-proplist-setf">
 <ANCHOR id="ca-proplist-set" href="libcanberra/libcanberra-canberra.html#ca-proplist-set">
-<ANCHOR id="libcanberra-canberra-gtk" href="libcanberra/libcanberra-canberra-gtk.html">
-<ANCHOR id="libcanberra-canberra-gtk.synopsis" href="libcanberra/libcanberra-canberra-gtk.html#libcanberra-canberra-gtk.synopsis">
-<ANCHOR id="libcanberra-canberra-gtk.description" href="libcanberra/libcanberra-canberra-gtk.html#libcanberra-canberra-gtk.description">
-<ANCHOR id="libcanberra-canberra-gtk.details" href="libcanberra/libcanberra-canberra-gtk.html#libcanberra-canberra-gtk.details">
-<ANCHOR id="ca-gtk-context-get" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-context-get">
-<ANCHOR id="ca-gtk-proplist-set-for-widget" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-proplist-set-for-widget">
-<ANCHOR id="ca-gtk-play-for-widget" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-play-for-widget">
-<ANCHOR id="ca-gtk-proplist-set-for-event" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-proplist-set-for-event">
-<ANCHOR id="ca-gtk-play-for-event" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-play-for-event">
-<ANCHOR id="ca-gtk-widget-disable-sounds" href="libcanberra/libcanberra-canberra-gtk.html#ca-gtk-widget-disable-sounds">
+<ANCHOR id="libcanberra-canberra-ctk" href="libcanberra/libcanberra-canberra-ctk.html">
+<ANCHOR id="libcanberra-canberra-ctk.synopsis" href="libcanberra/libcanberra-canberra-ctk.html#libcanberra-canberra-ctk.synopsis">
+<ANCHOR id="libcanberra-canberra-ctk.description" href="libcanberra/libcanberra-canberra-ctk.html#libcanberra-canberra-ctk.description">
+<ANCHOR id="libcanberra-canberra-ctk.details" href="libcanberra/libcanberra-canberra-ctk.html#libcanberra-canberra-ctk.details">
+<ANCHOR id="ca-ctk-context-get" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-context-get">
+<ANCHOR id="ca-ctk-proplist-set-for-widget" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-proplist-set-for-widget">
+<ANCHOR id="ca-ctk-play-for-widget" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-play-for-widget">
+<ANCHOR id="ca-ctk-proplist-set-for-event" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-proplist-set-for-event">
+<ANCHOR id="ca-ctk-play-for-event" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-play-for-event">
+<ANCHOR id="ca-ctk-widget-disable-sounds" href="libcanberra/libcanberra-canberra-ctk.html#ca-ctk-widget-disable-sounds">

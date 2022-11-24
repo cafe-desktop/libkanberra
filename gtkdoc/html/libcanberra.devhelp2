@@ -4,7 +4,7 @@
   <chapters>
     <sub name="libcanberra" link="ch01.html">
       <sub name="canberra" link="libcanberra-canberra.html"/>
-      <sub name="canberra-gtk" link="libcanberra-canberra-gtk.html"/>
+      <sub name="canberra-ctk" link="libcanberra-canberra-ctk.html"/>
     </sub>
   </chapters>
   <functions>
@@ -67,11 +67,11 @@
     <keyword type="function" name="ca_proplist_sets ()" link="libcanberra-canberra.html#ca-proplist-sets"/>
     <keyword type="function" name="ca_proplist_setf ()" link="libcanberra-canberra.html#ca-proplist-setf"/>
     <keyword type="function" name="ca_proplist_set ()" link="libcanberra-canberra.html#ca-proplist-set"/>
-    <keyword type="function" name="ca_gtk_context_get ()" link="libcanberra-canberra-gtk.html#ca-gtk-context-get"/>
-    <keyword type="function" name="ca_gtk_proplist_set_for_widget ()" link="libcanberra-canberra-gtk.html#ca-gtk-proplist-set-for-widget"/>
-    <keyword type="function" name="ca_gtk_play_for_widget ()" link="libcanberra-canberra-gtk.html#ca-gtk-play-for-widget"/>
-    <keyword type="function" name="ca_gtk_proplist_set_for_event ()" link="libcanberra-canberra-gtk.html#ca-gtk-proplist-set-for-event"/>
-    <keyword type="function" name="ca_gtk_play_for_event ()" link="libcanberra-canberra-gtk.html#ca-gtk-play-for-event"/>
-    <keyword type="function" name="ca_gtk_widget_disable_sounds ()" link="libcanberra-canberra-gtk.html#ca-gtk-widget-disable-sounds"/>
+    <keyword type="function" name="ca_ctk_context_get ()" link="libcanberra-canberra-ctk.html#ca-ctk-context-get"/>
+    <keyword type="function" name="ca_ctk_proplist_set_for_widget ()" link="libcanberra-canberra-ctk.html#ca-ctk-proplist-set-for-widget"/>
+    <keyword type="function" name="ca_ctk_play_for_widget ()" link="libcanberra-canberra-ctk.html#ca-ctk-play-for-widget"/>
+    <keyword type="function" name="ca_ctk_proplist_set_for_event ()" link="libcanberra-canberra-ctk.html#ca-ctk-proplist-set-for-event"/>
+    <keyword type="function" name="ca_ctk_play_for_event ()" link="libcanberra-canberra-ctk.html#ca-ctk-play-for-event"/>
+    <keyword type="function" name="ca_ctk_widget_disable_sounds ()" link="libcanberra-canberra-ctk.html#ca-ctk-widget-disable-sounds"/>
   </functions>
 </book>

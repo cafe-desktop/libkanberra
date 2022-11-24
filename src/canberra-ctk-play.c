@@ -27,8 +27,8 @@
 #include <string.h>
 #include <locale.h>
 
-#include <gtk/gtk.h>
-#include <canberra-gtk.h>
+#include <ctk/ctk.h>
+#include <canberra-ctk.h>
 
 static int ret = 0;
 static ca_proplist *proplist = NULL;
@@ -37,7 +37,7 @@ static int n_loops = 1;
 static void callback(ca_context *c, uint32_t id, int error, void *userdata);
 
 static gboolean idle_quit(gpointer userdata) {
-        gtk_main_quit();
+        ctk_main_quit();
         return FALSE;
 }
 
@@ -48,12 +48,12 @@ static gboolean idle_play(gpointer userdata) {
 
         n_loops--;
 
-        r = ca_context_play_full(ca_gtk_context_get(), 1, proplist, callback, NULL);
+        r = ca_context_play_full(ca_ctk_context_get(), 1, proplist, callback, NULL);
 
         if (r < 0) {
                 g_printerr("Failed to play sound: %s\n", ca_strerror(r));
                 ret = 1;
-                gtk_main_quit();
+                ctk_main_quit();
         }
 
         return FALSE;
@@ -75,7 +75,7 @@ static void callback(ca_context *c, uint32_t id, int error, void *userdata) {
                 return;
         }
 
-        /* So, why don't we call gtk_main_quit() here directly? -- Because
+        /* So, why don't we call ctk_main_quit() here directly? -- Because
          * otherwise we might end up with a small race condition: this
          * callback might get called before the main loop actually started
          * running */
@@ -137,9 +137,9 @@ int main (int argc, char *argv[]) {
 
         ca_proplist_create(&proplist);
 
-        oc = g_option_context_new("- canberra-gtk-play");
+        oc = g_option_context_new("- canberra-ctk-play");
         g_option_context_add_main_entries(oc, options, NULL);
-        g_option_context_add_group(oc, gtk_get_option_group(TRUE));
+        g_option_context_add_group(oc, ctk_get_option_group(TRUE));
         g_option_context_set_help_enabled(oc, TRUE);
 
         if (!(g_option_context_parse(oc, &argc, &argv, &error))) {
@@ -149,7 +149,7 @@ int main (int argc, char *argv[]) {
         g_option_context_free(oc);
 
         if (version) {
-                g_print("canberra-gtk-play from %s\n", PACKAGE_STRING);
+                g_print("canberra-ctk-play from %s\n", PACKAGE_STRING);
                 return 0;
         }
 
@@ -158,10 +158,10 @@ int main (int argc, char *argv[]) {
                 return 1;
         }
 
-        ca_context_change_props(ca_gtk_context_get(),
-                                CA_PROP_APPLICATION_NAME, "canberra-gtk-play",
+        ca_context_change_props(ca_ctk_context_get(),
+                                CA_PROP_APPLICATION_NAME, "canberra-ctk-play",
                                 CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION,
-                                CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.gtk-play",
+                                CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.ctk-play",
                                 NULL);
 
         if (event_id)
@@ -179,7 +179,7 @@ int main (int argc, char *argv[]) {
         if (volume)
                 ca_proplist_sets(proplist, CA_PROP_CANBERRA_VOLUME, volume);
 
-        r = ca_context_play_full(ca_gtk_context_get(), 1, proplist, callback, NULL);
+        r = ca_context_play_full(ca_ctk_context_get(), 1, proplist, callback, NULL);
 
         if (r < 0) {
                 g_printerr("Failed to play sound: %s\n", ca_strerror(r));
@@ -187,7 +187,7 @@ int main (int argc, char *argv[]) {
                 goto finish;
         }
 
-        gtk_main();
+        ctk_main();
 
 finish:
 

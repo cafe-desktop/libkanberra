@@ -22,7 +22,7 @@ using Canberra;
 using Gdk;
 using Gtk;
 
-[CCode (cprefix = "CA_GTK_", lower_case_cprefix = "ca_gtk_", cheader_filename = "canberra-gtk.h")]
+[CCode (cprefix = "CA_GTK_", lower_case_cprefix = "ca_ctk_", cheader_filename = "canberra-ctk.h")]
 namespace CanberraGtk {
 
         public unowned Context? context_get();

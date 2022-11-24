@@ -424,30 +424,30 @@ fi
 
 ### GTK (optional) ####
 
-AC_ARG_ENABLE([gtk],
-    AS_HELP_STRING([--disable-gtk], [Disable optional GTK+ support]),
+AC_ARG_ENABLE([ctk],
+    AS_HELP_STRING([--disable-ctk], [Disable optional GTK+ support]),
         [
             case "${enableval}" in
-                yes) gtk=yes ;;
-                no) gtk=no ;;
-                *) AC_MSG_ERROR(bad value ${enableval} for --disable-gtk) ;;
+                yes) ctk=yes ;;
+                no) ctk=no ;;
+                *) AC_MSG_ERROR(bad value ${enableval} for --disable-ctk) ;;
             esac
         ],
-        [gtk=auto])
+        [ctk=auto])
 
 AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [false])
-if test "x${gtk}" != xno ; then
-    PKG_CHECK_MODULES(GTK, [ gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ],
+if test "x${ctk}" != xno ; then
+    PKG_CHECK_MODULES(GTK, [ ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ],
         [
             HAVE_GTK=1
             AC_DEFINE([HAVE_GTK], 1, [Have GTK?])
 
-            GTK_VERSION=`$PKG_CONFIG --variable=gtk_binary_version gtk+-2.0`
-            GTK_MODULES_DIR="${libdir}/gtk-2.0/modules"
+            GTK_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-2.0`
+            GTK_MODULES_DIR="${libdir}/ctk-2.0/modules"
         ],
         [
             HAVE_GTK=0
-            if test "x$gtk" = xyes ; then
+            if test "x$ctk" = xyes ; then
                 AC_MSG_ERROR([*** GTK not found ***])
             fi
         ])
@@ -461,29 +461,29 @@ AC_SUBST(GTK_MODULES_DIR)
 AC_SUBST(HAVE_GTK)
 AM_CONDITIONAL([HAVE_GTK], [test "x$HAVE_GTK" = x1])
 
-AC_ARG_ENABLE([gtk3],
-    AS_HELP_STRING([--disable-gtk3], [Disable optional GTK+ 3 support]),
+AC_ARG_ENABLE([ctk3],
+    AS_HELP_STRING([--disable-ctk3], [Disable optional GTK+ 3 support]),
         [
             case "${enableval}" in
-                yes) gtk3=yes ;;
-                no) gtk3=no ;;
-                *) AC_MSG_ERROR(bad value ${enableval} for --disable-gtk3) ;;
+                yes) ctk3=yes ;;
+                no) ctk3=no ;;
+                *) AC_MSG_ERROR(bad value ${enableval} for --disable-ctk3) ;;
             esac
         ],
-        [gtk3=auto])
+        [ctk3=auto])
 
-if test "x${gtk3}" != xno ; then
-    PKG_CHECK_MODULES(GTK3, [ gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ],
+if test "x${ctk3}" != xno ; then
+    PKG_CHECK_MODULES(GTK3, [ ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ],
         [
             HAVE_GTK3=1
             AC_DEFINE([HAVE_GTK3], 1, [Have GTK3?])
 
-            GTK3_VERSION=`$PKG_CONFIG --variable=gtk_binary_version gtk+-3.0`
-            GTK3_MODULES_DIR="${libdir}/gtk-3.0/modules"
+            GTK3_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-3.0`
+            GTK3_MODULES_DIR="${libdir}/ctk-3.0/modules"
         ],
         [
             HAVE_GTK3=0
-            if test "x$gtk3" = xyes ; then
+            if test "x$ctk3" = xyes ; then
                 AC_MSG_ERROR([*** GTK3 not found ***])
             fi
         ])
@@ -712,10 +712,10 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 libcanberra.pc
-libcanberra-gtk.pc
-libcanberra-gtk3.pc
+libcanberra-ctk.pc
+libcanberra-ctk3.pc
 src/canberra.h
-gtkdoc/Makefile
+ctkdoc/Makefile
 doc/Makefile
 doc/README.html
 ])

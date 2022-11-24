@@ -104,7 +104,7 @@ News
 
    Tue 23 Jun 2009:
 
-   [27]Version 0.13 released; multichannel support; gtk multihead support;
+   [27]Version 0.13 released; multichannel support; ctk multihead support;
    bug fixes
 
    Mon 13 Apr 2009:
@@ -148,9 +148,9 @@ Overview
    OSS, [38]GStreamer, null) and is designed to be portable. It consists
    of the following parts:
     1. libcanberra: the main library
-    2. libcanberra-gtk: some glue code to make it easier to use
+    2. libcanberra-ctk: some glue code to make it easier to use
        libcanberra from Gtk+ applications
-    3. libcanberra-gtk-module: a Gtk+ module that uses libcanberra-gtk to
+    3. libcanberra-ctk-module: a Gtk+ module that uses libcanberra-ctk to
        trigger input feedback event sounds
 
    For more information see [39]the original announcement.
@@ -182,7 +182,7 @@ Current Status
 
 Documentation
 
-   You may browse the [41]gtkdoc generated [42]programing documentation of
+   You may browse the [41]ctkdoc generated [42]programing documentation of
    the API.
 
 Requirements
@@ -280,8 +280,8 @@ References
   38. http://gstreamer.org/
   39. http://0pointer.de/blog/projects/sixfold-announcement.html
   40. http://mail.gnome.org/archives/devel-announce-list/2008-August/msg00001.html
-  41. http://www.gtk.org/gtk-doc/
-  42. http://0pointer.de/lennart/projects/libcanberra/gtkdoc/
+  41. http://www.ctk.org/ctk-doc/
+  42. http://0pointer.de/lennart/projects/libcanberra/ctkdoc/
   43. http://0pointer.de/lennart/projects/libcanberra/
   44. http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
   45. http://git-scm.com/

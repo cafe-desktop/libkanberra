@@ -98,18 +98,18 @@ scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	for i in $(DOC_SOURCE_DIR) ; do \
 	    _source_dir="$${_source_dir} --source-dir=$$i" ; \
 	done ; \
-	gtkdoc-scan --module=$(DOC_MODULE) --ignore-headers="$(IGNORE_HFILES)" $${_source_dir} $(SCAN_OPTIONS) $(EXTRA_HFILES)
+	ctkdoc-scan --module=$(DOC_MODULE) --ignore-headers="$(IGNORE_HFILES)" $${_source_dir} $(SCAN_OPTIONS) $(EXTRA_HFILES)
 	@if grep -l '^..*$$' $(DOC_MODULE).types > /dev/null 2>&1 ; then \
 	    echo "  DOC   Introspecting gobjects"; \
 	    scanobj_options=""; \
-	    gtkdoc-scangobj 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	    ctkdoc-scangobj 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	    if test "$(?)" = "0"; then \
 	        if test "x$(V)" = "x1"; then \
 	            scanobj_options="--verbose"; \
 	        fi; \
 	    fi; \
 	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" RUN="$(GTKDOC_RUN)" CFLAGS="$(GTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(GTKDOC_LIBS) $(LDFLAGS)" \
-	    gtkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
+	    ctkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
 	else \
 	    for i in $(SCANOBJ_FILES) ; do \
 	        test -f $$i || touch $$i ; \
@@ -124,7 +124,7 @@ $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)
 
 tmpl-build.stamp: setup-build.stamp $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)-overrides.txt
 	@echo '  DOC   Rebuilding template files'
-	@gtkdoc-mktmpl --module=$(DOC_MODULE) $(MKTMPL_OPTIONS)
+	@ctkdoc-mktmpl --module=$(DOC_MODULE) $(MKTMPL_OPTIONS)
 	@if test "$(abs_srcdir)" != "$(abs_builddir)" ; then \
 	  if test -w $(abs_srcdir) ; then \
 	    cp -rp $(abs_builddir)/tmpl $(abs_srcdir)/; \
@@ -147,7 +147,7 @@ sgml-build.stamp: tmpl.stamp $(DOC_MODULE)-sections.txt $(srcdir)/tmpl/*.sgml $(
 	for i in $(DOC_SOURCE_DIR) ; do \
 	    _source_dir="$${_source_dir} --source-dir=$$i" ; \
 	done ; \
-	gtkdoc-mkdb --module=$(DOC_MODULE) --output-format=xml --expand-content-files="$(expand_content_files)" --main-sgml-file=$(DOC_MAIN_SGML_FILE) $${_source_dir} $(MKDB_OPTIONS)
+	ctkdoc-mkdb --module=$(DOC_MODULE) --output-format=xml --expand-content-files="$(expand_content_files)" --main-sgml-file=$(DOC_MAIN_SGML_FILE) $${_source_dir} $(MKDB_OPTIONS)
 	@touch sgml-build.stamp
 
 sgml.stamp: sgml-build.stamp
@@ -160,17 +160,17 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@rm -rf html
 	@mkdir html
 	@mkhtml_options=""; \
-	gtkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	ctkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	if test "$(?)" = "0"; then \
 	  if test "x$(V)" = "x1"; then \
 	    mkhtml_options="$$mkhtml_options --verbose"; \
 	  fi; \
 	fi; \
-	gtkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-path"; \
+	ctkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-path"; \
 	if test "$(?)" = "0"; then \
 	  mkhtml_options="$$mkhtml_options --path=\"$(abs_srcdir)\""; \
 	fi; \
-	cd html && gtkdoc-mkhtml $$mkhtml_options $(MKHTML_OPTIONS) $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
+	cd html && ctkdoc-mkhtml $$mkhtml_options $(MKHTML_OPTIONS) $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
 	-@test "x$(HTML_IMAGES)" = "x" || \
 	for file in $(HTML_IMAGES) ; do \
 	  if test -f $(abs_srcdir)/$$file ; then \
@@ -181,7 +181,7 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	  fi; \
 	done;
 	@echo '  DOC   Fixing cross-references'
-	@gtkdoc-fixxref --module=$(DOC_MODULE) --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
+	@ctkdoc-fixxref --module=$(DOC_MODULE) --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
 	@touch html-build.stamp
 
 #### pdf ####
@@ -190,7 +190,7 @@ pdf-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@echo '  DOC   Building PDF'
 	@rm -f $(DOC_MODULE).pdf
 	@mkpdf_options=""; \
-	gtkdoc-mkpdf 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	ctkdoc-mkpdf 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	if test "$(?)" = "0"; then \
 	  if test "x$(V)" = "x1"; then \
 	    mkpdf_options="$$mkpdf_options --verbose"; \
@@ -205,7 +205,7 @@ pdf-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	    fi; \
 	  done; \
 	fi; \
-	gtkdoc-mkpdf --path="$(abs_srcdir)" $$mkpdf_options $(DOC_MODULE) $(DOC_MAIN_SGML_FILE) $(MKPDF_OPTIONS)
+	ctkdoc-mkpdf --path="$(abs_srcdir)" $$mkpdf_options $(DOC_MODULE) $(DOC_MAIN_SGML_FILE) $(MKPDF_OPTIONS)
 	@touch pdf-build.stamp
 
 ##############
@@ -256,17 +256,17 @@ uninstall-local:
 	rm -rf $${installdir}
 
 #
-# Require gtk-doc when making dist
+# Require ctk-doc when making dist
 #
 if ENABLE_GTK_DOC
-dist-check-gtkdoc:
+dist-check-ctkdoc:
 else
-dist-check-gtkdoc:
-	@echo "*** gtk-doc must be installed and enabled in order to make dist"
+dist-check-ctkdoc:
+	@echo "*** ctk-doc must be installed and enabled in order to make dist"
 	@false
 endif
 
-dist-hook: dist-check-gtkdoc dist-hook-local
+dist-hook: dist-check-ctkdoc dist-hook-local
 	@mkdir $(distdir)/tmpl
 	@mkdir $(distdir)/html
 	@-cp ./tmpl/*.sgml $(distdir)/tmpl

@@ -887,16 +887,16 @@ enable_pulse
 enable_udev
 enable_gstreamer
 enable_null
-enable_gtk
-enable_gtk3
+enable_ctk
+enable_ctk3
 enable_tdb
 with_systemdsystemunitdir
 enable_lynx
 with_builtin
 with_html_dir
-enable_gtk_doc
-enable_gtk_doc_html
-enable_gtk_doc_pdf
+enable_ctk_doc
+enable_ctk_doc_html
+enable_ctk_doc_pdf
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1568,13 +1568,13 @@ Optional Features:
   --disable-udev          Disable optional udev support
   --disable-gstreamer     Disable optional GStreamer support
   --disable-null          Disable optional null output
-  --disable-gtk           Disable optional GTK+ support
-  --disable-gtk3          Disable optional GTK+ 3 support
+  --disable-ctk           Disable optional GTK+ support
+  --disable-ctk3          Disable optional GTK+ 3 support
   --disable-tdb           Disable optional tdb support
   --disable-lynx          Turn off lynx usage for documentation generation
-  --enable-gtk-doc        use gtk-doc to build documentation [[default=no]]
-  --enable-gtk-doc-html   build documentation in html format [[default=yes]]
-  --enable-gtk-doc-pdf    build documentation in pdf format [[default=no]]
+  --enable-ctk-doc        use ctk-doc to build documentation [[default=no]]
+  --enable-ctk-doc-html   build documentation in html format [[default=yes]]
+  --enable-ctk-doc-pdf    build documentation in pdf format [[default=no]]
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -19360,17 +19360,17 @@ fi
 
 ### GTK (optional) ####
 
-# Check whether --enable-gtk was given.
-if test "${enable_gtk+set}" = set; then :
-  enableval=$enable_gtk;
+# Check whether --enable-ctk was given.
+if test "${enable_ctk+set}" = set; then :
+  enableval=$enable_ctk;
             case "${enableval}" in
-                yes) gtk=yes ;;
-                no) gtk=no ;;
-                *) as_fn_error $? "bad value ${enableval} for --disable-gtk" "$LINENO" 5 ;;
+                yes) ctk=yes ;;
+                no) ctk=no ;;
+                *) as_fn_error $? "bad value ${enableval} for --disable-ctk" "$LINENO" 5 ;;
             esac
 
 else
-  gtk=auto
+  ctk=auto
 fi
 
 
@@ -19382,7 +19382,7 @@ else
   GCONF_SCHEMAS_INSTALL_FALSE=
 fi
 
-if test "x${gtk}" != xno ; then
+if test "x${ctk}" != xno ; then
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK" >&5
@@ -19392,12 +19392,12 @@ if test -n "$GTK_CFLAGS"; then
     pkg_cv_GTK_CFLAGS="$GTK_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK_CFLAGS=`$PKG_CONFIG --cflags " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
+  pkg_cv_GTK_CFLAGS=`$PKG_CONFIG --cflags " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19409,12 +19409,12 @@ if test -n "$GTK_LIBS"; then
     pkg_cv_GTK_LIBS="$GTK_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK_LIBS=`$PKG_CONFIG --libs " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
+  pkg_cv_GTK_LIBS=`$PKG_CONFIG --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19435,16 +19435,16 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        GTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
         else
-	        GTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " gtk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 " 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GTK_PKG_ERRORS" >&5
 
 
             HAVE_GTK=0
-            if test "x$gtk" = xyes ; then
+            if test "x$ctk" = xyes ; then
                 as_fn_error $? "*** GTK not found ***" "$LINENO" 5
             fi
 
@@ -19453,7 +19453,7 @@ elif test $pkg_failed = untried; then
 $as_echo "no" >&6; }
 
             HAVE_GTK=0
-            if test "x$gtk" = xyes ; then
+            if test "x$ctk" = xyes ; then
                 as_fn_error $? "*** GTK not found ***" "$LINENO" 5
             fi
 
@@ -19468,8 +19468,8 @@ $as_echo "yes" >&6; }
 $as_echo "#define HAVE_GTK 1" >>confdefs.h
 
 
-            GTK_VERSION=`$PKG_CONFIG --variable=gtk_binary_version gtk+-2.0`
-            GTK_MODULES_DIR="${libdir}/gtk-2.0/modules"
+            GTK_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-2.0`
+            GTK_MODULES_DIR="${libdir}/ctk-2.0/modules"
 
 fi
 else
@@ -19489,21 +19489,21 @@ else
 fi
 
 
-# Check whether --enable-gtk3 was given.
-if test "${enable_gtk3+set}" = set; then :
-  enableval=$enable_gtk3;
+# Check whether --enable-ctk3 was given.
+if test "${enable_ctk3+set}" = set; then :
+  enableval=$enable_ctk3;
             case "${enableval}" in
-                yes) gtk3=yes ;;
-                no) gtk3=no ;;
-                *) as_fn_error $? "bad value ${enableval} for --disable-gtk3" "$LINENO" 5 ;;
+                yes) ctk3=yes ;;
+                no) ctk3=no ;;
+                *) as_fn_error $? "bad value ${enableval} for --disable-ctk3" "$LINENO" 5 ;;
             esac
 
 else
-  gtk3=auto
+  ctk3=auto
 fi
 
 
-if test "x${gtk3}" != xno ; then
+if test "x${ctk3}" != xno ; then
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK3" >&5
@@ -19513,12 +19513,12 @@ if test -n "$GTK3_CFLAGS"; then
     pkg_cv_GTK3_CFLAGS="$GTK3_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK3_CFLAGS=`$PKG_CONFIG --cflags " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
+  pkg_cv_GTK3_CFLAGS=`$PKG_CONFIG --cflags " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19530,12 +19530,12 @@ if test -n "$GTK3_LIBS"; then
     pkg_cv_GTK3_LIBS="$GTK3_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
-  ($PKG_CONFIG --exists --print-errors " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \" ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 \""; } >&5
+  ($PKG_CONFIG --exists --print-errors " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK3_LIBS=`$PKG_CONFIG --libs " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
+  pkg_cv_GTK3_LIBS=`$PKG_CONFIG --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -19556,16 +19556,16 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        GTK3_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
+	        GTK3_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
         else
-	        GTK3_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " gtk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
+	        GTK3_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs " ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 " 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GTK3_PKG_ERRORS" >&5
 
 
             HAVE_GTK3=0
-            if test "x$gtk3" = xyes ; then
+            if test "x$ctk3" = xyes ; then
                 as_fn_error $? "*** GTK3 not found ***" "$LINENO" 5
             fi
 
@@ -19574,7 +19574,7 @@ elif test $pkg_failed = untried; then
 $as_echo "no" >&6; }
 
             HAVE_GTK3=0
-            if test "x$gtk3" = xyes ; then
+            if test "x$ctk3" = xyes ; then
                 as_fn_error $? "*** GTK3 not found ***" "$LINENO" 5
             fi
 
@@ -19589,8 +19589,8 @@ $as_echo "yes" >&6; }
 $as_echo "#define HAVE_GTK3 1" >>confdefs.h
 
 
-            GTK3_VERSION=`$PKG_CONFIG --variable=gtk_binary_version gtk+-3.0`
-            GTK3_MODULES_DIR="${libdir}/gtk-3.0/modules"
+            GTK3_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-3.0`
+            GTK3_MODULES_DIR="${libdir}/ctk-3.0/modules"
 
 fi
 else
@@ -20154,8 +20154,8 @@ CA_MINOR=30
 
 
 
-    # Extract the first word of "gtkdoc-check", so it can be a program name with args.
-set dummy gtkdoc-check; ac_word=$2
+    # Extract the first word of "ctkdoc-check", so it can be a program name with args.
+set dummy ctkdoc-check; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_GTKDOC_CHECK+:} false; then :
@@ -20194,7 +20194,7 @@ $as_echo "no" >&6; }
 fi
 
 
-  for ac_prog in gtkdoc-rebase
+  for ac_prog in ctkdoc-rebase
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -20240,8 +20240,8 @@ fi
 done
 test -n "$GTKDOC_REBASE" || GTKDOC_REBASE="true"
 
-  # Extract the first word of "gtkdoc-mkpdf", so it can be a program name with args.
-set dummy gtkdoc-mkpdf; ac_word=$2
+  # Extract the first word of "ctkdoc-mkpdf", so it can be a program name with args.
+set dummy ctkdoc-mkpdf; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
 if ${ac_cv_path_GTKDOC_MKPDF+:} false; then :
@@ -20286,30 +20286,30 @@ fi
 if test "${with_html_dir+set}" = set; then :
   withval=$with_html_dir;
 else
-  with_html_dir='${datadir}/gtk-doc/html'
+  with_html_dir='${datadir}/ctk-doc/html'
 fi
 
   HTML_DIR="$with_html_dir"
 
 
-    # Check whether --enable-gtk-doc was given.
-if test "${enable_gtk_doc+set}" = set; then :
-  enableval=$enable_gtk_doc;
+    # Check whether --enable-ctk-doc was given.
+if test "${enable_ctk_doc+set}" = set; then :
+  enableval=$enable_ctk_doc;
 else
-  enable_gtk_doc=no
+  enable_ctk_doc=no
 fi
 
 
-  if test x$enable_gtk_doc = xyes; then
+  if test x$enable_ctk_doc = xyes; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk-doc >= 1.9\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk-doc >= 1.9") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"ctk-doc >= 1.9\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "ctk-doc >= 1.9") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   :
 else
-  as_fn_error $? "You need to have gtk-doc >= 1.9 installed to build $PACKAGE_NAME" "$LINENO" 5
+  as_fn_error $? "You need to have ctk-doc >= 1.9 installed to build $PACKAGE_NAME" "$LINENO" 5
 fi
         if test "x$PACKAGE_NAME" != "xglib"; then
 
@@ -20406,32 +20406,32 @@ fi
     fi
   fi
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build gtk-doc documentation" >&5
-$as_echo_n "checking whether to build gtk-doc documentation... " >&6; }
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_gtk_doc" >&5
-$as_echo "$enable_gtk_doc" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build ctk-doc documentation" >&5
+$as_echo_n "checking whether to build ctk-doc documentation... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_ctk_doc" >&5
+$as_echo "$enable_ctk_doc" >&6; }
 
-    # Check whether --enable-gtk-doc-html was given.
-if test "${enable_gtk_doc_html+set}" = set; then :
-  enableval=$enable_gtk_doc_html;
+    # Check whether --enable-ctk-doc-html was given.
+if test "${enable_ctk_doc_html+set}" = set; then :
+  enableval=$enable_ctk_doc_html;
 else
-  enable_gtk_doc_html=yes
+  enable_ctk_doc_html=yes
 fi
 
-    # Check whether --enable-gtk-doc-pdf was given.
-if test "${enable_gtk_doc_pdf+set}" = set; then :
-  enableval=$enable_gtk_doc_pdf;
+    # Check whether --enable-ctk-doc-pdf was given.
+if test "${enable_ctk_doc_pdf+set}" = set; then :
+  enableval=$enable_ctk_doc_pdf;
 else
-  enable_gtk_doc_pdf=no
+  enable_ctk_doc_pdf=no
 fi
 
 
   if test -z "$GTKDOC_MKPDF"; then
-    enable_gtk_doc_pdf=no
+    enable_ctk_doc_pdf=no
   fi
 
 
-   if test x$enable_gtk_doc = xyes; then
+   if test x$enable_ctk_doc = xyes; then
   ENABLE_GTK_DOC_TRUE=
   ENABLE_GTK_DOC_FALSE='#'
 else
@@ -20439,7 +20439,7 @@ else
   ENABLE_GTK_DOC_FALSE=
 fi
 
-   if test x$enable_gtk_doc_html = xyes; then
+   if test x$enable_ctk_doc_html = xyes; then
   GTK_DOC_BUILD_HTML_TRUE=
   GTK_DOC_BUILD_HTML_FALSE='#'
 else
@@ -20447,7 +20447,7 @@ else
   GTK_DOC_BUILD_HTML_FALSE=
 fi
 
-   if test x$enable_gtk_doc_pdf = xyes; then
+   if test x$enable_ctk_doc_pdf = xyes; then
   GTK_DOC_BUILD_PDF_TRUE=
   GTK_DOC_BUILD_PDF_FALSE='#'
 else
@@ -20477,7 +20477,7 @@ fi
 #            Output               #
 ###################################
 
-ac_config_files="$ac_config_files Makefile src/Makefile libcanberra.pc libcanberra-gtk.pc libcanberra-gtk3.pc src/canberra.h gtkdoc/Makefile doc/Makefile doc/README.html"
+ac_config_files="$ac_config_files Makefile src/Makefile libcanberra.pc libcanberra-ctk.pc libcanberra-ctk3.pc src/canberra.h ctkdoc/Makefile doc/Makefile doc/README.html"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -21705,10 +21705,10 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "libcanberra.pc") CONFIG_FILES="$CONFIG_FILES libcanberra.pc" ;;
-    "libcanberra-gtk.pc") CONFIG_FILES="$CONFIG_FILES libcanberra-gtk.pc" ;;
-    "libcanberra-gtk3.pc") CONFIG_FILES="$CONFIG_FILES libcanberra-gtk3.pc" ;;
+    "libcanberra-ctk.pc") CONFIG_FILES="$CONFIG_FILES libcanberra-ctk.pc" ;;
+    "libcanberra-ctk3.pc") CONFIG_FILES="$CONFIG_FILES libcanberra-ctk3.pc" ;;
     "src/canberra.h") CONFIG_FILES="$CONFIG_FILES src/canberra.h" ;;
-    "gtkdoc/Makefile") CONFIG_FILES="$CONFIG_FILES gtkdoc/Makefile" ;;
+    "ctkdoc/Makefile") CONFIG_FILES="$CONFIG_FILES ctkdoc/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "doc/README.html") CONFIG_FILES="$CONFIG_FILES doc/README.html" ;;
 
