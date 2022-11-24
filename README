@@ -41,17 +41,17 @@ News
 
    Fri 18 Feb 2011:
 
-   [13]Version 0.27 released; Gtk+ 3.x fixes; add new tool to implement
+   [13]Version 0.27 released; Ctk+ 3.x fixes; add new tool to implement
    boot-up sounds when used with systemd; other fixes
 
    Mon 4 Oct 2010:
 
-   [14]Version 0.26 released; Gtk+ 3.x fixes.
+   [14]Version 0.26 released; Ctk+ 3.x fixes.
 
    Sun 13 Jun 2010:
 
-   [15]Version 0.25 released; Optionally build with Gtk+ 3.x in addition
-   to Gtk+ 2.x.
+   [15]Version 0.25 released; Optionally build with Ctk+ 3.x in addition
+   to Ctk+ 2.x.
 
    Mon 19 Apr 2010:
 
@@ -79,15 +79,15 @@ News
 
    Wed 14 Oct 2009:
 
-   [21]Version 0.19 released; some important fixes for the Gtk support
+   [21]Version 0.19 released; some important fixes for the Ctk support
 
    Sun 20 Sep 2009:
 
-   [22]Version 0.18 released; numerous updates for the Gtk support
+   [22]Version 0.18 released; numerous updates for the Ctk support
 
    Fri 12 Sep 2009:
 
-   [23]Version 0.17 released; add vala vapi file; numerous updates to Gtk
+   [23]Version 0.17 released; add vala vapi file; numerous updates to Ctk
    support
 
    Thu 27 Aug 2009:
@@ -120,7 +120,7 @@ News
 
    Mon 6 Oct 2008:
 
-   [30]Version 0.10 released; changes include: install Gtk+ module using
+   [30]Version 0.10 released; changes include: install Ctk+ module using
    GConf; a few other fixes
 
    Tue 9 Sep 2008:
@@ -149,8 +149,8 @@ Overview
    of the following parts:
     1. libcanberra: the main library
     2. libcanberra-ctk: some glue code to make it easier to use
-       libcanberra from Gtk+ applications
-    3. libcanberra-ctk-module: a Gtk+ module that uses libcanberra-ctk to
+       libcanberra from Ctk+ applications
+    3. libcanberra-ctk-module: a Ctk+ module that uses libcanberra-ctk to
        trigger input feedback event sounds
 
    For more information see [39]the original announcement.
@@ -195,7 +195,7 @@ Requirements
    configuration and shared library management.
 
    libcanberra has no dependencies besides the OGG Vorbis development
-   headers and whatever the selected backends require. Gtk+ support is
+   headers and whatever the selected backends require. Ctk+ support is
    optional. An optional lookup cache can be used if Samba's tdb trivial
    database is available.
 

@@ -20,18 +20,18 @@
 
 using Canberra;
 using Gdk;
-using Gtk;
+using Ctk;
 
 [CCode (cprefix = "CA_CTK_", lower_case_cprefix = "ca_ctk_", cheader_filename = "canberra-ctk.h")]
-namespace CanberraGtk {
+namespace CanberraCtk {
 
         public unowned Context? context_get();
         public unowned Context? context_get_for_screen(Gdk.Screen? screen);
 
-        public int proplist_set_for_widget(Proplist p, Gtk.Widget w);
-        public int play_for_widget(Gtk.Widget w, uint32 id, ...);
+        public int proplist_set_for_widget(Proplist p, Ctk.Widget w);
+        public int play_for_widget(Ctk.Widget w, uint32 id, ...);
         public int proplist_set_for_event(Proplist p, Gdk.Event e);
         public int play_for_event(Gdk.Event e, uint32 id, ...);
 
-        public void widget_disable_sounds(Gtk.Widget w, bool enable = false);
+        public void widget_disable_sounds(Ctk.Widget w, bool enable = false);
 }
