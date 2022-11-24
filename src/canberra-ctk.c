@@ -171,10 +171,10 @@ static GtkWindow* get_toplevel(GtkWidget *w) {
         if (!(w = ctk_widget_get_toplevel(w)))
                 return NULL;
 
-        if (!GTK_IS_WINDOW(w))
+        if (!CTK_IS_WINDOW(w))
                 return NULL;
 
-        return GTK_WINDOW(w);
+        return CTK_WINDOW(w);
 }
 
 static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
@@ -257,17 +257,17 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_ICON_NAME, t)) < 0)
                         return ret;
 
-        if (ctk_widget_get_realized(GTK_WIDGET(w))) {
+        if (ctk_widget_get_realized(CTK_WIDGET(w))) {
                 GdkWindow *dw = NULL;
                 GdkScreen *screen = NULL;
                 GdkDisplay *display = NULL;
                 gint x = -1, y = -1, width = -1, height = -1, screen_width = -1, screen_height = -1;
 
-                if ((dw = ctk_widget_get_window(GTK_WIDGET(w))))
+                if ((dw = ctk_widget_get_window(CTK_WIDGET(w))))
                         if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) GDK_WINDOW_XID(dw))) < 0)
                                 return ret;
 
-                if ((display = ctk_widget_get_display(GTK_WIDGET(w)))) {
+                if ((display = ctk_widget_get_display(CTK_WIDGET(w)))) {
                         if ((t = gdk_display_get_name(display)))
                                 if ((ret = ca_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, t)) < 0)
                                         return ret;
@@ -281,7 +281,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                         }
                 }
 
-                if ((screen = ctk_widget_get_screen(GTK_WIDGET(w)))) {
+                if ((screen = ctk_widget_get_screen(CTK_WIDGET(w)))) {
 
                         if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", gdk_screen_get_number(screen))) < 0)
                                 return ret;
@@ -314,7 +314,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                                 return ret;
 
                 if (x >= 0 && width > 0) {
-                        screen_width = gdk_screen_get_width(ctk_widget_get_screen(GTK_WIDGET(w)));
+                        screen_width = gdk_screen_get_width(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         x += width/2;
                         x = CA_CLAMP(x, 0, screen_width-1);
@@ -329,7 +329,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, GtkWidget *widget) {
                 }
 
                 if (y >= 0 && height > 0) {
-                        screen_height = gdk_screen_get_height(ctk_widget_get_screen(GTK_WIDGET(w)));
+                        screen_height = gdk_screen_get_height(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         y += height/2;
                         y = CA_CLAMP(y, 0, screen_height-1);
@@ -510,7 +510,7 @@ int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) {
                 goto fail;
 
         if (e->any.window)
-#if GTK_CHECK_VERSION (2, 90, 7)
+#if CTK_CHECK_VERSION (2, 90, 7)
                 s = gdk_window_get_screen(e->any.window);
 #else
                 s = gdk_drawable_get_screen(GDK_DRAWABLE(e->any.window));

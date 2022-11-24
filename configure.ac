@@ -40,7 +40,7 @@ AM_INIT_AUTOMAKE([foreign 1.11 -Wall silent-rules tar-pax no-dist-gzip dist-xz])
 AM_SILENT_RULES([yes])
 
 AC_SUBST(LIBCANBERRA_VERSION_INFO, [2:5:2])
-AC_SUBST(LIBCANBERRA_GTK_VERSION_INFO, [1:9:1])
+AC_SUBST(LIBCANBERRA_CTK_VERSION_INFO, [1:9:1])
 
 AC_CANONICAL_HOST
 AC_DEFINE_UNQUOTED([CANONICAL_HOST], "$host", [Canonical host string.])
@@ -422,10 +422,10 @@ else
     HAVE_NULL=0
 fi
 
-### GTK (optional) ####
+### CTK (optional) ####
 
 AC_ARG_ENABLE([ctk],
-    AS_HELP_STRING([--disable-ctk], [Disable optional GTK+ support]),
+    AS_HELP_STRING([--disable-ctk], [Disable optional CTK+ support]),
         [
             case "${enableval}" in
                 yes) ctk=yes ;;
@@ -437,32 +437,32 @@ AC_ARG_ENABLE([ctk],
 
 AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [false])
 if test "x${ctk}" != xno ; then
-    PKG_CHECK_MODULES(GTK, [ ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ],
+    PKG_CHECK_MODULES(CTK, [ ctk+-2.0 >= 2.20.0 gthread-2.0 glib-2.0 >= 2.32 gdk-2.0 x11 ],
         [
-            HAVE_GTK=1
-            AC_DEFINE([HAVE_GTK], 1, [Have GTK?])
+            HAVE_CTK=1
+            AC_DEFINE([HAVE_CTK], 1, [Have CTK?])
 
-            GTK_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-2.0`
-            GTK_MODULES_DIR="${libdir}/ctk-2.0/modules"
+            CTK_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-2.0`
+            CTK_MODULES_DIR="${libdir}/ctk-2.0/modules"
         ],
         [
-            HAVE_GTK=0
+            HAVE_CTK=0
             if test "x$ctk" = xyes ; then
-                AC_MSG_ERROR([*** GTK not found ***])
+                AC_MSG_ERROR([*** CTK not found ***])
             fi
         ])
 else
-    HAVE_GTK=0
+    HAVE_CTK=0
 fi
 
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
-AC_SUBST(GTK_MODULES_DIR)
-AC_SUBST(HAVE_GTK)
-AM_CONDITIONAL([HAVE_GTK], [test "x$HAVE_GTK" = x1])
+AC_SUBST(CTK_CFLAGS)
+AC_SUBST(CTK_LIBS)
+AC_SUBST(CTK_MODULES_DIR)
+AC_SUBST(HAVE_CTK)
+AM_CONDITIONAL([HAVE_CTK], [test "x$HAVE_CTK" = x1])
 
 AC_ARG_ENABLE([ctk3],
-    AS_HELP_STRING([--disable-ctk3], [Disable optional GTK+ 3 support]),
+    AS_HELP_STRING([--disable-ctk3], [Disable optional CTK+ 3 support]),
         [
             case "${enableval}" in
                 yes) ctk3=yes ;;
@@ -473,31 +473,31 @@ AC_ARG_ENABLE([ctk3],
         [ctk3=auto])
 
 if test "x${ctk3}" != xno ; then
-    PKG_CHECK_MODULES(GTK3, [ ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ],
+    PKG_CHECK_MODULES(CTK3, [ ctk+-3.0 gthread-2.0 glib-2.0 >= 2.32 gdk-3.0 x11 ],
         [
-            HAVE_GTK3=1
-            AC_DEFINE([HAVE_GTK3], 1, [Have GTK3?])
+            HAVE_CTK3=1
+            AC_DEFINE([HAVE_CTK3], 1, [Have CTK3?])
 
-            GTK3_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-3.0`
-            GTK3_MODULES_DIR="${libdir}/ctk-3.0/modules"
+            CTK3_VERSION=`$PKG_CONFIG --variable=ctk_binary_version ctk+-3.0`
+            CTK3_MODULES_DIR="${libdir}/ctk-3.0/modules"
         ],
         [
-            HAVE_GTK3=0
+            HAVE_CTK3=0
             if test "x$ctk3" = xyes ; then
-                AC_MSG_ERROR([*** GTK3 not found ***])
+                AC_MSG_ERROR([*** CTK3 not found ***])
             fi
         ])
 else
-    HAVE_GTK3=0
+    HAVE_CTK3=0
 fi
 
-AC_SUBST(GTK3_CFLAGS)
-AC_SUBST(GTK3_LIBS)
-AC_SUBST(GTK3_MODULES_DIR)
-AC_SUBST(HAVE_GTK3)
-AM_CONDITIONAL([HAVE_GTK3], [test "x$HAVE_GTK3" = x1])
+AC_SUBST(CTK3_CFLAGS)
+AC_SUBST(CTK3_LIBS)
+AC_SUBST(CTK3_MODULES_DIR)
+AC_SUBST(HAVE_CTK3)
+AM_CONDITIONAL([HAVE_CTK3], [test "x$HAVE_CTK3" = x1])
 
-AM_CONDITIONAL([HAVE_GTK_ANY], [test "x$HAVE_GTK" = x1 -o "x$HAVE_GTK3" = x1])
+AM_CONDITIONAL([HAVE_CTK_ANY], [test "x$HAVE_CTK" = x1 -o "x$HAVE_CTK3" = x1])
 
 #### TDB cache support (optional) ####
 
@@ -702,7 +702,7 @@ AM_CONDITIONAL([BUILTIN_NULL], [test "x$BUILTIN_NULL" = x1])
 AC_SUBST([CA_MAJOR],[ca_major])
 AC_SUBST([CA_MINOR],[ca_minor])
 
-GTK_DOC_CHECK(1.9)
+CTK_DOC_CHECK(1.9)
 
 ###################################
 #            Output               #
@@ -772,14 +772,14 @@ if test "x$BUILTIN_NULL" = "x1" ; then
    ENABLE_BUILTIN_NULL=yes
 fi
 
-ENABLE_GTK=no
-if test "x$HAVE_GTK" = "x1" ; then
-   ENABLE_GTK=yes
+ENABLE_CTK=no
+if test "x$HAVE_CTK" = "x1" ; then
+   ENABLE_CTK=yes
 fi
 
-ENABLE_GTK3=no
-if test "x$HAVE_GTK3" = "x1" ; then
-   ENABLE_GTK3=yes
+ENABLE_CTK3=no
+if test "x$HAVE_CTK3" = "x1" ; then
+   ENABLE_CTK3=yes
 fi
 
 ENABLE_TDB=no
@@ -820,10 +820,10 @@ echo "
     Builtin Null Output:    ${ENABLE_BUILTIN_NULL}
     Enable tdb:             ${ENABLE_TDB}
     Enable lookup cache:    ${ENABLE_CACHE}
-    Enable GTK+:            ${ENABLE_GTK}
-    GTK Modules Directory:  ${GTK_MODULES_DIR}
-    Enable GTK3+:           ${ENABLE_GTK3}
-    GTK3 Modules Directory: ${GTK3_MODULES_DIR}
+    Enable CTK+:            ${ENABLE_CTK}
+    CTK Modules Directory:  ${CTK_MODULES_DIR}
+    Enable CTK3+:           ${ENABLE_CTK3}
+    CTK3 Modules Directory: ${CTK3_MODULES_DIR}
     Enable udev:            ${ENABLE_UDEV}
     systemd Unit Directory: ${with_systemdsystemunitdir}
 "

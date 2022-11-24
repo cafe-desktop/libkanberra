@@ -27,11 +27,11 @@
 /* Have GStreamer? */
 #undef HAVE_GSTREAMER
 
-/* Have GTK? */
-#undef HAVE_GTK
+/* Have CTK? */
+#undef HAVE_CTK
 
-/* Have GTK3? */
-#undef HAVE_GTK3
+/* Have CTK3? */
+#undef HAVE_CTK3
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H

@@ -4,14 +4,14 @@
 # Everything below here is generic #
 ####################################
 
-if GTK_DOC_USE_LIBTOOL
-GTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-GTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-GTKDOC_RUN = $(LIBTOOL) --mode=execute
+if CTK_DOC_USE_LIBTOOL
+CTKDOC_CC = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CTKDOC_LD = $(LIBTOOL) --tag=CC --mode=link $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+CTKDOC_RUN = $(LIBTOOL) --mode=execute
 else
-GTKDOC_CC = $(CC) $(INCLUDES) $(GTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-GTKDOC_LD = $(CC) $(GTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
-GTKDOC_RUN =
+CTKDOC_CC = $(CC) $(INCLUDES) $(CTKDOC_DEPS_CFLAGS) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CTKDOC_LD = $(CC) $(CTKDOC_DEPS_LIBS) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS)
+CTKDOC_RUN =
 endif
 
 # We set GPATH here; this gives us semantics for GNU make
@@ -51,13 +51,13 @@ REPORT_FILES = \
 
 CLEANFILES = $(SCANOBJ_FILES) $(REPORT_FILES) $(DOC_STAMPS)
 
-if ENABLE_GTK_DOC
-if GTK_DOC_BUILD_HTML
+if ENABLE_CTK_DOC
+if CTK_DOC_BUILD_HTML
 HTML_BUILD_STAMP=html-build.stamp
 else
 HTML_BUILD_STAMP=
 endif
-if GTK_DOC_BUILD_PDF
+if CTK_DOC_BUILD_PDF
 PDF_BUILD_STAMP=pdf-build.stamp
 else
 PDF_BUILD_STAMP=
@@ -108,7 +108,7 @@ scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	            scanobj_options="--verbose"; \
 	        fi; \
 	    fi; \
-	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" RUN="$(GTKDOC_RUN)" CFLAGS="$(GTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(GTKDOC_LIBS) $(LDFLAGS)" \
+	    CC="$(CTKDOC_CC)" LD="$(CTKDOC_LD)" RUN="$(CTKDOC_RUN)" CFLAGS="$(CTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(CTKDOC_LIBS) $(LDFLAGS)" \
 	    ctkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
 	else \
 	    for i in $(SCANOBJ_FILES) ; do \
@@ -244,7 +244,7 @@ install-data-local:
 	    mv -f $${installdir}/$(DOC_MODULE).devhelp2 \
 	      $${installdir}/$(DOC_MODULE)-$(DOC_MODULE_VERSION).devhelp2; \
 	  fi; \
-	  $(GTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
+	  $(CTKDOC_REBASE) --relative --dest-dir=$(DESTDIR) --html-dir=$${installdir}; \
 	fi
 
 uninstall-local:
@@ -258,7 +258,7 @@ uninstall-local:
 #
 # Require ctk-doc when making dist
 #
-if ENABLE_GTK_DOC
+if ENABLE_CTK_DOC
 dist-check-ctkdoc:
 else
 dist-check-ctkdoc:
@@ -275,6 +275,6 @@ dist-hook: dist-check-ctkdoc dist-hook-local
 	@-cp ./$(DOC_MODULE).types $(distdir)/
 	@-cp ./$(DOC_MODULE)-sections.txt $(distdir)/
 	@cd $(distdir) && rm -f $(DISTCLEANFILES)
-	@$(GTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
+	@$(CTKDOC_REBASE) --online --relative --html-dir=$(distdir)/html
 
 .PHONY : dist-hook-local docs
