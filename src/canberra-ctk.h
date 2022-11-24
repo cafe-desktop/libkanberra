@@ -33,15 +33,15 @@ G_BEGIN_DECLS
 ca_context *ca_ctk_context_get(void);
 #endif
 
-ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen);
+ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen);
 
 int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *w);
 
 int ca_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
-int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e);
+int ca_ctk_proplist_set_for_event(ca_proplist *p, CdkEvent *e);
 
-int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
+int ca_ctk_play_for_event(CdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
 void ca_ctk_widget_disable_sounds(CtkWidget *w, gboolean enable);
 

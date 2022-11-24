@@ -35,7 +35,7 @@ typedef struct {
         gboolean arg1_is_set;
         GObject *object;
         GValue arg1;
-        GdkEvent *event;
+        CdkEvent *event;
 } SoundEventData;
 
 /*
@@ -192,7 +192,7 @@ static void free_sound_event(SoundEventData *d) {
         g_slice_free(SoundEventData, d);
 }
 
-static gboolean is_menu_hint(GdkWindowTypeHint hint) {
+static gboolean is_menu_hint(CdkWindowTypeHint hint) {
         return
                 hint == CDK_WINDOW_TYPE_HINT_POPUP_MENU ||
                 hint == CDK_WINDOW_TYPE_HINT_DROPDOWN_MENU ||
@@ -265,7 +265,7 @@ static SoundEventData* filter_sound_event(SoundEventData *d) {
 
                         } else if (CTK_IS_WINDOW(d->object) && CTK_IS_WINDOW(j->object)) {
 
-                                GdkWindowTypeHint dhint, jhint;
+                                CdkWindowTypeHint dhint, jhint;
 
                                 dhint = ctk_window_get_type_hint(CTK_WINDOW(d->object));
                                 jhint = ctk_window_get_type_hint(CTK_WINDOW(j->object));
@@ -299,7 +299,7 @@ static SoundEventData* filter_sound_event(SoundEventData *d) {
         return d;
 }
 
-static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
+static gint window_get_desktop(CdkDisplay *d, CdkWindow *w) {
         Atom type_return;
         gint format_return;
         gulong nitems_return;
@@ -332,7 +332,7 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
         return ret;
 }
 
-static gint display_get_desktop(GdkDisplay *d) {
+static gint display_get_desktop(CdkDisplay *d) {
         Atom type_return;
         gint format_return;
         gulong nitems_return;
@@ -366,7 +366,7 @@ static gint display_get_desktop(GdkDisplay *d) {
         return ret;
 }
 
-static gboolean window_is_xembed(GdkDisplay *d, GdkWindow *w) {
+static gboolean window_is_xembed(CdkDisplay *d, CdkWindow *w) {
         Atom type_return;
         gint format_return;
         gulong nitems_return;
@@ -418,11 +418,11 @@ static void dispatch_sound_event(SoundEventData *d) {
         if (g_object_get_qdata(d->object, disable_sound_quark))
                 return;
 
-        /* The GdkWindow of the the widget might have changed while this
+        /* The CdkWindow of the the widget might have changed while this
          * event was queued for us. Make sure to update it from the
          * current one if necessary. */
         if (d->event && d->event->any.window) {
-                GdkWindow *window;
+                CdkWindow *window;
 
                 g_object_unref(G_OBJECT(d->event->any.window));
 
@@ -433,7 +433,7 @@ static void dispatch_sound_event(SoundEventData *d) {
         }
 
         if (d->signal_id == signal_id_widget_show) {
-                GdkWindowTypeHint hint;
+                CdkWindowTypeHint hint;
 
                 /* Show/hide signals for non-windows have already been filtered out
                  * by the emission hook! */
@@ -536,7 +536,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 }
 
         } else if (d->signal_id == signal_id_widget_hide) {
-                GdkWindowTypeHint hint;
+                CdkWindowTypeHint hint;
 
                 hint = ctk_window_get_type_hint(CTK_WINDOW(d->object));
 
@@ -579,10 +579,10 @@ static void dispatch_sound_event(SoundEventData *d) {
         }
 
         if (CTK_IS_WINDOW(d->object) && d->signal_id == signal_id_widget_window_state_event) {
-                GdkEventWindowState *e;
+                CdkEventWindowState *e;
                 gint w_desktop = -1, c_desktop = -1;
 
-                e = (GdkEventWindowState*) d->event;
+                e = (CdkEventWindowState*) d->event;
 
                 /* Unfortunately CDK_WINDOW_STATE_ICONIFIED is used both for
                  * proper minimizing and when a window becomes invisible
@@ -593,7 +593,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                  * later on when the window is unminimized again. */
 
                 if (ctk_widget_get_realized(CTK_WIDGET(d->object))) {
-                        GdkDisplay *display;
+                        CdkDisplay *display;
 
                         display = ctk_widget_get_display(CTK_WIDGET(d->object));
                         w_desktop = window_get_desktop(display, ctk_widget_get_window(CTK_WIDGET(d->object)));
@@ -853,7 +853,7 @@ static void connect_settings(void);
 
 static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_values, const GValue *param_values, gpointer data) {
         static SoundEventData *d = NULL;
-        GdkEvent *e;
+        CdkEvent *e;
         GObject *object;
 
         connect_settings();
