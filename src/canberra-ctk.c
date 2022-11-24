@@ -42,12 +42,12 @@
  *
  * libcanberra-ctk provides a few functions that simplify libcanberra
  * usage from Ctk+ programs. It maintains a single ca_context object
- * per #GdkScreen that is made accessible via
+ * per #CdkScreen that is made accessible via
  * ca_ctk_context_get_for_screen(), with a shortcut ca_ctk_context_get()
  * to get the context for the default screen. More importantly, it provides
  * a few functions
  * to compile event sound property lists based on CtkWidget objects or
- * GdkEvent events.
+ * CdkEvent events.
  */
 
 static void read_sound_theme_name(ca_context *c, CtkSettings *s) {
@@ -93,11 +93,11 @@ ca_context *ca_ctk_context_get(void) {
 
 /**
  * ca_ctk_context_get_for_screen:
- * @screen: the #GdkScreen to get the context for, or %NULL to use
+ * @screen: the #CdkScreen to get the context for, or %NULL to use
  *   the default screen
  *
  * libcanberra-ctk maintains a single ca_context object for each
- * #GdkScreen. Use this function to access it. The
+ * #CdkScreen. Use this function to access it. The
  * %CA_PROP_CANBERRA_XDG_THEME_NAME of this context property is
  * dynamically bound to the XSETTINGS setting for the XDG theme
  * name. CA_PROP_APPLICATION_NAME is bound to
@@ -108,7 +108,7 @@ ca_context *ca_ctk_context_get(void) {
  *
  * Since: 0.13
  */
-ca_context *ca_ctk_context_get_for_screen(GdkScreen *screen) {
+ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen) {
         ca_context *c = NULL;
         ca_proplist *p = NULL;
         const char *name;
@@ -177,7 +177,7 @@ static CtkWindow* get_toplevel(CtkWidget *w) {
         return CTK_WINDOW(w);
 }
 
-static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
+static gint window_get_desktop(CdkDisplay *d, CdkWindow *w) {
         Atom type_return;
         gint format_return;
         gulong nitems_return;
@@ -258,9 +258,9 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
                         return ret;
 
         if (ctk_widget_get_realized(CTK_WIDGET(w))) {
-                GdkWindow *dw = NULL;
-                GdkScreen *screen = NULL;
-                GdkDisplay *display = NULL;
+                CdkWindow *dw = NULL;
+                CdkScreen *screen = NULL;
+                CdkDisplay *display = NULL;
                 gint x = -1, y = -1, width = -1, height = -1, screen_width = -1, screen_height = -1;
 
                 if ((dw = ctk_widget_get_window(CTK_WIDGET(w))))
@@ -346,10 +346,10 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
 /**
  * ca_ctk_proplist_set_for_event:
  * @p: The proplist to store these sound event properties in
- * @e: The Gdk event to base these sound event properties on
+ * @e: The Cdk event to base these sound event properties on
  *
  * Fill in a ca_proplist object for a sound event that is being
- * triggered by the specified Gdk Event. This will fill in properties
+ * triggered by the specified Cdk Event. This will fill in properties
  * like %CA_PROP_EVENT_MOUSE_X or %CA_PROP_EVENT_MOUSE_BUTTON for
  * you. This will internally also cal ca_ctk_proplist_set_for_widget()
  * on the widget this event belongs to.
@@ -357,9 +357,9 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
+int ca_ctk_proplist_set_for_event(ca_proplist *p, CdkEvent *e) {
         gdouble x, y;
-        GdkWindow *gw;
+        CdkWindow *gw;
         CtkWidget *w = NULL;
         int ret;
 
@@ -439,7 +439,7 @@ int ca_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) {
         va_list ap;
         int ret;
         ca_proplist *p;
-        GdkScreen *s;
+        CdkScreen *s;
 
         ca_return_val_if_fail(w, CA_ERROR_INVALID);
         ca_return_val_if_fail(!ca_detect_fork(), CA_ERROR_FORKED);
@@ -469,7 +469,7 @@ fail:
 
 /**
  * ca_ctk_play_for_event:
- * @e: The Gdk event to base these sound event properties on
+ * @e: The Cdk event to base these sound event properties on
  * @id: The event id that can later be used to cancel this event sound
  * using ca_context_cancel(). This can be any integer and shall be
  * chosen be the client program. It is a good idea to pass 0 here if
@@ -487,11 +487,11 @@ fail:
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) {
+int ca_ctk_play_for_event(CdkEvent *e, uint32_t id, ...) {
         va_list ap;
         int ret;
         ca_proplist *p;
-        GdkScreen *s;
+        CdkScreen *s;
 
         ca_return_val_if_fail(e, CA_ERROR_INVALID);
         ca_return_val_if_fail(!ca_detect_fork(), CA_ERROR_FORKED);
