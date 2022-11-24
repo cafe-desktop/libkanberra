@@ -50,7 +50,7 @@ vapi_DATA += vala/libcanberra-ctk.vapi
 endif
 
 DISTCHECK_CONFIGURE_FLAGS =  \
-	--enable-ctk-doc \
+	--enable-gtk-doc \
 	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
 
 ACLOCAL_AMFLAGS = -I m4

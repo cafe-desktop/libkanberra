@@ -1572,9 +1572,9 @@ Optional Features:
   --disable-ctk3          Disable optional CTK+ 3 support
   --disable-tdb           Disable optional tdb support
   --disable-lynx          Turn off lynx usage for documentation generation
-  --enable-ctk-doc        use ctk-doc to build documentation [[default=no]]
-  --enable-ctk-doc-html   build documentation in html format [[default=yes]]
-  --enable-ctk-doc-pdf    build documentation in pdf format [[default=no]]
+  --enable-gtk-doc        use gtk-doc to build documentation [[default=no]]
+  --enable-gtk-doc-html   build documentation in html format [[default=yes]]
+  --enable-gtk-doc-pdf    build documentation in pdf format [[default=no]]
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -20286,13 +20286,13 @@ fi
 if test "${with_html_dir+set}" = set; then :
   withval=$with_html_dir;
 else
-  with_html_dir='${datadir}/ctk-doc/html'
+  with_html_dir='${datadir}/gtk-doc/html'
 fi
 
   HTML_DIR="$with_html_dir"
 
 
-    # Check whether --enable-ctk-doc was given.
+    # Check whether --enable-gtk-doc was given.
 if test "${enable_ctk_doc+set}" = set; then :
   enableval=$enable_ctk_doc;
 else
@@ -20302,14 +20302,14 @@ fi
 
   if test x$enable_ctk_doc = xyes; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"ctk-doc >= 1.9\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "ctk-doc >= 1.9") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk-doc >= 1.9\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk-doc >= 1.9") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   :
 else
-  as_fn_error $? "You need to have ctk-doc >= 1.9 installed to build $PACKAGE_NAME" "$LINENO" 5
+  as_fn_error $? "You need to have gtk-doc >= 1.9 installed to build $PACKAGE_NAME" "$LINENO" 5
 fi
         if test "x$PACKAGE_NAME" != "xglib"; then
 
@@ -20406,19 +20406,19 @@ fi
     fi
   fi
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build ctk-doc documentation" >&5
-$as_echo_n "checking whether to build ctk-doc documentation... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build gtk-doc documentation" >&5
+$as_echo_n "checking whether to build gtk-doc documentation... " >&6; }
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_ctk_doc" >&5
 $as_echo "$enable_ctk_doc" >&6; }
 
-    # Check whether --enable-ctk-doc-html was given.
+    # Check whether --enable-gtk-doc-html was given.
 if test "${enable_ctk_doc_html+set}" = set; then :
   enableval=$enable_ctk_doc_html;
 else
   enable_ctk_doc_html=yes
 fi
 
-    # Check whether --enable-ctk-doc-pdf was given.
+    # Check whether --enable-gtk-doc-pdf was given.
 if test "${enable_ctk_doc_pdf+set}" = set; then :
   enableval=$enable_ctk_doc_pdf;
 else

@@ -9,7 +9,7 @@ requires:
     - expect #required for unbuffer
     - git
     - gnome-pkg-tools
-    - ctk-doc-tools
+    - gtk-doc-tools
     - libltdl-dev
     - libasound2-dev
     - libvorbis-dev

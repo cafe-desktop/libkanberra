@@ -56,11 +56,11 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(top_srcdir)/ctkdoc/ctk-doc.make
+	$(top_srcdir)/ctkdoc/gtk-doc.make
 subdir = ctkdoc
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
-	$(top_srcdir)/m4/ctk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/gtk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
@@ -272,7 +272,7 @@ top_srcdir = @top_srcdir@
 # We require automake 1.6 at least.
 AUTOMAKE_OPTIONS = 1.6
 
-# This is a blank Makefile.am for using ctk-doc.
+# This is a blank Makefile.am for using gtk-doc.
 # Copy this to your project's API docs directory and modify the variables to
 # suit your project. See the CTK+ Makefiles in ctk+/docs/reference for examples
 # of using the various options.
@@ -284,7 +284,7 @@ DOC_MODULE = libcanberra
 DOC_MAIN_SGML_FILE = $(DOC_MODULE)-docs.sgml
 
 # The directory containing the source code. Relative to $(srcdir).
-# ctk-doc will search all .c & .h files beneath here for inline comments
+# gtk-doc will search all .c & .h files beneath here for inline comments
 # documenting the functions and macros.
 # e.g. DOC_SOURCE_DIR=../../../ctk
 DOC_SOURCE_DIR = ../src
@@ -326,7 +326,7 @@ HTML_IMAGES =
 # e.g. content_files=running.sgml building.sgml changes-2.0.sgml
 content_files = 
 
-# SGML files where ctk-doc abbrevations (#CtkWidget) are expanded
+# SGML files where gtk-doc abbrevations (#CtkWidget) are expanded
 # These files must be listed here *and* in content_files
 # e.g. expand_content_files=running.sgml
 expand_content_files = 
@@ -359,7 +359,7 @@ SETUP_FILES = \
 	$(DOC_MODULE)-overrides.txt
 
 
-# This includes the standard ctk-doc make rules, copied by ctkdocize.
+# This includes the standard gtk-doc make rules, copied by ctkdocize.
 
 # Other files to distribute
 # e.g. EXTRA_DIST += version.xml.in
@@ -388,7 +388,7 @@ CLEANFILES = $(SCANOBJ_FILES) $(REPORT_FILES) $(DOC_STAMPS)
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/ctkdoc/ctk-doc.make $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/ctkdoc/gtk-doc.make $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -409,7 +409,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe);; \
 	esac;
-$(top_srcdir)/ctkdoc/ctk-doc.make:
+$(top_srcdir)/ctkdoc/gtk-doc.make:
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -777,11 +777,11 @@ uninstall-local:
 	rm -rf $${installdir}
 
 #
-# Require ctk-doc when making dist
+# Require gtk-doc when making dist
 #
 @ENABLE_CTK_DOC_TRUE@dist-check-ctkdoc:
 @ENABLE_CTK_DOC_FALSE@dist-check-ctkdoc:
-@ENABLE_CTK_DOC_FALSE@	@echo "*** ctk-doc must be installed and enabled in order to make dist"
+@ENABLE_CTK_DOC_FALSE@	@echo "*** gtk-doc must be installed and enabled in order to make dist"
 @ENABLE_CTK_DOC_FALSE@	@false
 
 dist-hook: dist-check-ctkdoc dist-hook-local

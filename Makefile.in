@@ -87,7 +87,7 @@ DIST_COMMON = README $(am__configure_deps) $(dist_doc_DATA) \
 	build-aux/ltmain.sh build-aux/missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
-	$(top_srcdir)/m4/ctk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/gtk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
 	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
@@ -400,7 +400,7 @@ pkgconfig_DATA = libcanberra.pc $(am__append_1) $(am__append_2)
 vapidir = $(datadir)/vala/vapi
 vapi_DATA = vala/libcanberra.vapi $(am__append_3)
 DISTCHECK_CONFIGURE_FLAGS = \
-	--enable-ctk-doc \
+	--enable-gtk-doc \
 	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
 
 ACLOCAL_AMFLAGS = -I m4
