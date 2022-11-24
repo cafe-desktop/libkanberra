@@ -56,8 +56,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(top_srcdir)/ctkdoc/gtk-doc.make
-subdir = ctkdoc
+	$(top_srcdir)/gtkdoc/gtk-doc.make
+subdir = gtkdoc
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
 	$(top_srcdir)/m4/gtk-doc.m4 $(top_srcdir)/m4/libtool.m4 \
@@ -289,22 +289,22 @@ DOC_MAIN_SGML_FILE = $(DOC_MODULE)-docs.sgml
 # e.g. DOC_SOURCE_DIR=../../../ctk
 DOC_SOURCE_DIR = ../src
 
-# Extra options to pass to ctkdoc-scangobj. Not normally needed.
+# Extra options to pass to gtkdoc-scangobj. Not normally needed.
 SCANGOBJ_OPTIONS = 
 
-# Extra options to supply to ctkdoc-scan.
+# Extra options to supply to gtkdoc-scan.
 # e.g. SCAN_OPTIONS=--deprecated-guards="CTK_DISABLE_DEPRECATED"
 SCAN_OPTIONS = 
 
-# Extra options to supply to ctkdoc-mkdb.
+# Extra options to supply to gtkdoc-mkdb.
 # e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
 MKDB_OPTIONS = --sgml-mode --output-format=xml
 
-# Extra options to supply to ctkdoc-mktmpl
+# Extra options to supply to gtkdoc-mktmpl
 # e.g. MKTMPL_OPTIONS=--only-section-tmpl
 MKTMPL_OPTIONS = 
 
-# Extra options to supply to ctkdoc-fixref. Not normally needed.
+# Extra options to supply to gtkdoc-fixref. Not normally needed.
 # e.g. FIXXREF_OPTIONS=--extra-dir=../gdk-pixbuf/html --extra-dir=../cdk/html
 FIXXREF_OPTIONS = 
 
@@ -331,8 +331,8 @@ content_files =
 # e.g. expand_content_files=running.sgml
 expand_content_files = 
 
-# CFLAGS and LDFLAGS for compiling ctkdoc-scangobj with your library.
-# Only needed if you are using ctkdoc-scangobj to dynamically query widget
+# CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
+# Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties.
 # e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(CTK_DEBUG_FLAGS)
 # e.g. CTKDOC_LIBS=$(top_builddir)/ctk/$(ctktargetlib)
@@ -359,7 +359,7 @@ SETUP_FILES = \
 	$(DOC_MODULE)-overrides.txt
 
 
-# This includes the standard gtk-doc make rules, copied by ctkdocize.
+# This includes the standard gtk-doc make rules, copied by gtkdocize.
 
 # Other files to distribute
 # e.g. EXTRA_DIST += version.xml.in
@@ -388,7 +388,7 @@ CLEANFILES = $(SCANOBJ_FILES) $(REPORT_FILES) $(DOC_STAMPS)
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/ctkdoc/gtk-doc.make $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/gtkdoc/gtk-doc.make $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -397,9 +397,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/ctkdoc/gtk-doc.make 
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign ctkdoc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign gtkdoc/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign ctkdoc/Makefile
+	  $(AUTOMAKE) --foreign gtkdoc/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -409,7 +409,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe);; \
 	esac;
-$(top_srcdir)/ctkdoc/gtk-doc.make:
+$(top_srcdir)/gtkdoc/gtk-doc.make:
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
@@ -619,18 +619,18 @@ scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	for i in $(DOC_SOURCE_DIR) ; do \
 	    _source_dir="$${_source_dir} --source-dir=$$i" ; \
 	done ; \
-	ctkdoc-scan --module=$(DOC_MODULE) --ignore-headers="$(IGNORE_HFILES)" $${_source_dir} $(SCAN_OPTIONS) $(EXTRA_HFILES)
+	gtkdoc-scan --module=$(DOC_MODULE) --ignore-headers="$(IGNORE_HFILES)" $${_source_dir} $(SCAN_OPTIONS) $(EXTRA_HFILES)
 	@if grep -l '^..*$$' $(DOC_MODULE).types > /dev/null 2>&1 ; then \
 	    echo "  DOC   Introspecting gobjects"; \
 	    scanobj_options=""; \
-	    ctkdoc-scangobj 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	    gtkdoc-scangobj 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	    if test "$(?)" = "0"; then \
 	        if test "x$(V)" = "x1"; then \
 	            scanobj_options="--verbose"; \
 	        fi; \
 	    fi; \
 	    CC="$(CTKDOC_CC)" LD="$(CTKDOC_LD)" RUN="$(CTKDOC_RUN)" CFLAGS="$(CTKDOC_CFLAGS) $(CFLAGS)" LDFLAGS="$(CTKDOC_LIBS) $(LDFLAGS)" \
-	    ctkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
+	    gtkdoc-scangobj $(SCANGOBJ_OPTIONS) $$scanobj_options --module=$(DOC_MODULE); \
 	else \
 	    for i in $(SCANOBJ_FILES) ; do \
 	        test -f $$i || touch $$i ; \
@@ -645,7 +645,7 @@ $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)
 
 tmpl-build.stamp: setup-build.stamp $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)-overrides.txt
 	@echo '  DOC   Rebuilding template files'
-	@ctkdoc-mktmpl --module=$(DOC_MODULE) $(MKTMPL_OPTIONS)
+	@gtkdoc-mktmpl --module=$(DOC_MODULE) $(MKTMPL_OPTIONS)
 	@if test "$(abs_srcdir)" != "$(abs_builddir)" ; then \
 	  if test -w $(abs_srcdir) ; then \
 	    cp -rp $(abs_builddir)/tmpl $(abs_srcdir)/; \
@@ -668,7 +668,7 @@ sgml-build.stamp: tmpl.stamp $(DOC_MODULE)-sections.txt $(srcdir)/tmpl/*.sgml $(
 	for i in $(DOC_SOURCE_DIR) ; do \
 	    _source_dir="$${_source_dir} --source-dir=$$i" ; \
 	done ; \
-	ctkdoc-mkdb --module=$(DOC_MODULE) --output-format=xml --expand-content-files="$(expand_content_files)" --main-sgml-file=$(DOC_MAIN_SGML_FILE) $${_source_dir} $(MKDB_OPTIONS)
+	gtkdoc-mkdb --module=$(DOC_MODULE) --output-format=xml --expand-content-files="$(expand_content_files)" --main-sgml-file=$(DOC_MAIN_SGML_FILE) $${_source_dir} $(MKDB_OPTIONS)
 	@touch sgml-build.stamp
 
 sgml.stamp: sgml-build.stamp
@@ -681,17 +681,17 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@rm -rf html
 	@mkdir html
 	@mkhtml_options=""; \
-	ctkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	gtkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	if test "$(?)" = "0"; then \
 	  if test "x$(V)" = "x1"; then \
 	    mkhtml_options="$$mkhtml_options --verbose"; \
 	  fi; \
 	fi; \
-	ctkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-path"; \
+	gtkdoc-mkhtml 2>&1 --help | grep  >/dev/null "\-\-path"; \
 	if test "$(?)" = "0"; then \
 	  mkhtml_options="$$mkhtml_options --path=\"$(abs_srcdir)\""; \
 	fi; \
-	cd html && ctkdoc-mkhtml $$mkhtml_options $(MKHTML_OPTIONS) $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
+	cd html && gtkdoc-mkhtml $$mkhtml_options $(MKHTML_OPTIONS) $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
 	-@test "x$(HTML_IMAGES)" = "x" || \
 	for file in $(HTML_IMAGES) ; do \
 	  if test -f $(abs_srcdir)/$$file ; then \
@@ -702,7 +702,7 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	  fi; \
 	done;
 	@echo '  DOC   Fixing cross-references'
-	@ctkdoc-fixxref --module=$(DOC_MODULE) --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
+	@gtkdoc-fixxref --module=$(DOC_MODULE) --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
 	@touch html-build.stamp
 
 #### pdf ####
@@ -711,7 +711,7 @@ pdf-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@echo '  DOC   Building PDF'
 	@rm -f $(DOC_MODULE).pdf
 	@mkpdf_options=""; \
-	ctkdoc-mkpdf 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
+	gtkdoc-mkpdf 2>&1 --help | grep  >/dev/null "\-\-verbose"; \
 	if test "$(?)" = "0"; then \
 	  if test "x$(V)" = "x1"; then \
 	    mkpdf_options="$$mkpdf_options --verbose"; \
@@ -726,7 +726,7 @@ pdf-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	    fi; \
 	  done; \
 	fi; \
-	ctkdoc-mkpdf --path="$(abs_srcdir)" $$mkpdf_options $(DOC_MODULE) $(DOC_MAIN_SGML_FILE) $(MKPDF_OPTIONS)
+	gtkdoc-mkpdf --path="$(abs_srcdir)" $$mkpdf_options $(DOC_MODULE) $(DOC_MAIN_SGML_FILE) $(MKPDF_OPTIONS)
 	@touch pdf-build.stamp
 
 ##############
@@ -779,12 +779,12 @@ uninstall-local:
 #
 # Require gtk-doc when making dist
 #
-@ENABLE_CTK_DOC_TRUE@dist-check-ctkdoc:
-@ENABLE_CTK_DOC_FALSE@dist-check-ctkdoc:
+@ENABLE_CTK_DOC_TRUE@dist-check-gtkdoc:
+@ENABLE_CTK_DOC_FALSE@dist-check-gtkdoc:
 @ENABLE_CTK_DOC_FALSE@	@echo "*** gtk-doc must be installed and enabled in order to make dist"
 @ENABLE_CTK_DOC_FALSE@	@false
 
-dist-hook: dist-check-ctkdoc dist-hook-local
+dist-hook: dist-check-gtkdoc dist-hook-local
 	@mkdir $(distdir)/tmpl
 	@mkdir $(distdir)/html
 	@-cp ./tmpl/*.sgml $(distdir)/tmpl

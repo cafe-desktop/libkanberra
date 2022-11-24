@@ -715,7 +715,7 @@ libcanberra.pc
 libcanberra-ctk.pc
 libcanberra-ctk3.pc
 src/canberra.h
-ctkdoc/Makefile
+gtkdoc/Makefile
 doc/Makefile
 doc/README.html
 ])

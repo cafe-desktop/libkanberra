@@ -24,13 +24,13 @@ if [ -f .git/hooks/pre-commit.sample -a ! -f .git/hooks/pre-commit ] ; then
         echo "Activated pre-commit hook."
 fi
 
-CTKDOCIZE=$(which ctkdocize 2>/dev/null)
+CTKDOCIZE=$(which gtkdocize 2>/dev/null)
 if test -z $CTKDOCIZE; then
         echo "You don't have gtk-doc installed, and thus won't be able to generate the documentation."
-        echo 'EXTRA_DIST =' > ctkdoc/gtk-doc.make
+        echo 'EXTRA_DIST =' > gtkdoc/gtk-doc.make
 else
-        ctkdocize --docdir ctkdoc/
-        ctkdocargs=--enable-gtk-doc
+        gtkdocize --docdir gtkdoc/
+        gtkdocargs=--enable-gtk-doc
 fi
 
 autoreconf --force --install --symlink
@@ -44,7 +44,7 @@ args="\
 --localstatedir=/var \
 --libdir=$(libdir /usr/lib) \
 --libexecdir=/usr/lib \
-$ctkdocargs"
+$gtkdocargs"
 
 if [ "x$1" == "xc" ]; then
         ./configure CFLAGS='-g -O0 -Wp,-U_FORTIFY_SOURCE' $args
