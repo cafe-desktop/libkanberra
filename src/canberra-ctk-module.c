@@ -194,9 +194,9 @@ static void free_sound_event(SoundEventData *d) {
 
 static gboolean is_menu_hint(GdkWindowTypeHint hint) {
         return
-                hint == GDK_WINDOW_TYPE_HINT_POPUP_MENU ||
-                hint == GDK_WINDOW_TYPE_HINT_DROPDOWN_MENU ||
-                hint == GDK_WINDOW_TYPE_HINT_MENU;
+                hint == CDK_WINDOW_TYPE_HINT_POPUP_MENU ||
+                hint == CDK_WINDOW_TYPE_HINT_DROPDOWN_MENU ||
+                hint == CDK_WINDOW_TYPE_HINT_MENU;
 }
 
 static SoundEventData* filter_sound_event(SoundEventData *d) {
@@ -307,12 +307,12 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
         guchar *data = NULL;
         gint ret = -1;
 
-#ifdef GDK_IS_X11_DISPLAY
-        if (!GDK_IS_X11_DISPLAY(d))
+#ifdef CDK_IS_X11_DISPLAY
+        if (!CDK_IS_X11_DISPLAY(d))
                 return 0;
 #endif
 
-        if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
+        if (XGetWindowProperty(CDK_DISPLAY_XDISPLAY(d), CDK_WINDOW_XID(w),
                                cdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
@@ -340,12 +340,12 @@ static gint display_get_desktop(GdkDisplay *d) {
         guchar *data = NULL;
         gint ret = -1;
 
-#ifdef GDK_IS_X11_DISPLAY
-        if (!GDK_IS_X11_DISPLAY(d))
+#ifdef CDK_IS_X11_DISPLAY
+        if (!CDK_IS_X11_DISPLAY(d))
                 return 0;
 #endif
 
-        if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), DefaultRootWindow(GDK_DISPLAY_XDISPLAY(d)),
+        if (XGetWindowProperty(CDK_DISPLAY_XDISPLAY(d), DefaultRootWindow(CDK_DISPLAY_XDISPLAY(d)),
                                cdk_x11_get_xatom_by_name_for_display(d, "_NET_CURRENT_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
@@ -375,8 +375,8 @@ static gboolean window_is_xembed(GdkDisplay *d, GdkWindow *w) {
         gboolean ret = FALSE;
         Atom xembed;
 
-#ifdef GDK_IS_X11_DISPLAY
-        if (!GDK_IS_X11_DISPLAY(d))
+#ifdef CDK_IS_X11_DISPLAY
+        if (!CDK_IS_X11_DISPLAY(d))
                 return FALSE;
 #endif
 
@@ -387,7 +387,7 @@ static gboolean window_is_xembed(GdkDisplay *d, GdkWindow *w) {
 
         /* be robust against not existing XIDs (LP: #834403) */
         cdk_error_trap_push();
-        if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
+        if (XGetWindowProperty(CDK_DISPLAY_XDISPLAY(d), CDK_WINDOW_XID(w),
                                xembed,
                                0, 2, False, xembed, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
@@ -427,7 +427,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 g_object_unref(G_OBJECT(d->event->any.window));
 
                 if ((window = ctk_widget_get_window(CTK_WIDGET(d->object))))
-                        d->event->any.window = GDK_WINDOW(g_object_ref(G_OBJECT(window)));
+                        d->event->any.window = CDK_WINDOW(g_object_ref(G_OBJECT(window)));
                 else
                         d->event->any.window = NULL;
         }
@@ -459,7 +459,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         menu_is_popped_up = TRUE;
 
-                } else if (hint == GDK_WINDOW_TYPE_HINT_TOOLTIP) {
+                } else if (hint == CDK_WINDOW_TYPE_HINT_TOOLTIP) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popup",
@@ -467,8 +467,8 @@ static void dispatch_sound_event(SoundEventData *d) {
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
-                } else if (hint == GDK_WINDOW_TYPE_HINT_NORMAL ||
-                           hint == GDK_WINDOW_TYPE_HINT_DIALOG) {
+                } else if (hint == CDK_WINDOW_TYPE_HINT_NORMAL ||
+                           hint == CDK_WINDOW_TYPE_HINT_DIALOG) {
 
                         gboolean played_sound = FALSE;
                         gboolean is_xembed;
@@ -553,7 +553,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         menu_is_popped_up = FALSE;
 
-                } else if (hint == GDK_WINDOW_TYPE_HINT_TOOLTIP) {
+                } else if (hint == CDK_WINDOW_TYPE_HINT_TOOLTIP) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popdown",
@@ -561,8 +561,8 @@ static void dispatch_sound_event(SoundEventData *d) {
                                                      CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
-                } else if ((hint == GDK_WINDOW_TYPE_HINT_NORMAL ||
-                            hint == GDK_WINDOW_TYPE_HINT_DIALOG)) {
+                } else if ((hint == CDK_WINDOW_TYPE_HINT_NORMAL ||
+                            hint == CDK_WINDOW_TYPE_HINT_DIALOG)) {
 
                         gboolean is_xembed;
 
@@ -584,7 +584,7 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                 e = (GdkEventWindowState*) d->event;
 
-                /* Unfortunately GDK_WINDOW_STATE_ICONIFIED is used both for
+                /* Unfortunately CDK_WINDOW_STATE_ICONIFIED is used both for
                  * proper minimizing and when a window becomes invisible
                  * because the desktop was switched. To handle this we check
                  * if the window becoming invisible is actually on the current
@@ -600,8 +600,8 @@ static void dispatch_sound_event(SoundEventData *d) {
                         c_desktop = display_get_desktop(display);
                 }
 
-                if ((e->changed_mask & GDK_WINDOW_STATE_ICONIFIED) &&
-                    (e->new_window_state & GDK_WINDOW_STATE_ICONIFIED) &&
+                if ((e->changed_mask & CDK_WINDOW_STATE_ICONIFIED) &&
+                    (e->new_window_state & CDK_WINDOW_STATE_ICONIFIED) &&
                     (w_desktop == c_desktop || w_desktop < 0)) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
@@ -612,8 +612,8 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(1));
 
-                } else if ((e->changed_mask & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN)) &&
-                           (e->new_window_state & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN))) {
+                } else if ((e->changed_mask & (CDK_WINDOW_STATE_MAXIMIZED|CDK_WINDOW_STATE_FULLSCREEN)) &&
+                           (e->new_window_state & (CDK_WINDOW_STATE_MAXIMIZED|CDK_WINDOW_STATE_FULLSCREEN))) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-maximized",
@@ -623,8 +623,8 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(0));
 
-                } else if ((e->changed_mask & GDK_WINDOW_STATE_ICONIFIED) &&
-                           !(e->new_window_state & GDK_WINDOW_STATE_ICONIFIED) &&
+                } else if ((e->changed_mask & CDK_WINDOW_STATE_ICONIFIED) &&
+                           !(e->new_window_state & CDK_WINDOW_STATE_ICONIFIED) &&
                            g_object_get_qdata(d->object, was_iconized_quark)) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
@@ -635,8 +635,8 @@ static void dispatch_sound_event(SoundEventData *d) {
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(0));
 
-                } else if ((e->changed_mask & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN)) &&
-                           !(e->new_window_state & (GDK_WINDOW_STATE_MAXIMIZED|GDK_WINDOW_STATE_FULLSCREEN))) {
+                } else if ((e->changed_mask & (CDK_WINDOW_STATE_MAXIMIZED|CDK_WINDOW_STATE_FULLSCREEN)) &&
+                           !(e->new_window_state & (CDK_WINDOW_STATE_MAXIMIZED|CDK_WINDOW_STATE_FULLSCREEN))) {
 
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-unmaximized",
@@ -906,7 +906,7 @@ static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_valu
         g_queue_push_tail(&sound_event_queue, d);
 
         if (idle_id == 0)
-                idle_id = cdk_threads_add_idle_full(GDK_PRIORITY_REDRAW-1, (GSourceFunc) idle_cb, NULL, NULL);
+                idle_id = cdk_threads_add_idle_full(CDK_PRIORITY_REDRAW-1, (GSourceFunc) idle_cb, NULL, NULL);
 
         return TRUE;
 }

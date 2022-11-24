@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-#ifndef GDK_MULTIHEAD_SAFE
+#ifndef CDK_MULTIHEAD_SAFE
 ca_context *ca_ctk_context_get(void);
 #endif
 
