@@ -3,8 +3,8 @@ dnl -*- mode: autoconf -*-
 # serial 1
 
 dnl Usage:
-dnl   CTK_DOC_CHECK([minimum-gtk-doc-version])
-AC_DEFUN([CTK_DOC_CHECK],
+dnl   GTK_DOC_CHECK([minimum-gtk-doc-version])
+AC_DEFUN([GTK_DOC_CHECK],
 [
   AC_REQUIRE([PKG_PROG_PKG_CONFIG])
   AC_BEFORE([AC_PROG_LIBTOOL],[$0])dnl setup libtool first
@@ -59,9 +59,9 @@ AC_DEFUN([CTK_DOC_CHECK],
   fi
 
 
-  AM_CONDITIONAL([ENABLE_CTK_DOC], [test x$enable_ctk_doc = xyes])
-  AM_CONDITIONAL([CTK_DOC_BUILD_HTML], [test x$enable_ctk_doc_html = xyes])
-  AM_CONDITIONAL([CTK_DOC_BUILD_PDF], [test x$enable_ctk_doc_pdf = xyes])
-  AM_CONDITIONAL([CTK_DOC_USE_LIBTOOL], [test -n "$LIBTOOL"])
-  AM_CONDITIONAL([CTK_DOC_USE_REBASE], [test -n "$GTKDOC_REBASE"])
+  AM_CONDITIONAL([ENABLE_GTK_DOC], [test x$enable_ctk_doc = xyes])
+  AM_CONDITIONAL([GTK_DOC_BUILD_HTML], [test x$enable_ctk_doc_html = xyes])
+  AM_CONDITIONAL([GTK_DOC_BUILD_PDF], [test x$enable_ctk_doc_pdf = xyes])
+  AM_CONDITIONAL([GTK_DOC_USE_LIBTOOL], [test -n "$LIBTOOL"])
+  AM_CONDITIONAL([GTK_DOC_USE_REBASE], [test -n "$GTKDOC_REBASE"])
 ])
