@@ -185,12 +185,12 @@ static gint window_get_desktop(GdkDisplay *d, GdkWindow *w) {
         guchar *data = NULL;
         gint ret = -1;
 
-#ifdef GDK_IS_X11_DISPLAY
-        if (!GDK_IS_X11_DISPLAY(d))
+#ifdef CDK_IS_X11_DISPLAY
+        if (!CDK_IS_X11_DISPLAY(d))
                 return 0;
 #endif
 
-        if (XGetWindowProperty(GDK_DISPLAY_XDISPLAY(d), GDK_WINDOW_XID(w),
+        if (XGetWindowProperty(CDK_DISPLAY_XDISPLAY(d), CDK_WINDOW_XID(w),
                                cdk_x11_get_xatom_by_name_for_display(d, "_NET_WM_DESKTOP"),
                                0, G_MAXLONG, False, XA_CARDINAL, &type_return,
                                &format_return, &nitems_return, &bytes_after_return,
@@ -264,7 +264,7 @@ int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *widget) {
                 gint x = -1, y = -1, width = -1, height = -1, screen_width = -1, screen_height = -1;
 
                 if ((dw = ctk_widget_get_window(CTK_WIDGET(w))))
-                        if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) GDK_WINDOW_XID(dw))) < 0)
+                        if ((ret = ca_proplist_setf(p, CA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) CDK_WINDOW_XID(dw))) < 0)
                                 return ret;
 
                 if ((display = ctk_widget_get_display(CTK_WIDGET(w)))) {
@@ -403,10 +403,10 @@ int ca_ctk_proplist_set_for_event(ca_proplist *p, GdkEvent *e) {
                 }
         }
 
-        if (e->type == GDK_BUTTON_PRESS ||
-            e->type == GDK_2BUTTON_PRESS ||
-            e->type == GDK_3BUTTON_PRESS ||
-            e->type == GDK_BUTTON_RELEASE) {
+        if (e->type == CDK_BUTTON_PRESS ||
+            e->type == CDK_2BUTTON_PRESS ||
+            e->type == CDK_3BUTTON_PRESS ||
+            e->type == CDK_BUTTON_RELEASE) {
 
                 if ((ret = ca_proplist_setf(p, CA_PROP_EVENT_MOUSE_BUTTON, "%u", e->button.button)) < 0)
                         return ret;
@@ -513,7 +513,7 @@ int ca_ctk_play_for_event(GdkEvent *e, uint32_t id, ...) {
 #if CTK_CHECK_VERSION (2, 90, 7)
                 s = cdk_window_get_screen(e->any.window);
 #else
-                s = cdk_drawable_get_screen(GDK_DRAWABLE(e->any.window));
+                s = cdk_drawable_get_screen(CDK_DRAWABLE(e->any.window));
 #endif
         else
                 s = cdk_screen_get_default();
