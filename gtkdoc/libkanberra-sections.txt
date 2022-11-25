@@ -1,5 +1,5 @@
 <SECTION>
-<FILE>canberra-ctk</FILE>
+<FILE>kanberra-ctk</FILE>
 ca_ctk_context_get
 ca_ctk_proplist_set_for_widget
 ca_ctk_play_for_widget
@@ -9,7 +9,7 @@ ca_ctk_widget_disable_sounds
 </SECTION>
 
 <SECTION>
-<FILE>canberra</FILE>
+<FILE>kanberra</FILE>
 CA_PROP_MEDIA_NAME
 CA_PROP_MEDIA_TITLE
 CA_PROP_MEDIA_ARTIST

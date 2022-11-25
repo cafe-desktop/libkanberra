@@ -1,22 +1,22 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -26,7 +26,7 @@
 
 #include <stdarg.h>
 
-#include "canberra.h"
+#include "kanberra.h"
 #include "common.h"
 #include "malloc.h"
 #include "driver.h"
@@ -35,25 +35,25 @@
 #include "fork-detect.h"
 
 /**
- * SECTION:canberra
- * @short_description: General libcanberra API
+ * SECTION:kanberra
+ * @short_description: General libkanberra API
  *
- * libcanberra defines a simple abstract interface for playing event sounds.
+ * libkanberra defines a simple abstract interface for playing event sounds.
  *
- * libcanberra relies on the XDG sound naming specification for
+ * libkanberra relies on the XDG sound naming specification for
  * identifying event sounds. On Unix/Linux the right sound to play is
  * found via the mechanisms defined in the XDG sound themeing
  * specification. On other systems the XDG sound name is translated to
  * the native sound id for the operating system.
  *
- * An event sound is triggered via libcanberra by calling the
+ * An event sound is triggered via libkanberra by calling the
  * ca_context_play() function on a previously created ca_context
  * object. The ca_context_play() takes a list of key-value pairs that
  * describe the event sound to generate as closely as possible. The
  * most important property is %CA_PROP_EVENT_ID which defines the XDG
  * sound name for the sound to play.
  *
- * libcanberra is not a generic event abstraction system. It's only
+ * libkanberra is not a generic event abstraction system. It's only
  * purpose is playing sounds -- however in a very elaborate way. As
  * much information about the context the sound is triggered from
  * shall be supplied to the sound system as possible, so that it can
@@ -72,24 +72,24 @@
  * which is than automatically inherited by each sample being played
  * back. (ca_context_change_props()).
  *
- * Some of the properties can be filled in by libcanberra or one of
+ * Some of the properties can be filled in by libkanberra or one of
  * its backends automatically and thus need not be be filled in by the
  * application (such as %CA_PROP_APPLICATION_PROCESS_ID and
  * friends). However the application can always overwrite any of these
  * implicit properties.
  *
- * libcanberra is thread-safe and OOM-safe (as far as the backend
+ * libkanberra is thread-safe and OOM-safe (as far as the backend
  * allows this). It is not async-signal safe.
  *
- * Most libcanberra functions return an integer that indicates success
+ * Most libkanberra functions return an integer that indicates success
  * when 0 (%CA_SUCCESS) or an error when negative. In the latter case
  * ca_strerror() can be used to convert this code into a human
  * readable string.
  *
- * libcanberra property names need to be in 7bit ASCII, string
+ * libkanberra property names need to be in 7bit ASCII, string
  * property values UTF8.
  *
- * Optionally a libcanberra backend can support caching of sounds in a
+ * Optionally a libkanberra backend can support caching of sounds in a
  * sound system. If this functionality is used, the latencies for
  * event sound playback can be much smaller and fewer resources are
  * needed to start playback. If a backend does not support cacheing,
@@ -639,9 +639,9 @@ finish:
 
 /**
  * ca_strerror:
- * @code: Numerical error code as returned by a libcanberra API function
+ * @code: Numerical error code as returned by a libkanberra API function
  *
- * Converts a numerical error code as returned by most libcanberra API functions into a human readable error string.
+ * Converts a numerical error code as returned by most libkanberra API functions into a human readable error string.
  *
  * Returns: a human readable error string.
  */

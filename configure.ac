@@ -1,22 +1,22 @@
 # -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-# This file is part of libcanberra.
+# This file is part of libkanberra.
 #
 # Copyright 2008 Lennart Poettering
 #
-# libcanberra is free software; you can redistribute it and/or modify
+# libkanberra is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
 # published by the Free Software Foundation, either version 2.1 of the
 # License, or (at your option) any later version.
 #
-# libcanberra is distributed in the hope that it will be useful, but
+# libkanberra is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with libcanberra. If not, see
+# License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
 m4_define([ca_major],[0])
@@ -25,11 +25,11 @@ m4_define([ca_version],[ca_major.ca_minor])
 
 AC_PREREQ([2.68])
 
-AC_INIT([libcanberra],
+AC_INIT([libkanberra],
         [ca_version],
         [mzyvopnaoreen (at) 0pointer (dot) de],
-        [libcanberra],
-        [http://0pointer.de/lennart/projects/libcanberra/])
+        [libkanberra],
+        [http://0pointer.de/lennart/projects/libkanberra/])
 
 AC_CONFIG_SRCDIR([src/common.c])
 AC_CONFIG_HEADERS([config.h])
@@ -711,10 +711,10 @@ GTK_DOC_CHECK(1.9)
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-libcanberra.pc
-libcanberra-ctk.pc
-libcanberra-ctk3.pc
-src/canberra.h
+libkanberra.pc
+libkanberra-ctk.pc
+libkanberra-ctk3.pc
+src/kanberra.h
 gtkdoc/Makefile
 doc/Makefile
 doc/README.html

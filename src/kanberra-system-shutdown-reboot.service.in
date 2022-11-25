@@ -10,8 +10,8 @@ ConditionPathExists=|/usr/share/sounds/freedesktop/stereo/system-shutdown-reboot
 
 [Service]
 Type=oneshot
-ExecStart=-@bindir@/canberra-boot system-shutdown-reboot
+ExecStart=-@bindir@/kanberra-boot system-shutdown-reboot
 
 [Install]
 WantedBy=reboot.target kexec.target
-Also=canberra-system-shutdown.service
+Also=kanberra-system-shutdown.service

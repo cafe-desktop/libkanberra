@@ -1,22 +1,22 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -29,7 +29,7 @@
 #include <locale.h>
 #include <stdio.h>
 
-#include "canberra.h"
+#include "kanberra.h"
 
 static void callback(ca_context *c, uint32_t id, int error, void *userdata) {
         fprintf(stderr, "callback called for id %u, error '%s', userdata=%p\n", id, ca_strerror(error), userdata);
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
          * ca_context_change_props() again. */
         ret = ca_context_change_props(c,
                                       CA_PROP_APPLICATION_NAME, "An example",
-                                      CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.Test",
+                                      CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.Test",
                                       CA_PROP_WINDOW_X11_SCREEN, getenv("DISPLAY"),
                                       NULL);
         fprintf(stderr, "change_props: %s\n", ca_strerror(ret));

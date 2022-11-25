@@ -1,22 +1,22 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -29,18 +29,18 @@
 #include <cdk/cdkx.h>
 #include <X11/Xatom.h>
 
-#include "canberra.h"
-#include "canberra-ctk.h"
+#include "kanberra.h"
+#include "kanberra-ctk.h"
 #include "common.h"
 #include "malloc.h"
 #include "proplist.h"
 #include "fork-detect.h"
 
 /**
- * SECTION:canberra-ctk
- * @short_description: Ctk+ libcanberra Bindings
+ * SECTION:kanberra-ctk
+ * @short_description: Ctk+ libkanberra Bindings
  *
- * libcanberra-ctk provides a few functions that simplify libcanberra
+ * libkanberra-ctk provides a few functions that simplify libkanberra
  * usage from Ctk+ programs. It maintains a single ca_context object
  * per #CdkScreen that is made accessible via
  * ca_ctk_context_get_for_screen(), with a shortcut ca_ctk_context_get()
@@ -84,7 +84,7 @@ static void enable_event_sounds_changed(CtkSettings *s, GParamSpec *arg1, ca_con
  * Gets the single ca_context object for the default screen. See
  * ca_ctk_context_get_for_screen().
  *
- * Returns: a ca_context object. The object is owned by libcanberra-ctk
+ * Returns: a ca_context object. The object is owned by libkanberra-ctk
  *   and must not be destroyed
  */
 ca_context *ca_ctk_context_get(void) {
@@ -96,14 +96,14 @@ ca_context *ca_ctk_context_get(void) {
  * @screen: the #CdkScreen to get the context for, or %NULL to use
  *   the default screen
  *
- * libcanberra-ctk maintains a single ca_context object for each
+ * libkanberra-ctk maintains a single ca_context object for each
  * #CdkScreen. Use this function to access it. The
  * %CA_PROP_CANBERRA_XDG_THEME_NAME of this context property is
  * dynamically bound to the XSETTINGS setting for the XDG theme
  * name. CA_PROP_APPLICATION_NAME is bound to
  * g_get_application_name().
  *
- * Returns: a ca_context object. The object is owned by libcanberra-ctk
+ * Returns: a ca_context object. The object is owned by libkanberra-ctk
  *   and must not be destroyed
  *
  * Since: 0.13
@@ -117,7 +117,7 @@ ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen) {
         if (!screen)
                 screen = cdk_screen_get_default();
 
-        if ((c = g_object_get_data(G_OBJECT(screen), "canberra::ctk::context")))
+        if ((c = g_object_get_data(G_OBJECT(screen), "kanberra::ctk::context")))
                 return c;
 
         if (ca_context_create(&c) != CA_SUCCESS)
@@ -131,9 +131,9 @@ ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen) {
         if ((name = g_get_application_name()))
                 ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, name);
         else {
-                ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, "libcanberra-ctk");
+                ca_proplist_sets(p, CA_PROP_APPLICATION_NAME, "libkanberra-ctk");
                 ca_proplist_sets(p, CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
-                ca_proplist_sets(p, CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.ctk");
+                ca_proplist_sets(p, CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk");
         }
 
         if ((name = ctk_window_get_default_icon_name()))
@@ -162,7 +162,7 @@ ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen) {
                         g_debug("This Ctk+ version doesn't have the CtkSettings::ctk-enable-event-sounds property.");
         }
 
-        g_object_set_data_full(G_OBJECT(screen), "canberra::ctk::context", c, (GDestroyNotify) ca_context_destroy);
+        g_object_set_data_full(G_OBJECT(screen), "kanberra::ctk::context", c, (GDestroyNotify) ca_context_destroy);
 
         return c;
 }

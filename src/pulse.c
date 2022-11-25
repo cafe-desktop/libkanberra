@@ -1,22 +1,22 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -38,7 +38,7 @@
 #include <pulse/subscribe.h>
 #include <pulse/introspect.h>
 
-#include "canberra.h"
+#include "kanberra.h"
 #include "common.h"
 #include "driver.h"
 #include "llist.h"
@@ -165,7 +165,7 @@ static void add_common(pa_proplist *l) {
                 else if ((t = pa_proplist_gets(l, CA_PROP_MEDIA_FILENAME)))
                         pa_proplist_sets(l, CA_PROP_MEDIA_NAME, t);
                 else
-                        pa_proplist_sets(l, CA_PROP_MEDIA_NAME, "libcanberra");
+                        pa_proplist_sets(l, CA_PROP_MEDIA_NAME, "libkanberra");
         }
 }
 
@@ -231,14 +231,14 @@ static int context_connect(ca_context *c, ca_bool_t nofail) {
         if ((ret = convert_proplist(&l, c->props)) < 0)
                 return ret;
 
-        strip_prefix(l, "canberra.");
+        strip_prefix(l, "kanberra.");
 
         if (!pa_proplist_contains(l, PA_PROP_APPLICATION_NAME)) {
-                pa_proplist_sets(l, PA_PROP_APPLICATION_NAME, "libcanberra");
+                pa_proplist_sets(l, PA_PROP_APPLICATION_NAME, "libkanberra");
                 pa_proplist_sets(l, PA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
 
                 if (!pa_proplist_contains(l, PA_PROP_APPLICATION_ID))
-                        pa_proplist_sets(l, PA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra");
+                        pa_proplist_sets(l, PA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra");
 
         }
 
@@ -519,7 +519,7 @@ int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged
         if ((ret = convert_proplist(&l, changed)) < 0)
                 return ret;
 
-        strip_prefix(l, "canberra.");
+        strip_prefix(l, "kanberra.");
 
         /* We start these asynchronously and don't care about the return
          * value */
@@ -915,7 +915,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 }
         }
 
-        strip_prefix(l, "canberra.");
+        strip_prefix(l, "kanberra.");
         add_common(l);
 
         if ((ret = subscribe(c)) < 0)
@@ -1008,7 +1008,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
 
         if (position != PA_CHANNEL_POSITION_INVALID) {
                 unsigned u;
-                /* Apply canberra.force_channel */
+                /* Apply kanberra.force_channel */
 
                 cm.channels = ss.channels;
                 for (u = 0; u < cm.channels; u++)
@@ -1230,7 +1230,7 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
                 goto finish_unlocked;
         }
 
-        strip_prefix(l, "canberra.");
+        strip_prefix(l, "kanberra.");
         strip_prefix(l, "event.mouse.");
         strip_prefix(l, "window.");
         add_common(l);

@@ -1,22 +1,22 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -28,7 +28,7 @@
 #include <locale.h>
 
 #include <ctk/ctk.h>
-#include <canberra-ctk.h>
+#include <kanberra-ctk.h>
 
 static int ret = 0;
 static ca_proplist *proplist = NULL;
@@ -68,7 +68,7 @@ static void callback(ca_context *c, uint32_t id, int error, void *userdata) {
         } else if (n_loops > 1) {
                 /* So, why don't we call ca_context_play_full() here directly?
                    -- Because the context this callback is called from is
-                   explicitly documented as undefined and no libcanberra function
+                   explicitly documented as undefined and no libkanberra function
                    may be called from it. */
 
                 g_idle_add(idle_play, NULL);
@@ -83,7 +83,7 @@ static void callback(ca_context *c, uint32_t id, int error, void *userdata) {
 }
 
 static GQuark error_domain(void) {
-        return g_quark_from_static_string("canberra-error-quark");
+        return g_quark_from_static_string("kanberra-error-quark");
 }
 
 static gboolean property_callback(
@@ -137,7 +137,7 @@ int main (int argc, char *argv[]) {
 
         ca_proplist_create(&proplist);
 
-        oc = g_option_context_new("- canberra-ctk-play");
+        oc = g_option_context_new("- kanberra-ctk-play");
         g_option_context_add_main_entries(oc, options, NULL);
         g_option_context_add_group(oc, ctk_get_option_group(TRUE));
         g_option_context_set_help_enabled(oc, TRUE);
@@ -149,7 +149,7 @@ int main (int argc, char *argv[]) {
         g_option_context_free(oc);
 
         if (version) {
-                g_print("canberra-ctk-play from %s\n", PACKAGE_STRING);
+                g_print("kanberra-ctk-play from %s\n", PACKAGE_STRING);
                 return 0;
         }
 
@@ -159,9 +159,9 @@ int main (int argc, char *argv[]) {
         }
 
         ca_context_change_props(ca_ctk_context_get(),
-                                CA_PROP_APPLICATION_NAME, "canberra-ctk-play",
+                                CA_PROP_APPLICATION_NAME, "kanberra-ctk-play",
                                 CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION,
-                                CA_PROP_APPLICATION_ID, "org.freedesktop.libcanberra.ctk-play",
+                                CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk-play",
                                 NULL);
 
         if (event_id)
