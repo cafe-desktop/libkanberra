@@ -53,7 +53,7 @@ enum outstanding_type {
 };
 
 struct outstanding {
-        CA_LLIST_FIELDS(struct outstanding);
+        KA_LLIST_FIELDS(struct outstanding);
         enum outstanding_type type;
         ka_context *context;
         uint32_t id;
@@ -76,7 +76,7 @@ struct private {
         ka_bool_t reconnect;
 
         ka_mutex *outstanding_mutex;
-        CA_LLIST_HEAD(struct outstanding, outstanding);
+        KA_LLIST_HEAD(struct outstanding, outstanding);
 };
 
 #define PRIVATE(c) ((struct private *) ((c)->private))
@@ -117,26 +117,26 @@ static int convert_proplist(pa_proplist **_l, ka_proplist *c) {
         pa_proplist *l;
         ka_prop *i;
 
-        ka_return_val_if_fail(_l, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_l, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         if (!(l = pa_proplist_new()))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         ka_mutex_lock(c->mutex);
 
         for (i = c->first_item; i; i = i->next_item)
-                if (pa_proplist_set(l, i->key, CA_PROP_DATA(i), i->nbytes) < 0) {
+                if (pa_proplist_set(l, i->key, KA_PROP_DATA(i), i->nbytes) < 0) {
                         ka_mutex_unlock(c->mutex);
                         pa_proplist_free(l);
-                        return CA_ERROR_INVALID;
+                        return KA_ERROR_INVALID;
                 }
 
         ka_mutex_unlock(c->mutex);
 
         *_l = l;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static pa_proplist *strip_prefix(pa_proplist *l, const char *prefix) {
@@ -154,63 +154,63 @@ static pa_proplist *strip_prefix(pa_proplist *l, const char *prefix) {
 static void add_common(pa_proplist *l) {
         ka_assert(l);
 
-        if (!pa_proplist_contains(l, CA_PROP_MEDIA_ROLE))
-                pa_proplist_sets(l, CA_PROP_MEDIA_ROLE, "event");
+        if (!pa_proplist_contains(l, KA_PROP_MEDIA_ROLE))
+                pa_proplist_sets(l, KA_PROP_MEDIA_ROLE, "event");
 
-        if (!pa_proplist_contains(l, CA_PROP_MEDIA_NAME)) {
+        if (!pa_proplist_contains(l, KA_PROP_MEDIA_NAME)) {
                 const char *t;
 
-                if ((t = pa_proplist_gets(l, CA_PROP_EVENT_ID)))
-                        pa_proplist_sets(l, CA_PROP_MEDIA_NAME, t);
-                else if ((t = pa_proplist_gets(l, CA_PROP_MEDIA_FILENAME)))
-                        pa_proplist_sets(l, CA_PROP_MEDIA_NAME, t);
+                if ((t = pa_proplist_gets(l, KA_PROP_EVENT_ID)))
+                        pa_proplist_sets(l, KA_PROP_MEDIA_NAME, t);
+                else if ((t = pa_proplist_gets(l, KA_PROP_MEDIA_FILENAME)))
+                        pa_proplist_sets(l, KA_PROP_MEDIA_NAME, t);
                 else
-                        pa_proplist_sets(l, CA_PROP_MEDIA_NAME, "libkanberra");
+                        pa_proplist_sets(l, KA_PROP_MEDIA_NAME, "libkanberra");
         }
 }
 
 static int translate_error(int error) {
         static const int table[PA_ERR_MAX] = {
-                [PA_OK]                       = CA_SUCCESS,
-                [PA_ERR_ACCESS]               = CA_ERROR_ACCESS,
-                [PA_ERR_COMMAND]              = CA_ERROR_IO,
-                [PA_ERR_INVALID]              = CA_ERROR_INVALID,
-                [PA_ERR_EXIST]                = CA_ERROR_IO,
-                [PA_ERR_NOENTITY]             = CA_ERROR_NOTFOUND,
-                [PA_ERR_CONNECTIONREFUSED]    = CA_ERROR_NOTAVAILABLE,
-                [PA_ERR_PROTOCOL]             = CA_ERROR_IO,
-                [PA_ERR_TIMEOUT]              = CA_ERROR_IO,
-                [PA_ERR_AUTHKEY]              = CA_ERROR_ACCESS,
-                [PA_ERR_INTERNAL]             = CA_ERROR_IO,
-                [PA_ERR_CONNECTIONTERMINATED] = CA_ERROR_IO,
-                [PA_ERR_KILLED]               = CA_ERROR_DESTROYED,
-                [PA_ERR_INVALIDSERVER]        = CA_ERROR_INVALID,
-                [PA_ERR_MODINITFAILED]        = CA_ERROR_NODRIVER,
-                [PA_ERR_BADSTATE]             = CA_ERROR_STATE,
-                [PA_ERR_NODATA]               = CA_ERROR_IO,
-                [PA_ERR_VERSION]              = CA_ERROR_NOTSUPPORTED,
-                [PA_ERR_TOOLARGE]             = CA_ERROR_TOOBIG,
+                [PA_OK]                       = KA_SUCCESS,
+                [PA_ERR_ACCESS]               = KA_ERROR_ACCESS,
+                [PA_ERR_COMMAND]              = KA_ERROR_IO,
+                [PA_ERR_INVALID]              = KA_ERROR_INVALID,
+                [PA_ERR_EXIST]                = KA_ERROR_IO,
+                [PA_ERR_NOENTITY]             = KA_ERROR_NOTFOUND,
+                [PA_ERR_CONNECTIONREFUSED]    = KA_ERROR_NOTAVAILABLE,
+                [PA_ERR_PROTOCOL]             = KA_ERROR_IO,
+                [PA_ERR_TIMEOUT]              = KA_ERROR_IO,
+                [PA_ERR_AUTHKEY]              = KA_ERROR_ACCESS,
+                [PA_ERR_INTERNAL]             = KA_ERROR_IO,
+                [PA_ERR_CONNECTIONTERMINATED] = KA_ERROR_IO,
+                [PA_ERR_KILLED]               = KA_ERROR_DESTROYED,
+                [PA_ERR_INVALIDSERVER]        = KA_ERROR_INVALID,
+                [PA_ERR_MODINITFAILED]        = KA_ERROR_NODRIVER,
+                [PA_ERR_BADSTATE]             = KA_ERROR_STATE,
+                [PA_ERR_NODATA]               = KA_ERROR_IO,
+                [PA_ERR_VERSION]              = KA_ERROR_NOTSUPPORTED,
+                [PA_ERR_TOOLARGE]             = KA_ERROR_TOOBIG,
 #ifdef PA_ERR_NOTSUPPORTED
-                [PA_ERR_NOTSUPPORTED]         = CA_ERROR_NOTSUPPORTED,
+                [PA_ERR_NOTSUPPORTED]         = KA_ERROR_NOTSUPPORTED,
 #endif
 #ifdef PA_ERR_UNKNOWN
-                [PA_ERR_UNKNOWN]              = CA_ERROR_IO,
+                [PA_ERR_UNKNOWN]              = KA_ERROR_IO,
 #endif
 #ifdef PA_ERR_NOEXTENSION
-                [PA_ERR_NOEXTENSION]          = CA_ERROR_NOTSUPPORTED,
+                [PA_ERR_NOEXTENSION]          = KA_ERROR_NOTSUPPORTED,
 #endif
 #ifdef PA_ERR_OBSOLETE
-                [PA_ERR_OBSOLETE]             = CA_ERROR_NOTSUPPORTED,
+                [PA_ERR_OBSOLETE]             = KA_ERROR_NOTSUPPORTED,
 #endif
 #ifdef PA_ERR_NOTIMPLEMENTED
-                [PA_ERR_NOTIMPLEMENTED]       = CA_ERROR_NOTSUPPORTED
+                [PA_ERR_NOTIMPLEMENTED]       = KA_ERROR_NOTSUPPORTED
 #endif
         };
 
         ka_assert(error >= 0);
 
         if (error >= PA_ERR_MAX || !table[error])
-                return CA_ERROR_IO;
+                return KA_ERROR_IO;
 
         return table[error];
 }
@@ -220,10 +220,10 @@ static int context_connect(ka_context *c, ka_bool_t nofail) {
         struct private *p;
         int ret;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(p = c->private, CA_ERROR_STATE);
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
-        ka_return_val_if_fail(!p->context, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(p = c->private, KA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
+        ka_return_val_if_fail(!p->context, KA_ERROR_STATE);
 
         /* If this immediate attempt fails, don't try to reconnect. */
         p->reconnect = FALSE;
@@ -244,7 +244,7 @@ static int context_connect(ka_context *c, ka_bool_t nofail) {
 
         if (!(p->context = pa_context_new_with_proplist(pa_threaded_mainloop_get_api(p->mainloop), NULL, l))) {
                 pa_proplist_free(l);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         pa_proplist_free(l);
@@ -264,7 +264,7 @@ static int context_connect(ka_context *c, ka_bool_t nofail) {
                 return ret;
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static void context_state_cb(pa_context *pc, void *userdata) {
@@ -283,7 +283,7 @@ static void context_state_cb(pa_context *pc, void *userdata) {
                 int ret;
 
                 if (state == PA_CONTEXT_TERMINATED)
-                        ret = CA_ERROR_DESTROYED;
+                        ret = KA_ERROR_DESTROYED;
                 else
                         ret = translate_error(pa_context_errno(pc));
 
@@ -292,7 +292,7 @@ static void context_state_cb(pa_context *pc, void *userdata) {
                 while ((out = p->outstanding)) {
 
                         outstanding_disconnect(out);
-                        CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                        KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
 
                         ka_mutex_unlock(p->outstanding_mutex);
 
@@ -331,7 +331,7 @@ static void context_state_cb(pa_context *pc, void *userdata) {
 
 static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t, uint32_t idx, void *userdata) {
         struct outstanding *out, *n;
-        CA_LLIST_HEAD(struct outstanding, l);
+        KA_LLIST_HEAD(struct outstanding, l);
         ka_context *c = userdata;
         struct private *p;
 
@@ -343,7 +343,7 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
 
         p = PRIVATE(c);
 
-        CA_LLIST_HEAD_INIT(struct outstanding, l);
+        KA_LLIST_HEAD_INIT(struct outstanding, l);
 
         ka_mutex_lock(p->outstanding_mutex);
 
@@ -354,9 +354,9 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
                         continue;
 
                 outstanding_disconnect(out);
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
 
-                CA_LLIST_PREPEND(struct outstanding, l, out);
+                KA_LLIST_PREPEND(struct outstanding, l, out);
         }
 
         ka_mutex_unlock(p->outstanding_mutex);
@@ -364,10 +364,10 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
         while (l) {
                 out = l;
 
-                CA_LLIST_REMOVE(struct outstanding, l, out);
+                KA_LLIST_REMOVE(struct outstanding, l, out);
 
                 if (out->callback)
-                        out->callback(c, out->id, CA_SUCCESS, out->userdata);
+                        out->callback(c, out->id, KA_SUCCESS, out->userdata);
 
                 outstanding_free(out);
         }
@@ -377,26 +377,26 @@ int driver_open(ka_context *c) {
         struct private *p;
         int ret;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "pulse"), CA_ERROR_NODRIVER);
-        ka_return_val_if_fail(!PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "pulse"), KA_ERROR_NODRIVER);
+        ka_return_val_if_fail(!PRIVATE(c), KA_ERROR_STATE);
 
         if (!(c->private = p = ka_new0(struct private, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         if (!(p->outstanding_mutex = ka_mutex_new())) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         if (!(p->mainloop = pa_threaded_mainloop_new())) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         /* The initial connection is without NOFAIL, since we want to have
          * this call fail cleanly if we cannot connect. */
-        if ((ret = context_connect(c, FALSE)) != CA_SUCCESS) {
+        if ((ret = context_connect(c, FALSE)) != KA_SUCCESS) {
                 driver_destroy(c);
                 return ret;
         }
@@ -406,7 +406,7 @@ int driver_open(ka_context *c) {
         if (pa_threaded_mainloop_start(p->mainloop) < 0) {
                 pa_threaded_mainloop_unlock(p->mainloop);
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         for (;;) {
@@ -438,14 +438,14 @@ int driver_open(ka_context *c) {
 
         pa_threaded_mainloop_unlock(p->mainloop);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_destroy(ka_context *c) {
         struct private *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
@@ -459,10 +459,10 @@ int driver_destroy(ka_context *c) {
 
         while (p->outstanding) {
                 struct outstanding *out = p->outstanding;
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
 
                 if (out->callback)
-                        out->callback(c, out->id, CA_ERROR_DESTROYED, out->userdata);
+                        out->callback(c, out->id, KA_ERROR_DESTROYED, out->userdata);
 
                 outstanding_free(out);
         }
@@ -480,40 +480,40 @@ int driver_destroy(ka_context *c) {
 
         c->private = NULL;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_change_device(ka_context *c, const char *device) {
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         /* We're happy with any device change. We might however add code
          * here eventually to move all currently played back event sounds
          * to the new device. */
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
         struct private *p;
         pa_operation *o;
         pa_proplist *l;
-        int ret = CA_SUCCESS;
+        int ret = KA_SUCCESS;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, KA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
 
         pa_threaded_mainloop_lock(p->mainloop);
 
         if (!p->context) {
                 pa_threaded_mainloop_unlock(p->mainloop);
-                return CA_ERROR_STATE; /* can be silently ignored */
+                return KA_ERROR_STATE; /* can be silently ignored */
         }
 
         if ((ret = convert_proplist(&l, changed)) < 0)
@@ -539,22 +539,22 @@ int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged
 static int subscribe(ka_context *c) {
         struct private *p;
         pa_operation *o;
-        int ret = CA_SUCCESS;
+        int ret = KA_SUCCESS;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
         p = PRIVATE(c);
 
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
 
         if (p->subscribed)
-                return CA_SUCCESS;
+                return KA_SUCCESS;
 
         pa_threaded_mainloop_lock(p->mainloop);
 
         if (!p->context) {
                 pa_threaded_mainloop_unlock(p->mainloop);
-                return CA_ERROR_STATE;
+                return KA_ERROR_STATE;
         }
 
         /* We start these asynchronously and don't care about the return
@@ -582,7 +582,7 @@ static void play_sample_cb(pa_context *c, uint32_t idx, void *userdata) {
         p = PRIVATE(out->context);
 
         if (idx != PA_INVALID_INDEX) {
-                out->error = CA_SUCCESS;
+                out->error = KA_SUCCESS;
                 out->sink_input = idx;
         } else
                 out->error = translate_error(pa_context_errno(c));
@@ -615,12 +615,12 @@ static void stream_state_cb(pa_stream *s, void *userdata) {
         case PA_STREAM_TERMINATED: {
                 int err;
 
-                err = state == PA_STREAM_FAILED ? translate_error(pa_context_errno(pa_stream_get_context(s))) : CA_ERROR_DESTROYED;
+                err = state == PA_STREAM_FAILED ? translate_error(pa_context_errno(pa_stream_get_context(s))) : KA_ERROR_DESTROYED;
 
                 if (out->clean_up) {
                         ka_mutex_lock(p->outstanding_mutex);
                         outstanding_disconnect(out);
-                        CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                        KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                         ka_mutex_unlock(p->outstanding_mutex);
 
                         if (out->callback)
@@ -649,12 +649,12 @@ static void stream_drain_cb(pa_stream *s, int success, void *userdata) {
         ka_assert(out->type == OUTSTANDING_STREAM);
 
         p = PRIVATE(out->context);
-        err = success ? CA_SUCCESS : translate_error(pa_context_errno(p->context));
+        err = success ? KA_SUCCESS : translate_error(pa_context_errno(p->context));
 
         if (out->clean_up) {
                 ka_mutex_lock(p->outstanding_mutex);
                 outstanding_disconnect(out);
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 ka_mutex_unlock(p->outstanding_mutex);
 
                 if (out->callback)
@@ -693,7 +693,7 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
                 size_t rbytes = bytes;
 
                 if (!(data = ka_malloc(rbytes))) {
-                        ret = CA_ERROR_OOM;
+                        ret = KA_ERROR_OOM;
                         goto finish;
                 }
 
@@ -759,7 +759,7 @@ finish:
         if (out->clean_up) {
                 ka_mutex_lock(p->outstanding_mutex);
                 outstanding_disconnect(out);
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 ka_mutex_unlock(p->outstanding_mutex);
 
                 if (out->callback)
@@ -777,31 +777,31 @@ finish:
 }
 
 static const pa_sample_format_t sample_type_table[] = {
-        [CA_SAMPLE_S16NE] = PA_SAMPLE_S16NE,
-        [CA_SAMPLE_S16RE] = PA_SAMPLE_S16RE,
-        [CA_SAMPLE_U8] = PA_SAMPLE_U8
+        [KA_SAMPLE_S16NE] = PA_SAMPLE_S16NE,
+        [KA_SAMPLE_S16RE] = PA_SAMPLE_S16RE,
+        [KA_SAMPLE_U8] = PA_SAMPLE_U8
 };
 
-static const pa_channel_position_t channel_table[_CA_CHANNEL_POSITION_MAX] = {
-        [CA_CHANNEL_MONO] = PA_CHANNEL_POSITION_MONO,
-        [CA_CHANNEL_FRONT_LEFT] = PA_CHANNEL_POSITION_FRONT_LEFT,
-        [CA_CHANNEL_FRONT_RIGHT] = PA_CHANNEL_POSITION_FRONT_RIGHT,
-        [CA_CHANNEL_FRONT_CENTER] = PA_CHANNEL_POSITION_FRONT_CENTER,
-        [CA_CHANNEL_REAR_LEFT] = PA_CHANNEL_POSITION_REAR_LEFT,
-        [CA_CHANNEL_REAR_RIGHT] = PA_CHANNEL_POSITION_REAR_RIGHT,
-        [CA_CHANNEL_REAR_CENTER] = PA_CHANNEL_POSITION_REAR_CENTER,
-        [CA_CHANNEL_LFE] = PA_CHANNEL_POSITION_LFE,
-        [CA_CHANNEL_FRONT_LEFT_OF_CENTER] = PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER,
-        [CA_CHANNEL_FRONT_RIGHT_OF_CENTER] = PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER,
-        [CA_CHANNEL_SIDE_LEFT] = PA_CHANNEL_POSITION_SIDE_LEFT,
-        [CA_CHANNEL_SIDE_RIGHT] = PA_CHANNEL_POSITION_SIDE_RIGHT,
-        [CA_CHANNEL_TOP_CENTER] = PA_CHANNEL_POSITION_TOP_CENTER,
-        [CA_CHANNEL_TOP_FRONT_LEFT] = PA_CHANNEL_POSITION_FRONT_LEFT,
-        [CA_CHANNEL_TOP_FRONT_RIGHT] = PA_CHANNEL_POSITION_FRONT_RIGHT,
-        [CA_CHANNEL_TOP_FRONT_CENTER] = PA_CHANNEL_POSITION_FRONT_CENTER,
-        [CA_CHANNEL_TOP_REAR_LEFT] = PA_CHANNEL_POSITION_REAR_LEFT,
-        [CA_CHANNEL_TOP_REAR_RIGHT] = PA_CHANNEL_POSITION_REAR_RIGHT,
-        [CA_CHANNEL_TOP_REAR_CENTER] = PA_CHANNEL_POSITION_TOP_REAR_CENTER
+static const pa_channel_position_t channel_table[_KA_CHANNEL_POSITION_MAX] = {
+        [KA_CHANNEL_MONO] = PA_CHANNEL_POSITION_MONO,
+        [KA_CHANNEL_FRONT_LEFT] = PA_CHANNEL_POSITION_FRONT_LEFT,
+        [KA_CHANNEL_FRONT_RIGHT] = PA_CHANNEL_POSITION_FRONT_RIGHT,
+        [KA_CHANNEL_FRONT_CENTER] = PA_CHANNEL_POSITION_FRONT_CENTER,
+        [KA_CHANNEL_REAR_LEFT] = PA_CHANNEL_POSITION_REAR_LEFT,
+        [KA_CHANNEL_REAR_RIGHT] = PA_CHANNEL_POSITION_REAR_RIGHT,
+        [KA_CHANNEL_REAR_CENTER] = PA_CHANNEL_POSITION_REAR_CENTER,
+        [KA_CHANNEL_LFE] = PA_CHANNEL_POSITION_LFE,
+        [KA_CHANNEL_FRONT_LEFT_OF_CENTER] = PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER,
+        [KA_CHANNEL_FRONT_RIGHT_OF_CENTER] = PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER,
+        [KA_CHANNEL_SIDE_LEFT] = PA_CHANNEL_POSITION_SIDE_LEFT,
+        [KA_CHANNEL_SIDE_RIGHT] = PA_CHANNEL_POSITION_SIDE_RIGHT,
+        [KA_CHANNEL_TOP_CENTER] = PA_CHANNEL_POSITION_TOP_CENTER,
+        [KA_CHANNEL_TOP_FRONT_LEFT] = PA_CHANNEL_POSITION_FRONT_LEFT,
+        [KA_CHANNEL_TOP_FRONT_RIGHT] = PA_CHANNEL_POSITION_FRONT_RIGHT,
+        [KA_CHANNEL_TOP_FRONT_CENTER] = PA_CHANNEL_POSITION_FRONT_CENTER,
+        [KA_CHANNEL_TOP_REAR_LEFT] = PA_CHANNEL_POSITION_REAR_LEFT,
+        [KA_CHANNEL_TOP_REAR_RIGHT] = PA_CHANNEL_POSITION_REAR_RIGHT,
+        [KA_CHANNEL_TOP_REAR_CENTER] = PA_CHANNEL_POSITION_TOP_REAR_CENTER
 };
 
 static ka_bool_t convert_channel_map(ka_sound_file *f, pa_channel_map *cm) {
@@ -837,7 +837,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         pa_channel_map cm;
         pa_channel_position_t position = PA_CHANNEL_POSITION_INVALID;
         ka_bool_t cm_good;
-        ka_cache_control_t cache_control = CA_CACHE_CONTROL_NEVER;
+        ka_cache_control_t cache_control = KA_CACHE_CONTROL_NEVER;
         struct outstanding *out = NULL;
         int try = 3;
         int ret;
@@ -845,17 +845,17 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         char *sp;
         pa_buffer_attr ba;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
 
         if (!(out = ka_new0(struct outstanding, 1))) {
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto finish_unlocked;
         }
 
@@ -869,20 +869,20 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         if ((ret = convert_proplist(&l, proplist)) < 0)
                 goto finish_unlocked;
 
-        if ((n = pa_proplist_gets(l, CA_PROP_EVENT_ID)))
+        if ((n = pa_proplist_gets(l, KA_PROP_EVENT_ID)))
                 if (!(name = ka_strdup(n))) {
-                        ret = CA_ERROR_OOM;
+                        ret = KA_ERROR_OOM;
                         goto finish_unlocked;
                 }
 
-        if ((vol = pa_proplist_gets(l, CA_PROP_KANBERRA_VOLUME))) {
+        if ((vol = pa_proplist_gets(l, KA_PROP_KANBERRA_VOLUME))) {
                 char *e = NULL;
                 double dvol;
 
                 errno = 0;
                 dvol = strtod(vol, &e);
                 if (errno != 0 || !e || *e) {
-                        ret = CA_ERROR_INVALID;
+                        ret = KA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
 
@@ -890,18 +890,18 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 volume_set = TRUE;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
+        if ((ct = pa_proplist_gets(l, KA_PROP_KANBERRA_CACHE_CONTROL)))
                 if ((ret = ka_parse_cache_control(&cache_control, ct)) < 0) {
-                        ret = CA_ERROR_INVALID;
+                        ret = KA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
 
-        if ((channel = pa_proplist_gets(l, CA_PROP_KANBERRA_FORCE_CHANNEL))) {
+        if ((channel = pa_proplist_gets(l, KA_PROP_KANBERRA_FORCE_CHANNEL))) {
                 pa_channel_map t;
 
                 if (!pa_channel_map_parse(&t, channel) ||
                     t.channels != 1) {
-                        ret = CA_ERROR_INVALID;
+                        ret = KA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
 
@@ -909,8 +909,8 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
 
                 /* We cannot remap cached samples, so let's fail when cacheing
                  * shall be used */
-                if (cache_control != CA_CACHE_CONTROL_NEVER) {
-                        ret = CA_ERROR_NOTSUPPORTED;
+                if (cache_control != KA_CACHE_CONTROL_NEVER) {
+                        ret = KA_ERROR_NOTSUPPORTED;
                         goto finish_unlocked;
                 }
         }
@@ -921,7 +921,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         if ((ret = subscribe(c)) < 0)
                 goto finish_unlocked;
 
-        if (name && cache_control != CA_CACHE_CONTROL_NEVER) {
+        if (name && cache_control != KA_CACHE_CONTROL_NEVER) {
 
                 /* Ok, this sample has an event id, let's try to play it from the cache */
 
@@ -931,7 +931,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                         pa_threaded_mainloop_lock(p->mainloop);
 
                         if (!p->context) {
-                                ret = CA_ERROR_STATE;
+                                ret = KA_ERROR_STATE;
                                 goto finish_locked;
                         }
 
@@ -957,8 +957,8 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
 
                         pa_operation_unref(o);
 
-                        if (!canceled && p->context && out->error == CA_SUCCESS) {
-                                ret = CA_SUCCESS;
+                        if (!canceled && p->context && out->error == KA_SUCCESS) {
+                                ret = KA_SUCCESS;
                                 goto finish_locked;
                         }
 
@@ -966,18 +966,18 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
 
                         /* The operation might have been canceled due to connection termination */
                         if (canceled || !p->context) {
-                                ret = CA_ERROR_DISCONNECTED;
+                                ret = KA_ERROR_DISCONNECTED;
                                 goto finish_unlocked;
                         }
 
                         /* Did some other error occur? */
-                        if (out->error != CA_ERROR_NOTFOUND) {
+                        if (out->error != KA_ERROR_NOTFOUND) {
                                 ret = out->error;
                                 goto finish_unlocked;
                         }
 
                         /* Hmm, we need to play it directly */
-                        if (cache_control != CA_CACHE_CONTROL_PERMANENT)
+                        if (cache_control != KA_CACHE_CONTROL_PERMANENT)
                                 break;
 
                         /* Don't loop forever */
@@ -997,8 +997,8 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 goto finish_unlocked;
 
         if (sp)
-                if (!pa_proplist_contains(l, CA_PROP_MEDIA_FILENAME))
-                        pa_proplist_sets(l, CA_PROP_MEDIA_FILENAME, sp);
+                if (!pa_proplist_contains(l, KA_PROP_MEDIA_FILENAME))
+                        pa_proplist_sets(l, KA_PROP_MEDIA_FILENAME, sp);
 
         ka_free(sp);
 
@@ -1021,7 +1021,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         pa_threaded_mainloop_lock(p->mainloop);
 
         if (!p->context) {
-                ret = CA_ERROR_STATE;
+                ret = KA_ERROR_STATE;
                 goto finish_locked;
         }
 
@@ -1060,7 +1060,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 pa_stream_state_t state;
 
                 if (!p->context || !out->stream) {
-                        ret = CA_ERROR_STATE;
+                        ret = KA_ERROR_STATE;
                         goto finish_locked;
                 }
 
@@ -1085,16 +1085,16 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 pa_threaded_mainloop_wait(p->mainloop);
         }
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 finish_locked:
 
         /* We keep the outstanding struct around to clean up later if the sound din't finish yet*/
-        if (ret == CA_SUCCESS && !out->finished) {
+        if (ret == KA_SUCCESS && !out->finished) {
                 out->clean_up = TRUE;
 
                 ka_mutex_lock(p->outstanding_mutex);
-                CA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
+                KA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
                 ka_mutex_unlock(p->outstanding_mutex);
         } else
                 outstanding_free(out);
@@ -1119,21 +1119,21 @@ finish_unlocked:
 int driver_cancel(ka_context *c, uint32_t id) {
         struct private *p;
         pa_operation *o;
-        int ret = CA_SUCCESS;
+        int ret = KA_SUCCESS;
         struct outstanding *out, *n;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
 
         pa_threaded_mainloop_lock(p->mainloop);
 
         if (!p->context) {
                 pa_threaded_mainloop_unlock(p->mainloop);
-                return CA_ERROR_STATE;
+                return KA_ERROR_STATE;
         }
 
         ka_mutex_lock(p->outstanding_mutex);
@@ -1142,7 +1142,7 @@ int driver_cancel(ka_context *c, uint32_t id) {
          * value */
 
         for (out = p->outstanding; out; out = n) {
-                int ret2 = CA_SUCCESS;
+                int ret2 = KA_SUCCESS;
                 n = out->next;
 
                 if (out->type == OUTSTANDING_UPLOAD ||
@@ -1159,14 +1159,14 @@ int driver_cancel(ka_context *c, uint32_t id) {
                  * here. However, we will return only the first error we
                  * encounter */
 
-                if (ret2 && ret == CA_SUCCESS)
+                if (ret2 && ret == KA_SUCCESS)
                         ret = ret2;
 
                 if (out->callback)
-                        out->callback(c, out->id, CA_ERROR_CANCELED, out->userdata);
+                        out->callback(c, out->id, KA_ERROR_CANCELED, out->userdata);
 
                 outstanding_disconnect(out);
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 outstanding_free(out);
         }
 
@@ -1184,21 +1184,21 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
         pa_sample_spec ss;
         pa_channel_map cm;
         ka_bool_t cm_good;
-        ka_cache_control_t cache_control = CA_CACHE_CONTROL_PERMANENT;
+        ka_cache_control_t cache_control = KA_CACHE_CONTROL_PERMANENT;
         struct outstanding *out;
         int ret;
         char *sp;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, KA_ERROR_STATE);
 
         if (!(out = ka_new0(struct outstanding, 1))) {
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto finish_unlocked;
         }
 
@@ -1209,24 +1209,24 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
         if ((ret = convert_proplist(&l, proplist)) < 0)
                 goto finish_unlocked;
 
-        if (!(n = pa_proplist_gets(l, CA_PROP_EVENT_ID))) {
-                ret = CA_ERROR_INVALID;
+        if (!(n = pa_proplist_gets(l, KA_PROP_EVENT_ID))) {
+                ret = KA_ERROR_INVALID;
                 goto finish_unlocked;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
+        if ((ct = pa_proplist_gets(l, KA_PROP_KANBERRA_CACHE_CONTROL)))
                 if ((ret = ka_parse_cache_control(&cache_control, ct)) < 0) {
-                        ret = CA_ERROR_INVALID;
+                        ret = KA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
 
-        if (cache_control != CA_CACHE_CONTROL_PERMANENT) {
-                ret = CA_ERROR_INVALID;
+        if (cache_control != KA_CACHE_CONTROL_PERMANENT) {
+                ret = KA_ERROR_INVALID;
                 goto finish_unlocked;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_FORCE_CHANNEL))) {
-                ret = CA_ERROR_NOTSUPPORTED;
+        if ((ct = pa_proplist_gets(l, KA_PROP_KANBERRA_FORCE_CHANNEL))) {
+                ret = KA_ERROR_NOTSUPPORTED;
                 goto finish_unlocked;
         }
 
@@ -1240,8 +1240,8 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
                 goto finish_unlocked;
 
         if (sp)
-                if (!pa_proplist_contains(l, CA_PROP_MEDIA_FILENAME))
-                        pa_proplist_sets(l, CA_PROP_MEDIA_FILENAME, sp);
+                if (!pa_proplist_contains(l, KA_PROP_MEDIA_FILENAME))
+                        pa_proplist_sets(l, KA_PROP_MEDIA_FILENAME, sp);
 
         ka_free(sp);
 
@@ -1254,7 +1254,7 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
         pa_threaded_mainloop_lock(p->mainloop);
 
         if (!p->context) {
-                ret = CA_ERROR_STATE;
+                ret = KA_ERROR_STATE;
                 goto finish_locked;
         }
 
@@ -1275,7 +1275,7 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
                 pa_stream_state_t state;
 
                 if (!p->context || !out->stream) {
-                        ret = CA_ERROR_STATE;
+                        ret = KA_ERROR_STATE;
                         goto finish_locked;
                 }
 
@@ -1294,7 +1294,7 @@ int driver_cache(ka_context *c, ka_proplist *proplist) {
                 pa_threaded_mainloop_wait(p->mainloop);
         }
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 finish_locked:
         outstanding_free(out);
@@ -1317,9 +1317,9 @@ int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private *p;
         struct outstanding *out;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
+        ka_return_val_if_fail(playing, KA_ERROR_INVALID);
 
         p = PRIVATE(c);
 
@@ -1340,5 +1340,5 @@ int driver_playing(ka_context *c, uint32_t id, int *playing) {
 
         ka_mutex_unlock(p->outstanding_mutex);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }

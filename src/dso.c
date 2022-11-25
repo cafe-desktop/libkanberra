@@ -52,32 +52,32 @@ struct private_dso {
 static int ka_error_from_lt_error(int code) {
 
         static const int table[] = {
-                [LT_ERROR_UNKNOWN] = CA_ERROR_INTERNAL,
-                [LT_ERROR_DLOPEN_NOT_SUPPORTED] = CA_ERROR_NOTSUPPORTED,
-                [LT_ERROR_INVALID_LOADER] = CA_ERROR_INTERNAL,
-                [LT_ERROR_INIT_LOADER] = CA_ERROR_INTERNAL,
-                [LT_ERROR_REMOVE_LOADER] = CA_ERROR_INTERNAL,
-                [LT_ERROR_FILE_NOT_FOUND] = CA_ERROR_NOTFOUND,
-                [LT_ERROR_DEPLIB_NOT_FOUND] = CA_ERROR_NOTFOUND,
-                [LT_ERROR_NO_SYMBOLS] = CA_ERROR_NOTFOUND,
-                [LT_ERROR_CANNOT_OPEN] = CA_ERROR_ACCESS,
-                [LT_ERROR_CANNOT_CLOSE] = CA_ERROR_INTERNAL,
-                [LT_ERROR_SYMBOL_NOT_FOUND] = CA_ERROR_NOTFOUND,
-                [LT_ERROR_NO_MEMORY] = CA_ERROR_OOM,
-                [LT_ERROR_INVALID_HANDLE] = CA_ERROR_INVALID,
-                [LT_ERROR_BUFFER_OVERFLOW] = CA_ERROR_TOOBIG,
-                [LT_ERROR_INVALID_ERRORCODE] = CA_ERROR_INVALID,
-                [LT_ERROR_SHUTDOWN] = CA_ERROR_INTERNAL,
-                [LT_ERROR_CLOSE_RESIDENT_MODULE] = CA_ERROR_INTERNAL,
-                [LT_ERROR_INVALID_MUTEX_ARGS] = CA_ERROR_INTERNAL,
-                [LT_ERROR_INVALID_POSITION] = CA_ERROR_INTERNAL
+                [LT_ERROR_UNKNOWN] = KA_ERROR_INTERNAL,
+                [LT_ERROR_DLOPEN_NOT_SUPPORTED] = KA_ERROR_NOTSUPPORTED,
+                [LT_ERROR_INVALID_LOADER] = KA_ERROR_INTERNAL,
+                [LT_ERROR_INIT_LOADER] = KA_ERROR_INTERNAL,
+                [LT_ERROR_REMOVE_LOADER] = KA_ERROR_INTERNAL,
+                [LT_ERROR_FILE_NOT_FOUND] = KA_ERROR_NOTFOUND,
+                [LT_ERROR_DEPLIB_NOT_FOUND] = KA_ERROR_NOTFOUND,
+                [LT_ERROR_NO_SYMBOLS] = KA_ERROR_NOTFOUND,
+                [LT_ERROR_CANNOT_OPEN] = KA_ERROR_ACCESS,
+                [LT_ERROR_CANNOT_CLOSE] = KA_ERROR_INTERNAL,
+                [LT_ERROR_SYMBOL_NOT_FOUND] = KA_ERROR_NOTFOUND,
+                [LT_ERROR_NO_MEMORY] = KA_ERROR_OOM,
+                [LT_ERROR_INVALID_HANDLE] = KA_ERROR_INVALID,
+                [LT_ERROR_BUFFER_OVERFLOW] = KA_ERROR_TOOBIG,
+                [LT_ERROR_INVALID_ERRORCODE] = KA_ERROR_INVALID,
+                [LT_ERROR_SHUTDOWN] = KA_ERROR_INTERNAL,
+                [LT_ERROR_CLOSE_RESIDENT_MODULE] = KA_ERROR_INTERNAL,
+                [LT_ERROR_INVALID_MUTEX_ARGS] = KA_ERROR_INTERNAL,
+                [LT_ERROR_INVALID_POSITION] = KA_ERROR_INTERNAL
 #ifdef LT_ERROR_CONFLICTING_FLAGS
-                , [LT_ERROR_CONFLICTING_FLAGS] = CA_ERROR_INTERNAL
+                , [LT_ERROR_CONFLICTING_FLAGS] = KA_ERROR_INTERNAL
 #endif
         };
 
-        if (code < 0 || code >= (int) CA_ELEMENTSOF(table))
-                return CA_ERROR_INTERNAL;
+        if (code < 0 || code >= (int) KA_ELEMENTSOF(table))
+                return KA_ERROR_INTERNAL;
 
         return table[code];
 }
@@ -112,7 +112,7 @@ static int ka_error_from_string(const char *t) {
         int err;
 
         if ((err = lt_error_from_string(t)) < 0)
-                return CA_ERROR_INTERNAL;
+                return KA_ERROR_INTERNAL;
 
         return ka_error_from_lt_error(err);
 }
@@ -123,8 +123,8 @@ static int try_open(ka_context *c, const char *t) {
 
         p = PRIVATE_DSO(c);
 
-        if (!(mn = ka_sprintf_malloc(CA_PLUGIN_PATH "/libkanberra-%s", t)))
-                return CA_ERROR_OOM;
+        if (!(mn = ka_sprintf_malloc(KA_PLUGIN_PATH "/libkanberra-%s", t)))
+                return KA_ERROR_OOM;
 
         errno = 0;
         p->module = lt_dlopenext(mn);
@@ -134,17 +134,17 @@ static int try_open(ka_context *c, const char *t) {
                 int ret;
 
                 if (errno == ENOENT)
-                        ret = CA_ERROR_NOTFOUND;
+                        ret = KA_ERROR_NOTFOUND;
                 else
                         ret = ka_error_from_string(lt_dlerror());
 
-                if (ret == CA_ERROR_NOTFOUND)
-                        ret = CA_ERROR_NODRIVER;
+                if (ret == KA_ERROR_NOTFOUND)
+                        ret = KA_ERROR_NODRIVER;
 
                 return ret;
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static void* real_dlsym(lt_module m, const char *name, const char *symbol) {
@@ -184,11 +184,11 @@ int driver_open(ka_context *c) {
         struct private_dso *p;
         char *driver;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!PRIVATE_DSO(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!PRIVATE_DSO(c), KA_ERROR_STATE);
 
         if (!(c->private_dso = p = ka_new0(struct private_dso, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         if (lt_dlinit() != 0) {
                 ret = ka_error_from_string(lt_dlerror());
@@ -204,7 +204,7 @@ int driver_open(ka_context *c) {
 
                 if (!(e = ka_strdup(c->driver))) {
                         driver_destroy(c);
-                        return CA_ERROR_OOM;
+                        return KA_ERROR_OOM;
                 }
 
                 n = strcspn(e, ",:");
@@ -213,7 +213,7 @@ int driver_open(ka_context *c) {
                 if (n == 0) {
                         driver_destroy(c);
                         ka_free(e);
-                        return CA_ERROR_INVALID;
+                        return KA_ERROR_INVALID;
                 }
 
                 if ((ret = try_open(c, e)) < 0) {
@@ -229,12 +229,12 @@ int driver_open(ka_context *c) {
 
                 for (e = ka_driver_order; *e; e++) {
 
-                        if ((ret = try_open(c, *e)) == CA_SUCCESS)
+                        if ((ret = try_open(c, *e)) == KA_SUCCESS)
                                 break;
 
-                        if (ret != CA_ERROR_NODRIVER &&
-                            ret != CA_ERROR_NOTAVAILABLE &&
-                            ret != CA_ERROR_NOTFOUND) {
+                        if (ret != KA_ERROR_NODRIVER &&
+                            ret != KA_ERROR_NOTAVAILABLE &&
+                            ret != KA_ERROR_NOTFOUND) {
 
                                 driver_destroy(c);
                                 return ret;
@@ -243,12 +243,12 @@ int driver_open(ka_context *c) {
 
                 if (!*e) {
                         driver_destroy(c);
-                        return CA_ERROR_NODRIVER;
+                        return KA_ERROR_NODRIVER;
                 }
 
                 if (!(driver = ka_strdup(*e))) {
                         driver_destroy(c);
-                        return CA_ERROR_OOM;
+                        return KA_ERROR_OOM;
                 }
         }
 
@@ -265,7 +265,7 @@ int driver_open(ka_context *c) {
 
                 ka_free(driver);
                 driver_destroy(c);
-                return CA_ERROR_CORRUPT;
+                return KA_ERROR_CORRUPT;
         }
 
         ka_free(driver);
@@ -276,15 +276,15 @@ int driver_open(ka_context *c) {
                 return ret;
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_destroy(ka_context *c) {
         struct private_dso *p;
-        int ret = CA_SUCCESS;
+        int ret = KA_SUCCESS;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
 
@@ -309,11 +309,11 @@ int driver_destroy(ka_context *c) {
 int driver_change_device(ka_context *c, const char *device) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_change_device, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_change_device, KA_ERROR_STATE);
 
         return p->driver_change_device(c, device);
 }
@@ -321,11 +321,11 @@ int driver_change_device(ka_context *c, const char *device) {
 int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_change_props, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_change_props, KA_ERROR_STATE);
 
         return p->driver_change_props(c, changed, merged);
 }
@@ -333,11 +333,11 @@ int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged
 int driver_play(ka_context *c, uint32_t id, ka_proplist *pl, ka_finish_callback_t cb, void *userdata) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_play, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_play, KA_ERROR_STATE);
 
         return p->driver_play(c, id, pl, cb, userdata);
 }
@@ -345,11 +345,11 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *pl, ka_finish_callback_
 int driver_cancel(ka_context *c, uint32_t id) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_cancel, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_cancel, KA_ERROR_STATE);
 
         return p->driver_cancel(c, id);
 }
@@ -357,11 +357,11 @@ int driver_cancel(ka_context *c, uint32_t id) {
 int driver_cache(ka_context *c, ka_proplist *pl) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_cache, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_cache, KA_ERROR_STATE);
 
         return p->driver_cache(c, pl);
 }
@@ -369,12 +369,12 @@ int driver_cache(ka_context *c, ka_proplist *pl) {
 int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private_dso *p;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private_dso, CA_ERROR_STATE);
-        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private_dso, KA_ERROR_STATE);
+        ka_return_val_if_fail(playing, KA_ERROR_INVALID);
 
         p = PRIVATE_DSO(c);
-        ka_return_val_if_fail(p->driver_playing, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->driver_playing, KA_ERROR_STATE);
 
         return p->driver_playing(c, id, playing);
 }

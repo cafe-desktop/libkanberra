@@ -20,259 +20,259 @@ kanberra
 <!-- ##### SECTION Image ##### -->
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_NAME ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_TITLE ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_TITLE ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_ARTIST ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_ARTIST ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_LANGUAGE ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_LANGUAGE ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_FILENAME ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_FILENAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_ICON ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_ICON ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_ICON_NAME ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_ICON_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_MEDIA_ROLE ##### -->
+<!-- ##### MACRO KA_PROP_MEDIA_ROLE ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_ID ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_ID ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_DESCRIPTION ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_DESCRIPTION ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_MOUSE_X ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_MOUSE_X ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_MOUSE_Y ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_MOUSE_Y ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_MOUSE_HPOS ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_MOUSE_HPOS ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_MOUSE_VPOS ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_MOUSE_VPOS ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_EVENT_MOUSE_BUTTON ##### -->
+<!-- ##### MACRO KA_PROP_EVENT_MOUSE_BUTTON ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_NAME ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_ID ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_ID ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_ICON ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_ICON ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_ICON_NAME ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_ICON_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_X11_DISPLAY ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_X11_DISPLAY ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_X11_SCREEN ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_X11_SCREEN ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_X11_MONITOR ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_X11_MONITOR ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_WINDOW_X11_XID ##### -->
+<!-- ##### MACRO KA_PROP_WINDOW_X11_XID ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_NAME ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_ID ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_ID ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_VERSION ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_VERSION ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_ICON ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_ICON ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_ICON_NAME ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_ICON_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_LANGUAGE ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_LANGUAGE ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_PROCESS_ID ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_PROCESS_ID ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_PROCESS_BINARY ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_PROCESS_BINARY ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_PROCESS_USER ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_PROCESS_USER ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_APPLICATION_PROCESS_HOST ##### -->
+<!-- ##### MACRO KA_PROP_APPLICATION_PROCESS_HOST ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_KANBERRA_CACHE_CONTROL ##### -->
+<!-- ##### MACRO KA_PROP_KANBERRA_CACHE_CONTROL ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_KANBERRA_VOLUME ##### -->
+<!-- ##### MACRO KA_PROP_KANBERRA_VOLUME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_KANBERRA_XDG_THEME_NAME ##### -->
+<!-- ##### MACRO KA_PROP_KANBERRA_XDG_THEME_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE ##### -->
+<!-- ##### MACRO KA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE ##### -->
 <para>
 
 </para>

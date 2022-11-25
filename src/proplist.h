@@ -36,7 +36,7 @@ typedef struct ka_prop {
         struct ka_prop *next_in_slot, *next_item, *prev_item;
 } ka_prop;
 
-#define CA_PROP_DATA(p) ((void*) ((char*) (p) + CA_ALIGN(sizeof(ka_prop))))
+#define KA_PROP_DATA(p) ((void*) ((char*) (p) + KA_ALIGN(sizeof(ka_prop))))
 
 struct ka_proplist {
         ka_mutex *mutex;

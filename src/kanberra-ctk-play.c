@@ -159,25 +159,25 @@ int main (int argc, char *argv[]) {
         }
 
         ka_context_change_props(ka_ctk_context_get(),
-                                CA_PROP_APPLICATION_NAME, "kanberra-ctk-play",
-                                CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION,
-                                CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk-play",
+                                KA_PROP_APPLICATION_NAME, "kanberra-ctk-play",
+                                KA_PROP_APPLICATION_VERSION, PACKAGE_VERSION,
+                                KA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk-play",
                                 NULL);
 
         if (event_id)
-                ka_proplist_sets(proplist, CA_PROP_EVENT_ID, event_id);
+                ka_proplist_sets(proplist, KA_PROP_EVENT_ID, event_id);
 
         if (filename)
-                ka_proplist_sets(proplist, CA_PROP_MEDIA_FILENAME, filename);
+                ka_proplist_sets(proplist, KA_PROP_MEDIA_FILENAME, filename);
 
         if (cache_control)
-                ka_proplist_sets(proplist, CA_PROP_KANBERRA_CACHE_CONTROL, cache_control);
+                ka_proplist_sets(proplist, KA_PROP_KANBERRA_CACHE_CONTROL, cache_control);
 
         if (event_description)
-                ka_proplist_sets(proplist, CA_PROP_EVENT_DESCRIPTION, event_description);
+                ka_proplist_sets(proplist, KA_PROP_EVENT_DESCRIPTION, event_description);
 
         if (volume)
-                ka_proplist_sets(proplist, CA_PROP_KANBERRA_VOLUME, volume);
+                ka_proplist_sets(proplist, KA_PROP_KANBERRA_VOLUME, volume);
 
         r = ka_context_play_full(ka_ctk_context_get(), 1, proplist, callback, NULL);
 

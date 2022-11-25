@@ -50,7 +50,7 @@
  * ka_context_play() function on a previously created ka_context
  * object. The ka_context_play() takes a list of key-value pairs that
  * describe the event sound to generate as closely as possible. The
- * most important property is %CA_PROP_EVENT_ID which defines the XDG
+ * most important property is %KA_PROP_EVENT_ID which defines the XDG
  * sound name for the sound to play.
  *
  * libkanberra is not a generic event abstraction system. It's only
@@ -74,7 +74,7 @@
  *
  * Some of the properties can be filled in by libkanberra or one of
  * its backends automatically and thus need not be be filled in by the
- * application (such as %CA_PROP_APPLICATION_PROCESS_ID and
+ * application (such as %KA_PROP_APPLICATION_PROCESS_ID and
  * friends). However the application can always overwrite any of these
  * implicit properties.
  *
@@ -82,7 +82,7 @@
  * allows this). It is not async-signal safe.
  *
  * Most libkanberra functions return an integer that indicates success
- * when 0 (%CA_SUCCESS) or an error when negative. In the latter case
+ * when 0 (%KA_SUCCESS) or an error when negative. In the latter case
  * ka_strerror() can be used to convert this code into a human
  * readable string.
  *
@@ -94,21 +94,21 @@
  * event sound playback can be much smaller and fewer resources are
  * needed to start playback. If a backend does not support cacheing,
  * the respective functions will return an error code of
- * %CA_ERROR_NOTSUPPORTED.
+ * %KA_ERROR_NOTSUPPORTED.
  *
  * It is highly recommended that the application sets the
- * %CA_PROP_APPLICATION_NAME, %CA_PROP_APPLICATION_ID,
- * %CA_PROP_APPLICATION_ICON_NAME/%CA_PROP_APPLICATION_ICON properties
+ * %KA_PROP_APPLICATION_NAME, %KA_PROP_APPLICATION_ID,
+ * %KA_PROP_APPLICATION_ICON_NAME/%KA_PROP_APPLICATION_ICON properties
  * immediately after creating the ka_context, before calling
  * ka_context_open() or ka_context_play().
  *
- * Its is highly recommended to pass at least %CA_PROP_EVENT_ID,
- * %CA_PROP_EVENT_DESCRIPTION to ka_context_play() for each event
+ * Its is highly recommended to pass at least %KA_PROP_EVENT_ID,
+ * %KA_PROP_EVENT_DESCRIPTION to ka_context_play() for each event
  * sound generated. For sound events based on mouse inputs events
- * %CA_PROP_EVENT_MOUSE_X, %CA_PROP_EVENT_MOUSE_Y, %CA_PROP_EVENT_MOUSE_HPOS,
- * %CA_PROP_EVENT_MOUSE_VPOS, %CA_PROP_EVENT_MOUSE_BUTTON should be
+ * %KA_PROP_EVENT_MOUSE_X, %KA_PROP_EVENT_MOUSE_Y, %KA_PROP_EVENT_MOUSE_HPOS,
+ * %KA_PROP_EVENT_MOUSE_VPOS, %KA_PROP_EVENT_MOUSE_BUTTON should be
  * passed. For sound events attached to a widget on the screen, the
- * %CA_PROP_WINDOW_xxx properties should be set.
+ * %KA_PROP_WINDOW_xxx properties should be set.
  *
  *
  */
@@ -130,15 +130,15 @@ int ka_context_create(ka_context **_c) {
         int ret;
         const char *d;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(_c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(_c, KA_ERROR_INVALID);
 
         if (!(c = ka_new0(ka_context, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         if (!(c->mutex = ka_mutex_new())) {
                 ka_context_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         if ((ret = ka_proplist_create(&c->props)) < 0) {
@@ -161,7 +161,7 @@ int ka_context_create(ka_context **_c) {
         }
 
         *_c = c;
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 /**
@@ -173,10 +173,10 @@ int ka_context_create(ka_context **_c) {
  * Returns: 0 on success, negative error code on error.
  */
 int ka_context_destroy(ka_context *c) {
-        int ret = CA_SUCCESS;
+        int ret = KA_SUCCESS;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         /* There's no locking necessary here, because the application is
          * broken anyway if it destructs this object in one thread and
@@ -186,7 +186,7 @@ int ka_context_destroy(ka_context *c) {
                 ret = driver_destroy(c);
 
         if (c->props)
-                ka_assert_se(ka_proplist_destroy(c->props) == CA_SUCCESS);
+                ka_assert_se(ka_proplist_destroy(c->props) == KA_SUCCESS);
 
         if (c->mutex)
                 ka_mutex_free(c->mutex);
@@ -214,22 +214,22 @@ int ka_context_set_driver(ka_context *c, const char *driver) {
         char *n;
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_mutex_lock(c->mutex);
-        ka_return_val_if_fail_unlock(!c->opened, CA_ERROR_STATE, c->mutex);
+        ka_return_val_if_fail_unlock(!c->opened, KA_ERROR_STATE, c->mutex);
 
         if (!driver)
                 n = NULL;
         else if (!(n = ka_strdup(driver))) {
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto fail;
         }
 
         ka_free(c->driver);
         c->driver = n;
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 fail:
         ka_mutex_unlock(c->mutex);
@@ -256,20 +256,20 @@ int ka_context_change_device(ka_context *c, const char *device) {
         char *n;
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_mutex_lock(c->mutex);
 
         if (!device)
                 n = NULL;
         else if (!(n = ka_strdup(device))) {
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto fail;
         }
 
-        ret = c->opened ? driver_change_device(c, n) : CA_SUCCESS;
+        ret = c->opened ? driver_change_device(c, n) : KA_SUCCESS;
 
-        if (ret == CA_SUCCESS) {
+        if (ret == KA_SUCCESS) {
                 ka_free(c->device);
                 c->device = n;
         } else
@@ -284,13 +284,13 @@ fail:
 static int context_open_unlocked(ka_context *c) {
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         if (c->opened)
-                return CA_SUCCESS;
+                return KA_SUCCESS;
 
-        if ((ret = driver_open(c)) == CA_SUCCESS)
+        if ((ret = driver_open(c)) == KA_SUCCESS)
                 c->opened = TRUE;
 
         return ret;
@@ -310,10 +310,10 @@ static int context_open_unlocked(ka_context *c) {
 int ka_context_open(ka_context *c) {
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_mutex_lock(c->mutex);
-        ka_return_val_if_fail_unlock(!c->opened, CA_ERROR_STATE, c->mutex);
+        ka_return_val_if_fail_unlock(!c->opened, KA_ERROR_STATE, c->mutex);
 
         ret = context_open_unlocked(c);
 
@@ -345,8 +345,8 @@ int ka_context_change_props(ka_context *c, ...)  {
         int ret;
         ka_proplist *p = NULL;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         va_start(ap, c);
         ret = ka_proplist_from_ap(&p, ap);
@@ -369,7 +369,7 @@ int ka_context_change_props(ka_context *c, ...)  {
  *
  * Similar to ka_context_change_props(), but takes a ka_proplist
  * instead of a variable list of properties. Can be used to set binary
- * properties such as %CA_PROP_APPLICATION_ICON.
+ * properties such as %KA_PROP_APPLICATION_ICON.
  *
  * Returns: 0 on success, negative error code on error.
  */
@@ -378,22 +378,22 @@ int ka_context_change_props_full(ka_context *c, ka_proplist *p) {
         int ret;
         ka_proplist *merged;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(p, KA_ERROR_INVALID);
 
         ka_mutex_lock(c->mutex);
 
         if ((ret = ka_proplist_merge(&merged, c->props, p)) < 0)
                 goto finish;
 
-        ret = c->opened ? driver_change_props(c, p, merged) : CA_SUCCESS;
+        ret = c->opened ? driver_change_props(c, p, merged) : KA_SUCCESS;
 
-        if (ret == CA_SUCCESS) {
-                ka_assert_se(ka_proplist_destroy(c->props) == CA_SUCCESS);
+        if (ret == KA_SUCCESS) {
+                ka_assert_se(ka_proplist_destroy(c->props) == KA_SUCCESS);
                 c->props = merged;
         } else
-                ka_assert_se(ka_proplist_destroy(merged) == CA_SUCCESS);
+                ka_assert_se(ka_proplist_destroy(merged) == KA_SUCCESS);
 
 finish:
 
@@ -415,7 +415,7 @@ finish:
  * at once. It is recommended to pass 0 for the id if the event sound
  * shall never be canceled. If the requested sound is not cached in
  * the server yet this call might result in the sample being uploaded
- * temporarily or permanently (this may be controlled with %CA_PROP_KANBERRA_CACHE_CONTROL). This function will start playback
+ * temporarily or permanently (this may be controlled with %KA_PROP_KANBERRA_CACHE_CONTROL). This function will start playback
  * in the background. It will not wait until playback
  * completed. Depending on the backend used a sound that is started
  * shortly before your application terminates might or might not continue to
@@ -424,22 +424,22 @@ finish:
  * the callback function of ka_context_play_full() to be called before you
  * terminate your application.
  *
- * The sample to play is identified by the %CA_PROP_EVENT_ID
+ * The sample to play is identified by the %KA_PROP_EVENT_ID
  * property. If it is already cached in the server the cached version
  * is played. The properties passed in this call are merged with the
  * properties supplied when the sample was cached (if applicable)
  * and the context properties as set with ka_context_change_props().
  *
- * If %CA_PROP_EVENT_ID is not defined the sound file passed in the
- * %CA_PROP_MEDIA_FILENAME is played.
+ * If %KA_PROP_EVENT_ID is not defined the sound file passed in the
+ * %KA_PROP_MEDIA_FILENAME is played.
  *
  * On Linux/Unix the right sound to play is determined according to
- * %CA_PROP_EVENT_ID,
- * %CA_PROP_APPLICATION_LANGUAGE/%CA_PROP_MEDIA_LANGUAGE, the system
- * locale, %CA_PROP_KANBERRA_XDG_THEME_NAME and
- * %CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE, following the XDG Sound
+ * %KA_PROP_EVENT_ID,
+ * %KA_PROP_APPLICATION_LANGUAGE/%KA_PROP_MEDIA_LANGUAGE, the system
+ * locale, %KA_PROP_KANBERRA_XDG_THEME_NAME and
+ * %KA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE, following the XDG Sound
  * Theming Specification. On non-Unix systems the native event sound
- * that matches the XDG sound name in %CA_PROP_EVENT_ID is played.
+ * that matches the XDG sound name in %KA_PROP_EVENT_ID is played.
  *
  * Returns: 0 on success, negative error code on error.
  */
@@ -449,8 +449,8 @@ int ka_context_play(ka_context *c, uint32_t id, ...) {
         va_list ap;
         ka_proplist *p = NULL;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         va_start(ap, id);
         ret = ka_proplist_from_ap(&p, ap);
@@ -478,7 +478,7 @@ int ka_context_play(ka_context *c, uint32_t id, ...) {
  * is called in. Also see ka_context_play().
  *
  * It is guaranteed that the callback is called exactly once if
- * ka_context_play_full() returns CA_SUCCESS. You thus may safely pass
+ * ka_context_play_full() returns KA_SUCCESS. You thus may safely pass
  * allocated memory to the callback and assume that it is freed
  * properly.
  *
@@ -490,29 +490,29 @@ int ka_context_play_full(ka_context *c, uint32_t id, ka_proplist *p, ka_finish_c
         const char *t;
         ka_bool_t enabled = TRUE;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(p, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(p, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, KA_ERROR_INVALID);
 
         ka_mutex_lock(c->mutex);
 
-        ka_return_val_if_fail_unlock(ka_proplist_contains(p, CA_PROP_EVENT_ID) ||
-                                     ka_proplist_contains(c->props, CA_PROP_EVENT_ID) ||
-                                     ka_proplist_contains(p, CA_PROP_MEDIA_FILENAME) ||
-                                     ka_proplist_contains(c->props, CA_PROP_MEDIA_FILENAME), CA_ERROR_INVALID, c->mutex);
+        ka_return_val_if_fail_unlock(ka_proplist_contains(p, KA_PROP_EVENT_ID) ||
+                                     ka_proplist_contains(c->props, KA_PROP_EVENT_ID) ||
+                                     ka_proplist_contains(p, KA_PROP_MEDIA_FILENAME) ||
+                                     ka_proplist_contains(c->props, KA_PROP_MEDIA_FILENAME), KA_ERROR_INVALID, c->mutex);
 
         ka_mutex_lock(c->props->mutex);
-        if ((t = ka_proplist_gets_unlocked(c->props, CA_PROP_KANBERRA_ENABLE)))
+        if ((t = ka_proplist_gets_unlocked(c->props, KA_PROP_KANBERRA_ENABLE)))
                 enabled = !ka_streq(t, "0");
         ka_mutex_unlock(c->props->mutex);
 
         ka_mutex_lock(p->mutex);
-        if ((t = ka_proplist_gets_unlocked(p, CA_PROP_KANBERRA_ENABLE)))
+        if ((t = ka_proplist_gets_unlocked(p, KA_PROP_KANBERRA_ENABLE)))
                 enabled = !ka_streq(t, "0");
         ka_mutex_unlock(p->mutex);
 
-        ka_return_val_if_fail_unlock(enabled, CA_ERROR_DISABLED, c->mutex);
+        ka_return_val_if_fail_unlock(enabled, KA_ERROR_DISABLED, c->mutex);
 
         if ((ret = context_open_unlocked(c)) < 0)
                 goto finish;
@@ -537,7 +537,7 @@ finish:
  * Cancel one or more event sounds that have been started via
  * ka_context_play(). If the sound was started with
  * ka_context_play_full() and a callback function was passed this
- * might cause this function to be called with %CA_ERROR_CANCELED as
+ * might cause this function to be called with %KA_ERROR_CANCELED as
  * error code.
  *
  * Returns: 0 on success, negative error code on error.
@@ -545,10 +545,10 @@ finish:
 int ka_context_cancel(ka_context *c, uint32_t id)  {
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_mutex_lock(c->mutex);
-        ka_return_val_if_fail_unlock(c->opened, CA_ERROR_STATE, c->mutex);
+        ka_return_val_if_fail_unlock(c->opened, KA_ERROR_STATE, c->mutex);
 
         ret = driver_cancel(c, id);
 
@@ -570,7 +570,7 @@ int ka_context_cancel(ka_context *c, uint32_t id)  {
  * find the sounds for ka_context_play().
  *
  * If the backend doesn't support caching sound samples this function
- * will return %CA_ERROR_NOTSUPPORTED.
+ * will return %KA_ERROR_NOTSUPPORTED.
  *
  * Returns: 0 on success, negative error code on error.
  */
@@ -580,8 +580,8 @@ int ka_context_cache(ka_context *c, ...) {
         va_list ap;
         ka_proplist *p = NULL;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         va_start(ap, c);
         ret = ka_proplist_from_ap(&p, ap);
@@ -607,21 +607,21 @@ int ka_context_cache(ka_context *c, ...) {
  * a ka_proplist instead of a variable number of arguments.
  *
  * If the backend doesn't support caching sound samples this function
- * will return CA_ERROR_NOTSUPPORTED.
+ * will return KA_ERROR_NOTSUPPORTED.
  *
  * Returns: 0 on success, negative error code on error.
  */
 int ka_context_cache_full(ka_context *c, ka_proplist *p) {
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(p, KA_ERROR_INVALID);
 
         ka_mutex_lock(c->mutex);
 
-        ka_return_val_if_fail_unlock(ka_proplist_contains(p, CA_PROP_EVENT_ID) ||
-                                     ka_proplist_contains(c->props, CA_PROP_EVENT_ID), CA_ERROR_INVALID, c->mutex);
+        ka_return_val_if_fail_unlock(ka_proplist_contains(p, KA_PROP_EVENT_ID) ||
+                                     ka_proplist_contains(c->props, KA_PROP_EVENT_ID), KA_ERROR_INVALID, c->mutex);
 
         if ((ret = context_open_unlocked(c)) < 0)
                 goto finish;
@@ -647,49 +647,49 @@ finish:
  */
 const char *ka_strerror(int code) {
 
-        const char * const error_table[-_CA_ERROR_MAX] = {
-                [-CA_SUCCESS] = "Success",
-                [-CA_ERROR_NOTSUPPORTED] = "Operation not supported",
-                [-CA_ERROR_INVALID] = "Invalid argument",
-                [-CA_ERROR_STATE] = "Invalid state",
-                [-CA_ERROR_OOM] = "Out of memory",
-                [-CA_ERROR_NODRIVER] = "No such driver",
-                [-CA_ERROR_SYSTEM] = "System error",
-                [-CA_ERROR_CORRUPT] = "File or data corrupt",
-                [-CA_ERROR_TOOBIG] = "File or data too large",
-                [-CA_ERROR_NOTFOUND] = "File or data not found",
-                [-CA_ERROR_DESTROYED] = "Destroyed",
-                [-CA_ERROR_CANCELED] = "Canceled",
-                [-CA_ERROR_NOTAVAILABLE] = "Not available",
-                [-CA_ERROR_ACCESS] = "Access forbidden",
-                [-CA_ERROR_IO] = "IO error",
-                [-CA_ERROR_INTERNAL] = "Internal error",
-                [-CA_ERROR_DISABLED] = "Sound disabled",
-                [-CA_ERROR_FORKED] = "Process forked",
-                [-CA_ERROR_DISCONNECTED] = "Disconnected"
+        const char * const error_table[-_KA_ERROR_MAX] = {
+                [-KA_SUCCESS] = "Success",
+                [-KA_ERROR_NOTSUPPORTED] = "Operation not supported",
+                [-KA_ERROR_INVALID] = "Invalid argument",
+                [-KA_ERROR_STATE] = "Invalid state",
+                [-KA_ERROR_OOM] = "Out of memory",
+                [-KA_ERROR_NODRIVER] = "No such driver",
+                [-KA_ERROR_SYSTEM] = "System error",
+                [-KA_ERROR_CORRUPT] = "File or data corrupt",
+                [-KA_ERROR_TOOBIG] = "File or data too large",
+                [-KA_ERROR_NOTFOUND] = "File or data not found",
+                [-KA_ERROR_DESTROYED] = "Destroyed",
+                [-KA_ERROR_CANCELED] = "Canceled",
+                [-KA_ERROR_NOTAVAILABLE] = "Not available",
+                [-KA_ERROR_ACCESS] = "Access forbidden",
+                [-KA_ERROR_IO] = "IO error",
+                [-KA_ERROR_INTERNAL] = "Internal error",
+                [-KA_ERROR_DISABLED] = "Sound disabled",
+                [-KA_ERROR_FORKED] = "Process forked",
+                [-KA_ERROR_DISCONNECTED] = "Disconnected"
         };
 
         ka_return_val_if_fail(code <= 0, NULL);
-        ka_return_val_if_fail(code > _CA_ERROR_MAX, NULL);
+        ka_return_val_if_fail(code > _KA_ERROR_MAX, NULL);
 
         return error_table[-code];
 }
 
 /* Not exported */
 int ka_parse_cache_control(ka_cache_control_t *control, const char *c) {
-        ka_return_val_if_fail(control, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(control, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         if (ka_streq(c, "never"))
-                *control = CA_CACHE_CONTROL_NEVER;
+                *control = KA_CACHE_CONTROL_NEVER;
         else if (ka_streq(c, "permanent"))
-                *control = CA_CACHE_CONTROL_PERMANENT;
+                *control = KA_CACHE_CONTROL_PERMANENT;
         else if (ka_streq(c, "volatile"))
-                *control = CA_CACHE_CONTROL_VOLATILE;
+                *control = KA_CACHE_CONTROL_VOLATILE;
         else
-                return CA_ERROR_INVALID;
+                return KA_ERROR_INVALID;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 /**
@@ -708,11 +708,11 @@ int ka_parse_cache_control(ka_cache_control_t *control, const char *c) {
 int ka_context_playing(ka_context *c, uint32_t id, int *playing)  {
         int ret;
 
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(playing, KA_ERROR_INVALID);
         ka_mutex_lock(c->mutex);
-        ka_return_val_if_fail_unlock(c->opened, CA_ERROR_STATE, c->mutex);
+        ka_return_val_if_fail_unlock(c->opened, KA_ERROR_STATE, c->mutex);
 
         ret = driver_playing(c, id, playing);
 

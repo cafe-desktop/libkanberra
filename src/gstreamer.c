@@ -46,7 +46,7 @@
 #include "malloc.h"
 
 struct outstanding {
-        CA_LLIST_FIELDS(struct outstanding);
+        KA_LLIST_FIELDS(struct outstanding);
         ka_bool_t dead;
         uint32_t id;
         int err;
@@ -67,7 +67,7 @@ struct private {
         ka_mutex *outstanding_mutex;
         ka_bool_t mgr_thread_running;
         ka_bool_t semaphore_allocated;
-        CA_LLIST_HEAD(struct outstanding, outstanding);
+        KA_LLIST_HEAD(struct outstanding, outstanding);
 };
 
 #define PRIVATE(c) ((struct private *) ((c)->private))
@@ -99,55 +99,55 @@ int driver_open(ka_context *c) {
         struct private *p;
         pthread_t thread;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!PRIVATE(c), CA_ERROR_INVALID);
-        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "gstreamer"), CA_ERROR_NODRIVER);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!PRIVATE(c), KA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "gstreamer"), KA_ERROR_NODRIVER);
 
         gst_init_check(NULL, NULL, &error);
         if (error != NULL) {
                 g_warning("gst_init: %s ", error->message);
                 g_error_free(error);
-                return CA_ERROR_INVALID;
+                return KA_ERROR_INVALID;
         }
 
         if (!(p = ka_new0(struct private, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         c->private = p;
 
         if (!(p->outstanding_mutex = ka_mutex_new())) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         if (sem_init(&p->semaphore, 0, 0) < 0) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
         p->semaphore_allocated = TRUE;
 
         p->mgr_bus = gst_bus_new();
         if (p->mgr_bus == NULL) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
         gst_bus_set_flushing(p->mgr_bus, FALSE);
 
         /* Give a reference to the bus to the mgr thread */
         if (pthread_create(&thread, NULL, thread_func, p) < 0) {
                 driver_destroy(c);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
         p->mgr_thread_running = TRUE;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_destroy(ka_context *c) {
         struct private *p;
         struct outstanding *out;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
@@ -158,7 +158,7 @@ int driver_destroy(ka_context *c) {
                 out = p->outstanding;
                 while (out) {
                         if (!out->dead)
-                                send_eos_msg(out, CA_ERROR_DESTROYED);
+                                send_eos_msg(out, KA_ERROR_DESTROYED);
                         out = out->next;
                 }
 
@@ -192,23 +192,23 @@ int driver_destroy(ka_context *c) {
 
         /* no gst_deinit(), see doc */
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_change_device(ka_context *c, const char *device) {
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
-        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, KA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, KA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static void
@@ -243,14 +243,14 @@ bus_cb(GstBus *bus, GstMessage *message, gpointer data) {
         switch (GST_MESSAGE_TYPE(message)) {
                 /* for all elements */
         case GST_MESSAGE_ERROR:
-                err = CA_ERROR_SYSTEM;
+                err = KA_ERROR_SYSTEM;
                 break;
         case GST_MESSAGE_EOS:
                 /* only respect EOS from the toplevel pipeline */
                 if (GST_OBJECT(out->pipeline) != GST_MESSAGE_SRC(message))
                         return GST_BUS_PASS;
 
-                err = CA_SUCCESS;
+                err = KA_SUCCESS;
                 break;
         default:
                 return GST_BUS_PASS;
@@ -274,27 +274,27 @@ static int ka_gst_sound_file_open(ka_sound_file **_f, const char *fn) {
         int fd;
         ka_sound_file *f;
 
-        ka_return_val_if_fail(_f, CA_ERROR_INVALID);
-        ka_return_val_if_fail(fn, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_f, KA_ERROR_INVALID);
+        ka_return_val_if_fail(fn, KA_ERROR_INVALID);
 
         if ((fd = open(fn, O_RDONLY)) == -1)
-                return errno == ENOENT ? CA_ERROR_NOTFOUND : CA_ERROR_SYSTEM;
+                return errno == ENOENT ? KA_ERROR_NOTFOUND : KA_ERROR_SYSTEM;
 
         if (!(f = ka_new0(ka_sound_file, 1))) {
                 close(fd);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         if (!(f->fdsrc = gst_element_factory_make("fdsrc", NULL))) {
                 close(fd);
                 ka_free(f);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         g_object_set(GST_OBJECT(f->fdsrc), "fd", fd, NULL);
         *_f = f;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static void on_pad_added(GstElement *element, GstPad *pad, gboolean arg1, gpointer data)
@@ -379,7 +379,7 @@ static void* thread_func(void *userdata) {
                         out->callback(out->context, out->id, out->err, out->userdata);
 
                 ka_mutex_lock(p->outstanding_mutex);
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 outstanding_free(out);
                 ka_mutex_unlock(p->outstanding_mutex);
 
@@ -408,9 +408,9 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         GstPad *audiopad;
         int ret;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, KA_ERROR_INVALID);
 
         out = NULL;
         f = NULL;
@@ -425,7 +425,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 goto fail;
 
         if (!(out = ka_new0(struct outstanding, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         out->id = id;
         out->callback = cb;
@@ -455,7 +455,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
 
                 ka_free(out);
 
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto fail;
         }
 
@@ -479,7 +479,7 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
                 f->fdsrc = NULL;
 
                 outstanding_free(out);
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto fail;
         }
         /* Bin now owns the fdsrc... */
@@ -489,16 +489,16 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         f = NULL;
 
         ka_mutex_lock(p->outstanding_mutex);
-        CA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
+        KA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
         ka_mutex_unlock(p->outstanding_mutex);
 
         if (gst_element_set_state(out->pipeline,
                                   GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
-                ret = CA_ERROR_NOTAVAILABLE;
+                ret = KA_ERROR_NOTAVAILABLE;
                 goto fail;
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 
 fail:
         if (f && f->fdsrc)
@@ -514,8 +514,8 @@ int driver_cancel(ka_context *c, uint32_t id) {
         struct private *p;
         struct outstanding *out = NULL;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
         p = PRIVATE(c);
 
@@ -534,37 +534,37 @@ int driver_cancel(ka_context *c, uint32_t id) {
                         goto error;
 
                 if (out->callback)
-                        out->callback(c, out->id, CA_ERROR_CANCELED, out->userdata);
+                        out->callback(c, out->id, KA_ERROR_CANCELED, out->userdata);
                 next = out->next;
-                CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
+                KA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 outstanding_free(out);
                 out = next;
         }
 
         ka_mutex_unlock(p->outstanding_mutex);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 
 error:
         ka_mutex_unlock(p->outstanding_mutex);
-        return CA_ERROR_SYSTEM;
+        return KA_ERROR_SYSTEM;
 }
 
 int driver_cache(ka_context *c, ka_proplist *proplist) {
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, KA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
-        return CA_ERROR_NOTSUPPORTED;
+        return KA_ERROR_NOTSUPPORTED;
 }
 
 int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private *p;
         struct outstanding *out;
 
-        ka_return_val_if_fail(c, CA_ERROR_INVALID);
-        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, KA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, KA_ERROR_STATE);
+        ka_return_val_if_fail(playing, KA_ERROR_INVALID);
 
         p = PRIVATE(c);
 
@@ -583,5 +583,5 @@ int driver_playing(ka_context *c, uint32_t id, int *playing) {
 
         ka_mutex_unlock(p->outstanding_mutex);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }

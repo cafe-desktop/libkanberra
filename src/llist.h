@@ -29,21 +29,21 @@
 
 /* The head of the linked list. Use this in the structure that shall
  * contain the head of the linked list */
-#define CA_LLIST_HEAD(t,name)                   \
+#define KA_LLIST_HEAD(t,name)                   \
         t *name
 
 /* The pointers in the linked list's items. Use this in the item structure */
-#define CA_LLIST_FIELDS(t)                      \
+#define KA_LLIST_FIELDS(t)                      \
         t *next, *prev
 
 /* Initialize the list's head */
-#define CA_LLIST_HEAD_INIT(t,item)              \
+#define KA_LLIST_HEAD_INIT(t,item)              \
         do {                                    \
                 (item) = (t*) NULL; }           \
         while(0)
 
 /* Initialize a list item */
-#define CA_LLIST_INIT(t,item)                           \
+#define KA_LLIST_INIT(t,item)                           \
         do {                                            \
                 t *_item = (item);                      \
                 ka_assert(_item);                       \
@@ -51,7 +51,7 @@
         } while(0)
 
 /* Prepend an item to the list */
-#define CA_LLIST_PREPEND(t,head,item)                   \
+#define KA_LLIST_PREPEND(t,head,item)                   \
         do {                                            \
                 t **_head = &(head), *_item = (item);   \
                 ka_assert(_item);                       \
@@ -62,7 +62,7 @@
         } while (0)
 
 /* Remove an item from the list */
-#define CA_LLIST_REMOVE(t,head,item)                            \
+#define KA_LLIST_REMOVE(t,head,item)                            \
         do {                                                    \
                 t **_head = &(head), *_item = (item);           \
                 ka_assert(_item);                               \
@@ -78,7 +78,7 @@
         } while(0)
 
 /* Find the head of the list */
-#define CA_LLIST_FIND_HEAD(t,item,head)                 \
+#define KA_LLIST_FIND_HEAD(t,item,head)                 \
         do {                                            \
                 t **_head = (head), *_item = (item);    \
                 *_head = _item;                         \
@@ -88,7 +88,7 @@
         } while (0)
 
 /* Insert an item after another one (a = where, b = what) */
-#define CA_LLIST_INSERT_AFTER(t,head,a,b)                       \
+#define KA_LLIST_INSERT_AFTER(t,head,a,b)                       \
         do {                                                    \
                 t **_head = &(head), *_a = (a), *_b = (b);      \
                 ka_assert(_b);                                  \

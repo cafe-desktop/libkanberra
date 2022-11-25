@@ -144,7 +144,7 @@ static void finish_cb(ka_context *c, uint32_t id, int error_code, void *userdata
         uint64_t u = 1;
 
         for (;;) {
-                if (write(CA_PTR_TO_INT(userdata), &u, sizeof(u)) > 0)
+                if (write(KA_PTR_TO_INT(userdata), &u, sizeof(u)) > 0)
                         break;
 
                 if (errno != EINTR) {
@@ -196,13 +196,13 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        if ((r = ka_proplist_sets(p, CA_PROP_EVENT_ID, argc >= 2 ? argv[1] : "system-bootup")) < 0 ||
-            (r = ka_proplist_sets(p, CA_PROP_KANBERRA_CACHE_CONTROL, "never")) < 0) {
+        if ((r = ka_proplist_sets(p, KA_PROP_EVENT_ID, argc >= 2 ? argv[1] : "system-bootup")) < 0 ||
+            (r = ka_proplist_sets(p, KA_PROP_KANBERRA_CACHE_CONTROL, "never")) < 0) {
                 fprintf(stderr, "Failed to set event id: %s\n", strerror(r));
                 goto finish;
         }
 
-        if ((r = ka_context_play_full(c, 0, p, finish_cb, CA_INT_TO_PTR(fd))) < 0) {
+        if ((r = ka_context_play_full(c, 0, p, finish_cb, KA_INT_TO_PTR(fd))) < 0) {
                 fprintf(stderr, "Failed to play event sound: %s\n", ka_strerror(r));
                 goto finish;
         }
