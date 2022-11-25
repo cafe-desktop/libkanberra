@@ -20,7 +20,7 @@ kanberra-ctk
 <!-- ##### SECTION Image ##### -->
 
 
-<!-- ##### FUNCTION ca_ctk_context_get ##### -->
+<!-- ##### FUNCTION ka_ctk_context_get ##### -->
 <para>
 
 </para>
@@ -29,7 +29,7 @@ kanberra-ctk
 @Returns:
 
 
-<!-- ##### FUNCTION ca_ctk_proplist_set_for_widget ##### -->
+<!-- ##### FUNCTION ka_ctk_proplist_set_for_widget ##### -->
 <para>
 
 </para>
@@ -39,7 +39,7 @@ kanberra-ctk
 @Returns:
 
 
-<!-- ##### FUNCTION ca_ctk_play_for_widget ##### -->
+<!-- ##### FUNCTION ka_ctk_play_for_widget ##### -->
 <para>
 
 </para>
@@ -50,7 +50,7 @@ kanberra-ctk
 @Returns:
 
 
-<!-- ##### FUNCTION ca_ctk_proplist_set_for_event ##### -->
+<!-- ##### FUNCTION ka_ctk_proplist_set_for_event ##### -->
 <para>
 
 </para>
@@ -60,7 +60,7 @@ kanberra-ctk
 @Returns:
 
 
-<!-- ##### FUNCTION ca_ctk_play_for_event ##### -->
+<!-- ##### FUNCTION ka_ctk_play_for_event ##### -->
 <para>
 
 </para>
@@ -71,7 +71,7 @@ kanberra-ctk
 @Returns:
 
 
-<!-- ##### FUNCTION ca_ctk_widget_disable_sounds ##### -->
+<!-- ##### FUNCTION ka_ctk_widget_disable_sounds ##### -->
 <para>
 
 </para>

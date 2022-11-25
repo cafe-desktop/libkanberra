@@ -33,22 +33,22 @@
 #error "Please include config.h before including this file!"
 #endif
 
-#define ca_malloc malloc
-#define ca_free free
-#define ca_malloc0(size) calloc(1, (size))
-#define ca_strdup strdup
+#define ka_malloc malloc
+#define ka_free free
+#define ka_malloc0(size) calloc(1, (size))
+#define ka_strdup strdup
 #ifdef HAVE_STRNDUP
-#define ca_strndup strndup
+#define ka_strndup strndup
 #else
-char *ca_strndup(const char *s, size_t n);
+char *ka_strndup(const char *s, size_t n);
 #endif
 
-void* ca_memdup(const void* p, size_t size);
+void* ka_memdup(const void* p, size_t size);
 
-#define ca_new(t, n) ((t*) ca_malloc(sizeof(t)*(n)))
-#define ca_new0(t, n) ((t*) ca_malloc0(sizeof(t)*(n)))
-#define ca_newdup(t, p, n) ((t*) ca_memdup(p, sizeof(t)*(n)))
+#define ka_new(t, n) ((t*) ka_malloc(sizeof(t)*(n)))
+#define ka_new0(t, n) ((t*) ka_malloc0(sizeof(t)*(n)))
+#define ka_newdup(t, p, n) ((t*) ka_memdup(p, sizeof(t)*(n)))
 
-char *ca_sprintf_malloc(const char *format, ...) __attribute__((format(printf, 1, 2)));
+char *ka_sprintf_malloc(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 #endif

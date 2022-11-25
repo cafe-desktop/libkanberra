@@ -26,7 +26,7 @@
 
 #include "macro.h"
 
-ca_bool_t ca_debug(void) {
+ka_bool_t ka_debug(void) {
         const char *d;
 
         if ((d = getenv("KANBERRA_DEBUG")))

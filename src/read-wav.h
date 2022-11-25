@@ -27,19 +27,19 @@
 
 #include "read-sound-file.h"
 
-typedef struct ca_wav ca_wav;
+typedef struct ka_wav ka_wav;
 
-int ca_wav_open(ca_wav **v, FILE *f);
-void ca_wav_close(ca_wav *f);
+int ka_wav_open(ka_wav **v, FILE *f);
+void ka_wav_close(ka_wav *f);
 
-unsigned ca_wav_get_nchannels(ca_wav *f);
-unsigned ca_wav_get_rate(ca_wav *f);
-ca_sample_type_t ca_wav_get_sample_type(ca_wav *f);
-const ca_channel_position_t* ca_wav_get_channel_map(ca_wav *f);
+unsigned ka_wav_get_nchannels(ka_wav *f);
+unsigned ka_wav_get_rate(ka_wav *f);
+ka_sample_type_t ka_wav_get_sample_type(ka_wav *f);
+const ka_channel_position_t* ka_wav_get_channel_map(ka_wav *f);
 
-int ca_wav_read_u8(ca_wav *f, uint8_t *d, size_t *n);
-int ca_wav_read_s16le(ca_wav *f, int16_t *d, size_t *n);
+int ka_wav_read_u8(ka_wav *f, uint8_t *d, size_t *n);
+int ka_wav_read_s16le(ka_wav *f, int16_t *d, size_t *n);
 
-off_t ca_wav_get_size(ca_wav *f);
+off_t ka_wav_get_size(ka_wav *f);
 
 #endif

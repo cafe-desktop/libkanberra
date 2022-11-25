@@ -45,33 +45,33 @@
     <keyword type="macro" name="CA_PROP_KANBERRA_VOLUME" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-VOLUME:CAPS"/>
     <keyword type="macro" name="CA_PROP_KANBERRA_XDG_THEME_NAME" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS"/>
     <keyword type="macro" name="CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS"/>
-    <keyword type="typedef" name="ca_context" link="libkanberra-kanberra.html#ca-context"/>
-    <keyword type="function" name="ca_finish_callback_t ()" link="libkanberra-kanberra.html#ca-finish-callback-t"/>
-    <keyword type="function" name="ca_context_create ()" link="libkanberra-kanberra.html#ca-context-create"/>
-    <keyword type="function" name="ca_context_destroy ()" link="libkanberra-kanberra.html#ca-context-destroy"/>
-    <keyword type="function" name="ca_context_open ()" link="libkanberra-kanberra.html#ca-context-open"/>
-    <keyword type="function" name="ca_context_set_driver ()" link="libkanberra-kanberra.html#ca-context-set-driver"/>
-    <keyword type="function" name="ca_context_change_device ()" link="libkanberra-kanberra.html#ca-context-change-device"/>
-    <keyword type="function" name="ca_context_change_props ()" link="libkanberra-kanberra.html#ca-context-change-props"/>
-    <keyword type="function" name="ca_context_change_props_full ()" link="libkanberra-kanberra.html#ca-context-change-props-full"/>
-    <keyword type="function" name="ca_context_play ()" link="libkanberra-kanberra.html#ca-context-play"/>
-    <keyword type="function" name="ca_context_play_full ()" link="libkanberra-kanberra.html#ca-context-play-full"/>
-    <keyword type="function" name="ca_context_cancel ()" link="libkanberra-kanberra.html#ca-context-cancel"/>
-    <keyword type="function" name="ca_context_cache ()" link="libkanberra-kanberra.html#ca-context-cache"/>
-    <keyword type="function" name="ca_context_cache_full ()" link="libkanberra-kanberra.html#ca-context-cache-full"/>
-    <keyword type="function" name="ca_context_playing ()" link="libkanberra-kanberra.html#ca-context-playing" since="0.16"/>
-    <keyword type="function" name="ca_strerror ()" link="libkanberra-kanberra.html#ca-strerror"/>
-    <keyword type="typedef" name="ca_proplist" link="libkanberra-kanberra.html#ca-proplist"/>
-    <keyword type="function" name="ca_proplist_create ()" link="libkanberra-kanberra.html#ca-proplist-create"/>
-    <keyword type="function" name="ca_proplist_destroy ()" link="libkanberra-kanberra.html#ca-proplist-destroy"/>
-    <keyword type="function" name="ca_proplist_sets ()" link="libkanberra-kanberra.html#ca-proplist-sets"/>
-    <keyword type="function" name="ca_proplist_setf ()" link="libkanberra-kanberra.html#ca-proplist-setf"/>
-    <keyword type="function" name="ca_proplist_set ()" link="libkanberra-kanberra.html#ca-proplist-set"/>
-    <keyword type="function" name="ca_ctk_context_get ()" link="libkanberra-kanberra-ctk.html#ca-ctk-context-get"/>
-    <keyword type="function" name="ca_ctk_proplist_set_for_widget ()" link="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-widget"/>
-    <keyword type="function" name="ca_ctk_play_for_widget ()" link="libkanberra-kanberra-ctk.html#ca-ctk-play-for-widget"/>
-    <keyword type="function" name="ca_ctk_proplist_set_for_event ()" link="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-event"/>
-    <keyword type="function" name="ca_ctk_play_for_event ()" link="libkanberra-kanberra-ctk.html#ca-ctk-play-for-event"/>
-    <keyword type="function" name="ca_ctk_widget_disable_sounds ()" link="libkanberra-kanberra-ctk.html#ca-ctk-widget-disable-sounds"/>
+    <keyword type="typedef" name="ka_context" link="libkanberra-kanberra.html#ca-context"/>
+    <keyword type="function" name="ka_finish_callback_t ()" link="libkanberra-kanberra.html#ca-finish-callback-t"/>
+    <keyword type="function" name="ka_context_create ()" link="libkanberra-kanberra.html#ca-context-create"/>
+    <keyword type="function" name="ka_context_destroy ()" link="libkanberra-kanberra.html#ca-context-destroy"/>
+    <keyword type="function" name="ka_context_open ()" link="libkanberra-kanberra.html#ca-context-open"/>
+    <keyword type="function" name="ka_context_set_driver ()" link="libkanberra-kanberra.html#ca-context-set-driver"/>
+    <keyword type="function" name="ka_context_change_device ()" link="libkanberra-kanberra.html#ca-context-change-device"/>
+    <keyword type="function" name="ka_context_change_props ()" link="libkanberra-kanberra.html#ca-context-change-props"/>
+    <keyword type="function" name="ka_context_change_props_full ()" link="libkanberra-kanberra.html#ca-context-change-props-full"/>
+    <keyword type="function" name="ka_context_play ()" link="libkanberra-kanberra.html#ca-context-play"/>
+    <keyword type="function" name="ka_context_play_full ()" link="libkanberra-kanberra.html#ca-context-play-full"/>
+    <keyword type="function" name="ka_context_cancel ()" link="libkanberra-kanberra.html#ca-context-cancel"/>
+    <keyword type="function" name="ka_context_cache ()" link="libkanberra-kanberra.html#ca-context-cache"/>
+    <keyword type="function" name="ka_context_cache_full ()" link="libkanberra-kanberra.html#ca-context-cache-full"/>
+    <keyword type="function" name="ka_context_playing ()" link="libkanberra-kanberra.html#ca-context-playing" since="0.16"/>
+    <keyword type="function" name="ka_strerror ()" link="libkanberra-kanberra.html#ca-strerror"/>
+    <keyword type="typedef" name="ka_proplist" link="libkanberra-kanberra.html#ca-proplist"/>
+    <keyword type="function" name="ka_proplist_create ()" link="libkanberra-kanberra.html#ca-proplist-create"/>
+    <keyword type="function" name="ka_proplist_destroy ()" link="libkanberra-kanberra.html#ca-proplist-destroy"/>
+    <keyword type="function" name="ka_proplist_sets ()" link="libkanberra-kanberra.html#ca-proplist-sets"/>
+    <keyword type="function" name="ka_proplist_setf ()" link="libkanberra-kanberra.html#ca-proplist-setf"/>
+    <keyword type="function" name="ka_proplist_set ()" link="libkanberra-kanberra.html#ca-proplist-set"/>
+    <keyword type="function" name="ka_ctk_context_get ()" link="libkanberra-kanberra-ctk.html#ca-ctk-context-get"/>
+    <keyword type="function" name="ka_ctk_proplist_set_for_widget ()" link="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-widget"/>
+    <keyword type="function" name="ka_ctk_play_for_widget ()" link="libkanberra-kanberra-ctk.html#ca-ctk-play-for-widget"/>
+    <keyword type="function" name="ka_ctk_proplist_set_for_event ()" link="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-event"/>
+    <keyword type="function" name="ka_ctk_play_for_event ()" link="libkanberra-kanberra-ctk.html#ca-ctk-play-for-event"/>
+    <keyword type="function" name="ka_ctk_widget_disable_sounds ()" link="libkanberra-kanberra-ctk.html#ca-ctk-widget-disable-sounds"/>
   </functions>
 </book>

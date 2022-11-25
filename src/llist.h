@@ -46,7 +46,7 @@
 #define CA_LLIST_INIT(t,item)                           \
         do {                                            \
                 t *_item = (item);                      \
-                ca_assert(_item);                       \
+                ka_assert(_item);                       \
                 _item->prev = _item->next = NULL;       \
         } while(0)
 
@@ -54,7 +54,7 @@
 #define CA_LLIST_PREPEND(t,head,item)                   \
         do {                                            \
                 t **_head = &(head), *_item = (item);   \
-                ca_assert(_item);                       \
+                ka_assert(_item);                       \
                 if ((_item->next = *_head))             \
                         _item->next->prev = _item;      \
                 _item->prev = NULL;                     \
@@ -65,13 +65,13 @@
 #define CA_LLIST_REMOVE(t,head,item)                            \
         do {                                                    \
                 t **_head = &(head), *_item = (item);           \
-                ca_assert(_item);                               \
+                ka_assert(_item);                               \
                 if (_item->next)                                \
                         _item->next->prev = _item->prev;        \
                 if (_item->prev)                                \
                         _item->prev->next = _item->next;        \
                 else {                                          \
-                        ca_assert(*_head == _item);             \
+                        ka_assert(*_head == _item);             \
                         *_head = _item->next;                   \
                 }                                               \
                 _item->next = _item->prev = NULL;               \
@@ -82,7 +82,7 @@
         do {                                            \
                 t **_head = (head), *_item = (item);    \
                 *_head = _item;                         \
-                ca_assert(_head);                       \
+                ka_assert(_head);                       \
                 while ((*_head)->prev)                  \
                         *_head = (*_head)->prev;        \
         } while (0)
@@ -91,7 +91,7 @@
 #define CA_LLIST_INSERT_AFTER(t,head,a,b)                       \
         do {                                                    \
                 t **_head = &(head), *_a = (a), *_b = (b);      \
-                ca_assert(_b);                                  \
+                ka_assert(_b);                                  \
                 if (!_a) {                                      \
                         if ((_b->next = *_head))                \
                                 _b->next->prev = _b;            \

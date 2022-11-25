@@ -23,6 +23,6 @@
   <http://www.gnu.org/licenses/>.
 ***/
 
-int ca_detect_fork(void);
+int ka_detect_fork(void);
 
 #endif

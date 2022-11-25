@@ -47,26 +47,26 @@
 
 struct outstanding {
         CA_LLIST_FIELDS(struct outstanding);
-        ca_bool_t dead;
+        ka_bool_t dead;
         uint32_t id;
         int err;
-        ca_finish_callback_t callback;
+        ka_finish_callback_t callback;
         void *userdata;
         GstElement *pipeline;
-        struct ca_context *context;
+        struct ka_context *context;
 };
 
 struct private {
-        ca_theme_data *theme;
-        ca_bool_t signal_semaphore;
+        ka_theme_data *theme;
+        ka_bool_t signal_semaphore;
         sem_t semaphore;
 
         GstBus *mgr_bus;
 
         /* Everything below protected by the outstanding_mutex */
-        ca_mutex *outstanding_mutex;
-        ca_bool_t mgr_thread_running;
-        ca_bool_t semaphore_allocated;
+        ka_mutex *outstanding_mutex;
+        ka_bool_t mgr_thread_running;
+        ka_bool_t semaphore_allocated;
         CA_LLIST_HEAD(struct outstanding, outstanding);
 };
 
@@ -79,7 +79,7 @@ static void send_mgr_exit_msg (struct private *p);
 static void outstanding_free(struct outstanding *o) {
         GstBus *bus;
 
-        ca_assert(o);
+        ka_assert(o);
 
         if (o->pipeline) {
                 bus = gst_pipeline_get_bus(GST_PIPELINE (o->pipeline));
@@ -91,17 +91,17 @@ static void outstanding_free(struct outstanding *o) {
                 gst_object_unref(GST_OBJECT(o->pipeline));
         }
 
-        ca_free(o);
+        ka_free(o);
 }
 
-int driver_open(ca_context *c) {
+int driver_open(ka_context *c) {
         GError *error = NULL;
         struct private *p;
         pthread_t thread;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!PRIVATE(c), CA_ERROR_INVALID);
-        ca_return_val_if_fail(!c->driver || ca_streq(c->driver, "gstreamer"), CA_ERROR_NODRIVER);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!PRIVATE(c), CA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "gstreamer"), CA_ERROR_NODRIVER);
 
         gst_init_check(NULL, NULL, &error);
         if (error != NULL) {
@@ -110,11 +110,11 @@ int driver_open(ca_context *c) {
                 return CA_ERROR_INVALID;
         }
 
-        if (!(p = ca_new0(struct private, 1)))
+        if (!(p = ka_new0(struct private, 1)))
                 return CA_ERROR_OOM;
         c->private = p;
 
-        if (!(p->outstanding_mutex = ca_mutex_new())) {
+        if (!(p->outstanding_mutex = ka_mutex_new())) {
                 driver_destroy(c);
                 return CA_ERROR_OOM;
         }
@@ -142,17 +142,17 @@ int driver_open(ca_context *c) {
         return CA_SUCCESS;
 }
 
-int driver_destroy(ca_context *c) {
+int driver_destroy(ka_context *c) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
         if (p->outstanding_mutex) {
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
 
                 /* Tell all player threads to terminate */
                 out = p->outstanding;
@@ -169,44 +169,44 @@ int driver_destroy(ca_context *c) {
 
                         p->signal_semaphore = TRUE;
                         while (p->mgr_thread_running) {
-                                ca_mutex_unlock(p->outstanding_mutex);
+                                ka_mutex_unlock(p->outstanding_mutex);
                                 sem_wait(&p->semaphore);
-                                ca_mutex_lock(p->outstanding_mutex);
+                                ka_mutex_lock(p->outstanding_mutex);
                         }
                 }
 
-                ca_mutex_unlock(p->outstanding_mutex);
-                ca_mutex_free(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_free(p->outstanding_mutex);
         }
 
         if (p->mgr_bus)
                 g_object_unref(p->mgr_bus);
 
         if (p->theme)
-                ca_theme_data_free(p->theme);
+                ka_theme_data_free(p->theme);
 
         if (p->semaphore_allocated)
                 sem_destroy(&p->semaphore);
 
-        ca_free(p);
+        ka_free(p);
 
         /* no gst_deinit(), see doc */
 
         return CA_SUCCESS;
 }
 
-int driver_change_device(ca_context *c, const char *device) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+int driver_change_device(ka_context *c, const char *device) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
 
         return CA_SUCCESS;
 }
 
-int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ca_return_val_if_fail(merged, CA_ERROR_INVALID);
-        ca_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
 
         return CA_SUCCESS;
 }
@@ -233,9 +233,9 @@ bus_cb(GstBus *bus, GstMessage *message, gpointer data) {
         struct outstanding *out;
         struct private *p;
 
-        ca_return_val_if_fail(bus, GST_BUS_DROP);
-        ca_return_val_if_fail(message, GST_BUS_DROP);
-        ca_return_val_if_fail(data, GST_BUS_DROP);
+        ka_return_val_if_fail(bus, GST_BUS_DROP);
+        ka_return_val_if_fail(message, GST_BUS_DROP);
+        ka_return_val_if_fail(data, GST_BUS_DROP);
 
         out = data;
         p = PRIVATE(out->context);
@@ -258,36 +258,36 @@ bus_cb(GstBus *bus, GstMessage *message, gpointer data) {
 
         /* Bin finished playback: ask the manager thread to shut it
          * down, since we can't from the sync message handler */
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
         if (!out->dead)
                 send_eos_msg(out, err);
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return GST_BUS_PASS;
 }
 
-struct ca_sound_file {
+struct ka_sound_file {
         GstElement *fdsrc;
 };
 
-static int ca_gst_sound_file_open(ca_sound_file **_f, const char *fn) {
+static int ka_gst_sound_file_open(ka_sound_file **_f, const char *fn) {
         int fd;
-        ca_sound_file *f;
+        ka_sound_file *f;
 
-        ca_return_val_if_fail(_f, CA_ERROR_INVALID);
-        ca_return_val_if_fail(fn, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(fn, CA_ERROR_INVALID);
 
         if ((fd = open(fn, O_RDONLY)) == -1)
                 return errno == ENOENT ? CA_ERROR_NOTFOUND : CA_ERROR_SYSTEM;
 
-        if (!(f = ca_new0(ca_sound_file, 1))) {
+        if (!(f = ka_new0(ka_sound_file, 1))) {
                 close(fd);
                 return CA_ERROR_OOM;
         }
 
         if (!(f->fdsrc = gst_element_factory_make("fdsrc", NULL))) {
                 close(fd);
-                ca_free(f);
+                ka_free(f);
                 return CA_ERROR_OOM;
         }
 
@@ -362,11 +362,11 @@ static void* thread_func(void *userdata) {
                 }
 
                 /* Otherwise, this must be an EOS message for an outstanding pipe */
-                ca_assert(gst_structure_has_name(s, "application/eos"));
+                ka_assert(gst_structure_has_name(s, "application/eos"));
                 v  = gst_structure_get_value(s, "info");
-                ca_assert(v);
+                ka_assert(v);
                 out = g_value_get_pointer(v);
-                ca_assert(out);
+                ka_assert(out);
 
                 /* Set pipeline back to NULL to close things. By the time this
                  * completes, we can be sure bus_cb won't be called */
@@ -378,20 +378,20 @@ static void* thread_func(void *userdata) {
                 if (out->callback)
                         out->callback(out->context, out->id, out->err, out->userdata);
 
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
                 CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
                 outstanding_free(out);
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
 
                 gst_message_unref(m);
         } while (TRUE);
 
         /* Signal the semaphore and exit */
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
         if (p->signal_semaphore)
                 sem_post(&p->semaphore);
         p->mgr_thread_running = FALSE;
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         gst_bus_set_flushing(bus, TRUE);
         g_object_unref (bus);
@@ -399,18 +399,18 @@ static void* thread_func(void *userdata) {
 }
 
 
-int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_callback_t cb, void *userdata) {
+int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_callback_t cb, void *userdata) {
         struct private *p;
         struct outstanding *out;
-        ca_sound_file *f;
+        ka_sound_file *f;
         GstElement *decodebin, *sink, *audioconvert, *audioresample, *abin;
         GstBus *bus;
         GstPad *audiopad;
         int ret;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
 
         out = NULL;
         f = NULL;
@@ -421,10 +421,10 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         abin = NULL;
         p = PRIVATE(c);
 
-        if ((ret = ca_lookup_sound_with_callback(&f, ca_gst_sound_file_open, NULL, &p->theme, c->props, proplist)) < 0)
+        if ((ret = ka_lookup_sound_with_callback(&f, ka_gst_sound_file_open, NULL, &p->theme, c->props, proplist)) < 0)
                 goto fail;
 
-        if (!(out = ca_new0(struct outstanding, 1)))
+        if (!(out = ka_new0(struct outstanding, 1)))
                 return CA_ERROR_OOM;
 
         out->id = id;
@@ -453,7 +453,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 if (abin != NULL)
                         g_object_unref(abin);
 
-                ca_free(out);
+                ka_free(out);
 
                 ret = CA_ERROR_OOM;
                 goto fail;
@@ -485,12 +485,12 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         /* Bin now owns the fdsrc... */
         f->fdsrc = NULL;
 
-        ca_free(f);
+        ka_free(f);
         f = NULL;
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
         CA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         if (gst_element_set_state(out->pipeline,
                                   GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
@@ -505,21 +505,21 @@ fail:
                 gst_object_unref(f->fdsrc);
 
         if (f)
-                ca_free(f);
+                ka_free(f);
 
         return ret;
 }
 
-int driver_cancel(ca_context *c, uint32_t id) {
+int driver_cancel(ka_context *c, uint32_t id) {
         struct private *p;
         struct outstanding *out = NULL;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out;/* out = out->next*/) {
                 struct outstanding *next;
@@ -541,36 +541,36 @@ int driver_cancel(ca_context *c, uint32_t id) {
                 out = next;
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return CA_SUCCESS;
 
 error:
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
         return CA_ERROR_SYSTEM;
 }
 
-int driver_cache(ca_context *c, ca_proplist *proplist) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
+int driver_cache(ka_context *c, ka_proplist *proplist) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(PRIVATE(c), CA_ERROR_STATE);
 
         return CA_ERROR_NOTSUPPORTED;
 }
 
-int driver_playing(ca_context *c, uint32_t id, int *playing) {
+int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ca_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
 
         p = PRIVATE(c);
 
         *playing = 0;
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out; out = out->next) {
 
@@ -581,7 +581,7 @@ int driver_playing(ca_context *c, uint32_t id, int *playing) {
                 break;
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return CA_SUCCESS;
 }

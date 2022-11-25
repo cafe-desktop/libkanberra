@@ -55,14 +55,14 @@ enum outstanding_type {
 struct outstanding {
         CA_LLIST_FIELDS(struct outstanding);
         enum outstanding_type type;
-        ca_context *context;
+        ka_context *context;
         uint32_t id;
         uint32_t sink_input;
         pa_stream *stream;
         pa_operation *drain_operation;
-        ca_finish_callback_t callback;
+        ka_finish_callback_t callback;
         void *userdata;
-        ca_sound_file *file;
+        ka_sound_file *file;
         int error;
         unsigned clean_up:1; /* Handler needs to clean up the outstanding struct */
         unsigned finished:1; /* finished playing */
@@ -71,11 +71,11 @@ struct outstanding {
 struct private {
         pa_threaded_mainloop *mainloop;
         pa_context *context;
-        ca_theme_data *theme;
-        ca_bool_t subscribed;
-        ca_bool_t reconnect;
+        ka_theme_data *theme;
+        ka_bool_t subscribed;
+        ka_bool_t reconnect;
 
-        ca_mutex *outstanding_mutex;
+        ka_mutex *outstanding_mutex;
         CA_LLIST_HEAD(struct outstanding, outstanding);
 };
 
@@ -85,7 +85,7 @@ static void context_state_cb(pa_context *pc, void *userdata);
 static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t, uint32_t idx, void *userdata);
 
 static void outstanding_disconnect(struct outstanding *o) {
-        ca_assert(o);
+        ka_assert(o);
 
         if (o->stream) {
                 if (o->drain_operation) {
@@ -103,36 +103,36 @@ static void outstanding_disconnect(struct outstanding *o) {
 }
 
 static void outstanding_free(struct outstanding *o) {
-        ca_assert(o);
+        ka_assert(o);
 
         outstanding_disconnect(o);
 
         if (o->file)
-                ca_sound_file_close(o->file);
+                ka_sound_file_close(o->file);
 
-        ca_free(o);
+        ka_free(o);
 }
 
-static int convert_proplist(pa_proplist **_l, ca_proplist *c) {
+static int convert_proplist(pa_proplist **_l, ka_proplist *c) {
         pa_proplist *l;
-        ca_prop *i;
+        ka_prop *i;
 
-        ca_return_val_if_fail(_l, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_l, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
 
         if (!(l = pa_proplist_new()))
                 return CA_ERROR_OOM;
 
-        ca_mutex_lock(c->mutex);
+        ka_mutex_lock(c->mutex);
 
         for (i = c->first_item; i; i = i->next_item)
                 if (pa_proplist_set(l, i->key, CA_PROP_DATA(i), i->nbytes) < 0) {
-                        ca_mutex_unlock(c->mutex);
+                        ka_mutex_unlock(c->mutex);
                         pa_proplist_free(l);
                         return CA_ERROR_INVALID;
                 }
 
-        ca_mutex_unlock(c->mutex);
+        ka_mutex_unlock(c->mutex);
 
         *_l = l;
 
@@ -142,7 +142,7 @@ static int convert_proplist(pa_proplist **_l, ca_proplist *c) {
 static pa_proplist *strip_prefix(pa_proplist *l, const char *prefix) {
         const char *key;
         void *state = NULL;
-        ca_assert(l);
+        ka_assert(l);
 
         while ((key = pa_proplist_iterate(l, &state)))
                 if (strncmp(key, prefix, strlen(prefix)) == 0)
@@ -152,7 +152,7 @@ static pa_proplist *strip_prefix(pa_proplist *l, const char *prefix) {
 }
 
 static void add_common(pa_proplist *l) {
-        ca_assert(l);
+        ka_assert(l);
 
         if (!pa_proplist_contains(l, CA_PROP_MEDIA_ROLE))
                 pa_proplist_sets(l, CA_PROP_MEDIA_ROLE, "event");
@@ -207,7 +207,7 @@ static int translate_error(int error) {
 #endif
         };
 
-        ca_assert(error >= 0);
+        ka_assert(error >= 0);
 
         if (error >= PA_ERR_MAX || !table[error])
                 return CA_ERROR_IO;
@@ -215,15 +215,15 @@ static int translate_error(int error) {
         return table[error];
 }
 
-static int context_connect(ca_context *c, ca_bool_t nofail) {
+static int context_connect(ka_context *c, ka_bool_t nofail) {
         pa_proplist *l;
         struct private *p;
         int ret;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(p = c->private, CA_ERROR_STATE);
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
-        ca_return_val_if_fail(!p->context, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p = c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(!p->context, CA_ERROR_STATE);
 
         /* If this immediate attempt fails, don't try to reconnect. */
         p->reconnect = FALSE;
@@ -268,12 +268,12 @@ static int context_connect(ca_context *c, ca_bool_t nofail) {
 }
 
 static void context_state_cb(pa_context *pc, void *userdata) {
-        ca_context *c = userdata;
+        ka_context *c = userdata;
         pa_context_state_t state;
         struct private *p;
 
-        ca_assert(pc);
-        ca_assert(c);
+        ka_assert(pc);
+        ka_assert(c);
 
         p = PRIVATE(c);
 
@@ -287,24 +287,24 @@ static void context_state_cb(pa_context *pc, void *userdata) {
                 else
                         ret = translate_error(pa_context_errno(pc));
 
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
 
                 while ((out = p->outstanding)) {
 
                         outstanding_disconnect(out);
                         CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
 
-                        ca_mutex_unlock(p->outstanding_mutex);
+                        ka_mutex_unlock(p->outstanding_mutex);
 
                         if (out->callback)
                                 out->callback(c, out->id, ret, out->userdata);
 
                         outstanding_free(out);
 
-                        ca_mutex_lock(p->outstanding_mutex);
+                        ka_mutex_lock(p->outstanding_mutex);
                 }
 
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
 
                 if (state == PA_CONTEXT_FAILED && p->reconnect) {
 
@@ -332,11 +332,11 @@ static void context_state_cb(pa_context *pc, void *userdata) {
 static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t, uint32_t idx, void *userdata) {
         struct outstanding *out, *n;
         CA_LLIST_HEAD(struct outstanding, l);
-        ca_context *c = userdata;
+        ka_context *c = userdata;
         struct private *p;
 
-        ca_assert(pc);
-        ca_assert(c);
+        ka_assert(pc);
+        ka_assert(c);
 
         if (t != (PA_SUBSCRIPTION_EVENT_SINK_INPUT|PA_SUBSCRIPTION_EVENT_REMOVE))
                 return;
@@ -345,7 +345,7 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
 
         CA_LLIST_HEAD_INIT(struct outstanding, l);
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out; out = n) {
                 n = out->next;
@@ -359,7 +359,7 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
                 CA_LLIST_PREPEND(struct outstanding, l, out);
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         while (l) {
                 out = l;
@@ -373,18 +373,18 @@ static void context_subscribe_cb(pa_context *pc, pa_subscription_event_type_t t,
         }
 }
 
-int driver_open(ca_context *c) {
+int driver_open(ka_context *c) {
         struct private *p;
         int ret;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!c->driver || ca_streq(c->driver, "pulse"), CA_ERROR_NODRIVER);
-        ca_return_val_if_fail(!PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "pulse"), CA_ERROR_NODRIVER);
+        ka_return_val_if_fail(!PRIVATE(c), CA_ERROR_STATE);
 
-        if (!(c->private = p = ca_new0(struct private, 1)))
+        if (!(c->private = p = ka_new0(struct private, 1)))
                 return CA_ERROR_OOM;
 
-        if (!(p->outstanding_mutex = ca_mutex_new())) {
+        if (!(p->outstanding_mutex = ka_mutex_new())) {
                 driver_destroy(c);
                 return CA_ERROR_OOM;
         }
@@ -431,7 +431,7 @@ int driver_open(ca_context *c) {
                         return ret;
                 }
 
-                ca_assert(state != PA_CONTEXT_TERMINATED);
+                ka_assert(state != PA_CONTEXT_TERMINATED);
 
                 pa_threaded_mainloop_wait(p->mainloop);
         }
@@ -441,11 +441,11 @@ int driver_open(ca_context *c) {
         return CA_SUCCESS;
 }
 
-int driver_destroy(ca_context *c) {
+int driver_destroy(ka_context *c) {
         struct private *p;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
@@ -471,21 +471,21 @@ int driver_destroy(ca_context *c) {
                 pa_threaded_mainloop_free(p->mainloop);
 
         if (p->theme)
-                ca_theme_data_free(p->theme);
+                ka_theme_data_free(p->theme);
 
         if (p->outstanding_mutex)
-                ca_mutex_free(p->outstanding_mutex);
+                ka_mutex_free(p->outstanding_mutex);
 
-        ca_free(p);
+        ka_free(p);
 
         c->private = NULL;
 
         return CA_SUCCESS;
 }
 
-int driver_change_device(ca_context *c, const char *device) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+int driver_change_device(ka_context *c, const char *device) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         /* We're happy with any device change. We might however add code
          * here eventually to move all currently played back event sounds
@@ -494,20 +494,20 @@ int driver_change_device(ca_context *c, const char *device) {
         return CA_SUCCESS;
 }
 
-int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged) {
+int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
         struct private *p;
         pa_operation *o;
         pa_proplist *l;
         int ret = CA_SUCCESS;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ca_return_val_if_fail(merged, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
 
         pa_threaded_mainloop_lock(p->mainloop);
 
@@ -536,16 +536,16 @@ int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged
         return ret;
 }
 
-static int subscribe(ca_context *c) {
+static int subscribe(ka_context *c) {
         struct private *p;
         pa_operation *o;
         int ret = CA_SUCCESS;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
         p = PRIVATE(c);
 
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
 
         if (p->subscribed)
                 return CA_SUCCESS;
@@ -576,8 +576,8 @@ static void play_sample_cb(pa_context *c, uint32_t idx, void *userdata) {
         struct private *p;
         struct outstanding *out = userdata;
 
-        ca_assert(c);
-        ca_assert(out);
+        ka_assert(c);
+        ka_assert(out);
 
         p = PRIVATE(out->context);
 
@@ -595,8 +595,8 @@ static void stream_state_cb(pa_stream *s, void *userdata) {
         struct outstanding *out = userdata;
         pa_stream_state_t state;
 
-        ca_assert(s);
-        ca_assert(out);
+        ka_assert(s);
+        ka_assert(out);
 
         p = PRIVATE(out->context);
 
@@ -618,10 +618,10 @@ static void stream_state_cb(pa_stream *s, void *userdata) {
                 err = state == PA_STREAM_FAILED ? translate_error(pa_context_errno(pa_stream_get_context(s))) : CA_ERROR_DESTROYED;
 
                 if (out->clean_up) {
-                        ca_mutex_lock(p->outstanding_mutex);
+                        ka_mutex_lock(p->outstanding_mutex);
                         outstanding_disconnect(out);
                         CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
-                        ca_mutex_unlock(p->outstanding_mutex);
+                        ka_mutex_unlock(p->outstanding_mutex);
 
                         if (out->callback)
                                 out->callback(out->context, out->id, out->error, out->userdata);
@@ -644,18 +644,18 @@ static void stream_drain_cb(pa_stream *s, int success, void *userdata) {
         struct outstanding *out = userdata;
         int err;
 
-        ca_assert(s);
-        ca_assert(out);
-        ca_assert(out->type == OUTSTANDING_STREAM);
+        ka_assert(s);
+        ka_assert(out);
+        ka_assert(out->type == OUTSTANDING_STREAM);
 
         p = PRIVATE(out->context);
         err = success ? CA_SUCCESS : translate_error(pa_context_errno(p->context));
 
         if (out->clean_up) {
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
                 outstanding_disconnect(out);
                 CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
 
                 if (out->callback)
                         out->callback(out->context, out->id, err, out->userdata);
@@ -681,23 +681,23 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
         struct private *p;
         void *data;
         int ret;
-        ca_bool_t eof = FALSE;
+        ka_bool_t eof = FALSE;
 
-        ca_assert(s);
-        ca_assert(bytes > 0);
-        ca_assert(out);
+        ka_assert(s);
+        ka_assert(bytes > 0);
+        ka_assert(out);
 
         p = PRIVATE(out->context);
 
         while (bytes > 0) {
                 size_t rbytes = bytes;
 
-                if (!(data = ca_malloc(rbytes))) {
+                if (!(data = ka_malloc(rbytes))) {
                         ret = CA_ERROR_OOM;
                         goto finish;
                 }
 
-                if ((ret = ca_sound_file_read_arbitrary(out->file, data, &rbytes)) < 0)
+                if ((ret = ka_sound_file_read_arbitrary(out->file, data, &rbytes)) < 0)
                         goto finish;
 
                 if (rbytes <= 0) {
@@ -705,9 +705,9 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
                         break;
                 }
 
-                ca_assert(rbytes <= bytes);
+                ka_assert(rbytes <= bytes);
 
-                if ((ret = pa_stream_write(s, data, rbytes, ca_free, 0, PA_SEEK_RELATIVE)) < 0) {
+                if ((ret = pa_stream_write(s, data, rbytes, ka_free, 0, PA_SEEK_RELATIVE)) < 0) {
                         ret = translate_error(ret);
                         goto finish;
                 }
@@ -717,7 +717,7 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
                 bytes -= rbytes;
         }
 
-        if (eof || ca_sound_file_get_size(out->file) <= 0) {
+        if (eof || ka_sound_file_get_size(out->file) <= 0) {
 
                 /* We reached EOF */
 
@@ -732,7 +732,7 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
                         pa_threaded_mainloop_signal(p->mainloop, FALSE);
 
                 } else {
-                        ca_assert(out->type == OUTSTANDING_STREAM);
+                        ka_assert(out->type == OUTSTANDING_STREAM);
 
                         if (out->drain_operation) {
                                 pa_operation_cancel(out->drain_operation);
@@ -748,19 +748,19 @@ static void stream_write_cb(pa_stream *s, size_t bytes, void *userdata) {
                 pa_stream_set_write_callback(s, NULL, NULL);
         }
 
-        ca_free(data);
+        ka_free(data);
 
         return;
 
 finish:
 
-        ca_free(data);
+        ka_free(data);
 
         if (out->clean_up) {
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
                 outstanding_disconnect(out);
                 CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
 
                 if (out->callback)
                         out->callback(out->context, out->id, ret, out->userdata);
@@ -804,24 +804,24 @@ static const pa_channel_position_t channel_table[_CA_CHANNEL_POSITION_MAX] = {
         [CA_CHANNEL_TOP_REAR_CENTER] = PA_CHANNEL_POSITION_TOP_REAR_CENTER
 };
 
-static ca_bool_t convert_channel_map(ca_sound_file *f, pa_channel_map *cm) {
-        const ca_channel_position_t *positions;
+static ka_bool_t convert_channel_map(ka_sound_file *f, pa_channel_map *cm) {
+        const ka_channel_position_t *positions;
         unsigned c;
 
-        ca_assert(f);
-        ca_assert(cm);
+        ka_assert(f);
+        ka_assert(cm);
 
-        if (!(positions = ca_sound_file_get_channel_map(f)))
+        if (!(positions = ka_sound_file_get_channel_map(f)))
                 return FALSE;
 
-        cm->channels = ca_sound_file_get_nchannels(f);
+        cm->channels = ka_sound_file_get_nchannels(f);
         for (c = 0; c < cm->channels; c++)
                 cm->map[c] = channel_table[positions[c]];
 
         return TRUE;
 }
 
-int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_callback_t cb, void *userdata) {
+int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_callback_t cb, void *userdata) {
         struct private *p;
         pa_proplist *l = NULL;
         const char *n, *vol, *ct, *channel;
@@ -831,13 +831,13 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
 #else
         pa_volume_t v = PA_VOLUME_NORM;
 #endif
-        ca_bool_t volume_set = FALSE;
+        ka_bool_t volume_set = FALSE;
         pa_cvolume cvol;
         pa_sample_spec ss;
         pa_channel_map cm;
         pa_channel_position_t position = PA_CHANNEL_POSITION_INVALID;
-        ca_bool_t cm_good;
-        ca_cache_control_t cache_control = CA_CACHE_CONTROL_NEVER;
+        ka_bool_t cm_good;
+        ka_cache_control_t cache_control = CA_CACHE_CONTROL_NEVER;
         struct outstanding *out = NULL;
         int try = 3;
         int ret;
@@ -845,16 +845,16 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         char *sp;
         pa_buffer_attr ba;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
 
-        if (!(out = ca_new0(struct outstanding, 1))) {
+        if (!(out = ka_new0(struct outstanding, 1))) {
                 ret = CA_ERROR_OOM;
                 goto finish_unlocked;
         }
@@ -870,7 +870,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 goto finish_unlocked;
 
         if ((n = pa_proplist_gets(l, CA_PROP_EVENT_ID)))
-                if (!(name = ca_strdup(n))) {
+                if (!(name = ka_strdup(n))) {
                         ret = CA_ERROR_OOM;
                         goto finish_unlocked;
                 }
@@ -891,7 +891,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         }
 
         if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
-                if ((ret = ca_parse_cache_control(&cache_control, ct)) < 0) {
+                if ((ret = ka_parse_cache_control(&cache_control, ct)) < 0) {
                         ret = CA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
@@ -926,7 +926,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 /* Ok, this sample has an event id, let's try to play it from the cache */
 
                 for (;;) {
-                        ca_bool_t canceled;
+                        ka_bool_t canceled;
 
                         pa_threaded_mainloop_lock(p->mainloop);
 
@@ -993,18 +993,18 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         out->type = OUTSTANDING_STREAM;
 
         /* Let's stream the sample directly */
-        if ((ret = ca_lookup_sound(&out->file, &sp, &p->theme, c->props, proplist)) < 0)
+        if ((ret = ka_lookup_sound(&out->file, &sp, &p->theme, c->props, proplist)) < 0)
                 goto finish_unlocked;
 
         if (sp)
                 if (!pa_proplist_contains(l, CA_PROP_MEDIA_FILENAME))
                         pa_proplist_sets(l, CA_PROP_MEDIA_FILENAME, sp);
 
-        ca_free(sp);
+        ka_free(sp);
 
-        ss.format = sample_type_table[ca_sound_file_get_sample_type(out->file)];
-        ss.channels = (uint8_t) ca_sound_file_get_nchannels(out->file);
-        ss.rate = ca_sound_file_get_rate(out->file);
+        ss.format = sample_type_table[ka_sound_file_get_sample_type(out->file)];
+        ss.channels = (uint8_t) ka_sound_file_get_nchannels(out->file);
+        ss.rate = ka_sound_file_get_rate(out->file);
 
         if (position != PA_CHANNEL_POSITION_INVALID) {
                 unsigned u;
@@ -1093,9 +1093,9 @@ finish_locked:
         if (ret == CA_SUCCESS && !out->finished) {
                 out->clean_up = TRUE;
 
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
                 CA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
         } else
                 outstanding_free(out);
 
@@ -1111,23 +1111,23 @@ finish_unlocked:
         if (l)
                 pa_proplist_free(l);
 
-        ca_free(name);
+        ka_free(name);
 
         return ret;
 }
 
-int driver_cancel(ca_context *c, uint32_t id) {
+int driver_cancel(ka_context *c, uint32_t id) {
         struct private *p;
         pa_operation *o;
         int ret = CA_SUCCESS;
         struct outstanding *out, *n;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
 
         pa_threaded_mainloop_lock(p->mainloop);
 
@@ -1136,7 +1136,7 @@ int driver_cancel(ca_context *c, uint32_t id) {
                 return CA_ERROR_STATE;
         }
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         /* We start these asynchronously and don't care about the return
          * value */
@@ -1170,34 +1170,34 @@ int driver_cancel(ca_context *c, uint32_t id) {
                 outstanding_free(out);
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         pa_threaded_mainloop_unlock(p->mainloop);
 
         return ret;
 }
 
-int driver_cache(ca_context *c, ca_proplist *proplist) {
+int driver_cache(ka_context *c, ka_proplist *proplist) {
         struct private *p;
         pa_proplist *l = NULL;
         const char *n, *ct;
         pa_sample_spec ss;
         pa_channel_map cm;
-        ca_bool_t cm_good;
-        ca_cache_control_t cache_control = CA_CACHE_CONTROL_PERMANENT;
+        ka_bool_t cm_good;
+        ka_cache_control_t cache_control = CA_CACHE_CONTROL_PERMANENT;
         struct outstanding *out;
         int ret;
         char *sp;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
+        ka_return_val_if_fail(p->mainloop, CA_ERROR_STATE);
 
-        if (!(out = ca_new0(struct outstanding, 1))) {
+        if (!(out = ka_new0(struct outstanding, 1))) {
                 ret = CA_ERROR_OOM;
                 goto finish_unlocked;
         }
@@ -1215,7 +1215,7 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
         }
 
         if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
-                if ((ret = ca_parse_cache_control(&cache_control, ct)) < 0) {
+                if ((ret = ka_parse_cache_control(&cache_control, ct)) < 0) {
                         ret = CA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
@@ -1236,18 +1236,18 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
         add_common(l);
 
         /* Let's stream the sample directly */
-        if ((ret = ca_lookup_sound(&out->file, &sp, &p->theme, c->props, proplist)) < 0)
+        if ((ret = ka_lookup_sound(&out->file, &sp, &p->theme, c->props, proplist)) < 0)
                 goto finish_unlocked;
 
         if (sp)
                 if (!pa_proplist_contains(l, CA_PROP_MEDIA_FILENAME))
                         pa_proplist_sets(l, CA_PROP_MEDIA_FILENAME, sp);
 
-        ca_free(sp);
+        ka_free(sp);
 
-        ss.format = sample_type_table[ca_sound_file_get_sample_type(out->file)];
-        ss.channels = (uint8_t) ca_sound_file_get_nchannels(out->file);
-        ss.rate = ca_sound_file_get_rate(out->file);
+        ss.format = sample_type_table[ka_sound_file_get_sample_type(out->file)];
+        ss.channels = (uint8_t) ka_sound_file_get_nchannels(out->file);
+        ss.rate = ka_sound_file_get_rate(out->file);
 
         cm_good = convert_channel_map(out->file, &cm);
 
@@ -1266,7 +1266,7 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
         pa_stream_set_state_callback(out->stream, stream_state_cb, out);
         pa_stream_set_write_callback(out->stream, stream_write_cb, out);
 
-        if (pa_stream_connect_upload(out->stream, (size_t) ca_sound_file_get_size(out->file)) < 0) {
+        if (pa_stream_connect_upload(out->stream, (size_t) ka_sound_file_get_size(out->file)) < 0) {
                 ret = translate_error(pa_context_errno(p->context));
                 goto finish_locked;
         }
@@ -1313,19 +1313,19 @@ finish_unlocked:
         return ret;
 }
 
-int driver_playing(ca_context *c, uint32_t id, int *playing) {
+int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ca_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
 
         p = PRIVATE(c);
 
         *playing = 0;
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out; out = out->next) {
 
@@ -1338,7 +1338,7 @@ int driver_playing(ca_context *c, uint32_t id, int *playing) {
                 break;
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return CA_SUCCESS;
 }

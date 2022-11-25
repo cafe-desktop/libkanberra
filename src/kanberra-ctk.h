@@ -30,20 +30,20 @@
 G_BEGIN_DECLS
 
 #ifndef CDK_MULTIHEAD_SAFE
-ca_context *ca_ctk_context_get(void);
+ka_context *ka_ctk_context_get(void);
 #endif
 
-ca_context *ca_ctk_context_get_for_screen(CdkScreen *screen);
+ka_context *ka_ctk_context_get_for_screen(CdkScreen *screen);
 
-int ca_ctk_proplist_set_for_widget(ca_proplist *p, CtkWidget *w);
+int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *w);
 
-int ca_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
+int ka_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
-int ca_ctk_proplist_set_for_event(ca_proplist *p, CdkEvent *e);
+int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e);
 
-int ca_ctk_play_for_event(CdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
+int ka_ctk_play_for_event(CdkEvent *e, uint32_t id, ...) G_GNUC_NULL_TERMINATED;
 
-void ca_ctk_widget_disable_sounds(CtkWidget *w, gboolean enable);
+void ka_ctk_widget_disable_sounds(CtkWidget *w, gboolean enable);
 
 G_END_DECLS
 

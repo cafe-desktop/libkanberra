@@ -54,7 +54,7 @@ enum {
         _BIT_MAX
 };
 
-static const ca_channel_position_t channel_table[_BIT_MAX] = {
+static const ka_channel_position_t channel_table[_BIT_MAX] = {
         [BIT_FRONT_LEFT] = CA_CHANNEL_FRONT_LEFT,
         [BIT_FRONT_RIGHT] = CA_CHANNEL_FRONT_RIGHT,
         [BIT_FRONT_CENTER] = CA_CHANNEL_FRONT_CENTER,
@@ -75,7 +75,7 @@ static const ca_channel_position_t channel_table[_BIT_MAX] = {
         [BIT_TOP_BACK_RIGHT] = CA_CHANNEL_TOP_REAR_RIGHT
 };
 
-struct ca_wav {
+struct ka_wav {
         FILE *file;
 
         off_t data_size;
@@ -84,7 +84,7 @@ struct ca_wav {
         unsigned depth;
         uint32_t channel_mask;
 
-        ca_channel_position_t channel_map[_BIT_MAX];
+        ka_channel_position_t channel_map[_BIT_MAX];
 };
 
 #define CHUNK_ID_DATA 0x61746164U
@@ -95,10 +95,10 @@ static const uint8_t pcm_guid[16] = {
         0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71
 };
 
-static int skip_to_chunk(ca_wav *w, uint32_t id, uint32_t *size) {
+static int skip_to_chunk(ka_wav *w, uint32_t id, uint32_t *size) {
 
-        ca_return_val_if_fail(w, CA_ERROR_INVALID);
-        ca_return_val_if_fail(size, CA_ERROR_INVALID);
+        ka_return_val_if_fail(w, CA_ERROR_INVALID);
+        ka_return_val_if_fail(size, CA_ERROR_INVALID);
 
         for (;;) {
                 uint32_t chunk[2];
@@ -130,21 +130,21 @@ fail_io:
         else if (ferror(w->file))
                 return CA_ERROR_SYSTEM;
 
-        ca_assert_not_reached();
+        ka_assert_not_reached();
 }
 
-int ca_wav_open(ca_wav **_w, FILE *f)  {
+int ka_wav_open(ka_wav **_w, FILE *f)  {
         uint32_t header[3], fmt_chunk[10];
         int ret;
-        ca_wav *w;
+        ka_wav *w;
         uint32_t file_size, fmt_size, data_size;
-        ca_bool_t extensible;
+        ka_bool_t extensible;
         uint32_t format;
 
-        ca_return_val_if_fail(_w, CA_ERROR_INVALID);
-        ca_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_w, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f, CA_ERROR_INVALID);
 
-        if (!(w = ca_new(ca_wav, 1)))
+        if (!(w = ka_new(ka_wav, 1)))
                 return CA_ERROR_OOM;
 
         w->file = f;
@@ -242,39 +242,39 @@ fail_io:
         else if (ferror(f))
                 ret = CA_ERROR_SYSTEM;
         else
-                ca_assert_not_reached();
+                ka_assert_not_reached();
 
 fail:
 
-        ca_free(w);
+        ka_free(w);
 
         return ret;
 }
 
-void ca_wav_close(ca_wav *w) {
-        ca_assert(w);
+void ka_wav_close(ka_wav *w) {
+        ka_assert(w);
 
         fclose(w->file);
-        ca_free(w);
+        ka_free(w);
 }
 
-unsigned ca_wav_get_nchannels(ca_wav *w) {
-        ca_assert(w);
+unsigned ka_wav_get_nchannels(ka_wav *w) {
+        ka_assert(w);
 
         return w->nchannels;
 }
 
-unsigned ca_wav_get_rate(ca_wav *w) {
-        ca_assert(w);
+unsigned ka_wav_get_rate(ka_wav *w) {
+        ka_assert(w);
 
         return w->rate;
 }
 
-const ca_channel_position_t* ca_wav_get_channel_map(ca_wav *w) {
+const ka_channel_position_t* ka_wav_get_channel_map(ka_wav *w) {
         unsigned c;
-        ca_channel_position_t *p;
+        ka_channel_position_t *p;
 
-        ca_assert(w);
+        ka_assert(w);
 
         if (!w->channel_mask)
                 return NULL;
@@ -285,7 +285,7 @@ const ca_channel_position_t* ca_wav_get_channel_map(ca_wav *w) {
                 if ((w->channel_mask & (1 << c)))
                         *(p++) = channel_table[c];
 
-        ca_assert(p <= w->channel_map + _BIT_MAX);
+        ka_assert(p <= w->channel_map + _BIT_MAX);
 
         if (p != w->channel_map + w->nchannels)
                 return NULL;
@@ -293,8 +293,8 @@ const ca_channel_position_t* ca_wav_get_channel_map(ca_wav *w) {
         return w->channel_map;
 }
 
-ca_sample_type_t ca_wav_get_sample_type(ca_wav *w) {
-        ca_assert(w);
+ka_sample_type_t ka_wav_get_sample_type(ka_wav *w) {
+        ka_assert(w);
 
         return w->depth == 16 ?
 #ifdef WORDS_BIGENDIAN
@@ -305,14 +305,14 @@ ca_sample_type_t ca_wav_get_sample_type(ca_wav *w) {
                 : CA_SAMPLE_U8;
 }
 
-int ca_wav_read_s16le(ca_wav *w, int16_t *d, size_t *n) {
+int ka_wav_read_s16le(ka_wav *w, int16_t *d, size_t *n) {
         off_t remaining;
 
-        ca_return_val_if_fail(w, CA_ERROR_INVALID);
-        ca_return_val_if_fail(w->depth == 16, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(w, CA_ERROR_INVALID);
+        ka_return_val_if_fail(w->depth == 16, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
 
         remaining = w->data_size / (off_t) sizeof(int16_t);
 
@@ -325,21 +325,21 @@ int ca_wav_read_s16le(ca_wav *w, int16_t *d, size_t *n) {
                 if (*n <= 0 && ferror(w->file))
                         return CA_ERROR_SYSTEM;
 
-                ca_assert(w->data_size >= (off_t) *n * (off_t) sizeof(int16_t));
+                ka_assert(w->data_size >= (off_t) *n * (off_t) sizeof(int16_t));
                 w->data_size -= (off_t) *n * (off_t) sizeof(int16_t);
         }
 
         return CA_SUCCESS;
 }
 
-int ca_wav_read_u8(ca_wav *w, uint8_t *d, size_t *n) {
+int ka_wav_read_u8(ka_wav *w, uint8_t *d, size_t *n) {
         off_t remaining;
 
-        ca_return_val_if_fail(w, CA_ERROR_INVALID);
-        ca_return_val_if_fail(w->depth == 8, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(w, CA_ERROR_INVALID);
+        ka_return_val_if_fail(w->depth == 8, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
 
         remaining = w->data_size / (off_t) sizeof(uint8_t);
 
@@ -352,15 +352,15 @@ int ca_wav_read_u8(ca_wav *w, uint8_t *d, size_t *n) {
                 if (*n <= 0 && ferror(w->file))
                         return CA_ERROR_SYSTEM;
 
-                ca_assert(w->data_size >= (off_t) *n * (off_t) sizeof(uint8_t));
+                ka_assert(w->data_size >= (off_t) *n * (off_t) sizeof(uint8_t));
                 w->data_size -= (off_t) *n * (off_t) sizeof(uint8_t);
         }
 
         return CA_SUCCESS;
 }
 
-off_t ca_wav_get_size(ca_wav *v) {
-        ca_return_val_if_fail(v, (off_t) -1);
+off_t ka_wav_get_size(ka_wav *v) {
+        ka_return_val_if_fail(v, (off_t) -1);
 
         return v->data_size;
 }

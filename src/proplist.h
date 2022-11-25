@@ -30,29 +30,29 @@
 
 #define N_HASHTABLE 31
 
-typedef struct ca_prop {
+typedef struct ka_prop {
         char *key;
         size_t nbytes;
-        struct ca_prop *next_in_slot, *next_item, *prev_item;
-} ca_prop;
+        struct ka_prop *next_in_slot, *next_item, *prev_item;
+} ka_prop;
 
-#define CA_PROP_DATA(p) ((void*) ((char*) (p) + CA_ALIGN(sizeof(ca_prop))))
+#define CA_PROP_DATA(p) ((void*) ((char*) (p) + CA_ALIGN(sizeof(ka_prop))))
 
-struct ca_proplist {
-        ca_mutex *mutex;
+struct ka_proplist {
+        ka_mutex *mutex;
 
-        ca_prop *prop_hashtable[N_HASHTABLE];
-        ca_prop *first_item;
+        ka_prop *prop_hashtable[N_HASHTABLE];
+        ka_prop *first_item;
 };
 
-int ca_proplist_merge(ca_proplist **_a, ca_proplist *b, ca_proplist *c);
-ca_bool_t ca_proplist_contains(ca_proplist *p, const char *key);
+int ka_proplist_merge(ka_proplist **_a, ka_proplist *b, ka_proplist *c);
+ka_bool_t ka_proplist_contains(ka_proplist *p, const char *key);
 
 /* Both of the following two functions are not locked! Need manual locking! */
-ca_prop* ca_proplist_get_unlocked(ca_proplist *p, const char *key);
-const char* ca_proplist_gets_unlocked(ca_proplist *p, const char *key);
+ka_prop* ka_proplist_get_unlocked(ka_proplist *p, const char *key);
+const char* ka_proplist_gets_unlocked(ka_proplist *p, const char *key);
 
-int ca_proplist_merge_ap(ca_proplist *p, va_list ap);
-int ca_proplist_from_ap(ca_proplist **_p, va_list ap);
+int ka_proplist_merge_ap(ka_proplist *p, va_list ap);
+int ka_proplist_from_ap(ka_proplist **_p, va_list ap);
 
 #endif

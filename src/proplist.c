@@ -41,22 +41,22 @@ static unsigned calc_hash(const char *c) {
 }
 
 /**
- * ca_proplist_create:
+ * ka_proplist_create:
  * @p: A pointer where to fill in a pointer for the new property list.
  *
  * Allocate a new empty property list.
  *
  * Returns: 0 on success, negative error code on error.
  */
-int ca_proplist_create(ca_proplist **_p) {
-        ca_proplist *p;
-        ca_return_val_if_fail(_p, CA_ERROR_INVALID);
+int ka_proplist_create(ka_proplist **_p) {
+        ka_proplist *p;
+        ka_return_val_if_fail(_p, CA_ERROR_INVALID);
 
-        if (!(p = ca_new0(ca_proplist, 1)))
+        if (!(p = ka_new0(ka_proplist, 1)))
                 return CA_ERROR_OOM;
 
-        if (!(p->mutex = ca_mutex_new())) {
-                ca_free(p);
+        if (!(p->mutex = ka_mutex_new())) {
+                ka_free(p);
                 return CA_ERROR_OOM;
         }
 
@@ -65,12 +65,12 @@ int ca_proplist_create(ca_proplist **_p) {
         return CA_SUCCESS;
 }
 
-static int _unset(ca_proplist *p, const char *key) {
-        ca_prop *prop, *nprop;
+static int _unset(ka_proplist *p, const char *key) {
+        ka_prop *prop, *nprop;
         unsigned i;
 
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
-        ca_return_val_if_fail(key, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, CA_ERROR_INVALID);
 
         i = calc_hash(key) % N_HASHTABLE;
 
@@ -93,15 +93,15 @@ static int _unset(ca_proplist *p, const char *key) {
                 if (prop->next_item)
                         prop->next_item->prev_item = prop->prev_item;
 
-                ca_free(prop->key);
-                ca_free(prop);
+                ka_free(prop->key);
+                ka_free(prop);
         }
 
         return CA_SUCCESS;
 }
 
 /**
- * ca_proplist_sets:
+ * ka_proplist_sets:
  * @p: The property list to add this key/value pair to
  * @key: The key for this key/value pair
  * @value: The value for this key/value pair
@@ -111,48 +111,48 @@ static int _unset(ca_proplist *p, const char *key) {
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_proplist_sets(ca_proplist *p, const char *key, const char *value) {
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
-        ca_return_val_if_fail(key, CA_ERROR_INVALID);
-        ca_return_val_if_fail(value, CA_ERROR_INVALID);
+int ka_proplist_sets(ka_proplist *p, const char *key, const char *value) {
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, CA_ERROR_INVALID);
+        ka_return_val_if_fail(value, CA_ERROR_INVALID);
 
-        return ca_proplist_set(p, key, value, strlen(value)+1);
+        return ka_proplist_set(p, key, value, strlen(value)+1);
 }
 
 /**
- * ca_proplist_setf:
+ * ka_proplist_setf:
  * @p: The property list to add this key/value pair to
  * @key: The key for this key/value pair
  * @format: The format string for the value for this key/value pair
  * @...: The parameters for the format string
  *
- * Much like ca_proplist_sets(): add a new string key/value pair to
+ * Much like ka_proplist_sets(): add a new string key/value pair to
  * the property list. Takes a standard C format string plus arguments
  * and formats a string of it.
  *
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_proplist_setf(ca_proplist *p, const char *key, const char *format, ...) {
+int ka_proplist_setf(ka_proplist *p, const char *key, const char *format, ...) {
         int ret;
         char *k;
-        ca_prop *prop;
+        ka_prop *prop;
         size_t size = 100;
         unsigned h;
 
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
-        ca_return_val_if_fail(key, CA_ERROR_INVALID);
-        ca_return_val_if_fail(format, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, CA_ERROR_INVALID);
+        ka_return_val_if_fail(format, CA_ERROR_INVALID);
 
-        if (!(k = ca_strdup(key)))
+        if (!(k = ka_strdup(key)))
                 return CA_ERROR_OOM;
 
         for (;;) {
                 va_list ap;
                 int r;
 
-                if (!(prop = ca_malloc(CA_ALIGN(sizeof(ca_prop)) + size))) {
-                        ca_free(k);
+                if (!(prop = ka_malloc(CA_ALIGN(sizeof(ka_prop)) + size))) {
+                        ka_free(k);
                         return CA_ERROR_OOM;
                 }
 
@@ -173,16 +173,16 @@ int ca_proplist_setf(ca_proplist *p, const char *key, const char *format, ...) {
                 else           /* glibc 2.0 */
                         size *= 2;
 
-                ca_free(prop);
+                ka_free(prop);
         }
 
         prop->key = k;
 
-        ca_mutex_lock(p->mutex);
+        ka_mutex_lock(p->mutex);
 
         if ((ret = _unset(p, key)) < 0) {
-                ca_free(prop);
-                ca_free(k);
+                ka_free(prop);
+                ka_free(k);
                 goto finish;
         }
 
@@ -198,13 +198,13 @@ int ca_proplist_setf(ca_proplist *p, const char *key, const char *format, ...) {
 
 finish:
 
-        ca_mutex_unlock(p->mutex);
+        ka_mutex_unlock(p->mutex);
 
         return ret;
 }
 
 /**
- * ca_proplist_set:
+ * ka_proplist_set:
  * @p: The property list to add this key/value pair to
  * @key: The key for this key/value pair
  * @data: The binary value for this key value pair
@@ -215,21 +215,21 @@ finish:
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_proplist_set(ca_proplist *p, const char *key, const void *data, size_t nbytes) {
+int ka_proplist_set(ka_proplist *p, const char *key, const void *data, size_t nbytes) {
         int ret;
         char *k;
-        ca_prop *prop;
+        ka_prop *prop;
         unsigned h;
 
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
-        ca_return_val_if_fail(key, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!nbytes || data, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!nbytes || data, CA_ERROR_INVALID);
 
-        if (!(k = ca_strdup(key)))
+        if (!(k = ka_strdup(key)))
                 return CA_ERROR_OOM;
 
-        if (!(prop = ca_malloc(CA_ALIGN(sizeof(ca_prop)) + nbytes))) {
-                ca_free(k);
+        if (!(prop = ka_malloc(CA_ALIGN(sizeof(ka_prop)) + nbytes))) {
+                ka_free(k);
                 return CA_ERROR_OOM;
         }
 
@@ -237,11 +237,11 @@ int ca_proplist_set(ca_proplist *p, const char *key, const void *data, size_t nb
         prop->nbytes = nbytes;
         memcpy(CA_PROP_DATA(prop), data, nbytes);
 
-        ca_mutex_lock(p->mutex);
+        ka_mutex_lock(p->mutex);
 
         if ((ret = _unset(p, key)) < 0) {
-                ca_free(prop);
-                ca_free(k);
+                ka_free(prop);
+                ka_free(k);
                 goto finish;
         }
 
@@ -257,18 +257,18 @@ int ca_proplist_set(ca_proplist *p, const char *key, const void *data, size_t nb
 
 finish:
 
-        ca_mutex_unlock(p->mutex);
+        ka_mutex_unlock(p->mutex);
 
         return ret;
 }
 
 /* Not exported, not self-locking */
-ca_prop* ca_proplist_get_unlocked(ca_proplist *p, const char *key) {
-        ca_prop *prop;
+ka_prop* ka_proplist_get_unlocked(ka_proplist *p, const char *key) {
+        ka_prop *prop;
         unsigned i;
 
-        ca_return_val_if_fail(p, NULL);
-        ca_return_val_if_fail(key, NULL);
+        ka_return_val_if_fail(p, NULL);
+        ka_return_val_if_fail(key, NULL);
 
         i = calc_hash(key) % N_HASHTABLE;
 
@@ -280,13 +280,13 @@ ca_prop* ca_proplist_get_unlocked(ca_proplist *p, const char *key) {
 }
 
 /* Not exported, not self-locking */
-const char* ca_proplist_gets_unlocked(ca_proplist *p, const char *key) {
-        ca_prop *prop;
+const char* ka_proplist_gets_unlocked(ka_proplist *p, const char *key) {
+        ka_prop *prop;
 
-        ca_return_val_if_fail(p, NULL);
-        ca_return_val_if_fail(key, NULL);
+        ka_return_val_if_fail(p, NULL);
+        ka_return_val_if_fail(key, NULL);
 
-        if (!(prop = ca_proplist_get_unlocked(p, key)))
+        if (!(prop = ka_proplist_get_unlocked(p, key)))
                 return NULL;
 
         if (!memchr(CA_PROP_DATA(prop), 0, prop->nbytes))
@@ -296,64 +296,64 @@ const char* ca_proplist_gets_unlocked(ca_proplist *p, const char *key) {
 }
 
 /**
- * ca_proplist_destroy:
+ * ka_proplist_destroy:
  * @p: The property list to destroy
  *
- * Destroys a property list that was created with ca_proplist_create() earlier.
+ * Destroys a property list that was created with ka_proplist_create() earlier.
  *
  * Returns: 0 on success, negative error code on error.
  */
 
-int ca_proplist_destroy(ca_proplist *p) {
-        ca_prop *prop, *nprop;
+int ka_proplist_destroy(ka_proplist *p) {
+        ka_prop *prop, *nprop;
 
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
 
         for (prop = p->first_item; prop; prop = nprop) {
                 nprop = prop->next_item;
-                ca_free(prop->key);
-                ca_free(prop);
+                ka_free(prop->key);
+                ka_free(prop);
         }
 
-        ca_mutex_free(p->mutex);
+        ka_mutex_free(p->mutex);
 
-        ca_free(p);
+        ka_free(p);
 
         return CA_SUCCESS;
 }
 
-static int merge_into(ca_proplist *a, ca_proplist *b) {
+static int merge_into(ka_proplist *a, ka_proplist *b) {
         int ret = CA_SUCCESS;
-        ca_prop *prop;
+        ka_prop *prop;
 
-        ca_return_val_if_fail(a, CA_ERROR_INVALID);
-        ca_return_val_if_fail(b, CA_ERROR_INVALID);
+        ka_return_val_if_fail(a, CA_ERROR_INVALID);
+        ka_return_val_if_fail(b, CA_ERROR_INVALID);
 
-        ca_mutex_lock(b->mutex);
+        ka_mutex_lock(b->mutex);
 
         for (prop = b->first_item; prop; prop = prop->next_item)
-                if ((ret = ca_proplist_set(a, prop->key, CA_PROP_DATA(prop), prop->nbytes)) < 0)
+                if ((ret = ka_proplist_set(a, prop->key, CA_PROP_DATA(prop), prop->nbytes)) < 0)
                         break;
 
-        ca_mutex_unlock(b->mutex);
+        ka_mutex_unlock(b->mutex);
 
         return ret;
 }
 
-int ca_proplist_merge(ca_proplist **_a, ca_proplist *b, ca_proplist *c) {
-        ca_proplist *a;
+int ka_proplist_merge(ka_proplist **_a, ka_proplist *b, ka_proplist *c) {
+        ka_proplist *a;
         int ret;
 
-        ca_return_val_if_fail(_a, CA_ERROR_INVALID);
-        ca_return_val_if_fail(b, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_a, CA_ERROR_INVALID);
+        ka_return_val_if_fail(b, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
 
-        if ((ret = ca_proplist_create(&a)) < 0)
+        if ((ret = ka_proplist_create(&a)) < 0)
                 return ret;
 
         if ((ret = merge_into(a, b)) < 0 ||
             (ret = merge_into(a, c)) < 0) {
-                ca_proplist_destroy(a);
+                ka_proplist_destroy(a);
                 return ret;
         }
 
@@ -361,23 +361,23 @@ int ca_proplist_merge(ca_proplist **_a, ca_proplist *b, ca_proplist *c) {
         return CA_SUCCESS;
 }
 
-ca_bool_t ca_proplist_contains(ca_proplist *p, const char *key) {
-        ca_bool_t b;
+ka_bool_t ka_proplist_contains(ka_proplist *p, const char *key) {
+        ka_bool_t b;
 
-        ca_return_val_if_fail(p, FALSE);
-        ca_return_val_if_fail(key, FALSE);
+        ka_return_val_if_fail(p, FALSE);
+        ka_return_val_if_fail(key, FALSE);
 
-        ca_mutex_lock(p->mutex);
-        b = !!ca_proplist_get_unlocked(p, key);
-        ca_mutex_unlock(p->mutex);
+        ka_mutex_lock(p->mutex);
+        b = !!ka_proplist_get_unlocked(p, key);
+        ka_mutex_unlock(p->mutex);
 
         return b;
 }
 
-int ca_proplist_merge_ap(ca_proplist *p, va_list ap) {
+int ka_proplist_merge_ap(ka_proplist *p, va_list ap) {
         int ret;
 
-        ca_return_val_if_fail(p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(p, CA_ERROR_INVALID);
 
         for (;;) {
                 const char *key, *value;
@@ -388,23 +388,23 @@ int ca_proplist_merge_ap(ca_proplist *p, va_list ap) {
                 if (!(value = va_arg(ap, const char*)))
                         return CA_ERROR_INVALID;
 
-                if ((ret = ca_proplist_sets(p, key, value)) < 0)
+                if ((ret = ka_proplist_sets(p, key, value)) < 0)
                         return ret;
         }
 
         return CA_SUCCESS;
 }
 
-int ca_proplist_from_ap(ca_proplist **_p, va_list ap) {
+int ka_proplist_from_ap(ka_proplist **_p, va_list ap) {
         int ret;
-        ca_proplist *p;
+        ka_proplist *p;
 
-        ca_return_val_if_fail(_p, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_p, CA_ERROR_INVALID);
 
-        if ((ret = ca_proplist_create(&p)) < 0)
+        if ((ret = ka_proplist_create(&p)) < 0)
                 return ret;
 
-        if ((ret = ca_proplist_merge_ap(p, ap)) < 0)
+        if ((ret = ka_proplist_merge_ap(p, ap)) < 0)
                 goto fail;
 
         *_p = p;
@@ -412,7 +412,7 @@ int ca_proplist_from_ap(ca_proplist **_p, va_list ap) {
         return CA_SUCCESS;
 
 fail:
-        ca_assert_se(ca_proplist_destroy(p) == CA_SUCCESS);
+        ka_assert_se(ka_proplist_destroy(p) == CA_SUCCESS);
 
         return ret;
 }

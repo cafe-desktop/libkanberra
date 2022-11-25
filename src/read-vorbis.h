@@ -28,17 +28,17 @@
 
 #include "read-sound-file.h"
 
-typedef struct ca_vorbis ca_vorbis;
+typedef struct ka_vorbis ka_vorbis;
 
-int ca_vorbis_open(ca_vorbis **v, FILE *f);
-void ca_vorbis_close(ca_vorbis *v);
+int ka_vorbis_open(ka_vorbis **v, FILE *f);
+void ka_vorbis_close(ka_vorbis *v);
 
-unsigned ca_vorbis_get_nchannels(ca_vorbis *v);
-unsigned ca_vorbis_get_rate(ca_vorbis *v);
-const ca_channel_position_t* ca_vorbis_get_channel_map(ca_vorbis *v);
+unsigned ka_vorbis_get_nchannels(ka_vorbis *v);
+unsigned ka_vorbis_get_rate(ka_vorbis *v);
+const ka_channel_position_t* ka_vorbis_get_channel_map(ka_vorbis *v);
 
-int ca_vorbis_read_s16ne(ca_vorbis *v, int16_t *d, size_t *n);
+int ka_vorbis_read_s16ne(ka_vorbis *v, int16_t *d, size_t *n);
 
-off_t ca_vorbis_get_size(ca_vorbis *f);
+off_t ka_vorbis_get_size(ka_vorbis *f);
 
 #endif

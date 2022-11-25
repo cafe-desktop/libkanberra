@@ -26,15 +26,15 @@
 #include "read-sound-file.h"
 #include "proplist.h"
 
-typedef struct ca_theme_data ca_theme_data;
+typedef struct ka_theme_data ka_theme_data;
 
-typedef int (*ca_sound_file_open_callback_t)(ca_sound_file **f, const char *fn);
+typedef int (*ka_sound_file_open_callback_t)(ka_sound_file **f, const char *fn);
 
-int ca_lookup_sound(ca_sound_file **f, char **sound_path, ca_theme_data **t, ca_proplist *cp, ca_proplist *sp);
-int ca_lookup_sound_with_callback(ca_sound_file **f, ca_sound_file_open_callback_t sfopen, char **sound_path, ca_theme_data **t, ca_proplist *cp, ca_proplist *sp);
-void ca_theme_data_free(ca_theme_data *t);
+int ka_lookup_sound(ka_sound_file **f, char **sound_path, ka_theme_data **t, ka_proplist *cp, ka_proplist *sp);
+int ka_lookup_sound_with_callback(ka_sound_file **f, ka_sound_file_open_callback_t sfopen, char **sound_path, ka_theme_data **t, ka_proplist *cp, ka_proplist *sp);
+void ka_theme_data_free(ka_theme_data *t);
 
-int ca_get_data_home(char **e);
-const char *ca_get_data_dirs(void);
+int ka_get_data_home(char **e);
+const char *ka_get_data_dirs(void);
 
 #endif
