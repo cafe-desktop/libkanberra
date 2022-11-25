@@ -290,10 +290,10 @@ canberra
 
 </para>
 
-@c: 
-@id: 
-@error_code: 
-@userdata: 
+@c:
+@id:
+@error_code:
+@userdata:
 
 
 <!-- ##### FUNCTION ca_context_create ##### -->
@@ -301,8 +301,8 @@ canberra
 
 </para>
 
-@c: 
-@Returns: 
+@c:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_destroy ##### -->
@@ -310,8 +310,8 @@ canberra
 
 </para>
 
-@c: 
-@Returns: 
+@c:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_open ##### -->
@@ -319,8 +319,8 @@ canberra
 
 </para>
 
-@c: 
-@Returns: 
+@c:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_set_driver ##### -->
@@ -328,9 +328,9 @@ canberra
 
 </para>
 
-@c: 
-@driver: 
-@Returns: 
+@c:
+@driver:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_change_device ##### -->
@@ -338,9 +338,9 @@ canberra
 
 </para>
 
-@c: 
-@device: 
-@Returns: 
+@c:
+@device:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_change_props ##### -->
@@ -348,9 +348,9 @@ canberra
 
 </para>
 
-@c: 
-@...: 
-@Returns: 
+@c:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_change_props_full ##### -->
@@ -358,9 +358,9 @@ canberra
 
 </para>
 
-@c: 
-@p: 
-@Returns: 
+@c:
+@p:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_play ##### -->
@@ -368,10 +368,10 @@ canberra
 
 </para>
 
-@c: 
-@id: 
-@...: 
-@Returns: 
+@c:
+@id:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_play_full ##### -->
@@ -379,12 +379,12 @@ canberra
 
 </para>
 
-@c: 
-@id: 
-@p: 
-@cb: 
-@userdata: 
-@Returns: 
+@c:
+@id:
+@p:
+@cb:
+@userdata:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_cancel ##### -->
@@ -392,9 +392,9 @@ canberra
 
 </para>
 
-@c: 
-@id: 
-@Returns: 
+@c:
+@id:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_cache ##### -->
@@ -402,9 +402,9 @@ canberra
 
 </para>
 
-@c: 
-@...: 
-@Returns: 
+@c:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_cache_full ##### -->
@@ -412,9 +412,9 @@ canberra
 
 </para>
 
-@c: 
-@p: 
-@Returns: 
+@c:
+@p:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_context_playing ##### -->
@@ -422,10 +422,10 @@ canberra
 
 </para>
 
-@c: 
-@id: 
-@playing: 
-@Returns: 
+@c:
+@id:
+@playing:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_strerror ##### -->
@@ -433,8 +433,8 @@ canberra
 
 </para>
 
-@code: 
-@Returns: 
+@code:
+@Returns:
 
 
 <!-- ##### TYPEDEF ca_proplist ##### -->
@@ -448,8 +448,8 @@ canberra
 
 </para>
 
-@p: 
-@Returns: 
+@p:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_proplist_destroy ##### -->
@@ -457,8 +457,8 @@ canberra
 
 </para>
 
-@p: 
-@Returns: 
+@p:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_proplist_sets ##### -->
@@ -466,10 +466,10 @@ canberra
 
 </para>
 
-@p: 
-@key: 
-@value: 
-@Returns: 
+@p:
+@key:
+@value:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_proplist_setf ##### -->
@@ -477,11 +477,11 @@ canberra
 
 </para>
 
-@p: 
-@key: 
-@format: 
-@...: 
-@Returns: 
+@p:
+@key:
+@format:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_proplist_set ##### -->
@@ -489,8 +489,8 @@ canberra
 
 </para>
 
-@p: 
-@key: 
-@data: 
-@nbytes: 
-@Returns: 
+@p:
+@key:
+@data:
+@nbytes:
+@Returns:
