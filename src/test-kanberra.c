@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
                               CA_PROP_MEDIA_FILENAME, "/usr/share/sounds/bar.wav",
                               CA_PROP_MEDIA_NAME, "User has logged off from session",
                               CA_PROP_MEDIA_LANGUAGE, "en_EN",
-                              CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                              CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                               NULL);
         fprintf(stderr, "play: %s\n", ca_strerror(ret));
 

@@ -29,7 +29,7 @@
 ca_bool_t ca_debug(void) {
         const char *d;
 
-        if ((d = getenv("CANBERRA_DEBUG")))
+        if ((d = getenv("KANBERRA_DEBUG")))
                 return !!*d;
 
         return FALSE;

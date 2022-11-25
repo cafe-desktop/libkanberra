@@ -41,10 +41,10 @@
     <keyword type="macro" name="CA_PROP_APPLICATION_PROCESS_BINARY" link="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-BINARY:CAPS"/>
     <keyword type="macro" name="CA_PROP_APPLICATION_PROCESS_USER" link="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-USER:CAPS"/>
     <keyword type="macro" name="CA_PROP_APPLICATION_PROCESS_HOST" link="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-HOST:CAPS"/>
-    <keyword type="macro" name="CA_PROP_CANBERRA_CACHE_CONTROL" link="libkanberra-kanberra.html#CA-PROP-CANBERRA-CACHE-CONTROL:CAPS"/>
-    <keyword type="macro" name="CA_PROP_CANBERRA_VOLUME" link="libkanberra-kanberra.html#CA-PROP-CANBERRA-VOLUME:CAPS"/>
-    <keyword type="macro" name="CA_PROP_CANBERRA_XDG_THEME_NAME" link="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS"/>
-    <keyword type="macro" name="CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE" link="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS"/>
+    <keyword type="macro" name="CA_PROP_KANBERRA_CACHE_CONTROL" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-CACHE-CONTROL:CAPS"/>
+    <keyword type="macro" name="CA_PROP_KANBERRA_VOLUME" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-VOLUME:CAPS"/>
+    <keyword type="macro" name="CA_PROP_KANBERRA_XDG_THEME_NAME" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS"/>
+    <keyword type="macro" name="CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE" link="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS"/>
     <keyword type="typedef" name="ca_context" link="libkanberra-kanberra.html#ca-context"/>
     <keyword type="function" name="ca_finish_callback_t ()" link="libkanberra-kanberra.html#ca-finish-callback-t"/>
     <keyword type="function" name="ca_context_create ()" link="libkanberra-kanberra.html#ca-context-create"/>

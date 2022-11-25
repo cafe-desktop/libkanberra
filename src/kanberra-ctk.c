@@ -56,7 +56,7 @@ static void read_sound_theme_name(ca_context *c, CtkSettings *s) {
         g_object_get(G_OBJECT(s), "ctk-sound-theme-name", &theme_name, NULL);
 
         if (theme_name) {
-                ca_context_change_props(c, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+                ca_context_change_props(c, CA_PROP_KANBERRA_XDG_THEME_NAME, theme_name, NULL);
                 g_free(theme_name);
         }
 }
@@ -64,10 +64,10 @@ static void read_sound_theme_name(ca_context *c, CtkSettings *s) {
 static void read_enable_event_sounds(ca_context *c, CtkSettings *s) {
         gboolean enable_event_sounds = TRUE;
 
-        if (!g_getenv("CANBERRA_FORCE_EVENT_SOUNDS"))
+        if (!g_getenv("KANBERRA_FORCE_EVENT_SOUNDS"))
                 g_object_get(G_OBJECT(s), "ctk-enable-event-sounds", &enable_event_sounds, NULL);
 
-        ca_context_change_props(c, CA_PROP_CANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
+        ca_context_change_props(c, CA_PROP_KANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
 }
 
 static void sound_theme_name_changed(CtkSettings *s, GParamSpec *arg1, ca_context *c) {
@@ -98,7 +98,7 @@ ca_context *ca_ctk_context_get(void) {
  *
  * libkanberra-ctk maintains a single ca_context object for each
  * #CdkScreen. Use this function to access it. The
- * %CA_PROP_CANBERRA_XDG_THEME_NAME of this context property is
+ * %CA_PROP_KANBERRA_XDG_THEME_NAME of this context property is
  * dynamically bound to the XSETTINGS setting for the XDG theme
  * name. CA_PROP_APPLICATION_NAME is bound to
  * g_get_application_name().

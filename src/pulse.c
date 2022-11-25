@@ -875,7 +875,7 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                         goto finish_unlocked;
                 }
 
-        if ((vol = pa_proplist_gets(l, CA_PROP_CANBERRA_VOLUME))) {
+        if ((vol = pa_proplist_gets(l, CA_PROP_KANBERRA_VOLUME))) {
                 char *e = NULL;
                 double dvol;
 
@@ -890,13 +890,13 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 volume_set = TRUE;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_CANBERRA_CACHE_CONTROL)))
+        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
                 if ((ret = ca_parse_cache_control(&cache_control, ct)) < 0) {
                         ret = CA_ERROR_INVALID;
                         goto finish_unlocked;
                 }
 
-        if ((channel = pa_proplist_gets(l, CA_PROP_CANBERRA_FORCE_CHANNEL))) {
+        if ((channel = pa_proplist_gets(l, CA_PROP_KANBERRA_FORCE_CHANNEL))) {
                 pa_channel_map t;
 
                 if (!pa_channel_map_parse(&t, channel) ||
@@ -1214,7 +1214,7 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
                 goto finish_unlocked;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_CANBERRA_CACHE_CONTROL)))
+        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_CACHE_CONTROL)))
                 if ((ret = ca_parse_cache_control(&cache_control, ct)) < 0) {
                         ret = CA_ERROR_INVALID;
                         goto finish_unlocked;
@@ -1225,7 +1225,7 @@ int driver_cache(ca_context *c, ca_proplist *proplist) {
                 goto finish_unlocked;
         }
 
-        if ((ct = pa_proplist_gets(l, CA_PROP_CANBERRA_FORCE_CHANNEL))) {
+        if ((ct = pa_proplist_gets(l, CA_PROP_KANBERRA_FORCE_CHANNEL))) {
                 ret = CA_ERROR_NOTSUPPORTED;
                 goto finish_unlocked;
         }

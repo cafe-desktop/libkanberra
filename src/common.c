@@ -146,14 +146,14 @@ int ca_context_create(ca_context **_c) {
                 return ret;
         }
 
-        if ((d = getenv("CANBERRA_DRIVER"))) {
+        if ((d = getenv("KANBERRA_DRIVER"))) {
                 if ((ret = ca_context_set_driver(c, d)) < 0) {
                         ca_context_destroy(c);
                         return ret;
                 }
         }
 
-        if ((d = getenv("CANBERRA_DEVICE"))) {
+        if ((d = getenv("KANBERRA_DEVICE"))) {
                 if ((ret = ca_context_change_device(c, d)) < 0) {
                         ca_context_destroy(c);
                         return ret;
@@ -415,7 +415,7 @@ finish:
  * at once. It is recommended to pass 0 for the id if the event sound
  * shall never be canceled. If the requested sound is not cached in
  * the server yet this call might result in the sample being uploaded
- * temporarily or permanently (this may be controlled with %CA_PROP_CANBERRA_CACHE_CONTROL). This function will start playback
+ * temporarily or permanently (this may be controlled with %CA_PROP_KANBERRA_CACHE_CONTROL). This function will start playback
  * in the background. It will not wait until playback
  * completed. Depending on the backend used a sound that is started
  * shortly before your application terminates might or might not continue to
@@ -436,8 +436,8 @@ finish:
  * On Linux/Unix the right sound to play is determined according to
  * %CA_PROP_EVENT_ID,
  * %CA_PROP_APPLICATION_LANGUAGE/%CA_PROP_MEDIA_LANGUAGE, the system
- * locale, %CA_PROP_CANBERRA_XDG_THEME_NAME and
- * %CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE, following the XDG Sound
+ * locale, %CA_PROP_KANBERRA_XDG_THEME_NAME and
+ * %CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE, following the XDG Sound
  * Theming Specification. On non-Unix systems the native event sound
  * that matches the XDG sound name in %CA_PROP_EVENT_ID is played.
  *
@@ -503,12 +503,12 @@ int ca_context_play_full(ca_context *c, uint32_t id, ca_proplist *p, ca_finish_c
                                      ca_proplist_contains(c->props, CA_PROP_MEDIA_FILENAME), CA_ERROR_INVALID, c->mutex);
 
         ca_mutex_lock(c->props->mutex);
-        if ((t = ca_proplist_gets_unlocked(c->props, CA_PROP_CANBERRA_ENABLE)))
+        if ((t = ca_proplist_gets_unlocked(c->props, CA_PROP_KANBERRA_ENABLE)))
                 enabled = !ca_streq(t, "0");
         ca_mutex_unlock(c->props->mutex);
 
         ca_mutex_lock(p->mutex);
-        if ((t = ca_proplist_gets_unlocked(p, CA_PROP_CANBERRA_ENABLE)))
+        if ((t = ca_proplist_gets_unlocked(p, CA_PROP_KANBERRA_ENABLE)))
                 enabled = !ca_streq(t, "0");
         ca_mutex_unlock(p->mutex);
 
