@@ -573,8 +573,8 @@ INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
-LIBCANBERRA_CTK_VERSION_INFO = @LIBCANBERRA_CTK_VERSION_INFO@
-LIBCANBERRA_VERSION_INFO = @LIBCANBERRA_VERSION_INFO@
+LIBKANBERRA_CTK_VERSION_INFO = @LIBKANBERRA_CTK_VERSION_INFO@
+LIBKANBERRA_VERSION_INFO = @LIBKANBERRA_VERSION_INFO@
 LIBLTDL = @LIBLTDL@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
@@ -704,7 +704,7 @@ libkanberra_la_CFLAGS = $(AM_CFLAGS) $(VORBIS_CFLAGS) $(am__append_3) \
 libkanberra_la_LIBADD = $(VORBIS_LIBS) $(am__append_4) $(am__append_6) \
 	$(am__append_10) $(am__append_14) $(am__append_20)
 libkanberra_la_LDFLAGS = -export-dynamic -version-info \
-	$(LIBCANBERRA_VERSION_INFO) $(am__append_1)
+	$(LIBKANBERRA_VERSION_INFO) $(am__append_1)
 plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 	$(am__append_17) $(am__append_21) $(am__append_23)
 @BUILTIN_DSO_TRUE@libkanberra_multi_la_SOURCES = \
@@ -852,7 +852,7 @@ CLEANFILES = $(am__append_26) $(am__append_32)
 @HAVE_CTK3_TRUE@	libkanberra.la
 
 @HAVE_CTK3_TRUE@libkanberra_ctk3_la_LDFLAGS = \
-@HAVE_CTK3_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
+@HAVE_CTK3_TRUE@	-export-dynamic -version-info $(LIBKANBERRA_CTK_VERSION_INFO)
 
 @HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_SOURCES = \
 @HAVE_CTK3_TRUE@	kanberra-ctk-module.c
@@ -883,7 +883,7 @@ CLEANFILES = $(am__append_26) $(am__append_32)
 @HAVE_CTK_TRUE@	libkanberra.la
 
 @HAVE_CTK_TRUE@libkanberra_ctk_la_LDFLAGS = \
-@HAVE_CTK_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
+@HAVE_CTK_TRUE@	-export-dynamic -version-info $(LIBKANBERRA_CTK_VERSION_INFO)
 
 @HAVE_CTK_TRUE@libkanberra_ctk_module_la_SOURCES = \
 @HAVE_CTK_TRUE@	kanberra-ctk-module.c

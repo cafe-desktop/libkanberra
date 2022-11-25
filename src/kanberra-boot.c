@@ -197,7 +197,7 @@ int main(int argc, char *argv[]) {
         }
 
         if ((r = ca_proplist_sets(p, CA_PROP_EVENT_ID, argc >= 2 ? argv[1] : "system-bootup")) < 0 ||
-            (r = ca_proplist_sets(p, CA_PROP_CANBERRA_CACHE_CONTROL, "never")) < 0) {
+            (r = ca_proplist_sets(p, CA_PROP_KANBERRA_CACHE_CONTROL, "never")) < 0) {
                 fprintf(stderr, "Failed to set event id: %s\n", strerror(r));
                 goto finish;
         }

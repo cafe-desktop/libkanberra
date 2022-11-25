@@ -401,7 +401,7 @@ extern "C" {
 #define CA_PROP_APPLICATION_PROCESS_HOST           "application.process.host"
 
 /**
- * CA_PROP_CANBERRA_CACHE_CONTROL:
+ * CA_PROP_KANBERRA_CACHE_CONTROL:
  *
  * A special property that can be used to control the automatic sound
  * caching of sounds in the sound server. One of "permanent",
@@ -421,10 +421,10 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_CACHE_CONTROL             "kanberra.cache-control"
+#define CA_PROP_KANBERRA_CACHE_CONTROL             "kanberra.cache-control"
 
 /**
- * CA_PROP_CANBERRA_VOLUME:
+ * CA_PROP_KANBERRA_VOLUME:
  *
  * A special property that can be used to control the volume this
  * sound event is played in if the backend supports it. A floating
@@ -434,10 +434,10 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_VOLUME                    "kanberra.volume"
+#define CA_PROP_KANBERRA_VOLUME                    "kanberra.volume"
 
 /**
- * CA_PROP_CANBERRA_XDG_THEME_NAME:
+ * CA_PROP_KANBERRA_XDG_THEME_NAME:
  *
  * A special property that can be used to control the XDG sound theme that
  * is used for this sample.
@@ -445,10 +445,10 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_XDG_THEME_NAME            "kanberra.xdg-theme.name"
+#define CA_PROP_KANBERRA_XDG_THEME_NAME            "kanberra.xdg-theme.name"
 
 /**
- * CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE:
+ * CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE:
  *
  * A special property that can be used to control the XDG sound theme
  * output profile that is used for this sample.
@@ -456,10 +456,10 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE  "kanberra.xdg-theme.output-profile"
+#define CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE  "kanberra.xdg-theme.output-profile"
 
 /**
- * CA_PROP_CANBERRA_ENABLE:
+ * CA_PROP_KANBERRA_ENABLE:
  *
  * A special property that can be used to control whether any sounds
  * are played at all. If this property is "1" or unset sounds are
@@ -469,10 +469,10 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_ENABLE                    "kanberra.enable"
+#define CA_PROP_KANBERRA_ENABLE                    "kanberra.enable"
 
 /**
- * CA_PROP_CANBERRA_FORCE_CHANNEL:
+ * CA_PROP_KANBERRA_FORCE_CHANNEL:
  *
  * A special property that can be used to control on which channel a
  * sound is played. The value should be one of mono, front-left,
@@ -488,7 +488,7 @@ extern "C" {
  *
  * Since: 0.13
  */
-#define CA_PROP_CANBERRA_FORCE_CHANNEL             "kanberra.force_channel"
+#define CA_PROP_KANBERRA_FORCE_CHANNEL             "kanberra.force_channel"
 
 /**
  * ca_context:

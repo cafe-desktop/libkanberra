@@ -781,8 +781,8 @@ int ca_lookup_sound_with_callback(
         if ((name = ca_proplist_gets_unlocked(sp, CA_PROP_EVENT_ID))) {
                 const char *theme, *locale, *profile;
 
-                if (!(theme = ca_proplist_gets_unlocked(sp, CA_PROP_CANBERRA_XDG_THEME_NAME)))
-                        if (!(theme = ca_proplist_gets_unlocked(cp, CA_PROP_CANBERRA_XDG_THEME_NAME)))
+                if (!(theme = ca_proplist_gets_unlocked(sp, CA_PROP_KANBERRA_XDG_THEME_NAME)))
+                        if (!(theme = ca_proplist_gets_unlocked(cp, CA_PROP_KANBERRA_XDG_THEME_NAME)))
                                 theme = DEFAULT_THEME;
 
                 if (!(locale = ca_proplist_gets_unlocked(sp, CA_PROP_MEDIA_LANGUAGE)))
@@ -792,8 +792,8 @@ int ca_lookup_sound_with_callback(
                                                 if (!(locale = setlocale(LC_MESSAGES, NULL)))
                                                         locale = "C";
 
-                if (!(profile = ca_proplist_gets_unlocked(sp, CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE)))
-                        if (!(profile = ca_proplist_gets_unlocked(cp, CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE)))
+                if (!(profile = ca_proplist_gets_unlocked(sp, CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE)))
+                        if (!(profile = ca_proplist_gets_unlocked(cp, CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE)))
                                 profile = DEFAULT_OUTPUT_PROFILE;
 
 #ifdef HAVE_CACHE

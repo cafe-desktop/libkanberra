@@ -251,28 +251,28 @@ kanberra
 
 
 
-<!-- ##### MACRO CA_PROP_CANBERRA_CACHE_CONTROL ##### -->
+<!-- ##### MACRO CA_PROP_KANBERRA_CACHE_CONTROL ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_CANBERRA_VOLUME ##### -->
+<!-- ##### MACRO CA_PROP_KANBERRA_VOLUME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_CANBERRA_XDG_THEME_NAME ##### -->
+<!-- ##### MACRO CA_PROP_KANBERRA_XDG_THEME_NAME ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### MACRO CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE ##### -->
+<!-- ##### MACRO CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE ##### -->
 <para>
 
 </para>

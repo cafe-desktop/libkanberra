@@ -36,10 +36,10 @@
 <ANCHOR id="CA-PROP-APPLICATION-PROCESS-BINARY:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-BINARY:CAPS">
 <ANCHOR id="CA-PROP-APPLICATION-PROCESS-USER:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-USER:CAPS">
 <ANCHOR id="CA-PROP-APPLICATION-PROCESS-HOST:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-HOST:CAPS">
-<ANCHOR id="CA-PROP-CANBERRA-CACHE-CONTROL:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-CANBERRA-CACHE-CONTROL:CAPS">
-<ANCHOR id="CA-PROP-CANBERRA-VOLUME:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-CANBERRA-VOLUME:CAPS">
-<ANCHOR id="CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS">
-<ANCHOR id="CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS">
+<ANCHOR id="CA-PROP-KANBERRA-CACHE-CONTROL:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-KANBERRA-CACHE-CONTROL:CAPS">
+<ANCHOR id="CA-PROP-KANBERRA-VOLUME:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-KANBERRA-VOLUME:CAPS">
+<ANCHOR id="CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS">
+<ANCHOR id="CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" href="libkanberra/libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS">
 <ANCHOR id="ca-context" href="libkanberra/libkanberra-kanberra.html#ca-context">
 <ANCHOR id="ca-finish-callback-t" href="libkanberra/libkanberra-kanberra.html#ca-finish-callback-t">
 <ANCHOR id="ca-context-create" href="libkanberra/libkanberra-kanberra.html#ca-context-create">

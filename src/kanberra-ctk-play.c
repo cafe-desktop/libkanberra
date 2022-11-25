@@ -171,13 +171,13 @@ int main (int argc, char *argv[]) {
                 ca_proplist_sets(proplist, CA_PROP_MEDIA_FILENAME, filename);
 
         if (cache_control)
-                ca_proplist_sets(proplist, CA_PROP_CANBERRA_CACHE_CONTROL, cache_control);
+                ca_proplist_sets(proplist, CA_PROP_KANBERRA_CACHE_CONTROL, cache_control);
 
         if (event_description)
                 ca_proplist_sets(proplist, CA_PROP_EVENT_DESCRIPTION, event_description);
 
         if (volume)
-                ca_proplist_sets(proplist, CA_PROP_CANBERRA_VOLUME, volume);
+                ca_proplist_sets(proplist, CA_PROP_KANBERRA_VOLUME, volume);
 
         r = ca_context_play_full(ca_ctk_context_get(), 1, proplist, callback, NULL);
 

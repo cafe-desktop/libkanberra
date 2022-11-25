@@ -70,10 +70,10 @@
 #define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-BINARY:CAPS" title="CA_PROP_APPLICATION_PROCESS_BINARY">CA_PROP_APPLICATION_PROCESS_BINARY</a>
 #define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-USER:CAPS" title="CA_PROP_APPLICATION_PROCESS_USER">CA_PROP_APPLICATION_PROCESS_USER</a>
 #define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-APPLICATION-PROCESS-HOST:CAPS" title="CA_PROP_APPLICATION_PROCESS_HOST">CA_PROP_APPLICATION_PROCESS_HOST</a>
-#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-CACHE-CONTROL:CAPS" title="CA_PROP_CANBERRA_CACHE_CONTROL">CA_PROP_CANBERRA_CACHE_CONTROL</a>
-#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-VOLUME:CAPS" title="CA_PROP_CANBERRA_VOLUME">CA_PROP_CANBERRA_VOLUME</a>
-#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS" title="CA_PROP_CANBERRA_XDG_THEME_NAME">CA_PROP_CANBERRA_XDG_THEME_NAME</a>
-#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" title="CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE">CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE</a>
+#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-CACHE-CONTROL:CAPS" title="CA_PROP_KANBERRA_CACHE_CONTROL">CA_PROP_KANBERRA_CACHE_CONTROL</a>
+#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-VOLUME:CAPS" title="CA_PROP_KANBERRA_VOLUME">CA_PROP_KANBERRA_VOLUME</a>
+#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS" title="CA_PROP_KANBERRA_XDG_THEME_NAME">CA_PROP_KANBERRA_XDG_THEME_NAME</a>
+#define             <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" title="CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE">CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE</a>
 
 typedef             <a class="link" href="libkanberra-kanberra.html#ca-context" title="ca_context">ca_context</a>;
 <span class="returnvalue">void</span>                (<a class="link" href="libkanberra-kanberra.html#ca-finish-callback-t" title="ca_finish_callback_t ()">*ca_finish_callback_t</a>)             (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ca-context" title="ca_context"><span class="type">ca_context</span></a> *c</code></em>,
@@ -545,8 +545,8 @@ The host name of the host the process that is triggering this sound event runs o
 </div>
 <hr>
 <div class="refsect2">
-<a name="CA-PROP-CANBERRA-CACHE-CONTROL:CAPS"></a><h3>CA_PROP_CANBERRA_CACHE_CONTROL</h3>
-<pre class="programlisting">#define CA_PROP_CANBERRA_CACHE_CONTROL             "kanberra.cache-control"
+<a name="CA-PROP-KANBERRA-CACHE-CONTROL:CAPS"></a><h3>CA_PROP_KANBERRA_CACHE_CONTROL</h3>
+<pre class="programlisting">#define CA_PROP_KANBERRA_CACHE_CONTROL             "kanberra.cache-control"
 </pre>
 <p>
 A special property that can be used to control the automatic sound
@@ -572,8 +572,8 @@ property is stripped from it.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CA-PROP-CANBERRA-VOLUME:CAPS"></a><h3>CA_PROP_CANBERRA_VOLUME</h3>
-<pre class="programlisting">#define CA_PROP_CANBERRA_VOLUME                    "kanberra.volume"
+<a name="CA-PROP-KANBERRA-VOLUME:CAPS"></a><h3>CA_PROP_KANBERRA_VOLUME</h3>
+<pre class="programlisting">#define CA_PROP_KANBERRA_VOLUME                    "kanberra.volume"
 </pre>
 <p>
 A special property that can be used to control the volume this
@@ -588,8 +588,8 @@ property is stripped from it.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS"></a><h3>CA_PROP_CANBERRA_XDG_THEME_NAME</h3>
-<pre class="programlisting">#define CA_PROP_CANBERRA_XDG_THEME_NAME            "kanberra.xdg-theme.name"
+<a name="CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS"></a><h3>CA_PROP_KANBERRA_XDG_THEME_NAME</h3>
+<pre class="programlisting">#define CA_PROP_KANBERRA_XDG_THEME_NAME            "kanberra.xdg-theme.name"
 </pre>
 <p>
 A special property that can be used to control the XDG sound theme that
@@ -602,8 +602,8 @@ property is stripped from it.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS"></a><h3>CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE</h3>
-<pre class="programlisting">#define CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE  "kanberra.xdg-theme.output-profile"
+<a name="CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS"></a><h3>CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE</h3>
+<pre class="programlisting">#define CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE  "kanberra.xdg-theme.output-profile"
 </pre>
 <p>
 A special property that can be used to control the XDG sound theme
@@ -892,7 +892,7 @@ cancel multiple event sounds with a single <a class="link" href="libkanberra-kan
 at once. It is recommended to pass 0 for the id if the event sound
 shall never be canceled. If the requested sound is not cached in
 the server yet this call might result in the sample being uploaded
-temporarily or permanently (this may be controlled with <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-CACHE-CONTROL:CAPS" title="CA_PROP_CANBERRA_CACHE_CONTROL"><code class="literal">CA_PROP_CANBERRA_CACHE_CONTROL</code></a>). This function will start playback
+temporarily or permanently (this may be controlled with <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-CACHE-CONTROL:CAPS" title="CA_PROP_KANBERRA_CACHE_CONTROL"><code class="literal">CA_PROP_KANBERRA_CACHE_CONTROL</code></a>). This function will start playback
 in the background. It will not wait until playback
 completed. Depending on the backend used a sound that is started
 shortly before your application terminates might or might not continue to
@@ -916,8 +916,8 @@ If <a class="link" href="libkanberra-kanberra.html#CA-PROP-EVENT-ID:CAPS" title=
 On Linux/Unix the right sound to play is determined according to
 <a class="link" href="libkanberra-kanberra.html#CA-PROP-EVENT-ID:CAPS" title="CA_PROP_EVENT_ID"><code class="literal">CA_PROP_EVENT_ID</code></a>,
 <a class="link" href="libkanberra-kanberra.html#CA-PROP-APPLICATION-LANGUAGE:CAPS" title="CA_PROP_APPLICATION_LANGUAGE"><code class="literal">CA_PROP_APPLICATION_LANGUAGE</code></a>/<a class="link" href="libkanberra-kanberra.html#CA-PROP-MEDIA-LANGUAGE:CAPS" title="CA_PROP_MEDIA_LANGUAGE"><code class="literal">CA_PROP_MEDIA_LANGUAGE</code></a>, the system
-locale, <a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-NAME:CAPS" title="CA_PROP_CANBERRA_XDG_THEME_NAME"><code class="literal">CA_PROP_CANBERRA_XDG_THEME_NAME</code></a> and
-<a class="link" href="libkanberra-kanberra.html#CA-PROP-CANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" title="CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE"><code class="literal">CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE</code></a>, following the XDG Sound
+locale, <a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-NAME:CAPS" title="CA_PROP_KANBERRA_XDG_THEME_NAME"><code class="literal">CA_PROP_KANBERRA_XDG_THEME_NAME</code></a> and
+<a class="link" href="libkanberra-kanberra.html#CA-PROP-KANBERRA-XDG-THEME-OUTPUT-PROFILE:CAPS" title="CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE"><code class="literal">CA_PROP_KANBERRA_XDG_THEME_OUTPUT_PROFILE</code></a>, following the XDG Sound
 Theming Specification. On non-Unix systems the native event sound
 that matches the XDG sound name in <a class="link" href="libkanberra-kanberra.html#CA-PROP-EVENT-ID:CAPS" title="CA_PROP_EVENT_ID"><code class="literal">CA_PROP_EVENT_ID</code></a> is played.
 </p>

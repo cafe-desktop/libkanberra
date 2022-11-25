@@ -447,13 +447,13 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-popup",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu popped up",
-                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                             CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
                         } else {
                                 ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-replace",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu replaced",
-                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                             CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
                         }
 
@@ -464,7 +464,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popup",
                                                      CA_PROP_EVENT_DESCRIPTION, "Tooltip popped up",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
                 } else if (hint == CDK_WINDOW_TYPE_HINT_NORMAL ||
@@ -492,7 +492,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                                      CA_PROP_EVENT_ID, id,
                                                                      CA_PROP_EVENT_DESCRIPTION, "Message dialog shown",
-                                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                                      NULL);
                                         played_sound = TRUE;
                                 }
@@ -506,7 +506,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "window-new",
                                                              CA_PROP_EVENT_DESCRIPTION, "Window shown",
-                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                             CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
 
                         }
@@ -525,13 +525,13 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, id,
                                                      CA_PROP_EVENT_DESCRIPTION, "Dialog closed",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
                 } else {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-close",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window closed",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
                 }
 
@@ -547,7 +547,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "menu-popdown",
                                                              CA_PROP_EVENT_DESCRIPTION, "Menu popped down",
-                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                             CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
                         }
 
@@ -558,7 +558,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "tooltip-popdown",
                                                      CA_PROP_EVENT_DESCRIPTION, "Tooltip popped down",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
                 } else if ((hint == CDK_WINDOW_TYPE_HINT_NORMAL ||
@@ -573,7 +573,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                              CA_PROP_EVENT_ID, "window-close",
                                                              CA_PROP_EVENT_DESCRIPTION, "Window closed",
-                                                             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                             CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                              NULL);
                 }
         }
@@ -607,7 +607,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-minimized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window minimized",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(1));
@@ -618,7 +618,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-maximized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window maximized",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(0));
@@ -630,7 +630,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-unminimized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window unminimized",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
 
                         g_object_set_qdata(d->object, was_iconized_quark, GINT_TO_POINTER(0));
@@ -641,7 +641,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_widget(CTK_WIDGET(d->object), 0,
                                                      CA_PROP_EVENT_ID, "window-unmaximized",
                                                      CA_PROP_EVENT_DESCRIPTION, "Window unmaximized",
-                                                     CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                     CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                      NULL);
                 }
         }
@@ -652,13 +652,13 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-toggle-on",
                                                     CA_PROP_EVENT_DESCRIPTION, "Check menu item checked",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                 else
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-toggle-off",
                                                     CA_PROP_EVENT_DESCRIPTION, "Check menu item unchecked",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
 
         } else if (CTK_IS_MENU_ITEM(d->object) && d->signal_id == signal_id_menu_item_activate) {
@@ -667,7 +667,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "menu-click",
                                                     CA_PROP_EVENT_DESCRIPTION, "Menu item clicked",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
         }
 
@@ -684,13 +684,13 @@ static void dispatch_sound_event(SoundEventData *d) {
                                         ret = ca_ctk_play_for_event(d->event, 0,
                                                                     CA_PROP_EVENT_ID, "button-toggle-on",
                                                                     CA_PROP_EVENT_DESCRIPTION, "Toggle button checked",
-                                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                                     NULL);
                                 else
                                         ret = ca_ctk_play_for_event(d->event, 0,
                                                                     CA_PROP_EVENT_ID, "button-toggle-off",
                                                                     CA_PROP_EVENT_DESCRIPTION, "Toggle button unchecked",
-                                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                                     NULL);
                         }
                 }
@@ -701,7 +701,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "link-pressed",
                                                     CA_PROP_EVENT_DESCRIPTION, "Link pressed",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
 
                 } else if (d->signal_id == signal_id_button_released) {
@@ -709,7 +709,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "link-released",
                                                     CA_PROP_EVENT_DESCRIPTION, "Link released",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                 }
 
@@ -719,7 +719,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "button-pressed",
                                                     CA_PROP_EVENT_DESCRIPTION, "Button pressed",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
 
                 } else if (d->signal_id == signal_id_button_released) {
@@ -740,7 +740,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                                 ret = ca_ctk_play_for_event(d->event, 0,
                                                             CA_PROP_EVENT_ID, "button-released",
                                                             CA_PROP_EVENT_DESCRIPTION, "Button released",
-                                                            CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                            CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                             NULL);
                 }
         }
@@ -749,7 +749,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "notebook-tab-changed",
                                             CA_PROP_EVENT_DESCRIPTION, "Tab changed",
-                                            CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                            CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                             NULL);
                 goto finish;
         }
@@ -758,7 +758,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "item-selected",
                                             CA_PROP_EVENT_DESCRIPTION, "Item selected",
-                                            CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                            CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                             NULL);
                 goto finish;
         }
@@ -767,7 +767,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                 ret = ca_ctk_play_for_event(d->event, 0,
                                             CA_PROP_EVENT_ID, "item-selected",
                                             CA_PROP_EVENT_DESCRIPTION, "Item selected",
-                                            CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                            CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                             NULL);
                 goto finish;
         }
@@ -778,13 +778,13 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "expander-toggle-on",
                                                     CA_PROP_EVENT_DESCRIPTION, "Expander expanded",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                 else
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "expander-toggle-off",
                                                     CA_PROP_EVENT_DESCRIPTION, "Expander unexpanded",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
 
                 goto finish;
@@ -797,7 +797,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-start",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag started",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                         goto finish;
 
@@ -806,7 +806,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-accept",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag accepted",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                         goto finish;
 
@@ -815,7 +815,7 @@ static void dispatch_sound_event(SoundEventData *d) {
                         ret = ca_ctk_play_for_event(d->event, 0,
                                                     CA_PROP_EVENT_ID, "drag-fail",
                                                     CA_PROP_EVENT_DESCRIPTION, "Drag failed",
-                                                    CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
+                                                    CA_PROP_KANBERRA_CACHE_CONTROL, "permanent",
                                                     NULL);
                         goto finish;
                 }
@@ -925,7 +925,7 @@ static void install_hook(GType type, const char *sig, guint *sn) {
 static void read_enable_input_feedback_sounds(CtkSettings *s) {
         gboolean enabled = !disabled;
 
-        if (g_getenv("CANBERRA_FORCE_INPUT_FEEDBACK_SOUNDS"))
+        if (g_getenv("KANBERRA_FORCE_INPUT_FEEDBACK_SOUNDS"))
                 disabled = FALSE;
         else {
                 g_object_get(G_OBJECT(s), "ctk-enable-input-feedback-sounds", &enabled, NULL);

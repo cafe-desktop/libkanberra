@@ -68,7 +68,7 @@ libkanberra_la_LIBADD = \
 	$(VORBIS_LIBS)
 libkanberra_la_LDFLAGS = \
 	-export-dynamic \
-	-version-info $(LIBCANBERRA_VERSION_INFO)
+	-version-info $(LIBKANBERRA_VERSION_INFO)
 
 if USE_VERSION_SCRIPT
 libkanberra_la_LDFLAGS += -Wl,-version-script=$(srcdir)/map-file
@@ -345,7 +345,7 @@ libkanberra_ctk3_la_LIBADD = \
 	-lX11 \
 	libkanberra.la
 libkanberra_ctk3_la_LDFLAGS = \
-	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
+	-export-dynamic -version-info $(LIBKANBERRA_CTK_VERSION_INFO)
 
 libkanberra_ctk3_module_la_SOURCES = \
 	kanberra-ctk-module.c
@@ -386,7 +386,7 @@ libkanberra_ctk_la_LIBADD = \
 	-lX11 \
 	libkanberra.la
 libkanberra_ctk_la_LDFLAGS = \
-	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
+	-export-dynamic -version-info $(LIBKANBERRA_CTK_VERSION_INFO)
 
 libkanberra_ctk_module_la_SOURCES = \
 	kanberra-ctk-module.c
