@@ -239,7 +239,7 @@ libcanberra_alsa_la_OBJECTS = $(am_libcanberra_alsa_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
-am__v_lt_1 = 
+am__v_lt_1 =
 libcanberra_alsa_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libcanberra_alsa_la_CFLAGS) $(CFLAGS) \
@@ -435,11 +435,11 @@ am__v_P_1 = :
 AM_V_GEN = $(am__v_GEN_@AM_V@)
 am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
 am__v_GEN_0 = @echo "  GEN     " $@;
-am__v_GEN_1 = 
+am__v_GEN_1 =
 AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
-am__v_at_1 = 
+am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -453,7 +453,7 @@ LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 AM_V_CC = $(am__v_CC_@AM_V@)
 am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
 am__v_CC_0 = @echo "  CC      " $@;
-am__v_CC_1 = 
+am__v_CC_1 =
 CCLD = $(CC)
 LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -461,7 +461,7 @@ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
-am__v_CCLD_1 = 
+am__v_CCLD_1 =
 SOURCES = $(libcanberra_alsa_la_SOURCES) \
 	$(libcanberra_gstreamer_la_SOURCES) \
 	$(libcanberra_ctk_module_la_SOURCES) \
@@ -1109,27 +1109,27 @@ clean-pluginLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
-libcanberra-alsa.la: $(libcanberra_alsa_la_OBJECTS) $(libcanberra_alsa_la_DEPENDENCIES) $(EXTRA_libcanberra_alsa_la_DEPENDENCIES) 
+libcanberra-alsa.la: $(libcanberra_alsa_la_OBJECTS) $(libcanberra_alsa_la_DEPENDENCIES) $(EXTRA_libcanberra_alsa_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_alsa_la_LINK) $(am_libcanberra_alsa_la_rpath) $(libcanberra_alsa_la_OBJECTS) $(libcanberra_alsa_la_LIBADD) $(LIBS)
-libcanberra-gstreamer.la: $(libcanberra_gstreamer_la_OBJECTS) $(libcanberra_gstreamer_la_DEPENDENCIES) $(EXTRA_libcanberra_gstreamer_la_DEPENDENCIES) 
+libcanberra-gstreamer.la: $(libcanberra_gstreamer_la_OBJECTS) $(libcanberra_gstreamer_la_DEPENDENCIES) $(EXTRA_libcanberra_gstreamer_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_gstreamer_la_LINK) $(am_libcanberra_gstreamer_la_rpath) $(libcanberra_gstreamer_la_OBJECTS) $(libcanberra_gstreamer_la_LIBADD) $(LIBS)
-libcanberra-ctk-module.la: $(libcanberra_ctk_module_la_OBJECTS) $(libcanberra_ctk_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_module_la_DEPENDENCIES) 
+libcanberra-ctk-module.la: $(libcanberra_ctk_module_la_OBJECTS) $(libcanberra_ctk_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_module_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_ctk_module_la_LINK) $(am_libcanberra_ctk_module_la_rpath) $(libcanberra_ctk_module_la_OBJECTS) $(libcanberra_ctk_module_la_LIBADD) $(LIBS)
-libcanberra-ctk.la: $(libcanberra_ctk_la_OBJECTS) $(libcanberra_ctk_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_la_DEPENDENCIES) 
+libcanberra-ctk.la: $(libcanberra_ctk_la_OBJECTS) $(libcanberra_ctk_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_ctk_la_LINK) $(am_libcanberra_ctk_la_rpath) $(libcanberra_ctk_la_OBJECTS) $(libcanberra_ctk_la_LIBADD) $(LIBS)
-libcanberra-ctk3-module.la: $(libcanberra_ctk3_module_la_OBJECTS) $(libcanberra_ctk3_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_module_la_DEPENDENCIES) 
+libcanberra-ctk3-module.la: $(libcanberra_ctk3_module_la_OBJECTS) $(libcanberra_ctk3_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_module_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_ctk3_module_la_LINK) $(am_libcanberra_ctk3_module_la_rpath) $(libcanberra_ctk3_module_la_OBJECTS) $(libcanberra_ctk3_module_la_LIBADD) $(LIBS)
-libcanberra-ctk3.la: $(libcanberra_ctk3_la_OBJECTS) $(libcanberra_ctk3_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_la_DEPENDENCIES) 
+libcanberra-ctk3.la: $(libcanberra_ctk3_la_OBJECTS) $(libcanberra_ctk3_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_ctk3_la_LINK) $(am_libcanberra_ctk3_la_rpath) $(libcanberra_ctk3_la_OBJECTS) $(libcanberra_ctk3_la_LIBADD) $(LIBS)
-libcanberra-multi.la: $(libcanberra_multi_la_OBJECTS) $(libcanberra_multi_la_DEPENDENCIES) $(EXTRA_libcanberra_multi_la_DEPENDENCIES) 
+libcanberra-multi.la: $(libcanberra_multi_la_OBJECTS) $(libcanberra_multi_la_DEPENDENCIES) $(EXTRA_libcanberra_multi_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_multi_la_LINK) $(am_libcanberra_multi_la_rpath) $(libcanberra_multi_la_OBJECTS) $(libcanberra_multi_la_LIBADD) $(LIBS)
-libcanberra-null.la: $(libcanberra_null_la_OBJECTS) $(libcanberra_null_la_DEPENDENCIES) $(EXTRA_libcanberra_null_la_DEPENDENCIES) 
+libcanberra-null.la: $(libcanberra_null_la_OBJECTS) $(libcanberra_null_la_DEPENDENCIES) $(EXTRA_libcanberra_null_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_null_la_LINK) $(am_libcanberra_null_la_rpath) $(libcanberra_null_la_OBJECTS) $(libcanberra_null_la_LIBADD) $(LIBS)
-libcanberra-oss.la: $(libcanberra_oss_la_OBJECTS) $(libcanberra_oss_la_DEPENDENCIES) $(EXTRA_libcanberra_oss_la_DEPENDENCIES) 
+libcanberra-oss.la: $(libcanberra_oss_la_OBJECTS) $(libcanberra_oss_la_DEPENDENCIES) $(EXTRA_libcanberra_oss_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_oss_la_LINK) $(am_libcanberra_oss_la_rpath) $(libcanberra_oss_la_OBJECTS) $(libcanberra_oss_la_LIBADD) $(LIBS)
-libcanberra-pulse.la: $(libcanberra_pulse_la_OBJECTS) $(libcanberra_pulse_la_DEPENDENCIES) $(EXTRA_libcanberra_pulse_la_DEPENDENCIES) 
+libcanberra-pulse.la: $(libcanberra_pulse_la_OBJECTS) $(libcanberra_pulse_la_DEPENDENCIES) $(EXTRA_libcanberra_pulse_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_pulse_la_LINK) $(am_libcanberra_pulse_la_rpath) $(libcanberra_pulse_la_OBJECTS) $(libcanberra_pulse_la_LIBADD) $(LIBS)
-libcanberra.la: $(libcanberra_la_OBJECTS) $(libcanberra_la_DEPENDENCIES) $(EXTRA_libcanberra_la_DEPENDENCIES) 
+libcanberra.la: $(libcanberra_la_OBJECTS) $(libcanberra_la_DEPENDENCIES) $(EXTRA_libcanberra_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libcanberra_la_LINK) -rpath $(libdir) $(libcanberra_la_OBJECTS) $(libcanberra_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -1186,13 +1186,13 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-canberra-boot$(EXEEXT): $(canberra_boot_OBJECTS) $(canberra_boot_DEPENDENCIES) $(EXTRA_canberra_boot_DEPENDENCIES) 
+canberra-boot$(EXEEXT): $(canberra_boot_OBJECTS) $(canberra_boot_DEPENDENCIES) $(EXTRA_canberra_boot_DEPENDENCIES)
 	@rm -f canberra-boot$(EXEEXT)
 	$(AM_V_CCLD)$(canberra_boot_LINK) $(canberra_boot_OBJECTS) $(canberra_boot_LDADD) $(LIBS)
-canberra-ctk-play$(EXEEXT): $(canberra_ctk_play_OBJECTS) $(canberra_ctk_play_DEPENDENCIES) $(EXTRA_canberra_ctk_play_DEPENDENCIES) 
+canberra-ctk-play$(EXEEXT): $(canberra_ctk_play_OBJECTS) $(canberra_ctk_play_DEPENDENCIES) $(EXTRA_canberra_ctk_play_DEPENDENCIES)
 	@rm -f canberra-ctk-play$(EXEEXT)
 	$(AM_V_CCLD)$(canberra_ctk_play_LINK) $(canberra_ctk_play_OBJECTS) $(canberra_ctk_play_LDADD) $(LIBS)
-test-canberra$(EXEEXT): $(test_canberra_OBJECTS) $(test_canberra_DEPENDENCIES) $(EXTRA_test_canberra_DEPENDENCIES) 
+test-canberra$(EXEEXT): $(test_canberra_OBJECTS) $(test_canberra_DEPENDENCIES) $(EXTRA_test_canberra_DEPENDENCIES)
 	@rm -f test-canberra$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_canberra_OBJECTS) $(test_canberra_LDADD) $(LIBS)
 install-gnomeshutdownSCRIPTS: $(gnomeshutdown_SCRIPTS)

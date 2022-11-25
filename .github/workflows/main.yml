@@ -2,7 +2,7 @@
 
 name: CI to Docker Hub
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -25,8 +25,8 @@ jobs:
 
       - name: Install dependencies
         run: sudo apt-get install python3-github
-    
-      - name: Check Out Repo 
+
+      - name: Check Out Repo
         uses: actions/checkout@v2
 
       - name: Login to Docker Hub

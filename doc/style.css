@@ -18,8 +18,8 @@
   <http://www.gnu.org/licenses/>.
 ***/
 
-body { color: black; background-color: white; } 
-a:link, a:visited { color: #900000; }       
-div.news-date { font-size: 80%; font-style: italic; } 
+body { color: black; background-color: white; }
+a:link, a:visited { color: #900000; }
+div.news-date { font-size: 80%; font-style: italic; }
 pre { background-color: #f0f0f0; padding: 0.4cm; }
 .grey { color: #8f8f8f; font-size: 80%; }

@@ -25,8 +25,8 @@ canberra-ctk
 
 </para>
 
-@void: 
-@Returns: 
+@void:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_ctk_proplist_set_for_widget ##### -->
@@ -34,9 +34,9 @@ canberra-ctk
 
 </para>
 
-@p: 
-@w: 
-@Returns: 
+@p:
+@w:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_ctk_play_for_widget ##### -->
@@ -44,10 +44,10 @@ canberra-ctk
 
 </para>
 
-@w: 
-@id: 
-@...: 
-@Returns: 
+@w:
+@id:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_ctk_proplist_set_for_event ##### -->
@@ -55,9 +55,9 @@ canberra-ctk
 
 </para>
 
-@p: 
-@e: 
-@Returns: 
+@p:
+@e:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_ctk_play_for_event ##### -->
@@ -65,10 +65,10 @@ canberra-ctk
 
 </para>
 
-@e: 
-@id: 
-@...: 
-@Returns: 
+@e:
+@id:
+@...:
+@Returns:
 
 
 <!-- ##### FUNCTION ca_ctk_widget_disable_sounds ##### -->
@@ -76,5 +76,5 @@ canberra-ctk
 
 </para>
 
-@w: 
-@enable: 
+@w:
+@enable:
