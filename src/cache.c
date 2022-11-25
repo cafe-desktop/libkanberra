@@ -58,10 +58,10 @@ static int allocate_mutex(void) {
         static pthread_once_t once = PTHREAD_ONCE_INIT;
 
         if (pthread_once(&once, allocate_mutex_once) != 0)
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         if (!mutex)
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         return 0;
 }
@@ -70,7 +70,7 @@ static int get_cache_home(char **e) {
         const char *env, *subdir;
         char *r;
 
-        ka_return_val_if_fail(e, CA_ERROR_INVALID);
+        ka_return_val_if_fail(e, KA_ERROR_INVALID);
 
         if ((env = getenv("XDG_CACHE_HOME")) && *env == '/')
                 subdir = "";
@@ -78,16 +78,16 @@ static int get_cache_home(char **e) {
                 subdir = "/.cache";
         else {
                 *e = NULL;
-                return CA_SUCCESS;
+                return KA_SUCCESS;
         }
 
         if (!(r = ka_new(char, strlen(env) + strlen(subdir) + 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         sprintf(r, "%s%s", env, subdir);
         *e = r;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static int sensible_gethostbyname(char *n, size_t l) {
@@ -114,11 +114,11 @@ static int get_machine_id(char **id) {
         FILE *f;
         size_t l;
 
-        ka_return_val_if_fail(id, CA_ERROR_INVALID);
+        ka_return_val_if_fail(id, KA_ERROR_INVALID);
 
         /* First we try the D-Bus machine id */
 
-        if ((f = fopen(CA_MACHINE_ID, "r"))) {
+        if ((f = fopen(KA_MACHINE_ID, "r"))) {
                 char ln[34] = "", *r;
 
                 r = fgets(ln, sizeof(ln)-1, f);
@@ -128,9 +128,9 @@ static int get_machine_id(char **id) {
                         ln[strcspn(ln, " \n\r\t")] = 0;
 
                         if (!(*id = ka_strdup(ln)))
-                                return CA_ERROR_OOM;
+                                return KA_ERROR_OOM;
 
-                        return CA_SUCCESS;
+                        return KA_SUCCESS;
                 }
         }
 
@@ -140,10 +140,10 @@ static int get_machine_id(char **id) {
 
         for (;;) {
                 if (!(*id = ka_new(char, l)))
-                        return CA_ERROR_OOM;
+                        return KA_ERROR_OOM;
 
                 if (sensible_gethostbyname(*id, l) >= 0)
-                        return CA_SUCCESS;
+                        return KA_SUCCESS;
 
                 ka_free(*id);
 
@@ -156,7 +156,7 @@ static int get_machine_id(char **id) {
         /* Then we use the POSIX host id */
 
         *id = ka_sprintf_malloc("%08lx", (unsigned long) gethostid());
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 static int db_open(void) {
@@ -169,7 +169,7 @@ static int db_open(void) {
         ka_mutex_lock(mutex);
 
         if (database) {
-                ret = CA_SUCCESS;
+                ret = KA_SUCCESS;
                 goto finish;
         }
 
@@ -177,7 +177,7 @@ static int db_open(void) {
                 goto finish;
 
         if (!c) {
-                ret = CA_ERROR_NOTFOUND;
+                ret = KA_ERROR_NOTFOUND;
                 goto finish;
         }
 
@@ -200,7 +200,7 @@ static int db_open(void) {
         ka_free(id);
 
         if (!pn) {
-                ret = CA_ERROR_OOM;
+                ret = KA_ERROR_OOM;
                 goto finish;
         }
 
@@ -214,11 +214,11 @@ static int db_open(void) {
         ka_free(pn);
 
         if (!database) {
-                ret = CA_ERROR_CORRUPT;
+                ret = KA_ERROR_CORRUPT;
                 goto finish;
         }
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 finish:
         ka_mutex_unlock(mutex);
@@ -226,9 +226,9 @@ finish:
         return ret;
 }
 
-#ifdef CA_GCC_DESTRUCTOR
+#ifdef KA_GCC_DESTRUCTOR
 
-static void db_close(void) CA_GCC_DESTRUCTOR;
+static void db_close(void) KA_GCC_DESTRUCTOR;
 
 static void db_close(void) {
         /* Only here to make this valgrind clean */
@@ -253,10 +253,10 @@ static int db_lookup(const void *key, size_t klen, void **data, size_t *dlen) {
         int ret;
         TDB_DATA k, d;
 
-        ka_return_val_if_fail(key, CA_ERROR_INVALID);
-        ka_return_val_if_fail(klen > 0, CA_ERROR_INVALID);
-        ka_return_val_if_fail(data, CA_ERROR_INVALID);
-        ka_return_val_if_fail(dlen, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, KA_ERROR_INVALID);
+        ka_return_val_if_fail(klen > 0, KA_ERROR_INVALID);
+        ka_return_val_if_fail(data, KA_ERROR_INVALID);
+        ka_return_val_if_fail(dlen, KA_ERROR_INVALID);
 
         if ((ret = db_open()) < 0)
                 return ret;
@@ -269,7 +269,7 @@ static int db_lookup(const void *key, size_t klen, void **data, size_t *dlen) {
         ka_assert(database);
         d = tdb_fetch(database, k);
         if (!d.dptr) {
-                ret = CA_ERROR_NOTFOUND;
+                ret = KA_ERROR_NOTFOUND;
                 goto finish;
         }
 
@@ -286,9 +286,9 @@ static int db_store(const void *key, size_t klen, const void *data, size_t dlen)
         int ret;
         TDB_DATA k, d;
 
-        ka_return_val_if_fail(key, CA_ERROR_INVALID);
-        ka_return_val_if_fail(klen > 0, CA_ERROR_INVALID);
-        ka_return_val_if_fail(data || dlen == 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, KA_ERROR_INVALID);
+        ka_return_val_if_fail(klen > 0, KA_ERROR_INVALID);
+        ka_return_val_if_fail(data || dlen == 0, KA_ERROR_INVALID);
 
         if ((ret = db_open()) < 0)
                 return ret;
@@ -303,11 +303,11 @@ static int db_store(const void *key, size_t klen, const void *data, size_t dlen)
 
         ka_assert(database);
         if (tdb_store(database, k, d, TDB_REPLACE) < 0) {
-                ret = CA_ERROR_CORRUPT;
+                ret = KA_ERROR_CORRUPT;
                 goto finish;
         }
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 finish:
         ka_mutex_unlock(mutex);
@@ -319,8 +319,8 @@ static int db_remove(const void *key, size_t klen) {
         int ret;
         TDB_DATA k;
 
-        ka_return_val_if_fail(key, CA_ERROR_INVALID);
-        ka_return_val_if_fail(klen > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(key, KA_ERROR_INVALID);
+        ka_return_val_if_fail(klen > 0, KA_ERROR_INVALID);
 
         if ((ret = db_open()) < 0)
                 return ret;
@@ -332,11 +332,11 @@ static int db_remove(const void *key, size_t klen) {
 
         ka_assert(database);
         if (tdb_delete(database, k) < 0) {
-                ret = CA_ERROR_CORRUPT;
+                ret = KA_ERROR_CORRUPT;
                 goto finish;
         }
 
-        ret = CA_SUCCESS;
+        ret = KA_SUCCESS;
 
 finish:
         ka_mutex_unlock(mutex);
@@ -383,7 +383,7 @@ static int get_last_change(time_t *t) {
         time_t now;
         const char *g;
 
-        ka_return_val_if_fail(t, CA_ERROR_INVALID);
+        ka_return_val_if_fail(t, KA_ERROR_INVALID);
 
         if ((ret = allocate_mutex()) < 0)
                 return ret;
@@ -394,7 +394,7 @@ static int get_last_change(time_t *t) {
 
         if (now < last_check + UPDATE_INTERVAL) {
                 *t = last_change;
-                ret = CA_SUCCESS;
+                ret = KA_SUCCESS;
                 goto finish;
         }
 
@@ -406,7 +406,7 @@ static int get_last_change(time_t *t) {
         if (e) {
                 if (!(k = ka_new(char, strlen(e) + sizeof("/sounds")))) {
                         ka_free(e);
-                        ret = CA_ERROR_OOM;
+                        ret = KA_ERROR_OOM;
                         goto finish;
                 }
 
@@ -427,7 +427,7 @@ static int get_last_change(time_t *t) {
                 if (g[0] == '/' && j > 0) {
 
                         if (!(k = ka_new(char, j + sizeof("/sounds")))) {
-                                ret = CA_ERROR_OOM;
+                                ret = KA_ERROR_OOM;
                                 goto finish;
                         }
 
@@ -476,18 +476,18 @@ int ka_cache_lookup_sound(
         time_t last_change, now;
         ka_bool_t remove_entry = FALSE;
 
-        ka_return_val_if_fail(f, CA_ERROR_INVALID);
-        ka_return_val_if_fail(sfopen, CA_ERROR_INVALID);
-        ka_return_val_if_fail(theme, CA_ERROR_INVALID);
-        ka_return_val_if_fail(name && *name, CA_ERROR_INVALID);
-        ka_return_val_if_fail(locale, CA_ERROR_INVALID);
-        ka_return_val_if_fail(profile, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f, KA_ERROR_INVALID);
+        ka_return_val_if_fail(sfopen, KA_ERROR_INVALID);
+        ka_return_val_if_fail(theme, KA_ERROR_INVALID);
+        ka_return_val_if_fail(name && *name, KA_ERROR_INVALID);
+        ka_return_val_if_fail(locale, KA_ERROR_INVALID);
+        ka_return_val_if_fail(profile, KA_ERROR_INVALID);
 
         if (sound_path)
                 *sound_path = NULL;
 
         if (!(key = build_key(theme, name, locale, profile, &klen)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         ret = db_lookup(key, klen, &data, &dlen);
 
@@ -500,7 +500,7 @@ int ka_cache_lookup_sound(
             (dlen > sizeof(uint32_t) && ((char*) data)[dlen-1] != 0)) {
 
                 /* Corrupt entry */
-                ret = CA_ERROR_NOTFOUND;
+                ret = KA_ERROR_NOTFOUND;
                 remove_entry = TRUE;
                 goto finish;
         }
@@ -516,20 +516,20 @@ int ka_cache_lookup_sound(
          * dirs? Also, check for clock skews */
         if ((time_t) timestamp < last_change || ((time_t) timestamp > now)) {
                 remove_entry = TRUE;
-                ret = CA_ERROR_NOTFOUND;
+                ret = KA_ERROR_NOTFOUND;
                 goto finish;
         }
 
         if (dlen <= sizeof(uint32_t)) {
                 /* Negative caching entry. */
                 *f = NULL;
-                ret = CA_SUCCESS;
+                ret = KA_SUCCESS;
                 goto finish;
         }
 
         if (sound_path) {
                 if (!(*sound_path = ka_strdup((const char*) data + sizeof(uint32_t)))) {
-                        ret = CA_ERROR_OOM;
+                        ret = KA_ERROR_OOM;
                         goto finish;
                 }
         }
@@ -564,19 +564,19 @@ int ka_cache_store_sound(
         int ret;
         time_t now;
 
-        ka_return_val_if_fail(theme, CA_ERROR_INVALID);
-        ka_return_val_if_fail(name && *name, CA_ERROR_INVALID);
-        ka_return_val_if_fail(locale, CA_ERROR_INVALID);
-        ka_return_val_if_fail(profile, CA_ERROR_INVALID);
+        ka_return_val_if_fail(theme, KA_ERROR_INVALID);
+        ka_return_val_if_fail(name && *name, KA_ERROR_INVALID);
+        ka_return_val_if_fail(locale, KA_ERROR_INVALID);
+        ka_return_val_if_fail(profile, KA_ERROR_INVALID);
 
         if (!(key = build_key(theme, name, locale, profile, &klen)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         dlen = sizeof(uint32_t) + (fname ? strlen(fname) + 1 : 0);
 
         if (!(data = ka_malloc(dlen))) {
                 ka_free(key);
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
         }
 
         ka_assert_se(time(&now) != (time_t) -1);

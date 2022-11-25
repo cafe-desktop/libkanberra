@@ -48,23 +48,23 @@ static int convert_error(int or) {
         case OV_EFAULT:
         case OV_EREAD:
         case OV_HOLE:
-                return CA_ERROR_IO;
+                return KA_ERROR_IO;
 
         case OV_EIMPL:
         case OV_EVERSION:
         case OV_ENOTAUDIO:
-                return CA_ERROR_NOTSUPPORTED;
+                return KA_ERROR_NOTSUPPORTED;
 
         case OV_ENOTVORBIS:
         case OV_EBADHEADER:
         case OV_EOF:
-                return CA_ERROR_CORRUPT;
+                return KA_ERROR_CORRUPT;
 
         case OV_EINVAL:
-                return CA_ERROR_INVALID;
+                return KA_ERROR_INVALID;
 
         default:
-                return CA_ERROR_IO;
+                return KA_ERROR_IO;
         }
 }
 
@@ -73,11 +73,11 @@ int ka_vorbis_open(ka_vorbis **_v, FILE *f)  {
         ka_vorbis *v;
         int64_t n;
 
-        ka_return_val_if_fail(_v, CA_ERROR_INVALID);
-        ka_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_v, KA_ERROR_INVALID);
+        ka_return_val_if_fail(f, KA_ERROR_INVALID);
 
         if (!(v = ka_new0(ka_vorbis, 1)))
-                return CA_ERROR_OOM;
+                return KA_ERROR_OOM;
 
         if ((or = ov_open(f, &v->ovf, NULL, 0)) < 0) {
                 ret = convert_error(or);
@@ -91,7 +91,7 @@ int ka_vorbis_open(ka_vorbis **_v, FILE *f)  {
         }
 
         if (((off_t) n * (off_t) sizeof(int16_t)) > FILE_SIZE_MAX) {
-                ret = CA_ERROR_TOOBIG;
+                ret = KA_ERROR_TOOBIG;
                 ov_clear(&v->ovf);
                 goto fail;
         }
@@ -100,7 +100,7 @@ int ka_vorbis_open(ka_vorbis **_v, FILE *f)  {
 
         *_v = v;
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 
 fail:
 
@@ -139,53 +139,53 @@ const ka_channel_position_t* ka_vorbis_get_channel_map(ka_vorbis *v) {
 
         switch (ka_vorbis_get_nchannels(v)) {
         case 8:
-                v->channel_map[0] = CA_CHANNEL_FRONT_LEFT;
-                v->channel_map[1] = CA_CHANNEL_FRONT_CENTER;
-                v->channel_map[2] = CA_CHANNEL_FRONT_RIGHT;
-                v->channel_map[3] = CA_CHANNEL_SIDE_LEFT;
-                v->channel_map[4] = CA_CHANNEL_SIDE_RIGHT;
-                v->channel_map[5] = CA_CHANNEL_REAR_LEFT;
-                v->channel_map[6] = CA_CHANNEL_REAR_RIGHT;
-                v->channel_map[7] = CA_CHANNEL_LFE;
+                v->channel_map[0] = KA_CHANNEL_FRONT_LEFT;
+                v->channel_map[1] = KA_CHANNEL_FRONT_CENTER;
+                v->channel_map[2] = KA_CHANNEL_FRONT_RIGHT;
+                v->channel_map[3] = KA_CHANNEL_SIDE_LEFT;
+                v->channel_map[4] = KA_CHANNEL_SIDE_RIGHT;
+                v->channel_map[5] = KA_CHANNEL_REAR_LEFT;
+                v->channel_map[6] = KA_CHANNEL_REAR_RIGHT;
+                v->channel_map[7] = KA_CHANNEL_LFE;
                 return v->channel_map;
 
         case 7:
-                v->channel_map[0] = CA_CHANNEL_FRONT_LEFT;
-                v->channel_map[1] = CA_CHANNEL_FRONT_CENTER;
-                v->channel_map[2] = CA_CHANNEL_FRONT_RIGHT;
-                v->channel_map[3] = CA_CHANNEL_SIDE_LEFT;
-                v->channel_map[4] = CA_CHANNEL_SIDE_RIGHT;
-                v->channel_map[5] = CA_CHANNEL_REAR_CENTER;
-                v->channel_map[6] = CA_CHANNEL_LFE;
+                v->channel_map[0] = KA_CHANNEL_FRONT_LEFT;
+                v->channel_map[1] = KA_CHANNEL_FRONT_CENTER;
+                v->channel_map[2] = KA_CHANNEL_FRONT_RIGHT;
+                v->channel_map[3] = KA_CHANNEL_SIDE_LEFT;
+                v->channel_map[4] = KA_CHANNEL_SIDE_RIGHT;
+                v->channel_map[5] = KA_CHANNEL_REAR_CENTER;
+                v->channel_map[6] = KA_CHANNEL_LFE;
                 return v->channel_map;
 
         case 6:
-                v->channel_map[5] = CA_CHANNEL_LFE;
+                v->channel_map[5] = KA_CHANNEL_LFE;
                 /* fall through */
 
         case 5:
-                v->channel_map[3] = CA_CHANNEL_REAR_LEFT;
-                v->channel_map[4] = CA_CHANNEL_REAR_RIGHT;
+                v->channel_map[3] = KA_CHANNEL_REAR_LEFT;
+                v->channel_map[4] = KA_CHANNEL_REAR_RIGHT;
                 /* fall through */
 
         case 3:
-                v->channel_map[0] = CA_CHANNEL_FRONT_LEFT;
-                v->channel_map[1] = CA_CHANNEL_FRONT_CENTER;
-                v->channel_map[2] = CA_CHANNEL_FRONT_RIGHT;
+                v->channel_map[0] = KA_CHANNEL_FRONT_LEFT;
+                v->channel_map[1] = KA_CHANNEL_FRONT_CENTER;
+                v->channel_map[2] = KA_CHANNEL_FRONT_RIGHT;
                 return v->channel_map;
 
         case 4:
-                v->channel_map[2] = CA_CHANNEL_REAR_LEFT;
-                v->channel_map[3] = CA_CHANNEL_REAR_RIGHT;
+                v->channel_map[2] = KA_CHANNEL_REAR_LEFT;
+                v->channel_map[3] = KA_CHANNEL_REAR_RIGHT;
                 /* fall through */
 
         case 2:
-                v->channel_map[0] = CA_CHANNEL_FRONT_LEFT;
-                v->channel_map[1] = CA_CHANNEL_FRONT_RIGHT;
+                v->channel_map[0] = KA_CHANNEL_FRONT_LEFT;
+                v->channel_map[1] = KA_CHANNEL_FRONT_RIGHT;
                 return v->channel_map;
 
         case 1:
-                v->channel_map[0] = CA_CHANNEL_MONO;
+                v->channel_map[0] = KA_CHANNEL_MONO;
                 return v->channel_map;
         }
 
@@ -198,10 +198,10 @@ int ka_vorbis_read_s16ne(ka_vorbis *v, int16_t *d, size_t *n){
         int length;
         size_t n_read = 0;
 
-        ka_return_val_if_fail(v, CA_ERROR_INVALID);
-        ka_return_val_if_fail(d, CA_ERROR_INVALID);
-        ka_return_val_if_fail(n, CA_ERROR_INVALID);
-        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(v, KA_ERROR_INVALID);
+        ka_return_val_if_fail(d, KA_ERROR_INVALID);
+        ka_return_val_if_fail(n, KA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, KA_ERROR_INVALID);
 
         length = (int) (*n * sizeof(int16_t));
 
@@ -236,7 +236,7 @@ int ka_vorbis_read_s16ne(ka_vorbis *v, int16_t *d, size_t *n){
 
         *n = n_read/sizeof(int16_t);
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 off_t ka_vorbis_get_size(ka_vorbis *v) {

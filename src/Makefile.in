@@ -79,7 +79,7 @@ noinst_PROGRAMS = test-kanberra$(EXEEXT)
 
 @HAVE_CACHE_TRUE@am__append_3 = \
 @HAVE_CACHE_TRUE@	$(TDB_CLFAGS) \
-@HAVE_CACHE_TRUE@	-DCA_MACHINE_ID=\"$(localstatedir)/lib/dbus/machine-id\"
+@HAVE_CACHE_TRUE@	-DKA_MACHINE_ID=\"$(localstatedir)/lib/dbus/machine-id\"
 
 @HAVE_CACHE_TRUE@am__append_4 = \
 @HAVE_CACHE_TRUE@	$(TDB_LIBS)
@@ -515,8 +515,8 @@ BUILTIN_GSTREAMER = @BUILTIN_GSTREAMER@
 BUILTIN_NULL = @BUILTIN_NULL@
 BUILTIN_OSS = @BUILTIN_OSS@
 BUILTIN_PULSE = @BUILTIN_PULSE@
-CA_MAJOR = @CA_MAJOR@
-CA_MINOR = @CA_MINOR@
+KA_MAJOR = @KA_MAJOR@
+KA_MINOR = @KA_MINOR@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -683,8 +683,8 @@ gnomeshutdowndir = $(datadir)/gnome/shutdown
 gnomeautostartdir = $(datadir)/gnome/autostart
 gdmautostartdir = $(datadir)/gdm/autostart/LoginWindow
 gsdctkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/ctk-modules
-AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"$(plugindir)\"
-#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
+AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DKA_PLUGIN_PATH=\"$(plugindir)\"
+#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DKA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
 AM_CXXFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS)
 AM_LDADD = $(PTHREAD_LIBS)
 AM_LDFLAGS = $(GCLDFLAGS)

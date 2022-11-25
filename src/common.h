@@ -43,9 +43,9 @@ struct ka_context {
 };
 
 typedef enum ka_cache_control {
-        CA_CACHE_CONTROL_NEVER,
-        CA_CACHE_CONTROL_PERMANENT,
-        CA_CACHE_CONTROL_VOLATILE
+        KA_CACHE_CONTROL_NEVER,
+        KA_CACHE_CONTROL_PERMANENT,
+        KA_CACHE_CONTROL_VOLATILE
 } ka_cache_control_t;
 
 int ka_parse_cache_control(ka_cache_control_t *control, const char *c);

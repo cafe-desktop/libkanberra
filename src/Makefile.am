@@ -29,8 +29,8 @@ gdmautostartdir = $(datadir)/gdm/autostart/LoginWindow
 
 gsdctkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/ctk-modules
 
-AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"$(plugindir)\"
-#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
+AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DKA_PLUGIN_PATH=\"$(plugindir)\"
+#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DKA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
 AM_CXXFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS)
 AM_LDADD = $(PTHREAD_LIBS)
 AM_LDFLAGS = $(GCLDFLAGS)
@@ -80,7 +80,7 @@ libkanberra_la_SOURCES += \
 	cache.c cache.h
 libkanberra_la_CFLAGS += \
 	$(TDB_CLFAGS) \
-	-DCA_MACHINE_ID=\"$(localstatedir)/lib/dbus/machine-id\"
+	-DKA_MACHINE_ID=\"$(localstatedir)/lib/dbus/machine-id\"
 libkanberra_la_LIBADD += \
 	$(TDB_LIBS)
 

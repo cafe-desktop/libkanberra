@@ -56,7 +56,7 @@ static void read_sound_theme_name(ka_context *c, CtkSettings *s) {
         g_object_get(G_OBJECT(s), "ctk-sound-theme-name", &theme_name, NULL);
 
         if (theme_name) {
-                ka_context_change_props(c, CA_PROP_KANBERRA_XDG_THEME_NAME, theme_name, NULL);
+                ka_context_change_props(c, KA_PROP_KANBERRA_XDG_THEME_NAME, theme_name, NULL);
                 g_free(theme_name);
         }
 }
@@ -67,7 +67,7 @@ static void read_enable_event_sounds(ka_context *c, CtkSettings *s) {
         if (!g_getenv("KANBERRA_FORCE_EVENT_SOUNDS"))
                 g_object_get(G_OBJECT(s), "ctk-enable-event-sounds", &enable_event_sounds, NULL);
 
-        ka_context_change_props(c, CA_PROP_KANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
+        ka_context_change_props(c, KA_PROP_KANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
 }
 
 static void sound_theme_name_changed(CtkSettings *s, GParamSpec *arg1, ka_context *c) {
@@ -98,9 +98,9 @@ ka_context *ka_ctk_context_get(void) {
  *
  * libkanberra-ctk maintains a single ka_context object for each
  * #CdkScreen. Use this function to access it. The
- * %CA_PROP_KANBERRA_XDG_THEME_NAME of this context property is
+ * %KA_PROP_KANBERRA_XDG_THEME_NAME of this context property is
  * dynamically bound to the XSETTINGS setting for the XDG theme
- * name. CA_PROP_APPLICATION_NAME is bound to
+ * name. KA_PROP_APPLICATION_NAME is bound to
  * g_get_application_name().
  *
  * Returns: a ka_context object. The object is owned by libkanberra-ctk
@@ -120,29 +120,29 @@ ka_context *ka_ctk_context_get_for_screen(CdkScreen *screen) {
         if ((c = g_object_get_data(G_OBJECT(screen), "kanberra::ctk::context")))
                 return c;
 
-        if (ka_context_create(&c) != CA_SUCCESS)
+        if (ka_context_create(&c) != KA_SUCCESS)
                 return NULL;
 
-        if (ka_proplist_create(&p) != CA_SUCCESS) {
+        if (ka_proplist_create(&p) != KA_SUCCESS) {
                 ka_context_destroy(c);
                 return NULL;
         }
 
         if ((name = g_get_application_name()))
-                ka_proplist_sets(p, CA_PROP_APPLICATION_NAME, name);
+                ka_proplist_sets(p, KA_PROP_APPLICATION_NAME, name);
         else {
-                ka_proplist_sets(p, CA_PROP_APPLICATION_NAME, "libkanberra-ctk");
-                ka_proplist_sets(p, CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
-                ka_proplist_sets(p, CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk");
+                ka_proplist_sets(p, KA_PROP_APPLICATION_NAME, "libkanberra-ctk");
+                ka_proplist_sets(p, KA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
+                ka_proplist_sets(p, KA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk");
         }
 
         if ((name = ctk_window_get_default_icon_name()))
-                ka_proplist_sets(p, CA_PROP_APPLICATION_ICON_NAME, name);
+                ka_proplist_sets(p, KA_PROP_APPLICATION_ICON_NAME, name);
 
         if ((name = cdk_display_get_name(cdk_screen_get_display(screen))))
-                ka_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, name);
+                ka_proplist_sets(p, KA_PROP_WINDOW_X11_DISPLAY, name);
 
-        ka_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen));
+        ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen));
 
         ka_context_change_props_full(c, p);
         ka_proplist_destroy(p);
@@ -217,7 +217,7 @@ static gint window_get_desktop(CdkDisplay *d, CdkWindow *w) {
  *
  * Fill in a ka_proplist object for a sound event that shall originate
  * from the specified Ctk Widget. This will fill in properties like
- * %CA_PROP_WINDOW_NAME or %CA_PROP_WINDOW_X11_DISPLAY for you.
+ * %KA_PROP_WINDOW_NAME or %KA_PROP_WINDOW_X11_DISPLAY for you.
  *
  * Returns: 0 on success, negative error code on error.
  */
@@ -227,22 +227,22 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
         int ret;
         const char *t, *role;
 
-        ka_return_val_if_fail(p, CA_ERROR_INVALID);
-        ka_return_val_if_fail(widget, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
+        ka_return_val_if_fail(p, KA_ERROR_INVALID);
+        ka_return_val_if_fail(widget, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
 
         if (!(w = get_toplevel(widget)))
-                return CA_ERROR_INVALID;
+                return KA_ERROR_INVALID;
 
         if ((t = ctk_window_get_title(w)))
-                if ((ret = ka_proplist_sets(p, CA_PROP_WINDOW_NAME, t)) < 0)
+                if ((ret = ka_proplist_sets(p, KA_PROP_WINDOW_NAME, t)) < 0)
                         return ret;
 
         if ((role = ctk_window_get_role(w))) {
                 if (role && t) {
                         char *id = ka_sprintf_malloc("%s#%s", t, role);
 
-                        if ((ret = ka_proplist_sets(p, CA_PROP_WINDOW_ID, id)) < 0) {
+                        if ((ret = ka_proplist_sets(p, KA_PROP_WINDOW_ID, id)) < 0) {
                                 ka_free(id);
                                 return ret;
                         }
@@ -250,11 +250,11 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                         ka_free(id);
                 }
         } else if (t)
-                if ((ret = ka_proplist_sets(p, CA_PROP_WINDOW_ID, t)) < 0)
+                if ((ret = ka_proplist_sets(p, KA_PROP_WINDOW_ID, t)) < 0)
                         return ret;
 
         if ((t = ctk_window_get_icon_name(w)))
-                if ((ret = ka_proplist_sets(p, CA_PROP_WINDOW_ICON_NAME, t)) < 0)
+                if ((ret = ka_proplist_sets(p, KA_PROP_WINDOW_ICON_NAME, t)) < 0)
                         return ret;
 
         if (ctk_widget_get_realized(CTK_WIDGET(w))) {
@@ -264,30 +264,30 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                 gint x = -1, y = -1, width = -1, height = -1, screen_width = -1, screen_height = -1;
 
                 if ((dw = ctk_widget_get_window(CTK_WIDGET(w))))
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) CDK_WINDOW_XID(dw))) < 0)
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X11_XID, "%lu", (unsigned long) CDK_WINDOW_XID(dw))) < 0)
                                 return ret;
 
                 if ((display = ctk_widget_get_display(CTK_WIDGET(w)))) {
                         if ((t = cdk_display_get_name(display)))
-                                if ((ret = ka_proplist_sets(p, CA_PROP_WINDOW_X11_DISPLAY, t)) < 0)
+                                if ((ret = ka_proplist_sets(p, KA_PROP_WINDOW_X11_DISPLAY, t)) < 0)
                                         return ret;
 
                         if (dw)  {
                                 gint desktop = window_get_desktop(display, dw);
 
                                 if (desktop >= 0)
-                                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_DESKTOP, "%i", desktop)) < 0)
+                                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_DESKTOP, "%i", desktop)) < 0)
                                                 return ret;
                         }
                 }
 
                 if ((screen = ctk_widget_get_screen(CTK_WIDGET(w)))) {
 
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen))) < 0)
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen))) < 0)
                                 return ret;
 
                         if (dw)
-                                if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_X11_MONITOR, "%i", cdk_screen_get_monitor_at_window(screen, dw))) < 0)
+                                if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X11_MONITOR, "%i", cdk_screen_get_monitor_at_window(screen, dw))) < 0)
                                         return ret;
                 }
 
@@ -297,33 +297,33 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                         cdk_window_get_origin(dw, &x, &y);
 
                         if (x >= 0)
-                                if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_X, "%i", x)) < 0)
+                                if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X, "%i", x)) < 0)
                                         return ret;
                         if (y >= 0)
-                                if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_Y, "%i", y)) < 0)
+                                if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_Y, "%i", y)) < 0)
                                         return ret;
                 }
 
                 ctk_window_get_size(w, &width, &height);
 
                 if (width > 0)
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_WIDTH, "%i", width)) < 0)
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_WIDTH, "%i", width)) < 0)
                                 return ret;
                 if (height > 0)
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_HEIGHT, "%i", height)) < 0)
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_HEIGHT, "%i", height)) < 0)
                                 return ret;
 
                 if (x >= 0 && width > 0) {
                         screen_width = cdk_screen_get_width(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         x += width/2;
-                        x = CA_CLAMP(x, 0, screen_width-1);
+                        x = KA_CLAMP(x, 0, screen_width-1);
 
                         /* We use these strange format strings here to avoid that libc
                          * applies locale information on the formatting of floating
                          * numbers. */
 
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_HPOS, "%i.%03i",
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_HPOS, "%i.%03i",
                                                     (int) (x/(screen_width-1)), (int) (1000.0*x/(screen_width-1)) % 1000)) < 0)
                                 return ret;
                 }
@@ -332,15 +332,15 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                         screen_height = cdk_screen_get_height(ctk_widget_get_screen(CTK_WIDGET(w)));
 
                         y += height/2;
-                        y = CA_CLAMP(y, 0, screen_height-1);
+                        y = KA_CLAMP(y, 0, screen_height-1);
 
-                        if ((ret = ka_proplist_setf(p, CA_PROP_WINDOW_VPOS, "%i.%03i",
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_VPOS, "%i.%03i",
                                                     (int) (y/(screen_height-1)), (int) (1000.0*y/(screen_height-1)) % 1000)) < 0)
                                 return ret;
                 }
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 /**
@@ -350,7 +350,7 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
  *
  * Fill in a ka_proplist object for a sound event that is being
  * triggered by the specified Cdk Event. This will fill in properties
- * like %CA_PROP_EVENT_MOUSE_X or %CA_PROP_EVENT_MOUSE_BUTTON for
+ * like %KA_PROP_EVENT_MOUSE_X or %KA_PROP_EVENT_MOUSE_BUTTON for
  * you. This will internally also cal ka_ctk_proplist_set_for_widget()
  * on the widget this event belongs to.
  *
@@ -363,9 +363,9 @@ int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e) {
         CtkWidget *w = NULL;
         int ret;
 
-        ka_return_val_if_fail(p, CA_ERROR_INVALID);
-        ka_return_val_if_fail(e, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
+        ka_return_val_if_fail(p, KA_ERROR_INVALID);
+        ka_return_val_if_fail(e, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
 
         if ((gw = e->any.window)) {
                 cdk_window_get_user_data(gw, (gpointer*) &w);
@@ -377,10 +377,10 @@ int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e) {
 
         if (cdk_event_get_root_coords(e, &x, &y)) {
 
-                if ((ret = ka_proplist_setf(p, CA_PROP_EVENT_MOUSE_X, "%0.0f", x)) < 0)
+                if ((ret = ka_proplist_setf(p, KA_PROP_EVENT_MOUSE_X, "%0.0f", x)) < 0)
                         return ret;
 
-                if ((ret = ka_proplist_setf(p, CA_PROP_EVENT_MOUSE_Y, "%0.0f", y)) < 0)
+                if ((ret = ka_proplist_setf(p, KA_PROP_EVENT_MOUSE_Y, "%0.0f", y)) < 0)
                         return ret;
 
                 if (w)  {
@@ -393,11 +393,11 @@ int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e) {
                          * libc applies locale information on the formatting of
                          * floating numbers. */
 
-                        if ((ret = ka_proplist_setf(p, CA_PROP_EVENT_MOUSE_HPOS, "%i.%03i",
+                        if ((ret = ka_proplist_setf(p, KA_PROP_EVENT_MOUSE_HPOS, "%i.%03i",
                                                     (int) (x/(width-1)), (int) (1000.0*x/(width-1)) % 1000)) < 0)
                                 return ret;
 
-                        if ((ret = ka_proplist_setf(p, CA_PROP_EVENT_MOUSE_VPOS, "%i.%03i",
+                        if ((ret = ka_proplist_setf(p, KA_PROP_EVENT_MOUSE_VPOS, "%i.%03i",
                                                     (int) (y/(height-1)), (int) (1000.0*y/(height-1)) % 1000)) < 0)
                                 return ret;
                 }
@@ -408,11 +408,11 @@ int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e) {
             e->type == CDK_3BUTTON_PRESS ||
             e->type == CDK_BUTTON_RELEASE) {
 
-                if ((ret = ka_proplist_setf(p, CA_PROP_EVENT_MOUSE_BUTTON, "%u", e->button.button)) < 0)
+                if ((ret = ka_proplist_setf(p, KA_PROP_EVENT_MOUSE_BUTTON, "%u", e->button.button)) < 0)
                         return ret;
         }
 
-        return CA_SUCCESS;
+        return KA_SUCCESS;
 }
 
 /**
@@ -441,8 +441,8 @@ int ka_ctk_play_for_widget(CtkWidget *w, uint32_t id, ...) {
         ka_proplist *p;
         CdkScreen *s;
 
-        ka_return_val_if_fail(w, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
+        ka_return_val_if_fail(w, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
 
         if ((ret = ka_proplist_create(&p)) < 0)
                 return ret;
@@ -493,8 +493,8 @@ int ka_ctk_play_for_event(CdkEvent *e, uint32_t id, ...) {
         ka_proplist *p;
         CdkScreen *s;
 
-        ka_return_val_if_fail(e, CA_ERROR_INVALID);
-        ka_return_val_if_fail(!ka_detect_fork(), CA_ERROR_FORKED);
+        ka_return_val_if_fail(e, KA_ERROR_INVALID);
+        ka_return_val_if_fail(!ka_detect_fork(), KA_ERROR_FORKED);
 
         if ((ret = ka_proplist_create(&p)) < 0)
                 return ret;
