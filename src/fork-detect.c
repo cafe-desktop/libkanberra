@@ -29,7 +29,7 @@
 
 #include "fork-detect.h"
 
-int ca_detect_fork(void) {
+int ka_detect_fork(void) {
         static volatile pid_t pid = (pid_t) -1;
         pid_t v, we;
 

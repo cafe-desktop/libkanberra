@@ -27,11 +27,11 @@
 #include "macro.h"
 #include "mutex.h"
 
-struct ca_context {
-        ca_bool_t opened;
-        ca_mutex *mutex;
+struct ka_context {
+        ka_bool_t opened;
+        ka_mutex *mutex;
 
-        ca_proplist *props;
+        ka_proplist *props;
 
         char *driver;
         char *device;
@@ -42,12 +42,12 @@ struct ca_context {
 #endif
 };
 
-typedef enum ca_cache_control {
+typedef enum ka_cache_control {
         CA_CACHE_CONTROL_NEVER,
         CA_CACHE_CONTROL_PERMANENT,
         CA_CACHE_CONTROL_VOLATILE
-} ca_cache_control_t;
+} ka_cache_control_t;
 
-int ca_parse_cache_control(ca_cache_control_t *control, const char *c);
+int ka_parse_cache_control(ka_cache_control_t *control, const char *c);
 
 #endif

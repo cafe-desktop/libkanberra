@@ -19,14 +19,14 @@
 # License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
-m4_define([ca_major],[0])
-m4_define([ca_minor],[30])
-m4_define([ca_version],[ca_major.ca_minor])
+m4_define([ka_major],[0])
+m4_define([ka_minor],[30])
+m4_define([ka_version],[ka_major.ka_minor])
 
 AC_PREREQ([2.68])
 
 AC_INIT([libkanberra],
-        [ca_version],
+        [ka_version],
         [mzyvopnaoreen (at) 0pointer (dot) de],
         [libkanberra],
         [http://0pointer.de/lennart/projects/libkanberra/])
@@ -699,8 +699,8 @@ AM_CONDITIONAL([BUILTIN_OSS], [test "x$BUILTIN_OSS" = x1])
 AM_CONDITIONAL([BUILTIN_GSTREAMER], [test "x$BUILTIN_GSTREAMER" = x1])
 AM_CONDITIONAL([BUILTIN_NULL], [test "x$BUILTIN_NULL" = x1])
 
-AC_SUBST([CA_MAJOR],[ca_major])
-AC_SUBST([CA_MINOR],[ca_minor])
+AC_SUBST([CA_MAJOR],[ka_major])
+AC_SUBST([CA_MINOR],[ka_minor])
 
 GTK_DOC_CHECK(1.9)
 

@@ -23,6 +23,6 @@
   <http://www.gnu.org/licenses/>.
 ***/
 
-extern const char* const ca_driver_order[];
+extern const char* const ka_driver_order[];
 
 #endif

@@ -33,28 +33,28 @@
 #include "malloc.h"
 #include "kanberra.h"
 
-struct ca_sound_file {
-        ca_wav *wav;
-        ca_vorbis *vorbis;
+struct ka_sound_file {
+        ka_wav *wav;
+        ka_vorbis *vorbis;
         char *filename;
 
         unsigned nchannels;
         unsigned rate;
-        ca_sample_type_t type;
+        ka_sample_type_t type;
 };
 
-int ca_sound_file_open(ca_sound_file **_f, const char *fn) {
+int ka_sound_file_open(ka_sound_file **_f, const char *fn) {
         FILE *file;
-        ca_sound_file *f;
+        ka_sound_file *f;
         int ret;
 
-        ca_return_val_if_fail(_f, CA_ERROR_INVALID);
-        ca_return_val_if_fail(fn, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(fn, CA_ERROR_INVALID);
 
-        if (!(f = ca_new0(ca_sound_file, 1)))
+        if (!(f = ka_new0(ka_sound_file, 1)))
                 return CA_ERROR_OOM;
 
-        if (!(f->filename = ca_strdup(fn))) {
+        if (!(f->filename = ka_strdup(fn))) {
                 ret = CA_ERROR_OOM;
                 goto fail;
         }
@@ -64,10 +64,10 @@ int ca_sound_file_open(ca_sound_file **_f, const char *fn) {
                 goto fail;
         }
 
-        if ((ret = ca_wav_open(&f->wav, file)) == CA_SUCCESS) {
-                f->nchannels = ca_wav_get_nchannels(f->wav);
-                f->rate = ca_wav_get_rate(f->wav);
-                f->type = ca_wav_get_sample_type(f->wav);
+        if ((ret = ka_wav_open(&f->wav, file)) == CA_SUCCESS) {
+                f->nchannels = ka_wav_get_nchannels(f->wav);
+                f->rate = ka_wav_get_rate(f->wav);
+                f->type = ka_wav_get_sample_type(f->wav);
                 *_f = f;
                 return CA_SUCCESS;
         }
@@ -79,9 +79,9 @@ int ca_sound_file_open(ca_sound_file **_f, const char *fn) {
                         goto fail;
                 }
 
-                if ((ret = ca_vorbis_open(&f->vorbis, file)) == CA_SUCCESS)  {
-                        f->nchannels = ca_vorbis_get_nchannels(f->vorbis);
-                        f->rate = ca_vorbis_get_rate(f->vorbis);
+                if ((ret = ka_vorbis_open(&f->vorbis, file)) == CA_SUCCESS)  {
+                        f->nchannels = ka_vorbis_get_nchannels(f->vorbis);
+                        f->rate = ka_vorbis_get_rate(f->vorbis);
                         f->type = CA_SAMPLE_S16NE;
                         *_f = f;
                         return CA_SUCCESS;
@@ -90,83 +90,83 @@ int ca_sound_file_open(ca_sound_file **_f, const char *fn) {
 
 fail:
 
-        ca_free(f->filename);
-        ca_free(f);
+        ka_free(f->filename);
+        ka_free(f);
 
         return ret;
 }
 
-void ca_sound_file_close(ca_sound_file *f) {
-        ca_assert(f);
+void ka_sound_file_close(ka_sound_file *f) {
+        ka_assert(f);
 
         if (f->wav)
-                ca_wav_close(f->wav);
+                ka_wav_close(f->wav);
         if (f->vorbis)
-                ca_vorbis_close(f->vorbis);
+                ka_vorbis_close(f->vorbis);
 
-        ca_free(f->filename);
-        ca_free(f);
+        ka_free(f->filename);
+        ka_free(f);
 }
 
-unsigned ca_sound_file_get_nchannels(ca_sound_file *f) {
-        ca_assert(f);
+unsigned ka_sound_file_get_nchannels(ka_sound_file *f) {
+        ka_assert(f);
         return f->nchannels;
 }
 
-unsigned ca_sound_file_get_rate(ca_sound_file *f) {
-        ca_assert(f);
+unsigned ka_sound_file_get_rate(ka_sound_file *f) {
+        ka_assert(f);
         return f->rate;
 }
 
-ca_sample_type_t ca_sound_file_get_sample_type(ca_sound_file *f) {
-        ca_assert(f);
+ka_sample_type_t ka_sound_file_get_sample_type(ka_sound_file *f) {
+        ka_assert(f);
         return f->type;
 }
 
-const ca_channel_position_t* ca_sound_file_get_channel_map(ca_sound_file *f) {
-        ca_assert(f);
+const ka_channel_position_t* ka_sound_file_get_channel_map(ka_sound_file *f) {
+        ka_assert(f);
 
         if (f->wav)
-                return ca_wav_get_channel_map(f->wav);
+                return ka_wav_get_channel_map(f->wav);
         else
-                return ca_vorbis_get_channel_map(f->vorbis);
+                return ka_vorbis_get_channel_map(f->vorbis);
 }
 
-int ca_sound_file_read_int16(ca_sound_file *f, int16_t *d, size_t *n) {
-        ca_return_val_if_fail(f, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
-        ca_return_val_if_fail(f->wav || f->vorbis, CA_ERROR_STATE);
-        ca_return_val_if_fail(f->type == CA_SAMPLE_S16NE || f->type == CA_SAMPLE_S16RE, CA_ERROR_STATE);
+int ka_sound_file_read_int16(ka_sound_file *f, int16_t *d, size_t *n) {
+        ka_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f->wav || f->vorbis, CA_ERROR_STATE);
+        ka_return_val_if_fail(f->type == CA_SAMPLE_S16NE || f->type == CA_SAMPLE_S16RE, CA_ERROR_STATE);
 
         if (f->wav)
-                return ca_wav_read_s16le(f->wav, d, n);
+                return ka_wav_read_s16le(f->wav, d, n);
         else
-                return ca_vorbis_read_s16ne(f->vorbis, d, n);
+                return ka_vorbis_read_s16ne(f->vorbis, d, n);
 }
 
-int ca_sound_file_read_uint8(ca_sound_file *f, uint8_t *d, size_t *n) {
-        ca_return_val_if_fail(f, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
-        ca_return_val_if_fail(f->wav && !f->vorbis, CA_ERROR_STATE);
-        ca_return_val_if_fail(f->type == CA_SAMPLE_U8, CA_ERROR_STATE);
+int ka_sound_file_read_uint8(ka_sound_file *f, uint8_t *d, size_t *n) {
+        ka_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f->wav && !f->vorbis, CA_ERROR_STATE);
+        ka_return_val_if_fail(f->type == CA_SAMPLE_U8, CA_ERROR_STATE);
 
         if (f->wav)
-                return ca_wav_read_u8(f->wav, d, n);
+                return ka_wav_read_u8(f->wav, d, n);
 
         return CA_ERROR_STATE;
 }
 
-int ca_sound_file_read_arbitrary(ca_sound_file *f, void *d, size_t *n) {
+int ka_sound_file_read_arbitrary(ka_sound_file *f, void *d, size_t *n) {
         int ret;
 
-        ca_return_val_if_fail(f, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
 
         switch (f->type) {
         case CA_SAMPLE_S16NE:
@@ -174,7 +174,7 @@ int ca_sound_file_read_arbitrary(ca_sound_file *f, void *d, size_t *n) {
                 size_t k;
 
                 k = *n / sizeof(int16_t);
-                if ((ret = ca_sound_file_read_int16(f, d, &k)) == CA_SUCCESS)
+                if ((ret = ka_sound_file_read_int16(f, d, &k)) == CA_SUCCESS)
                         *n = k * sizeof(int16_t);
 
                 break;
@@ -184,34 +184,34 @@ int ca_sound_file_read_arbitrary(ca_sound_file *f, void *d, size_t *n) {
                 size_t k;
 
                 k = *n;
-                if ((ret = ca_sound_file_read_uint8(f, d, &k)) == CA_SUCCESS)
+                if ((ret = ka_sound_file_read_uint8(f, d, &k)) == CA_SUCCESS)
                         *n = k;
 
                 break;
         }
 
         default:
-                ca_assert_not_reached();
+                ka_assert_not_reached();
         }
 
         return ret;
 }
 
-off_t ca_sound_file_get_size(ca_sound_file *f) {
-        ca_return_val_if_fail(f, (off_t) -1);
+off_t ka_sound_file_get_size(ka_sound_file *f) {
+        ka_return_val_if_fail(f, (off_t) -1);
 
         if (f->wav)
-                return ca_wav_get_size(f->wav);
+                return ka_wav_get_size(f->wav);
         else
-                return ca_vorbis_get_size(f->vorbis);
+                return ka_vorbis_get_size(f->vorbis);
 }
 
-size_t ca_sound_file_frame_size(ca_sound_file *f) {
+size_t ka_sound_file_frame_size(ka_sound_file *f) {
         unsigned c;
 
-        ca_assert(f);
+        ka_assert(f);
 
-        c = ca_sound_file_get_nchannels(f);
+        c = ka_sound_file_get_nchannels(f);
 
-        return c * (ca_sound_file_get_sample_type(f) == CA_SAMPLE_U8 ? 1U : 2U);
+        return c * (ka_sound_file_get_sample_type(f) == CA_SAMPLE_U8 ? 1U : 2U);
 }

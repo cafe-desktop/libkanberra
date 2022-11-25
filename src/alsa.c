@@ -43,29 +43,29 @@ struct private;
 
 struct outstanding {
         CA_LLIST_FIELDS(struct outstanding);
-        ca_bool_t dead;
+        ka_bool_t dead;
         uint32_t id;
-        ca_finish_callback_t callback;
+        ka_finish_callback_t callback;
         void *userdata;
-        ca_sound_file *file;
+        ka_sound_file *file;
         snd_pcm_t *pcm;
         int pipe_fd[2];
-        ca_context *context;
+        ka_context *context;
 };
 
 struct private {
-        ca_theme_data *theme;
-        ca_mutex *outstanding_mutex;
-        ca_bool_t signal_semaphore;
+        ka_theme_data *theme;
+        ka_mutex *outstanding_mutex;
+        ka_bool_t signal_semaphore;
         sem_t semaphore;
-        ca_bool_t semaphore_allocated;
+        ka_bool_t semaphore_allocated;
         CA_LLIST_HEAD(struct outstanding, outstanding);
 };
 
 #define PRIVATE(c) ((struct private *) ((c)->private))
 
 static void outstanding_free(struct outstanding *o) {
-        ca_assert(o);
+        ka_assert(o);
 
         if (o->pipe_fd[1] >= 0)
                 close(o->pipe_fd[1]);
@@ -74,25 +74,25 @@ static void outstanding_free(struct outstanding *o) {
                 close(o->pipe_fd[0]);
 
         if (o->file)
-                ca_sound_file_close(o->file);
+                ka_sound_file_close(o->file);
 
         if (o->pcm)
                 snd_pcm_close(o->pcm);
 
-        ca_free(o);
+        ka_free(o);
 }
 
-int driver_open(ca_context *c) {
+int driver_open(ka_context *c) {
         struct private *p;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!c->driver || ca_streq(c->driver, "alsa"), CA_ERROR_NODRIVER);
-        ca_return_val_if_fail(!PRIVATE(c), CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "alsa"), CA_ERROR_NODRIVER);
+        ka_return_val_if_fail(!PRIVATE(c), CA_ERROR_STATE);
 
-        if (!(c->private = p = ca_new0(struct private, 1)))
+        if (!(c->private = p = ka_new0(struct private, 1)))
                 return CA_ERROR_OOM;
 
-        if (!(p->outstanding_mutex = ca_mutex_new())) {
+        if (!(p->outstanding_mutex = ka_mutex_new())) {
                 driver_destroy(c);
                 return CA_ERROR_OOM;
         }
@@ -107,17 +107,17 @@ int driver_open(ca_context *c) {
         return CA_SUCCESS;
 }
 
-int driver_destroy(ca_context *c) {
+int driver_destroy(ka_context *c) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
         if (p->outstanding_mutex) {
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
 
                 /* Tell all player threads to terminate */
                 for (out = p->outstanding; out; out = out->next) {
@@ -141,23 +141,23 @@ int driver_destroy(ca_context *c) {
                         /* Now wait until all players are destroyed */
                         p->signal_semaphore = TRUE;
                         while (p->outstanding) {
-                                ca_mutex_unlock(p->outstanding_mutex);
+                                ka_mutex_unlock(p->outstanding_mutex);
                                 sem_wait(&p->semaphore);
-                                ca_mutex_lock(p->outstanding_mutex);
+                                ka_mutex_lock(p->outstanding_mutex);
                         }
                 }
 
-                ca_mutex_unlock(p->outstanding_mutex);
-                ca_mutex_free(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_free(p->outstanding_mutex);
         }
 
         if (p->theme)
-                ca_theme_data_free(p->theme);
+                ka_theme_data_free(p->theme);
 
         if (p->semaphore_allocated)
                 sem_destroy(&p->semaphore);
 
-        ca_free(p);
+        ka_free(p);
 
         c->private = NULL;
 
@@ -166,24 +166,24 @@ int driver_destroy(ca_context *c) {
         return CA_SUCCESS;
 }
 
-int driver_change_device(ca_context *c, const char *device) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+int driver_change_device(ka_context *c, const char *device) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         return CA_SUCCESS;
 }
 
-int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ca_return_val_if_fail(merged, CA_ERROR_INVALID);
+int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
 
         return CA_SUCCESS;
 }
 
-int driver_cache(ca_context *c, ca_proplist *proplist) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
+int driver_cache(ka_context *c, ka_proplist *proplist) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
 
         return CA_ERROR_NOTSUPPORTED;
 }
@@ -206,7 +206,7 @@ static int translate_error(int error) {
         case -ENOSYS:
                 return CA_ERROR_NOTSUPPORTED;
         default:
-                if (ca_debug())
+                if (ka_debug())
                         fprintf(stderr, "Got unhandled error from ALSA: %s\n", snd_strerror(error));
                 return CA_ERROR_IO;
         }
@@ -223,21 +223,21 @@ static const snd_pcm_format_t sample_type_table[] = {
         [CA_SAMPLE_U8] = SND_PCM_FORMAT_U8
 };
 
-static int open_alsa(ca_context *c, struct outstanding *out) {
+static int open_alsa(ka_context *c, struct outstanding *out) {
         int ret;
         snd_pcm_hw_params_t *hwparams;
         unsigned rate;
 
         snd_pcm_hw_params_alloca(&hwparams);
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ca_return_val_if_fail(out, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(out, CA_ERROR_INVALID);
 
         /* In ALSA we need to open different devices for doing
          * multichannel audio. This cnnot be done in a backend-independant
          * wa, hence we limit ourselves to mono/stereo only. */
-        ca_return_val_if_fail(ca_sound_file_get_nchannels(out->file) <= 2, CA_ERROR_NOTSUPPORTED);
+        ka_return_val_if_fail(ka_sound_file_get_nchannels(out->file) <= 2, CA_ERROR_NOTSUPPORTED);
 
         if ((ret = snd_pcm_open(&out->pcm, c->device ? c->device : "default", SND_PCM_STREAM_PLAYBACK, 0)) < 0)
                 goto finish;
@@ -248,14 +248,14 @@ static int open_alsa(ca_context *c, struct outstanding *out) {
         if ((ret = snd_pcm_hw_params_set_access(out->pcm, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED)) < 0)
                 goto finish;
 
-        if ((ret = snd_pcm_hw_params_set_format(out->pcm, hwparams, sample_type_table[ca_sound_file_get_sample_type(out->file)])) < 0)
+        if ((ret = snd_pcm_hw_params_set_format(out->pcm, hwparams, sample_type_table[ka_sound_file_get_sample_type(out->file)])) < 0)
                 goto finish;
 
-        rate = ca_sound_file_get_rate(out->file);
+        rate = ka_sound_file_get_rate(out->file);
         if ((ret = snd_pcm_hw_params_set_rate_near(out->pcm, hwparams, &rate, 0)) < 0)
                 goto finish;
 
-        if ((ret = snd_pcm_hw_params_set_channels(out->pcm, hwparams, ca_sound_file_get_nchannels(out->file))) < 0)
+        if ((ret = snd_pcm_hw_params_set_channels(out->pcm, hwparams, ka_sound_file_get_nchannels(out->file))) < 0)
                 goto finish;
 
         if ((ret = snd_pcm_hw_params(out->pcm, hwparams)) < 0)
@@ -287,10 +287,10 @@ static void* thread_func(void *userdata) {
 
         pthread_detach(pthread_self());
 
-        fs = ca_sound_file_frame_size(out->file);
+        fs = ka_sound_file_frame_size(out->file);
         data_size = (BUFSIZE/fs)*fs;
 
-        if (!(data = ca_malloc(data_size))) {
+        if (!(data = ka_malloc(data_size))) {
                 ret = CA_ERROR_OOM;
                 goto finish;
         }
@@ -301,7 +301,7 @@ static void* thread_func(void *userdata) {
         }
 
         n_pfd = (nfds_t) ret + 1;
-        if (!(pfd = ca_new(struct pollfd, n_pfd))) {
+        if (!(pfd = ka_new(struct pollfd, n_pfd))) {
                 ret = CA_ERROR_OOM;
                 goto finish;
         }
@@ -374,7 +374,7 @@ static void* thread_func(void *userdata) {
 
                         nbytes = data_size;
 
-                        if ((ret = ca_sound_file_read_arbitrary(out->file, data, &nbytes)) < 0)
+                        if ((ret = ka_sound_file_read_arbitrary(out->file, data, &nbytes)) < 0)
                                 goto finish;
 
                         d = data;
@@ -403,14 +403,14 @@ static void* thread_func(void *userdata) {
 
 finish:
 
-        ca_free(data);
-        ca_free(pfd);
+        ka_free(data);
+        ka_free(pfd);
 
         if (!out->dead)
                 if (out->callback)
                         out->callback(out->context, out->id, ret, out->userdata);
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
 
@@ -419,25 +419,25 @@ finish:
 
         outstanding_free(out);
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return NULL;
 }
 
-int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_callback_t cb, void *userdata) {
+int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_callback_t cb, void *userdata) {
         struct private *p;
         struct outstanding *out = NULL;
         int ret;
         pthread_t thread;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        if (!(out = ca_new0(struct outstanding, 1))) {
+        if (!(out = ka_new0(struct outstanding, 1))) {
                 ret = CA_ERROR_OOM;
                 goto finish;
         }
@@ -453,23 +453,23 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
                 goto finish;
         }
 
-        if ((ret = ca_lookup_sound(&out->file, NULL, &p->theme, c->props, proplist)) < 0)
+        if ((ret = ka_lookup_sound(&out->file, NULL, &p->theme, c->props, proplist)) < 0)
                 goto finish;
 
         if ((ret = open_alsa(c, out)) < 0)
                 goto finish;
 
         /* OK, we're ready to go, so let's add this to our list */
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
         CA_LLIST_PREPEND(struct outstanding, p->outstanding, out);
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         if (pthread_create(&thread, NULL, thread_func, out) < 0) {
                 ret = CA_ERROR_OOM;
 
-                ca_mutex_lock(p->outstanding_mutex);
+                ka_mutex_lock(p->outstanding_mutex);
                 CA_LLIST_REMOVE(struct outstanding, p->outstanding, out);
-                ca_mutex_unlock(p->outstanding_mutex);
+                ka_mutex_unlock(p->outstanding_mutex);
 
                 goto finish;
         }
@@ -485,16 +485,16 @@ finish:
         return ret;
 }
 
-int driver_cancel(ca_context *c, uint32_t id) {
+int driver_cancel(ka_context *c, uint32_t id) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
 
         p = PRIVATE(c);
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out; out = out->next) {
 
@@ -516,24 +516,24 @@ int driver_cancel(ca_context *c, uint32_t id) {
                 }
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return CA_SUCCESS;
 }
 
-int driver_playing(ca_context *c, uint32_t id, int *playing) {
+int driver_playing(ka_context *c, uint32_t id, int *playing) {
         struct private *p;
         struct outstanding *out;
 
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(c->private, CA_ERROR_STATE);
-        ca_return_val_if_fail(playing, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(c->private, CA_ERROR_STATE);
+        ka_return_val_if_fail(playing, CA_ERROR_INVALID);
 
         p = PRIVATE(c);
 
         *playing = 0;
 
-        ca_mutex_lock(p->outstanding_mutex);
+        ka_mutex_lock(p->outstanding_mutex);
 
         for (out = p->outstanding; out; out = out->next) {
 
@@ -545,7 +545,7 @@ int driver_playing(ca_context *c, uint32_t id, int *playing) {
                 break;
         }
 
-        ca_mutex_unlock(p->outstanding_mutex);
+        ka_mutex_unlock(p->outstanding_mutex);
 
         return CA_SUCCESS;
 }

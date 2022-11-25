@@ -31,31 +31,31 @@
 #include "malloc.h"
 #include "macro.h"
 
-void* ca_memdup(const void* p, size_t size) {
+void* ka_memdup(const void* p, size_t size) {
         void *r;
 
-        ca_assert(p);
+        ka_assert(p);
 
-        if (!(r = ca_malloc(size)))
+        if (!(r = ka_malloc(size)))
                 return NULL;
 
         memcpy(r, p, size);
         return r;
 }
 
-char *ca_sprintf_malloc(const char *format, ...) {
+char *ka_sprintf_malloc(const char *format, ...) {
         size_t  size = 100;
         char *c = NULL;
 
-        ca_assert(format);
+        ka_assert(format);
 
         for(;;) {
                 int r;
                 va_list ap;
 
-                ca_free(c);
+                ka_free(c);
 
-                if (!(c = ca_new(char, size)))
+                if (!(c = ka_new(char, size)))
                         return NULL;
 
                 va_start(ap, format);
@@ -75,7 +75,7 @@ char *ca_sprintf_malloc(const char *format, ...) {
 }
 
 #ifndef HAVE_STRNDUP
-char *ca_strndup(const char *s, size_t n) {
+char *ka_strndup(const char *s, size_t n) {
         size_t n_avail;
         char *p;
 
@@ -89,7 +89,7 @@ char *ca_strndup(const char *s, size_t n) {
         } else
                 n_avail = n;
 
-        if (!(p = ca_new(char, n_avail + 1)))
+        if (!(p = ka_new(char, n_avail + 1)))
                 return NULL;
 
         memcpy(p, s, n_avail);

@@ -102,17 +102,17 @@ static char *find_device(void) {
                 bus = udev_device_get_property_value(dev, "ID_BUS");
 
                 /* Ignore modems and other non-audio sound device */
-                if (class && !ca_streq(class, "sound")) {
+                if (class && !ka_streq(class, "sound")) {
                         udev_device_unref(dev);
                         continue;
                 }
 
                 /* Prefer "internal" devices */
-                if (internal_device < 0 && ff && ca_streq(ff, "internal"))
+                if (internal_device < 0 && ff && ka_streq(ff, "internal"))
                         internal_device = (int) l;
 
                 /* If no "internal" device is available, prefer PCI devices */
-                if (pci_device < 0 && bus && ca_streq(bus, "pci"))
+                if (pci_device < 0 && bus && ka_streq(bus, "pci"))
                         pci_device = (int) l;
 
                 /* If neither "internal" nor PCI devices are
@@ -140,7 +140,7 @@ finish:
         return s;
 }
 
-static void finish_cb(ca_context *c, uint32_t id, int error_code, void *userdata) {
+static void finish_cb(ka_context *c, uint32_t id, int error_code, void *userdata) {
         uint64_t u = 1;
 
         for (;;) {
@@ -155,8 +155,8 @@ static void finish_cb(ca_context *c, uint32_t id, int error_code, void *userdata
 }
 
 int main(int argc, char *argv[]) {
-        ca_context *c = NULL;
-        ca_proplist *p = NULL;
+        ka_context *c = NULL;
+        ka_proplist *p = NULL;
         int ret = EXIT_FAILURE, r;
         int fd = -1;
         char *device = NULL;
@@ -171,13 +171,13 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        if ((r = ca_context_create(&c)) < 0) {
-                fprintf(stderr, "Failed to create context: %s\n", ca_strerror(r));
+        if ((r = ka_context_create(&c)) < 0) {
+                fprintf(stderr, "Failed to create context: %s\n", ka_strerror(r));
                 goto finish;
         }
 
-        if ((r = ca_context_set_driver(c, "alsa")) < 0) {
-                fprintf(stderr, "Failed to set driver: %s\n", ca_strerror(r));
+        if ((r = ka_context_set_driver(c, "alsa")) < 0) {
+                fprintf(stderr, "Failed to set driver: %s\n", ka_strerror(r));
                 goto finish;
         }
 
@@ -186,24 +186,24 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        if ((r = ca_context_change_device(c, device)) < 0) {
-                fprintf(stderr, "Failed to set device: %s\n", ca_strerror(r));
+        if ((r = ka_context_change_device(c, device)) < 0) {
+                fprintf(stderr, "Failed to set device: %s\n", ka_strerror(r));
                 goto finish;
         }
 
-        if ((r = ca_proplist_create(&p)) < 0) {
-                fprintf(stderr, "Failed to create property list: %s\n", ca_strerror(r));
+        if ((r = ka_proplist_create(&p)) < 0) {
+                fprintf(stderr, "Failed to create property list: %s\n", ka_strerror(r));
                 goto finish;
         }
 
-        if ((r = ca_proplist_sets(p, CA_PROP_EVENT_ID, argc >= 2 ? argv[1] : "system-bootup")) < 0 ||
-            (r = ca_proplist_sets(p, CA_PROP_KANBERRA_CACHE_CONTROL, "never")) < 0) {
+        if ((r = ka_proplist_sets(p, CA_PROP_EVENT_ID, argc >= 2 ? argv[1] : "system-bootup")) < 0 ||
+            (r = ka_proplist_sets(p, CA_PROP_KANBERRA_CACHE_CONTROL, "never")) < 0) {
                 fprintf(stderr, "Failed to set event id: %s\n", strerror(r));
                 goto finish;
         }
 
-        if ((r = ca_context_play_full(c, 0, p, finish_cb, CA_INT_TO_PTR(fd))) < 0) {
-                fprintf(stderr, "Failed to play event sound: %s\n", ca_strerror(r));
+        if ((r = ka_context_play_full(c, 0, p, finish_cb, CA_INT_TO_PTR(fd))) < 0) {
+                fprintf(stderr, "Failed to play event sound: %s\n", ka_strerror(r));
                 goto finish;
         }
 
@@ -224,10 +224,10 @@ int main(int argc, char *argv[]) {
 
 finish:
         if (c)
-                ca_context_destroy(c);
+                ka_context_destroy(c);
 
         if (p)
-                ca_proplist_destroy(p);
+                ka_proplist_destroy(p);
 
         if (fd >= 0)
                 close(fd);

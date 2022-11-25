@@ -414,9 +414,9 @@ extern "C" {
  * be cached, because they are only generated very seldomly or even
  * only once at most (such as desktop login sounds).
  *
- * If this property is not explicitly passed to ca_context_play() it
+ * If this property is not explicitly passed to ka_context_play() it
  * will default to "never". If it is not explicitly passed to
- * ca_context_cache() it will default to "permanent".
+ * ka_context_cache() it will default to "permanent".
  *
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
@@ -464,7 +464,7 @@ extern "C" {
  * A special property that can be used to control whether any sounds
  * are played at all. If this property is "1" or unset sounds are
  * played as normal. However, if it is "0" all calls to
- * ca_context_play() will fail with CA_ERROR_DISABLED.
+ * ka_context_play() will fail with CA_ERROR_DISABLED.
  *
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
@@ -491,18 +491,18 @@ extern "C" {
 #define CA_PROP_KANBERRA_FORCE_CHANNEL             "kanberra.force_channel"
 
 /**
- * ca_context:
+ * ka_context:
  *
  * A libkanberra context object.
  */
-typedef struct ca_context ca_context;
+typedef struct ka_context ka_context;
 
 /**
- * ca_finish_callback_t:
+ * ka_finish_callback_t:
  * @c: The libkanberra context this callback is called for
- * @id: The numerical id passed to the ca_context_play_full() when starting the event sound playback.
+ * @id: The numerical id passed to the ka_context_play_full() when starting the event sound playback.
  * @error_code: A numerical error code describing the reason this callback is called. If CA_SUCCESS is passed in the playback of the event sound was successfully completed.
- * @userdata: Some arbitrary user data the caller of ca_context_play_full() passed in.
+ * @userdata: Some arbitrary user data the caller of ka_context_play_full() passed in.
  *
  * Playback completion event callback. The context this callback is
  * called in is undefined, it might or might not be called from a
@@ -512,7 +512,7 @@ typedef struct ca_context ca_context;
  * used to asynchronously signal some kind of notification object
  * (semaphore, message queue, ...).
  */
-typedef void (*ca_finish_callback_t)(ca_context *c, uint32_t id, int error_code, void *userdata);
+typedef void (*ka_finish_callback_t)(ka_context *c, uint32_t id, int error_code, void *userdata);
 
 /**
  * Error codes:
@@ -544,33 +544,33 @@ enum {
 };
 
 /**
- * ca_proplist:
+ * ka_proplist:
  *
  * A kanberra property list object. Basically a hashtable.
  */
-typedef struct ca_proplist ca_proplist;
+typedef struct ka_proplist ka_proplist;
 
-int ca_proplist_create(ca_proplist **p);
-int ca_proplist_destroy(ca_proplist *p);
-int ca_proplist_sets(ca_proplist *p, const char *key, const char *value);
-int ca_proplist_setf(ca_proplist *p, const char *key, const char *format, ...) __attribute__((format(printf, 3, 4)));
-int ca_proplist_set(ca_proplist *p, const char *key, const void *data, size_t nbytes);
+int ka_proplist_create(ka_proplist **p);
+int ka_proplist_destroy(ka_proplist *p);
+int ka_proplist_sets(ka_proplist *p, const char *key, const char *value);
+int ka_proplist_setf(ka_proplist *p, const char *key, const char *format, ...) __attribute__((format(printf, 3, 4)));
+int ka_proplist_set(ka_proplist *p, const char *key, const void *data, size_t nbytes);
 
-int ca_context_create(ca_context **c);
-int ca_context_set_driver(ca_context *c, const char *driver);
-int ca_context_change_device(ca_context *c, const char *device);
-int ca_context_open(ca_context *c);
-int ca_context_destroy(ca_context *c);
-int ca_context_change_props(ca_context *c, ...) __attribute__((sentinel));
-int ca_context_change_props_full(ca_context *c, ca_proplist *p);
-int ca_context_play_full(ca_context *c, uint32_t id, ca_proplist *p, ca_finish_callback_t cb, void *userdata);
-int ca_context_play(ca_context *c, uint32_t id, ...) __attribute__((sentinel));
-int ca_context_cache_full(ca_context *c, ca_proplist *p);
-int ca_context_cache(ca_context *c, ...) __attribute__((sentinel));
-int ca_context_cancel(ca_context *c, uint32_t id);
-int ca_context_playing(ca_context *c, uint32_t id, int *playing);
+int ka_context_create(ka_context **c);
+int ka_context_set_driver(ka_context *c, const char *driver);
+int ka_context_change_device(ka_context *c, const char *device);
+int ka_context_open(ka_context *c);
+int ka_context_destroy(ka_context *c);
+int ka_context_change_props(ka_context *c, ...) __attribute__((sentinel));
+int ka_context_change_props_full(ka_context *c, ka_proplist *p);
+int ka_context_play_full(ka_context *c, uint32_t id, ka_proplist *p, ka_finish_callback_t cb, void *userdata);
+int ka_context_play(ka_context *c, uint32_t id, ...) __attribute__((sentinel));
+int ka_context_cache_full(ka_context *c, ka_proplist *p);
+int ka_context_cache(ka_context *c, ...) __attribute__((sentinel));
+int ka_context_cancel(ka_context *c, uint32_t id);
+int ka_context_playing(ka_context *c, uint32_t id, int *playing);
 
-const char *ca_strerror(int code);
+const char *ka_strerror(int code);
 
 #ifdef __cplusplus
 }

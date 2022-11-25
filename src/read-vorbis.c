@@ -34,10 +34,10 @@
 
 #define FILE_SIZE_MAX ((off_t) (64U*1024U*1024U))
 
-struct ca_vorbis {
+struct ka_vorbis {
         OggVorbis_File ovf;
         off_t size;
-        ca_channel_position_t channel_map[8];
+        ka_channel_position_t channel_map[8];
 };
 
 static int convert_error(int or) {
@@ -68,15 +68,15 @@ static int convert_error(int or) {
         }
 }
 
-int ca_vorbis_open(ca_vorbis **_v, FILE *f)  {
+int ka_vorbis_open(ka_vorbis **_v, FILE *f)  {
         int ret, or;
-        ca_vorbis *v;
+        ka_vorbis *v;
         int64_t n;
 
-        ca_return_val_if_fail(_v, CA_ERROR_INVALID);
-        ca_return_val_if_fail(f, CA_ERROR_INVALID);
+        ka_return_val_if_fail(_v, CA_ERROR_INVALID);
+        ka_return_val_if_fail(f, CA_ERROR_INVALID);
 
-        if (!(v = ca_new0(ca_vorbis, 1)))
+        if (!(v = ka_new0(ka_vorbis, 1)))
                 return CA_ERROR_OOM;
 
         if ((or = ov_open(f, &v->ovf, NULL, 0)) < 0) {
@@ -96,7 +96,7 @@ int ca_vorbis_open(ca_vorbis **_v, FILE *f)  {
                 goto fail;
         }
 
-        v->size = (off_t) n * (off_t) sizeof(int16_t) * ca_vorbis_get_nchannels(v);
+        v->size = (off_t) n * (off_t) sizeof(int16_t) * ka_vorbis_get_nchannels(v);
 
         *_v = v;
 
@@ -104,40 +104,40 @@ int ca_vorbis_open(ca_vorbis **_v, FILE *f)  {
 
 fail:
 
-        ca_free(v);
+        ka_free(v);
         return ret;
 }
 
-void ca_vorbis_close(ca_vorbis *v) {
-        ca_assert(v);
+void ka_vorbis_close(ka_vorbis *v) {
+        ka_assert(v);
 
         ov_clear(&v->ovf);
-        ca_free(v);
+        ka_free(v);
 }
 
-unsigned ca_vorbis_get_nchannels(ca_vorbis *v) {
+unsigned ka_vorbis_get_nchannels(ka_vorbis *v) {
         const vorbis_info *vi;
-        ca_assert(v);
+        ka_assert(v);
 
-        ca_assert_se(vi = ov_info(&v->ovf, -1));
+        ka_assert_se(vi = ov_info(&v->ovf, -1));
 
         return (unsigned) vi->channels;
 }
 
-unsigned ca_vorbis_get_rate(ca_vorbis *v) {
+unsigned ka_vorbis_get_rate(ka_vorbis *v) {
         const vorbis_info *vi;
-        ca_assert(v);
+        ka_assert(v);
 
-        ca_assert_se(vi = ov_info(&v->ovf, -1));
+        ka_assert_se(vi = ov_info(&v->ovf, -1));
 
         return (unsigned) vi->rate;
 }
 
-const ca_channel_position_t* ca_vorbis_get_channel_map(ca_vorbis *v) {
+const ka_channel_position_t* ka_vorbis_get_channel_map(ka_vorbis *v) {
 
         /* See http://www.xiph.org/vorbis/doc/Vorbis_I_spec.html#x1-800004.3.9 */
 
-        switch (ca_vorbis_get_nchannels(v)) {
+        switch (ka_vorbis_get_nchannels(v)) {
         case 8:
                 v->channel_map[0] = CA_CHANNEL_FRONT_LEFT;
                 v->channel_map[1] = CA_CHANNEL_FRONT_CENTER;
@@ -192,16 +192,16 @@ const ca_channel_position_t* ca_vorbis_get_channel_map(ca_vorbis *v) {
         return NULL;
 }
 
-int ca_vorbis_read_s16ne(ca_vorbis *v, int16_t *d, size_t *n){
+int ka_vorbis_read_s16ne(ka_vorbis *v, int16_t *d, size_t *n){
         long r;
         int section;
         int length;
         size_t n_read = 0;
 
-        ca_return_val_if_fail(v, CA_ERROR_INVALID);
-        ca_return_val_if_fail(d, CA_ERROR_INVALID);
-        ca_return_val_if_fail(n, CA_ERROR_INVALID);
-        ca_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
+        ka_return_val_if_fail(v, CA_ERROR_INVALID);
+        ka_return_val_if_fail(d, CA_ERROR_INVALID);
+        ka_return_val_if_fail(n, CA_ERROR_INVALID);
+        ka_return_val_if_fail(*n > 0, CA_ERROR_INVALID);
 
         length = (int) (*n * sizeof(int16_t));
 
@@ -231,7 +231,7 @@ int ca_vorbis_read_s16ne(ca_vorbis *v, int16_t *d, size_t *n){
 
         } while (length >= 4096);
 
-        ca_assert(v->size >= (off_t) n_read);
+        ka_assert(v->size >= (off_t) n_read);
         v->size -= (off_t) n_read;
 
         *n = n_read/sizeof(int16_t);
@@ -239,8 +239,8 @@ int ca_vorbis_read_s16ne(ca_vorbis *v, int16_t *d, size_t *n){
         return CA_SUCCESS;
 }
 
-off_t ca_vorbis_get_size(ca_vorbis *v) {
-        ca_return_val_if_fail(v, (off_t) -1);
+off_t ka_vorbis_get_size(ka_vorbis *v) {
+        ka_return_val_if_fail(v, (off_t) -1);
 
         return v->size;
 }

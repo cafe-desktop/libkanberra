@@ -29,7 +29,7 @@
 #include "kanberra.h"
 #include "driver-order.h"
 
-const char* const ca_driver_order[] = {
+const char* const ka_driver_order[] = {
 #ifdef HAVE_PULSE
         "pulse",
 #endif

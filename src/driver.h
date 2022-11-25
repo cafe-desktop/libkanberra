@@ -25,16 +25,16 @@
 
 #include "kanberra.h"
 
-int driver_open(ca_context *c);
-int driver_destroy(ca_context *c);
+int driver_open(ka_context *c);
+int driver_destroy(ka_context *c);
 
-int driver_change_device(ca_context *c, const char *device);
-int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged);
+int driver_change_device(ka_context *c, const char *device);
+int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged);
 
-int driver_play(ca_context *c, uint32_t id, ca_proplist *p, ca_finish_callback_t cb, void *userdata);
-int driver_cancel(ca_context *c, uint32_t id);
-int driver_cache(ca_context *c, ca_proplist *p);
+int driver_play(ka_context *c, uint32_t id, ka_proplist *p, ka_finish_callback_t cb, void *userdata);
+int driver_cancel(ka_context *c, uint32_t id);
+int driver_cache(ka_context *c, ka_proplist *p);
 
-int driver_playing(ca_context *c, uint32_t id, int *playing);
+int driver_playing(ka_context *c, uint32_t id, int *playing);
 
 #endif

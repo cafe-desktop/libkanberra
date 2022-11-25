@@ -44,51 +44,51 @@
 #define CA_PRETTY_FUNCTION ""
 #endif
 
-#define ca_return_if_fail(expr)                                         \
+#define ka_return_if_fail(expr)                                         \
         do {                                                            \
                 if (CA_UNLIKELY(!(expr))) {                             \
-                        if (ca_debug())                                 \
+                        if (ka_debug())                                 \
                                 fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
                         return;                                         \
                 }                                                       \
         } while(FALSE)
 
-#define ca_return_val_if_fail(expr, val)                                \
+#define ka_return_val_if_fail(expr, val)                                \
         do {                                                            \
                 if (CA_UNLIKELY(!(expr))) {                             \
-                        if (ca_debug())                                 \
+                        if (ka_debug())                                 \
                                 fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
                         return (val);                                   \
                 }                                                       \
         } while(FALSE)
 
-#define ca_return_null_if_fail(expr) ca_return_val_if_fail(expr, NULL)
+#define ka_return_null_if_fail(expr) ka_return_val_if_fail(expr, NULL)
 
-#define ca_return_if_fail_unlock(expr, mutex)                           \
+#define ka_return_if_fail_unlock(expr, mutex)                           \
         do {                                                            \
                 if (CA_UNLIKELY(!(expr))) {                             \
-                        if (ca_debug())                                 \
+                        if (ka_debug())                                 \
                                 fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
-                        ca_mutex_unlock(mutex);                         \
+                        ka_mutex_unlock(mutex);                         \
                         return;                                         \
                 }                                                       \
         } while(FALSE)
 
-#define ca_return_val_if_fail_unlock(expr, val, mutex)                  \
+#define ka_return_val_if_fail_unlock(expr, val, mutex)                  \
         do {                                                            \
                 if (CA_UNLIKELY(!(expr))) {                             \
-                        if (ca_debug())                                 \
+                        if (ka_debug())                                 \
                                 fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
-                        ca_mutex_unlock(mutex);                         \
+                        ka_mutex_unlock(mutex);                         \
                         return (val);                                   \
                 }                                                       \
         } while(FALSE)
 
-#define ca_return_null_if_fail_unlock(expr, mutex) ca_return_val_if_fail_unlock(expr, NULL, mutex)
+#define ka_return_null_if_fail_unlock(expr, mutex) ka_return_val_if_fail_unlock(expr, NULL, mutex)
 
 /* An assert which guarantees side effects of x, i.e. is never
  * optimized away */
-#define ca_assert_se(expr)                                              \
+#define ka_assert_se(expr)                                              \
         do {                                                            \
                 if (CA_UNLIKELY(!(expr))) {                             \
                         fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s(). Aborting.\n", #expr , __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
@@ -98,12 +98,12 @@
 
 /* An assert that may be optimized away by defining NDEBUG */
 #ifdef NDEBUG
-#define ca_assert(expr) do {} while (FALSE)
+#define ka_assert(expr) do {} while (FALSE)
 #else
-#define ca_assert(expr) ca_assert_se(expr)
+#define ka_assert(expr) ka_assert_se(expr)
 #endif
 
-#define ca_assert_not_reached()                                         \
+#define ka_assert_not_reached()                                         \
         do {                                                            \
                 fprintf(stderr, "Code should not be reached at %s:%u, function %s(). Aborting.\n", __FILE__, __LINE__, CA_PRETTY_FUNCTION); \
                 abort();                                                \
@@ -162,17 +162,17 @@
 #define CA_PTR_TO_INT32(p) ((int32_t) CA_PTR_TO_UINT(p))
 #define CA_INT32_TO_PTR(u) CA_UINT_TO_PTR((int32_t) u)
 
-typedef int ca_bool_t;
+typedef int ka_bool_t;
 
-ca_bool_t ca_debug(void);
+ka_bool_t ka_debug(void);
 
-static inline size_t ca_align(size_t l) {
+static inline size_t ka_align(size_t l) {
         return (((l + sizeof(void*) - 1) / sizeof(void*)) * sizeof(void*));
 }
 
-#define CA_ALIGN(x) (ca_align(x))
+#define CA_ALIGN(x) (ka_align(x))
 
-typedef void (*ca_free_cb_t)(void *);
+typedef void (*ka_free_cb_t)(void *);
 
 #ifdef HAVE_BYTESWAP_H
 #include <byteswap.h>
@@ -240,7 +240,7 @@ typedef void (*ca_free_cb_t)(void *);
  #define CA_UINT32_TO_BE(x) CA_UINT32_SWAP(x)
 #endif
 
-#define ca_streq(a, b) (strcmp((a),(b)) == 0)
+#define ka_streq(a, b) (strcmp((a),(b)) == 0)
 
 #ifdef __GNUC__
 #define CA_GCC_DESTRUCTOR __attribute__ ((destructor))

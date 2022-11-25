@@ -30,37 +30,37 @@
 #include "common.h"
 #include "driver.h"
 
-int driver_open(ca_context *c) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!c->driver || ca_streq(c->driver, "null"), CA_ERROR_NODRIVER);
+int driver_open(ka_context *c) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!c->driver || ka_streq(c->driver, "null"), CA_ERROR_NODRIVER);
 
         return CA_SUCCESS;
 }
 
-int driver_destroy(ca_context *c) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
+int driver_destroy(ka_context *c) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
 
         return CA_SUCCESS;
 }
 
-int driver_change_device(ca_context *c, const char *device) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
+int driver_change_device(ka_context *c, const char *device) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
 
         return CA_SUCCESS;
 }
 
-int driver_change_props(ca_context *c, ca_proplist *changed, ca_proplist *merged) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(changed, CA_ERROR_INVALID);
-        ca_return_val_if_fail(merged, CA_ERROR_INVALID);
+int driver_change_props(ka_context *c, ka_proplist *changed, ka_proplist *merged) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(changed, CA_ERROR_INVALID);
+        ka_return_val_if_fail(merged, CA_ERROR_INVALID);
 
         return CA_SUCCESS;
 }
 
-int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_callback_t cb, void *userdata) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
-        ca_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
+int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_callback_t cb, void *userdata) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
+        ka_return_val_if_fail(!userdata || cb, CA_ERROR_INVALID);
 
         if (cb)
                 cb(c, id, CA_SUCCESS, userdata);
@@ -68,15 +68,15 @@ int driver_play(ca_context *c, uint32_t id, ca_proplist *proplist, ca_finish_cal
         return CA_SUCCESS;
 }
 
-int driver_cancel(ca_context *c, uint32_t id) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
+int driver_cancel(ka_context *c, uint32_t id) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
 
         return CA_SUCCESS;
 }
 
-int driver_cache(ca_context *c, ca_proplist *proplist) {
-        ca_return_val_if_fail(c, CA_ERROR_INVALID);
-        ca_return_val_if_fail(proplist, CA_ERROR_INVALID);
+int driver_cache(ka_context *c, ka_proplist *proplist) {
+        ka_return_val_if_fail(c, CA_ERROR_INVALID);
+        ka_return_val_if_fail(proplist, CA_ERROR_INVALID);
 
         return CA_ERROR_NOTSUPPORTED;
 }

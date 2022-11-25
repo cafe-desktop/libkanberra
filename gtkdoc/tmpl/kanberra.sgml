@@ -279,13 +279,13 @@ kanberra
 
 
 
-<!-- ##### TYPEDEF ca_context ##### -->
+<!-- ##### TYPEDEF ka_context ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### USER_FUNCTION ca_finish_callback_t ##### -->
+<!-- ##### USER_FUNCTION ka_finish_callback_t ##### -->
 <para>
 
 </para>
@@ -296,7 +296,7 @@ kanberra
 @userdata:
 
 
-<!-- ##### FUNCTION ca_context_create ##### -->
+<!-- ##### FUNCTION ka_context_create ##### -->
 <para>
 
 </para>
@@ -305,7 +305,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_destroy ##### -->
+<!-- ##### FUNCTION ka_context_destroy ##### -->
 <para>
 
 </para>
@@ -314,7 +314,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_open ##### -->
+<!-- ##### FUNCTION ka_context_open ##### -->
 <para>
 
 </para>
@@ -323,7 +323,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_set_driver ##### -->
+<!-- ##### FUNCTION ka_context_set_driver ##### -->
 <para>
 
 </para>
@@ -333,7 +333,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_change_device ##### -->
+<!-- ##### FUNCTION ka_context_change_device ##### -->
 <para>
 
 </para>
@@ -343,7 +343,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_change_props ##### -->
+<!-- ##### FUNCTION ka_context_change_props ##### -->
 <para>
 
 </para>
@@ -353,7 +353,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_change_props_full ##### -->
+<!-- ##### FUNCTION ka_context_change_props_full ##### -->
 <para>
 
 </para>
@@ -363,7 +363,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_play ##### -->
+<!-- ##### FUNCTION ka_context_play ##### -->
 <para>
 
 </para>
@@ -374,7 +374,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_play_full ##### -->
+<!-- ##### FUNCTION ka_context_play_full ##### -->
 <para>
 
 </para>
@@ -387,7 +387,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_cancel ##### -->
+<!-- ##### FUNCTION ka_context_cancel ##### -->
 <para>
 
 </para>
@@ -397,7 +397,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_cache ##### -->
+<!-- ##### FUNCTION ka_context_cache ##### -->
 <para>
 
 </para>
@@ -407,7 +407,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_cache_full ##### -->
+<!-- ##### FUNCTION ka_context_cache_full ##### -->
 <para>
 
 </para>
@@ -417,7 +417,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_context_playing ##### -->
+<!-- ##### FUNCTION ka_context_playing ##### -->
 <para>
 
 </para>
@@ -428,7 +428,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_strerror ##### -->
+<!-- ##### FUNCTION ka_strerror ##### -->
 <para>
 
 </para>
@@ -437,22 +437,13 @@ kanberra
 @Returns:
 
 
-<!-- ##### TYPEDEF ca_proplist ##### -->
+<!-- ##### TYPEDEF ka_proplist ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### FUNCTION ca_proplist_create ##### -->
-<para>
-
-</para>
-
-@p:
-@Returns:
-
-
-<!-- ##### FUNCTION ca_proplist_destroy ##### -->
+<!-- ##### FUNCTION ka_proplist_create ##### -->
 <para>
 
 </para>
@@ -461,7 +452,16 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_proplist_sets ##### -->
+<!-- ##### FUNCTION ka_proplist_destroy ##### -->
+<para>
+
+</para>
+
+@p:
+@Returns:
+
+
+<!-- ##### FUNCTION ka_proplist_sets ##### -->
 <para>
 
 </para>
@@ -472,7 +472,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_proplist_setf ##### -->
+<!-- ##### FUNCTION ka_proplist_setf ##### -->
 <para>
 
 </para>
@@ -484,7 +484,7 @@ kanberra
 @Returns:
 
 
-<!-- ##### FUNCTION ca_proplist_set ##### -->
+<!-- ##### FUNCTION ka_proplist_set ##### -->
 <para>
 
 </para>

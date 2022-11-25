@@ -31,10 +31,10 @@
 #include <kanberra-ctk.h>
 
 static int ret = 0;
-static ca_proplist *proplist = NULL;
+static ka_proplist *proplist = NULL;
 static int n_loops = 1;
 
-static void callback(ca_context *c, uint32_t id, int error, void *userdata);
+static void callback(ka_context *c, uint32_t id, int error, void *userdata);
 
 static gboolean idle_quit(gpointer userdata) {
         ctk_main_quit();
@@ -48,10 +48,10 @@ static gboolean idle_play(gpointer userdata) {
 
         n_loops--;
 
-        r = ca_context_play_full(ca_ctk_context_get(), 1, proplist, callback, NULL);
+        r = ka_context_play_full(ka_ctk_context_get(), 1, proplist, callback, NULL);
 
         if (r < 0) {
-                g_printerr("Failed to play sound: %s\n", ca_strerror(r));
+                g_printerr("Failed to play sound: %s\n", ka_strerror(r));
                 ret = 1;
                 ctk_main_quit();
         }
@@ -59,14 +59,14 @@ static gboolean idle_play(gpointer userdata) {
         return FALSE;
 }
 
-static void callback(ca_context *c, uint32_t id, int error, void *userdata) {
+static void callback(ka_context *c, uint32_t id, int error, void *userdata) {
 
         if (error < 0) {
-                g_printerr("Failed to play sound (callback): %s\n", ca_strerror(error));
+                g_printerr("Failed to play sound (callback): %s\n", ka_strerror(error));
                 ret = 1;
 
         } else if (n_loops > 1) {
-                /* So, why don't we call ca_context_play_full() here directly?
+                /* So, why don't we call ka_context_play_full() here directly?
                    -- Because the context this callback is called from is
                    explicitly documented as undefined and no libkanberra function
                    may be called from it. */
@@ -102,7 +102,7 @@ static gboolean property_callback(
 
         t = g_strndup(value, equal - value);
 
-        if (ca_proplist_sets(proplist, t, equal + 1) < 0) {
+        if (ka_proplist_sets(proplist, t, equal + 1) < 0) {
                 g_set_error(error, error_domain(), 0, "Invalid property.");
                 g_free(t);
                 return FALSE;
@@ -135,7 +135,7 @@ int main (int argc, char *argv[]) {
 
         g_type_init();
 
-        ca_proplist_create(&proplist);
+        ka_proplist_create(&proplist);
 
         oc = g_option_context_new("- kanberra-ctk-play");
         g_option_context_add_main_entries(oc, options, NULL);
@@ -158,31 +158,31 @@ int main (int argc, char *argv[]) {
                 return 1;
         }
 
-        ca_context_change_props(ca_ctk_context_get(),
+        ka_context_change_props(ka_ctk_context_get(),
                                 CA_PROP_APPLICATION_NAME, "kanberra-ctk-play",
                                 CA_PROP_APPLICATION_VERSION, PACKAGE_VERSION,
                                 CA_PROP_APPLICATION_ID, "org.freedesktop.libkanberra.ctk-play",
                                 NULL);
 
         if (event_id)
-                ca_proplist_sets(proplist, CA_PROP_EVENT_ID, event_id);
+                ka_proplist_sets(proplist, CA_PROP_EVENT_ID, event_id);
 
         if (filename)
-                ca_proplist_sets(proplist, CA_PROP_MEDIA_FILENAME, filename);
+                ka_proplist_sets(proplist, CA_PROP_MEDIA_FILENAME, filename);
 
         if (cache_control)
-                ca_proplist_sets(proplist, CA_PROP_KANBERRA_CACHE_CONTROL, cache_control);
+                ka_proplist_sets(proplist, CA_PROP_KANBERRA_CACHE_CONTROL, cache_control);
 
         if (event_description)
-                ca_proplist_sets(proplist, CA_PROP_EVENT_DESCRIPTION, event_description);
+                ka_proplist_sets(proplist, CA_PROP_EVENT_DESCRIPTION, event_description);
 
         if (volume)
-                ca_proplist_sets(proplist, CA_PROP_KANBERRA_VOLUME, volume);
+                ka_proplist_sets(proplist, CA_PROP_KANBERRA_VOLUME, volume);
 
-        r = ca_context_play_full(ca_ctk_context_get(), 1, proplist, callback, NULL);
+        r = ka_context_play_full(ka_ctk_context_get(), 1, proplist, callback, NULL);
 
         if (r < 0) {
-                g_printerr("Failed to play sound: %s\n", ca_strerror(r));
+                g_printerr("Failed to play sound: %s\n", ka_strerror(r));
                 ret = 1;
                 goto finish;
         }
@@ -191,7 +191,7 @@ int main (int argc, char *argv[]) {
 
 finish:
 
-        ca_proplist_destroy(proplist);
+        ka_proplist_destroy(proplist);
 
         return ret;
 }
