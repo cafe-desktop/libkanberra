@@ -14,22 +14,22 @@
 
 @SET_MAKE@
 
-# This file is part of libcanberra.
+# This file is part of libkanberra.
 #
 # Copyright 2008 Lennart Poettering
 #
-# libcanberra is free software; you can redistribute it and/or modify
+# libkanberra is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
 # published by the Free Software Foundation, either version 2.1 of the
 # License, or (at your option) any later version.
 #
-# libcanberra is distributed in the hope that it will be useful, but
+# libkanberra is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with libcanberra. If not, see
+# License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
 
@@ -72,7 +72,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = test-canberra$(EXEEXT)
+noinst_PROGRAMS = test-kanberra$(EXEEXT)
 @USE_VERSION_SCRIPT_TRUE@am__append_1 = -Wl,-version-script=$(srcdir)/map-file
 @HAVE_CACHE_TRUE@am__append_2 = \
 @HAVE_CACHE_TRUE@	cache.c cache.h
@@ -92,7 +92,7 @@ noinst_PROGRAMS = test-canberra$(EXEEXT)
 @BUILTIN_DSO_TRUE@	$(LIBLTDL)
 
 @BUILTIN_DSO_TRUE@am__append_7 = \
-@BUILTIN_DSO_TRUE@	libcanberra-multi.la
+@BUILTIN_DSO_TRUE@	libkanberra-multi.la
 
 @BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@am__append_8 = \
 @BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@	pulse.c
@@ -104,7 +104,7 @@ noinst_PROGRAMS = test-canberra$(EXEEXT)
 @BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@	$(PULSE_LIBS)
 
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@am__append_11 = \
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libcanberra-pulse.la
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libkanberra-pulse.la
 
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@am__append_12 = \
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@	alsa.c
@@ -116,13 +116,13 @@ noinst_PROGRAMS = test-canberra$(EXEEXT)
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@	 $(ALSA_LIBS)
 
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@am__append_15 = \
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libcanberra-alsa.la
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libkanberra-alsa.la
 
 @BUILTIN_OSS_TRUE@@HAVE_OSS_TRUE@am__append_16 = \
 @BUILTIN_OSS_TRUE@@HAVE_OSS_TRUE@	oss.c
 
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@am__append_17 = \
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libcanberra-oss.la
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libkanberra-oss.la
 
 @BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@am__append_18 = \
 @BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@	gstreamer.c
@@ -134,52 +134,52 @@ noinst_PROGRAMS = test-canberra$(EXEEXT)
 @BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@	 $(GST_LIBS)
 
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am__append_21 = \
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libcanberra-gstreamer.la
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libkanberra-gstreamer.la
 
 @BUILTIN_NULL_TRUE@@HAVE_NULL_TRUE@am__append_22 = \
 @BUILTIN_NULL_TRUE@@HAVE_NULL_TRUE@	null.c
 
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@am__append_23 = \
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libcanberra-null.la
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libkanberra-null.la
 
 bin_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am__append_24 = \
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	canberra-boot
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	kanberra-boot
 
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@am__append_25 = \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-bootup.service.in \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown.service.in \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown-reboot.service.in
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-bootup.service.in \
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-shutdown.service.in \
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-shutdown-reboot.service.in
 
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@am__append_26 = \
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	$(systemdsystemunit_DATA)
 
 @HAVE_CTK_ANY_TRUE@am__append_27 = \
-@HAVE_CTK_ANY_TRUE@	canberra-ctk-play
+@HAVE_CTK_ANY_TRUE@	kanberra-ctk-play
 
 @HAVE_CTK_ANY_TRUE@am__append_28 = \
-@HAVE_CTK_ANY_TRUE@	canberra-ctk.h
+@HAVE_CTK_ANY_TRUE@	kanberra-ctk.h
 
 @HAVE_CTK3_TRUE@am__append_29 = \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@	libkanberra-ctk3.la
 
 @HAVE_CTK_TRUE@am__append_30 = \
-@HAVE_CTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK_TRUE@	libkanberra-ctk.la
 
 @HAVE_CTK_ANY_TRUE@am__append_31 = \
-@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop.in \
-@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop.in \
-@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh.in
+@HAVE_CTK_ANY_TRUE@	libkanberra-login-sound.desktop.in \
+@HAVE_CTK_ANY_TRUE@	libkanberra-ready-sound.desktop.in \
+@HAVE_CTK_ANY_TRUE@	libkanberra-logout-sound.sh.in
 
 @HAVE_CTK_ANY_TRUE@am__append_32 = \
-@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop \
-@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop \
-@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh
+@HAVE_CTK_ANY_TRUE@	libkanberra-login-sound.desktop \
+@HAVE_CTK_ANY_TRUE@	libkanberra-ready-sound.desktop \
+@HAVE_CTK_ANY_TRUE@	libkanberra-logout-sound.sh
 
 subdir = src
 DIST_COMMON = $(am__dist_gsdctkmodules_DATA_DIST) \
 	$(am__include_HEADERS_DIST) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(srcdir)/canberra.h.in \
+	$(srcdir)/Makefile.in $(srcdir)/kanberra.h.in \
 	$(top_srcdir)/build-aux/depcomp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
@@ -191,7 +191,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = canberra.h
+CONFIG_CLEAN_FILES = kanberra.h
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -230,127 +230,127 @@ am__installdirs = "$(DESTDIR)$(ctk3moduledir)" \
 LTLIBRARIES = $(ctk3module_LTLIBRARIES) $(ctkmodule_LTLIBRARIES) \
 	$(lib_LTLIBRARIES) $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libcanberra_alsa_la_DEPENDENCIES =  \
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libkanberra_alsa_la_DEPENDENCIES =  \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	$(am__DEPENDENCIES_1) \
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libcanberra.la
-am__libcanberra_alsa_la_SOURCES_DIST = alsa.c
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@am_libcanberra_alsa_la_OBJECTS = libcanberra_alsa_la-alsa.lo
-libcanberra_alsa_la_OBJECTS = $(am_libcanberra_alsa_la_OBJECTS)
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libkanberra.la
+am__libkanberra_alsa_la_SOURCES_DIST = alsa.c
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@am_libkanberra_alsa_la_OBJECTS = libkanberra_alsa_la-alsa.lo
+libkanberra_alsa_la_OBJECTS = $(am_libkanberra_alsa_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 =
-libcanberra_alsa_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+libkanberra_alsa_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_alsa_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_alsa_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@am_libcanberra_alsa_la_rpath =  \
+	$(libkanberra_alsa_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_alsa_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@am_libkanberra_alsa_la_rpath =  \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	-rpath $(plugindir)
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libcanberra_gstreamer_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libcanberra.la
-am__libcanberra_gstreamer_la_SOURCES_DIST = gstreamer.c
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am_libcanberra_gstreamer_la_OBJECTS = libcanberra_gstreamer_la-gstreamer.lo
-libcanberra_gstreamer_la_OBJECTS =  \
-	$(am_libcanberra_gstreamer_la_OBJECTS)
-libcanberra_gstreamer_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libkanberra_gstreamer_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libkanberra.la
+am__libkanberra_gstreamer_la_SOURCES_DIST = gstreamer.c
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am_libkanberra_gstreamer_la_OBJECTS = libkanberra_gstreamer_la-gstreamer.lo
+libkanberra_gstreamer_la_OBJECTS =  \
+	$(am_libkanberra_gstreamer_la_OBJECTS)
+libkanberra_gstreamer_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_gstreamer_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_gstreamer_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am_libcanberra_gstreamer_la_rpath =  \
+	$(libkanberra_gstreamer_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_gstreamer_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@am_libkanberra_gstreamer_la_rpath =  \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	-rpath \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	$(plugindir)
-@HAVE_CTK_TRUE@libcanberra_ctk_module_la_DEPENDENCIES =  \
-@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_CTK_TRUE@	libcanberra-ctk.la
-am__libcanberra_ctk_module_la_SOURCES_DIST = canberra-ctk-module.c
-@HAVE_CTK_TRUE@am_libcanberra_ctk_module_la_OBJECTS = libcanberra_ctk_module_la-canberra-ctk-module.lo
-libcanberra_ctk_module_la_OBJECTS =  \
-	$(am_libcanberra_ctk_module_la_OBJECTS)
-libcanberra_ctk_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@HAVE_CTK_TRUE@libkanberra_ctk_module_la_DEPENDENCIES =  \
+@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libkanberra.la \
+@HAVE_CTK_TRUE@	libkanberra-ctk.la
+am__libkanberra_ctk_module_la_SOURCES_DIST = kanberra-ctk-module.c
+@HAVE_CTK_TRUE@am_libkanberra_ctk_module_la_OBJECTS = libkanberra_ctk_module_la-kanberra-ctk-module.lo
+libkanberra_ctk_module_la_OBJECTS =  \
+	$(am_libkanberra_ctk_module_la_OBJECTS)
+libkanberra_ctk_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_ctk_module_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_ctk_module_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_CTK_TRUE@am_libcanberra_ctk_module_la_rpath = -rpath \
+	$(libkanberra_ctk_module_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_ctk_module_la_LDFLAGS) $(LDFLAGS) -o $@
+@HAVE_CTK_TRUE@am_libkanberra_ctk_module_la_rpath = -rpath \
 @HAVE_CTK_TRUE@	$(ctkmoduledir)
-@HAVE_CTK_TRUE@libcanberra_ctk_la_DEPENDENCIES =  \
-@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
-am__libcanberra_ctk_la_SOURCES_DIST = canberra-ctk.h canberra-ctk.c
-@HAVE_CTK_TRUE@am_libcanberra_ctk_la_OBJECTS =  \
-@HAVE_CTK_TRUE@	libcanberra_ctk_la-canberra-ctk.lo
-libcanberra_ctk_la_OBJECTS = $(am_libcanberra_ctk_la_OBJECTS)
-libcanberra_ctk_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@HAVE_CTK_TRUE@libkanberra_ctk_la_DEPENDENCIES =  \
+@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) libkanberra.la
+am__libkanberra_ctk_la_SOURCES_DIST = kanberra-ctk.h kanberra-ctk.c
+@HAVE_CTK_TRUE@am_libkanberra_ctk_la_OBJECTS =  \
+@HAVE_CTK_TRUE@	libkanberra_ctk_la-kanberra-ctk.lo
+libkanberra_ctk_la_OBJECTS = $(am_libkanberra_ctk_la_OBJECTS)
+libkanberra_ctk_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_ctk_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_ctk_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_CTK_TRUE@am_libcanberra_ctk_la_rpath = -rpath $(libdir)
-@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_DEPENDENCIES =  \
-@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
-am__libcanberra_ctk3_module_la_SOURCES_DIST = canberra-ctk-module.c
-@HAVE_CTK3_TRUE@am_libcanberra_ctk3_module_la_OBJECTS = libcanberra_ctk3_module_la-canberra-ctk-module.lo
-libcanberra_ctk3_module_la_OBJECTS =  \
-	$(am_libcanberra_ctk3_module_la_OBJECTS)
-libcanberra_ctk3_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(libkanberra_ctk_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_ctk_la_LDFLAGS) $(LDFLAGS) -o $@
+@HAVE_CTK_TRUE@am_libkanberra_ctk_la_rpath = -rpath $(libdir)
+@HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libkanberra.la \
+@HAVE_CTK3_TRUE@	libkanberra-ctk3.la
+am__libkanberra_ctk3_module_la_SOURCES_DIST = kanberra-ctk-module.c
+@HAVE_CTK3_TRUE@am_libkanberra_ctk3_module_la_OBJECTS = libkanberra_ctk3_module_la-kanberra-ctk-module.lo
+libkanberra_ctk3_module_la_OBJECTS =  \
+	$(am_libkanberra_ctk3_module_la_OBJECTS)
+libkanberra_ctk3_module_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_ctk3_module_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_ctk3_module_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_CTK3_TRUE@am_libcanberra_ctk3_module_la_rpath = -rpath \
+	$(libkanberra_ctk3_module_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_ctk3_module_la_LDFLAGS) $(LDFLAGS) -o $@
+@HAVE_CTK3_TRUE@am_libkanberra_ctk3_module_la_rpath = -rpath \
 @HAVE_CTK3_TRUE@	$(ctk3moduledir)
-@HAVE_CTK3_TRUE@libcanberra_ctk3_la_DEPENDENCIES =  \
-@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la
-am__libcanberra_ctk3_la_SOURCES_DIST = canberra-ctk.h canberra-ctk.c
-@HAVE_CTK3_TRUE@am_libcanberra_ctk3_la_OBJECTS =  \
-@HAVE_CTK3_TRUE@	libcanberra_ctk3_la-canberra-ctk.lo
-libcanberra_ctk3_la_OBJECTS = $(am_libcanberra_ctk3_la_OBJECTS)
-libcanberra_ctk3_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_la_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libkanberra.la
+am__libkanberra_ctk3_la_SOURCES_DIST = kanberra-ctk.h kanberra-ctk.c
+@HAVE_CTK3_TRUE@am_libkanberra_ctk3_la_OBJECTS =  \
+@HAVE_CTK3_TRUE@	libkanberra_ctk3_la-kanberra-ctk.lo
+libkanberra_ctk3_la_OBJECTS = $(am_libkanberra_ctk3_la_OBJECTS)
+libkanberra_ctk3_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_ctk3_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_ctk3_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_CTK3_TRUE@am_libcanberra_ctk3_la_rpath = -rpath $(libdir)
-@BUILTIN_DSO_TRUE@libcanberra_multi_la_DEPENDENCIES = libcanberra.la
-am__libcanberra_multi_la_SOURCES_DIST = multi.c
-@BUILTIN_DSO_TRUE@am_libcanberra_multi_la_OBJECTS =  \
-@BUILTIN_DSO_TRUE@	libcanberra_multi_la-multi.lo
-libcanberra_multi_la_OBJECTS = $(am_libcanberra_multi_la_OBJECTS)
-libcanberra_multi_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(libkanberra_ctk3_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_ctk3_la_LDFLAGS) $(LDFLAGS) -o $@
+@HAVE_CTK3_TRUE@am_libkanberra_ctk3_la_rpath = -rpath $(libdir)
+@BUILTIN_DSO_TRUE@libkanberra_multi_la_DEPENDENCIES = libkanberra.la
+am__libkanberra_multi_la_SOURCES_DIST = multi.c
+@BUILTIN_DSO_TRUE@am_libkanberra_multi_la_OBJECTS =  \
+@BUILTIN_DSO_TRUE@	libkanberra_multi_la-multi.lo
+libkanberra_multi_la_OBJECTS = $(am_libkanberra_multi_la_OBJECTS)
+libkanberra_multi_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_multi_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_multi_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_DSO_TRUE@am_libcanberra_multi_la_rpath = -rpath $(plugindir)
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libcanberra_null_la_DEPENDENCIES =  \
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libcanberra.la
-am__libcanberra_null_la_SOURCES_DIST = null.c
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@am_libcanberra_null_la_OBJECTS = libcanberra_null_la-null.lo
-libcanberra_null_la_OBJECTS = $(am_libcanberra_null_la_OBJECTS)
-libcanberra_null_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(libkanberra_multi_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_multi_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_DSO_TRUE@am_libkanberra_multi_la_rpath = -rpath $(plugindir)
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libkanberra_null_la_DEPENDENCIES =  \
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libkanberra.la
+am__libkanberra_null_la_SOURCES_DIST = null.c
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@am_libkanberra_null_la_OBJECTS = libkanberra_null_la-null.lo
+libkanberra_null_la_OBJECTS = $(am_libkanberra_null_la_OBJECTS)
+libkanberra_null_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_null_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_null_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@am_libcanberra_null_la_rpath =  \
+	$(libkanberra_null_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_null_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@am_libkanberra_null_la_rpath =  \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	-rpath $(plugindir)
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libcanberra_oss_la_DEPENDENCIES =  \
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libcanberra.la
-am__libcanberra_oss_la_SOURCES_DIST = oss.c
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@am_libcanberra_oss_la_OBJECTS =  \
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libcanberra_oss_la-oss.lo
-libcanberra_oss_la_OBJECTS = $(am_libcanberra_oss_la_OBJECTS)
-libcanberra_oss_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libkanberra_oss_la_DEPENDENCIES =  \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libkanberra.la
+am__libkanberra_oss_la_SOURCES_DIST = oss.c
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@am_libkanberra_oss_la_OBJECTS =  \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libkanberra_oss_la-oss.lo
+libkanberra_oss_la_OBJECTS = $(am_libkanberra_oss_la_OBJECTS)
+libkanberra_oss_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_oss_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_oss_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@am_libcanberra_oss_la_rpath =  \
+	$(libkanberra_oss_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_oss_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@am_libkanberra_oss_la_rpath =  \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	-rpath $(plugindir)
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libcanberra_pulse_la_DEPENDENCIES =  \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libkanberra_pulse_la_DEPENDENCIES =  \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	$(am__DEPENDENCIES_1) \
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libcanberra.la
-am__libcanberra_pulse_la_SOURCES_DIST = pulse.c
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@am_libcanberra_pulse_la_OBJECTS = libcanberra_pulse_la-pulse.lo
-libcanberra_pulse_la_OBJECTS = $(am_libcanberra_pulse_la_OBJECTS)
-libcanberra_pulse_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libkanberra.la
+am__libkanberra_pulse_la_SOURCES_DIST = pulse.c
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@am_libkanberra_pulse_la_OBJECTS = libkanberra_pulse_la-pulse.lo
+libkanberra_pulse_la_OBJECTS = $(am_libkanberra_pulse_la_OBJECTS)
+libkanberra_pulse_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_pulse_la_CFLAGS) $(CFLAGS) \
-	$(libcanberra_pulse_la_LDFLAGS) $(LDFLAGS) -o $@
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@am_libcanberra_pulse_la_rpath =  \
+	$(libkanberra_pulse_la_CFLAGS) $(CFLAGS) \
+	$(libkanberra_pulse_la_LDFLAGS) $(LDFLAGS) -o $@
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@am_libkanberra_pulse_la_rpath =  \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	-rpath $(plugindir)
 @HAVE_CACHE_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 @BUILTIN_DSO_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
@@ -359,11 +359,11 @@ libcanberra_pulse_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@am__DEPENDENCIES_5 =  \
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@	$(am__DEPENDENCIES_1)
 @BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@am__DEPENDENCIES_6 = $(am__DEPENDENCIES_1)
-libcanberra_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+libkanberra_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_5) \
 	$(am__DEPENDENCIES_6)
-am__libcanberra_la_SOURCES_DIST = canberra.h common.c common.h \
+am__libkanberra_la_SOURCES_DIST = kanberra.h common.c common.h \
 	mutex-posix.c mutex.h proplist.c proplist.h driver.h \
 	read-sound-file.c read-sound-file.h read-vorbis.c \
 	read-vorbis.h read-wav.c read-wav.h sound-theme-spec.c \
@@ -371,62 +371,62 @@ am__libcanberra_la_SOURCES_DIST = canberra.h common.c common.h \
 	fork-detect.c fork-detect.h cache.c cache.h dso.c \
 	driver-order.c driver-order.h pulse.c alsa.c oss.c gstreamer.c \
 	null.c
-@HAVE_CACHE_TRUE@am__objects_1 = libcanberra_la-cache.lo
-@BUILTIN_DSO_TRUE@am__objects_2 = libcanberra_la-dso.lo \
-@BUILTIN_DSO_TRUE@	libcanberra_la-driver-order.lo
+@HAVE_CACHE_TRUE@am__objects_1 = libkanberra_la-cache.lo
+@BUILTIN_DSO_TRUE@am__objects_2 = libkanberra_la-dso.lo \
+@BUILTIN_DSO_TRUE@	libkanberra_la-driver-order.lo
 @BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@am__objects_3 =  \
-@BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@	libcanberra_la-pulse.lo
+@BUILTIN_PULSE_TRUE@@HAVE_PULSE_TRUE@	libkanberra_la-pulse.lo
 @BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@am__objects_4 =  \
-@BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@	libcanberra_la-alsa.lo
+@BUILTIN_ALSA_TRUE@@HAVE_ALSA_TRUE@	libkanberra_la-alsa.lo
 @BUILTIN_OSS_TRUE@@HAVE_OSS_TRUE@am__objects_5 =  \
-@BUILTIN_OSS_TRUE@@HAVE_OSS_TRUE@	libcanberra_la-oss.lo
-@BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@am__objects_6 = libcanberra_la-gstreamer.lo
+@BUILTIN_OSS_TRUE@@HAVE_OSS_TRUE@	libkanberra_la-oss.lo
+@BUILTIN_GSTREAMER_TRUE@@HAVE_GSTREAMER_TRUE@am__objects_6 = libkanberra_la-gstreamer.lo
 @BUILTIN_NULL_TRUE@@HAVE_NULL_TRUE@am__objects_7 =  \
-@BUILTIN_NULL_TRUE@@HAVE_NULL_TRUE@	libcanberra_la-null.lo
-am_libcanberra_la_OBJECTS = libcanberra_la-common.lo \
-	libcanberra_la-mutex-posix.lo libcanberra_la-proplist.lo \
-	libcanberra_la-read-sound-file.lo \
-	libcanberra_la-read-vorbis.lo libcanberra_la-read-wav.lo \
-	libcanberra_la-sound-theme-spec.lo libcanberra_la-macro.lo \
-	libcanberra_la-malloc.lo libcanberra_la-fork-detect.lo \
+@BUILTIN_NULL_TRUE@@HAVE_NULL_TRUE@	libkanberra_la-null.lo
+am_libkanberra_la_OBJECTS = libkanberra_la-common.lo \
+	libkanberra_la-mutex-posix.lo libkanberra_la-proplist.lo \
+	libkanberra_la-read-sound-file.lo \
+	libkanberra_la-read-vorbis.lo libkanberra_la-read-wav.lo \
+	libkanberra_la-sound-theme-spec.lo libkanberra_la-macro.lo \
+	libkanberra_la-malloc.lo libkanberra_la-fork-detect.lo \
 	$(am__objects_1) $(am__objects_2) $(am__objects_3) \
 	$(am__objects_4) $(am__objects_5) $(am__objects_6) \
 	$(am__objects_7)
-libcanberra_la_OBJECTS = $(am_libcanberra_la_OBJECTS)
-libcanberra_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+libkanberra_la_OBJECTS = $(am_libkanberra_la_OBJECTS)
+libkanberra_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcanberra_la_CFLAGS) $(CFLAGS) $(libcanberra_la_LDFLAGS) \
+	$(libkanberra_la_CFLAGS) $(CFLAGS) $(libkanberra_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am__EXEEXT_1 = canberra-boot$(EXEEXT)
-@HAVE_CTK_ANY_TRUE@am__EXEEXT_2 = canberra-ctk-play$(EXEEXT)
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am__EXEEXT_1 = kanberra-boot$(EXEEXT)
+@HAVE_CTK_ANY_TRUE@am__EXEEXT_2 = kanberra-ctk-play$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
-am__canberra_boot_SOURCES_DIST = canberra-boot.c
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am_canberra_boot_OBJECTS = canberra_boot-canberra-boot.$(OBJEXT)
-canberra_boot_OBJECTS = $(am_canberra_boot_OBJECTS)
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@canberra_boot_DEPENDENCIES =  \
+am__kanberra_boot_SOURCES_DIST = kanberra-boot.c
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@am_kanberra_boot_OBJECTS = kanberra_boot-kanberra-boot.$(OBJEXT)
+kanberra_boot_OBJECTS = $(am_kanberra_boot_OBJECTS)
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@kanberra_boot_DEPENDENCIES =  \
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	$(am__DEPENDENCIES_1) \
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	libcanberra.la
-canberra_boot_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(canberra_boot_CFLAGS) \
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	libkanberra.la
+kanberra_boot_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(kanberra_boot_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-am__canberra_ctk_play_SOURCES_DIST = canberra-ctk-play.c
-@HAVE_CTK_ANY_TRUE@am_canberra_ctk_play_OBJECTS = canberra_ctk_play-canberra-ctk-play.$(OBJEXT)
-canberra_ctk_play_OBJECTS = $(am_canberra_ctk_play_OBJECTS)
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_DEPENDENCIES =  \
+am__kanberra_ctk_play_SOURCES_DIST = kanberra-ctk-play.c
+@HAVE_CTK_ANY_TRUE@am_kanberra_ctk_play_OBJECTS = kanberra_ctk_play-kanberra-ctk-play.$(OBJEXT)
+kanberra_ctk_play_OBJECTS = $(am_kanberra_ctk_play_OBJECTS)
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@kanberra_ctk_play_DEPENDENCIES =  \
 @HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(am__DEPENDENCIES_1) \
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra.la \
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra-ctk.la
-@HAVE_CTK3_TRUE@canberra_ctk_play_DEPENDENCIES =  \
-@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libcanberra.la \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
-canberra_ctk_play_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libkanberra.la \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libkanberra-ctk.la
+@HAVE_CTK3_TRUE@kanberra_ctk_play_DEPENDENCIES =  \
+@HAVE_CTK3_TRUE@	$(am__DEPENDENCIES_1) libkanberra.la \
+@HAVE_CTK3_TRUE@	libkanberra-ctk3.la
+kanberra_ctk_play_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(canberra_ctk_play_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	$(kanberra_ctk_play_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-am_test_canberra_OBJECTS = test-canberra.$(OBJEXT)
-test_canberra_OBJECTS = $(am_test_canberra_OBJECTS)
+am_test_kanberra_OBJECTS = test-kanberra.$(OBJEXT)
+test_kanberra_OBJECTS = $(am_test_kanberra_OBJECTS)
 am__DEPENDENCIES_7 = $(am__DEPENDENCIES_1)
-test_canberra_DEPENDENCIES = $(am__DEPENDENCIES_7) libcanberra.la
+test_kanberra_DEPENDENCIES = $(am__DEPENDENCIES_7) libkanberra.la
 SCRIPTS = $(gnomeshutdown_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -462,38 +462,38 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 =
-SOURCES = $(libcanberra_alsa_la_SOURCES) \
-	$(libcanberra_gstreamer_la_SOURCES) \
-	$(libcanberra_ctk_module_la_SOURCES) \
-	$(libcanberra_ctk_la_SOURCES) \
-	$(libcanberra_ctk3_module_la_SOURCES) \
-	$(libcanberra_ctk3_la_SOURCES) $(libcanberra_multi_la_SOURCES) \
-	$(libcanberra_null_la_SOURCES) $(libcanberra_oss_la_SOURCES) \
-	$(libcanberra_pulse_la_SOURCES) $(libcanberra_la_SOURCES) \
-	$(canberra_boot_SOURCES) $(canberra_ctk_play_SOURCES) \
-	$(test_canberra_SOURCES)
-DIST_SOURCES = $(am__libcanberra_alsa_la_SOURCES_DIST) \
-	$(am__libcanberra_gstreamer_la_SOURCES_DIST) \
-	$(am__libcanberra_ctk_module_la_SOURCES_DIST) \
-	$(am__libcanberra_ctk_la_SOURCES_DIST) \
-	$(am__libcanberra_ctk3_module_la_SOURCES_DIST) \
-	$(am__libcanberra_ctk3_la_SOURCES_DIST) \
-	$(am__libcanberra_multi_la_SOURCES_DIST) \
-	$(am__libcanberra_null_la_SOURCES_DIST) \
-	$(am__libcanberra_oss_la_SOURCES_DIST) \
-	$(am__libcanberra_pulse_la_SOURCES_DIST) \
-	$(am__libcanberra_la_SOURCES_DIST) \
-	$(am__canberra_boot_SOURCES_DIST) \
-	$(am__canberra_ctk_play_SOURCES_DIST) $(test_canberra_SOURCES)
+SOURCES = $(libkanberra_alsa_la_SOURCES) \
+	$(libkanberra_gstreamer_la_SOURCES) \
+	$(libkanberra_ctk_module_la_SOURCES) \
+	$(libkanberra_ctk_la_SOURCES) \
+	$(libkanberra_ctk3_module_la_SOURCES) \
+	$(libkanberra_ctk3_la_SOURCES) $(libkanberra_multi_la_SOURCES) \
+	$(libkanberra_null_la_SOURCES) $(libkanberra_oss_la_SOURCES) \
+	$(libkanberra_pulse_la_SOURCES) $(libkanberra_la_SOURCES) \
+	$(kanberra_boot_SOURCES) $(kanberra_ctk_play_SOURCES) \
+	$(test_kanberra_SOURCES)
+DIST_SOURCES = $(am__libkanberra_alsa_la_SOURCES_DIST) \
+	$(am__libkanberra_gstreamer_la_SOURCES_DIST) \
+	$(am__libkanberra_ctk_module_la_SOURCES_DIST) \
+	$(am__libkanberra_ctk_la_SOURCES_DIST) \
+	$(am__libkanberra_ctk3_module_la_SOURCES_DIST) \
+	$(am__libkanberra_ctk3_la_SOURCES_DIST) \
+	$(am__libkanberra_multi_la_SOURCES_DIST) \
+	$(am__libkanberra_null_la_SOURCES_DIST) \
+	$(am__libkanberra_oss_la_SOURCES_DIST) \
+	$(am__libkanberra_pulse_la_SOURCES_DIST) \
+	$(am__libkanberra_la_SOURCES_DIST) \
+	$(am__kanberra_boot_SOURCES_DIST) \
+	$(am__kanberra_ctk_play_SOURCES_DIST) $(test_kanberra_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-am__dist_gsdctkmodules_DATA_DIST = canberra-ctk-module.desktop
+am__dist_gsdctkmodules_DATA_DIST = kanberra-ctk-module.desktop
 DATA = $(dist_gsdctkmodules_DATA) $(gdmautostart_DATA) \
 	$(gnomeautostart_DATA) $(systemdsystemunit_DATA)
-am__include_HEADERS_DIST = canberra.h canberra-ctk.h
+am__include_HEADERS_DIST = kanberra.h kanberra-ctk.h
 HEADERS = $(include_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -678,20 +678,20 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ctkmoduledir = @CTK_MODULES_DIR@
 ctk3moduledir = @CTK3_MODULES_DIR@
-plugindir = $(libdir)/libcanberra-@PACKAGE_VERSION@
+plugindir = $(libdir)/libkanberra-@PACKAGE_VERSION@
 gnomeshutdowndir = $(datadir)/gnome/shutdown
 gnomeautostartdir = $(datadir)/gnome/autostart
 gdmautostartdir = $(datadir)/gdm/autostart/LoginWindow
 gsdctkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/ctk-modules
 AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"$(plugindir)\"
-#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libcanberra/src/.libs\"
+#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
 AM_CXXFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS)
 AM_LDADD = $(PTHREAD_LIBS)
 AM_LDFLAGS = $(GCLDFLAGS)
 EXTRA_DIST = map-file $(am__append_25) $(am__append_31)
-lib_LTLIBRARIES = libcanberra.la $(am__append_29) $(am__append_30)
-include_HEADERS = canberra.h $(am__append_28)
-libcanberra_la_SOURCES = canberra.h common.c common.h mutex-posix.c \
+lib_LTLIBRARIES = libkanberra.la $(am__append_29) $(am__append_30)
+include_HEADERS = kanberra.h $(am__append_28)
+libkanberra_la_SOURCES = kanberra.h common.c common.h mutex-posix.c \
 	mutex.h proplist.c proplist.h driver.h read-sound-file.c \
 	read-sound-file.h read-vorbis.c read-vorbis.h read-wav.c \
 	read-wav.h sound-theme-spec.c sound-theme-spec.h llist.h \
@@ -699,18 +699,18 @@ libcanberra_la_SOURCES = canberra.h common.c common.h mutex-posix.c \
 	$(am__append_2) $(am__append_5) $(am__append_8) \
 	$(am__append_12) $(am__append_16) $(am__append_18) \
 	$(am__append_22)
-libcanberra_la_CFLAGS = $(AM_CFLAGS) $(VORBIS_CFLAGS) $(am__append_3) \
+libkanberra_la_CFLAGS = $(AM_CFLAGS) $(VORBIS_CFLAGS) $(am__append_3) \
 	$(am__append_9) $(am__append_13) $(am__append_19)
-libcanberra_la_LIBADD = $(VORBIS_LIBS) $(am__append_4) $(am__append_6) \
+libkanberra_la_LIBADD = $(VORBIS_LIBS) $(am__append_4) $(am__append_6) \
 	$(am__append_10) $(am__append_14) $(am__append_20)
-libcanberra_la_LDFLAGS = -export-dynamic -version-info \
+libkanberra_la_LDFLAGS = -export-dynamic -version-info \
 	$(LIBCANBERRA_VERSION_INFO) $(am__append_1)
 plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 	$(am__append_17) $(am__append_21) $(am__append_23)
-@BUILTIN_DSO_TRUE@libcanberra_multi_la_SOURCES = \
+@BUILTIN_DSO_TRUE@libkanberra_multi_la_SOURCES = \
 @BUILTIN_DSO_TRUE@	multi.c
 
-@BUILTIN_DSO_TRUE@libcanberra_multi_la_CFLAGS = \
+@BUILTIN_DSO_TRUE@libkanberra_multi_la_CFLAGS = \
 @BUILTIN_DSO_TRUE@	 -Ddriver_open=multi_driver_open \
 @BUILTIN_DSO_TRUE@	 -Ddriver_destroy=multi_driver_destroy \
 @BUILTIN_DSO_TRUE@	 -Ddriver_change_device=multi_driver_change_device \
@@ -719,16 +719,16 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_DSO_TRUE@	 -Ddriver_cancel=multi_driver_cancel \
 @BUILTIN_DSO_TRUE@	 -Ddriver_cache=multi_driver_cache
 
-@BUILTIN_DSO_TRUE@libcanberra_multi_la_LIBADD = \
-@BUILTIN_DSO_TRUE@	libcanberra.la
+@BUILTIN_DSO_TRUE@libkanberra_multi_la_LIBADD = \
+@BUILTIN_DSO_TRUE@	libkanberra.la
 
-@BUILTIN_DSO_TRUE@libcanberra_multi_la_LDFLAGS = \
+@BUILTIN_DSO_TRUE@libkanberra_multi_la_LDFLAGS = \
 @BUILTIN_DSO_TRUE@	-avoid-version -module -export-dynamic
 
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libcanberra_pulse_la_SOURCES = \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libkanberra_pulse_la_SOURCES = \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	pulse.c
 
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libcanberra_pulse_la_CFLAGS = \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libkanberra_pulse_la_CFLAGS = \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	$(PULSE_CFLAGS) \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	 -Ddriver_open=pulse_driver_open \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	 -Ddriver_destroy=pulse_driver_destroy \
@@ -738,17 +738,17 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	 -Ddriver_cancel=pulse_driver_cancel \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	 -Ddriver_cache=pulse_driver_cache
 
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libcanberra_pulse_la_LIBADD = \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libkanberra_pulse_la_LIBADD = \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	$(PULSE_LIBS) \
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libcanberra.la
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	libkanberra.la
 
-@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libcanberra_pulse_la_LDFLAGS = \
+@BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@libkanberra_pulse_la_LDFLAGS = \
 @BUILTIN_PULSE_FALSE@@HAVE_PULSE_TRUE@	-avoid-version -module -export-dynamic
 
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libcanberra_alsa_la_SOURCES = \
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libkanberra_alsa_la_SOURCES = \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	alsa.c
 
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libcanberra_alsa_la_CFLAGS = \
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libkanberra_alsa_la_CFLAGS = \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	$(ALSA_CFLAGS) \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	 -Ddriver_open=alsa_driver_open \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	 -Ddriver_destroy=alsa_driver_destroy \
@@ -758,17 +758,17 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	 -Ddriver_cancel=alsa_driver_cancel \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	 -Ddriver_cache=alsa_driver_cache
 
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libcanberra_alsa_la_LIBADD = \
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libkanberra_alsa_la_LIBADD = \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	$(ALSA_LIBS) \
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libcanberra.la
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	libkanberra.la
 
-@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libcanberra_alsa_la_LDFLAGS = \
+@BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@libkanberra_alsa_la_LDFLAGS = \
 @BUILTIN_ALSA_FALSE@@HAVE_ALSA_TRUE@	-avoid-version -module -export-dynamic
 
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libcanberra_oss_la_SOURCES = \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libkanberra_oss_la_SOURCES = \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	oss.c
 
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libcanberra_oss_la_CFLAGS = \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libkanberra_oss_la_CFLAGS = \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	 -Ddriver_open=oss_driver_open \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	 -Ddriver_destroy=oss_driver_destroy \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	 -Ddriver_change_device=oss_driver_change_device \
@@ -777,16 +777,16 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	 -Ddriver_cancel=oss_driver_cancel \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	 -Ddriver_cache=oss_driver_cache
 
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libcanberra_oss_la_LIBADD = \
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libcanberra.la
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libkanberra_oss_la_LIBADD = \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	libkanberra.la
 
-@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libcanberra_oss_la_LDFLAGS = \
+@BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@libkanberra_oss_la_LDFLAGS = \
 @BUILTIN_OSS_FALSE@@HAVE_OSS_TRUE@	-avoid-version -module -export-dynamic
 
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libcanberra_gstreamer_la_SOURCES = \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libkanberra_gstreamer_la_SOURCES = \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	gstreamer.c
 
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libcanberra_gstreamer_la_CFLAGS = \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libkanberra_gstreamer_la_CFLAGS = \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	$(GST_CFLAGS) \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	 -Ddriver_open=gstreamer_driver_open \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	 -Ddriver_destroy=gstreamer_driver_destroy \
@@ -796,17 +796,17 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	 -Ddriver_cancel=gstreamer_driver_cancel \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	 -Ddriver_cache=gstreamer_driver_cache
 
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libcanberra_gstreamer_la_LIBADD = \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libkanberra_gstreamer_la_LIBADD = \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	$(GST_LIBS) \
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libcanberra.la
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	libkanberra.la
 
-@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libcanberra_gstreamer_la_LDFLAGS = \
+@BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@libkanberra_gstreamer_la_LDFLAGS = \
 @BUILTIN_GSTREAMER_FALSE@@HAVE_GSTREAMER_TRUE@	-avoid-version -module -export-dynamic
 
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libcanberra_null_la_SOURCES = \
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libkanberra_null_la_SOURCES = \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	null.c
 
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libcanberra_null_la_CFLAGS = \
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libkanberra_null_la_CFLAGS = \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	 -Ddriver_open=null_driver_open \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	 -Ddriver_destroy=null_driver_destroy \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	 -Ddriver_change_device=null_driver_change_device \
@@ -815,127 +815,127 @@ plugin_LTLIBRARIES = $(am__append_7) $(am__append_11) $(am__append_15) \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	 -Ddriver_cancel=null_driver_cancel \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	 -Ddriver_cache=null_driver_cache
 
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libcanberra_null_la_LIBADD = \
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libcanberra.la
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libkanberra_null_la_LIBADD = \
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	libkanberra.la
 
-@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libcanberra_null_la_LDFLAGS = \
+@BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@libkanberra_null_la_LDFLAGS = \
 @BUILTIN_NULL_FALSE@@HAVE_NULL_TRUE@	-avoid-version -module -export-dynamic
 
 CLEANFILES = $(am__append_26) $(am__append_32)
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@canberra_boot_SOURCES = \
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	canberra-boot.c
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@kanberra_boot_SOURCES = \
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	kanberra-boot.c
 
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@canberra_boot_LDADD = \
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@kanberra_boot_LDADD = \
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	$(UDEV_LIBS) \
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	libcanberra.la
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	libkanberra.la
 
-@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@canberra_boot_CFLAGS = \
+@HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@kanberra_boot_CFLAGS = \
 @HAVE_ALSA_TRUE@@HAVE_UDEV_TRUE@	$(UDEV_CFLAGS)
 
 @HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@systemdsystemunit_DATA = \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-bootup.service \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown.service \
-@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	canberra-system-shutdown-reboot.service
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-bootup.service \
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-shutdown.service \
+@HAVE_ALSA_TRUE@@HAVE_SYSTEMD_TRUE@@HAVE_UDEV_TRUE@	kanberra-system-shutdown-reboot.service
 
 @HAVE_CTK3_TRUE@ctk3module_LTLIBRARIES = \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3-module.la
+@HAVE_CTK3_TRUE@	libkanberra-ctk3-module.la
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_la_SOURCES = \
-@HAVE_CTK3_TRUE@	canberra-ctk.h \
-@HAVE_CTK3_TRUE@	canberra-ctk.c
+@HAVE_CTK3_TRUE@libkanberra_ctk3_la_SOURCES = \
+@HAVE_CTK3_TRUE@	kanberra-ctk.h \
+@HAVE_CTK3_TRUE@	kanberra-ctk.c
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_la_CFLAGS = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_la_CFLAGS = \
 @HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_la_LIBADD = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_la_LIBADD = \
 @HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
-@HAVE_CTK3_TRUE@	libcanberra.la
+@HAVE_CTK3_TRUE@	libkanberra.la
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_la_LDFLAGS = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_la_LDFLAGS = \
 @HAVE_CTK3_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_SOURCES = \
-@HAVE_CTK3_TRUE@	canberra-ctk-module.c
+@HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_SOURCES = \
+@HAVE_CTK3_TRUE@	kanberra-ctk-module.c
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_CFLAGS = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_CFLAGS = \
 @HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_LIBADD = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_LIBADD = \
 @HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
-@HAVE_CTK3_TRUE@	libcanberra.la \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@	libkanberra.la \
+@HAVE_CTK3_TRUE@	libkanberra-ctk3.la
 
-@HAVE_CTK3_TRUE@libcanberra_ctk3_module_la_LDFLAGS = \
+@HAVE_CTK3_TRUE@libkanberra_ctk3_module_la_LDFLAGS = \
 @HAVE_CTK3_TRUE@	-avoid-version -module -export-dynamic
 
 @HAVE_CTK_TRUE@ctkmodule_LTLIBRARIES = \
-@HAVE_CTK_TRUE@	libcanberra-ctk-module.la
+@HAVE_CTK_TRUE@	libkanberra-ctk-module.la
 
-@HAVE_CTK_TRUE@libcanberra_ctk_la_SOURCES = \
-@HAVE_CTK_TRUE@	canberra-ctk.h \
-@HAVE_CTK_TRUE@	canberra-ctk.c
+@HAVE_CTK_TRUE@libkanberra_ctk_la_SOURCES = \
+@HAVE_CTK_TRUE@	kanberra-ctk.h \
+@HAVE_CTK_TRUE@	kanberra-ctk.c
 
-@HAVE_CTK_TRUE@libcanberra_ctk_la_CFLAGS = \
+@HAVE_CTK_TRUE@libkanberra_ctk_la_CFLAGS = \
 @HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_CTK_TRUE@libcanberra_ctk_la_LIBADD = \
+@HAVE_CTK_TRUE@libkanberra_ctk_la_LIBADD = \
 @HAVE_CTK_TRUE@	$(CTK_LIBS) \
-@HAVE_CTK_TRUE@	libcanberra.la
+@HAVE_CTK_TRUE@	libkanberra.la
 
-@HAVE_CTK_TRUE@libcanberra_ctk_la_LDFLAGS = \
+@HAVE_CTK_TRUE@libkanberra_ctk_la_LDFLAGS = \
 @HAVE_CTK_TRUE@	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-@HAVE_CTK_TRUE@libcanberra_ctk_module_la_SOURCES = \
-@HAVE_CTK_TRUE@	canberra-ctk-module.c
+@HAVE_CTK_TRUE@libkanberra_ctk_module_la_SOURCES = \
+@HAVE_CTK_TRUE@	kanberra-ctk-module.c
 
-@HAVE_CTK_TRUE@libcanberra_ctk_module_la_CFLAGS = \
+@HAVE_CTK_TRUE@libkanberra_ctk_module_la_CFLAGS = \
 @HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_CTK_TRUE@libcanberra_ctk_module_la_LIBADD = \
+@HAVE_CTK_TRUE@libkanberra_ctk_module_la_LIBADD = \
 @HAVE_CTK_TRUE@	$(CTK_LIBS) \
-@HAVE_CTK_TRUE@	libcanberra.la \
-@HAVE_CTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK_TRUE@	libkanberra.la \
+@HAVE_CTK_TRUE@	libkanberra-ctk.la
 
-@HAVE_CTK_TRUE@libcanberra_ctk_module_la_LDFLAGS = \
+@HAVE_CTK_TRUE@libkanberra_ctk_module_la_LDFLAGS = \
 @HAVE_CTK_TRUE@	-avoid-version -module -export-dynamic
 
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_LDADD = \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@kanberra_ctk_play_LDADD = \
 @HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(CTK_LIBS) \
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra.la \
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libcanberra-ctk.la
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libkanberra.la \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	libkanberra-ctk.la
 
-@HAVE_CTK3_TRUE@canberra_ctk_play_LDADD = \
+@HAVE_CTK3_TRUE@kanberra_ctk_play_LDADD = \
 @HAVE_CTK3_TRUE@	$(CTK3_LIBS) \
-@HAVE_CTK3_TRUE@	libcanberra.la \
-@HAVE_CTK3_TRUE@	libcanberra-ctk3.la
+@HAVE_CTK3_TRUE@	libkanberra.la \
+@HAVE_CTK3_TRUE@	libkanberra-ctk3.la
 
-@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@canberra_ctk_play_CFLAGS = \
+@HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@kanberra_ctk_play_CFLAGS = \
 @HAVE_CTK3_FALSE@@HAVE_CTK_TRUE@	$(CTK_CFLAGS)
 
-@HAVE_CTK3_TRUE@canberra_ctk_play_CFLAGS = \
+@HAVE_CTK3_TRUE@kanberra_ctk_play_CFLAGS = \
 @HAVE_CTK3_TRUE@	$(CTK3_CFLAGS)
 
 @HAVE_CTK_ANY_TRUE@dist_gsdctkmodules_DATA = \
-@HAVE_CTK_ANY_TRUE@	canberra-ctk-module.desktop
+@HAVE_CTK_ANY_TRUE@	kanberra-ctk-module.desktop
 
-@HAVE_CTK_ANY_TRUE@canberra_ctk_play_SOURCES = \
-@HAVE_CTK_ANY_TRUE@	canberra-ctk-play.c
+@HAVE_CTK_ANY_TRUE@kanberra_ctk_play_SOURCES = \
+@HAVE_CTK_ANY_TRUE@	kanberra-ctk-play.c
 
 @HAVE_CTK_ANY_TRUE@gnomeautostart_DATA = \
-@HAVE_CTK_ANY_TRUE@	libcanberra-login-sound.desktop
+@HAVE_CTK_ANY_TRUE@	libkanberra-login-sound.desktop
 
 @HAVE_CTK_ANY_TRUE@gdmautostart_DATA = \
-@HAVE_CTK_ANY_TRUE@	libcanberra-ready-sound.desktop
+@HAVE_CTK_ANY_TRUE@	libkanberra-ready-sound.desktop
 
 @HAVE_CTK_ANY_TRUE@gnomeshutdown_SCRIPTS = \
-@HAVE_CTK_ANY_TRUE@	libcanberra-logout-sound.sh
+@HAVE_CTK_ANY_TRUE@	libkanberra-logout-sound.sh
 
-test_canberra_SOURCES = \
-        test-canberra.c
+test_kanberra_SOURCES = \
+        test-kanberra.c
 
-test_canberra_LDADD = \
+test_kanberra_LDADD = \
         $(AM_LDADD) \
-        libcanberra.la
+        libkanberra.la
 
 all: all-am
 
@@ -971,7 +971,7 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-canberra.h: $(top_builddir)/config.status $(srcdir)/canberra.h.in
+kanberra.h: $(top_builddir)/config.status $(srcdir)/kanberra.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 install-ctk3moduleLTLIBRARIES: $(ctk3module_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
@@ -1109,28 +1109,28 @@ clean-pluginLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
-libcanberra-alsa.la: $(libcanberra_alsa_la_OBJECTS) $(libcanberra_alsa_la_DEPENDENCIES) $(EXTRA_libcanberra_alsa_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_alsa_la_LINK) $(am_libcanberra_alsa_la_rpath) $(libcanberra_alsa_la_OBJECTS) $(libcanberra_alsa_la_LIBADD) $(LIBS)
-libcanberra-gstreamer.la: $(libcanberra_gstreamer_la_OBJECTS) $(libcanberra_gstreamer_la_DEPENDENCIES) $(EXTRA_libcanberra_gstreamer_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_gstreamer_la_LINK) $(am_libcanberra_gstreamer_la_rpath) $(libcanberra_gstreamer_la_OBJECTS) $(libcanberra_gstreamer_la_LIBADD) $(LIBS)
-libcanberra-ctk-module.la: $(libcanberra_ctk_module_la_OBJECTS) $(libcanberra_ctk_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_module_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_ctk_module_la_LINK) $(am_libcanberra_ctk_module_la_rpath) $(libcanberra_ctk_module_la_OBJECTS) $(libcanberra_ctk_module_la_LIBADD) $(LIBS)
-libcanberra-ctk.la: $(libcanberra_ctk_la_OBJECTS) $(libcanberra_ctk_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_ctk_la_LINK) $(am_libcanberra_ctk_la_rpath) $(libcanberra_ctk_la_OBJECTS) $(libcanberra_ctk_la_LIBADD) $(LIBS)
-libcanberra-ctk3-module.la: $(libcanberra_ctk3_module_la_OBJECTS) $(libcanberra_ctk3_module_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_module_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_ctk3_module_la_LINK) $(am_libcanberra_ctk3_module_la_rpath) $(libcanberra_ctk3_module_la_OBJECTS) $(libcanberra_ctk3_module_la_LIBADD) $(LIBS)
-libcanberra-ctk3.la: $(libcanberra_ctk3_la_OBJECTS) $(libcanberra_ctk3_la_DEPENDENCIES) $(EXTRA_libcanberra_ctk3_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_ctk3_la_LINK) $(am_libcanberra_ctk3_la_rpath) $(libcanberra_ctk3_la_OBJECTS) $(libcanberra_ctk3_la_LIBADD) $(LIBS)
-libcanberra-multi.la: $(libcanberra_multi_la_OBJECTS) $(libcanberra_multi_la_DEPENDENCIES) $(EXTRA_libcanberra_multi_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_multi_la_LINK) $(am_libcanberra_multi_la_rpath) $(libcanberra_multi_la_OBJECTS) $(libcanberra_multi_la_LIBADD) $(LIBS)
-libcanberra-null.la: $(libcanberra_null_la_OBJECTS) $(libcanberra_null_la_DEPENDENCIES) $(EXTRA_libcanberra_null_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_null_la_LINK) $(am_libcanberra_null_la_rpath) $(libcanberra_null_la_OBJECTS) $(libcanberra_null_la_LIBADD) $(LIBS)
-libcanberra-oss.la: $(libcanberra_oss_la_OBJECTS) $(libcanberra_oss_la_DEPENDENCIES) $(EXTRA_libcanberra_oss_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_oss_la_LINK) $(am_libcanberra_oss_la_rpath) $(libcanberra_oss_la_OBJECTS) $(libcanberra_oss_la_LIBADD) $(LIBS)
-libcanberra-pulse.la: $(libcanberra_pulse_la_OBJECTS) $(libcanberra_pulse_la_DEPENDENCIES) $(EXTRA_libcanberra_pulse_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_pulse_la_LINK) $(am_libcanberra_pulse_la_rpath) $(libcanberra_pulse_la_OBJECTS) $(libcanberra_pulse_la_LIBADD) $(LIBS)
-libcanberra.la: $(libcanberra_la_OBJECTS) $(libcanberra_la_DEPENDENCIES) $(EXTRA_libcanberra_la_DEPENDENCIES)
-	$(AM_V_CCLD)$(libcanberra_la_LINK) -rpath $(libdir) $(libcanberra_la_OBJECTS) $(libcanberra_la_LIBADD) $(LIBS)
+libkanberra-alsa.la: $(libkanberra_alsa_la_OBJECTS) $(libkanberra_alsa_la_DEPENDENCIES) $(EXTRA_libkanberra_alsa_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_alsa_la_LINK) $(am_libkanberra_alsa_la_rpath) $(libkanberra_alsa_la_OBJECTS) $(libkanberra_alsa_la_LIBADD) $(LIBS)
+libkanberra-gstreamer.la: $(libkanberra_gstreamer_la_OBJECTS) $(libkanberra_gstreamer_la_DEPENDENCIES) $(EXTRA_libkanberra_gstreamer_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_gstreamer_la_LINK) $(am_libkanberra_gstreamer_la_rpath) $(libkanberra_gstreamer_la_OBJECTS) $(libkanberra_gstreamer_la_LIBADD) $(LIBS)
+libkanberra-ctk-module.la: $(libkanberra_ctk_module_la_OBJECTS) $(libkanberra_ctk_module_la_DEPENDENCIES) $(EXTRA_libkanberra_ctk_module_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_ctk_module_la_LINK) $(am_libkanberra_ctk_module_la_rpath) $(libkanberra_ctk_module_la_OBJECTS) $(libkanberra_ctk_module_la_LIBADD) $(LIBS)
+libkanberra-ctk.la: $(libkanberra_ctk_la_OBJECTS) $(libkanberra_ctk_la_DEPENDENCIES) $(EXTRA_libkanberra_ctk_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_ctk_la_LINK) $(am_libkanberra_ctk_la_rpath) $(libkanberra_ctk_la_OBJECTS) $(libkanberra_ctk_la_LIBADD) $(LIBS)
+libkanberra-ctk3-module.la: $(libkanberra_ctk3_module_la_OBJECTS) $(libkanberra_ctk3_module_la_DEPENDENCIES) $(EXTRA_libkanberra_ctk3_module_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_ctk3_module_la_LINK) $(am_libkanberra_ctk3_module_la_rpath) $(libkanberra_ctk3_module_la_OBJECTS) $(libkanberra_ctk3_module_la_LIBADD) $(LIBS)
+libkanberra-ctk3.la: $(libkanberra_ctk3_la_OBJECTS) $(libkanberra_ctk3_la_DEPENDENCIES) $(EXTRA_libkanberra_ctk3_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_ctk3_la_LINK) $(am_libkanberra_ctk3_la_rpath) $(libkanberra_ctk3_la_OBJECTS) $(libkanberra_ctk3_la_LIBADD) $(LIBS)
+libkanberra-multi.la: $(libkanberra_multi_la_OBJECTS) $(libkanberra_multi_la_DEPENDENCIES) $(EXTRA_libkanberra_multi_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_multi_la_LINK) $(am_libkanberra_multi_la_rpath) $(libkanberra_multi_la_OBJECTS) $(libkanberra_multi_la_LIBADD) $(LIBS)
+libkanberra-null.la: $(libkanberra_null_la_OBJECTS) $(libkanberra_null_la_DEPENDENCIES) $(EXTRA_libkanberra_null_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_null_la_LINK) $(am_libkanberra_null_la_rpath) $(libkanberra_null_la_OBJECTS) $(libkanberra_null_la_LIBADD) $(LIBS)
+libkanberra-oss.la: $(libkanberra_oss_la_OBJECTS) $(libkanberra_oss_la_DEPENDENCIES) $(EXTRA_libkanberra_oss_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_oss_la_LINK) $(am_libkanberra_oss_la_rpath) $(libkanberra_oss_la_OBJECTS) $(libkanberra_oss_la_LIBADD) $(LIBS)
+libkanberra-pulse.la: $(libkanberra_pulse_la_OBJECTS) $(libkanberra_pulse_la_DEPENDENCIES) $(EXTRA_libkanberra_pulse_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_pulse_la_LINK) $(am_libkanberra_pulse_la_rpath) $(libkanberra_pulse_la_OBJECTS) $(libkanberra_pulse_la_LIBADD) $(LIBS)
+libkanberra.la: $(libkanberra_la_OBJECTS) $(libkanberra_la_DEPENDENCIES) $(EXTRA_libkanberra_la_DEPENDENCIES)
+	$(AM_V_CCLD)$(libkanberra_la_LINK) -rpath $(libdir) $(libkanberra_la_OBJECTS) $(libkanberra_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
@@ -1186,15 +1186,15 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-canberra-boot$(EXEEXT): $(canberra_boot_OBJECTS) $(canberra_boot_DEPENDENCIES) $(EXTRA_canberra_boot_DEPENDENCIES)
-	@rm -f canberra-boot$(EXEEXT)
-	$(AM_V_CCLD)$(canberra_boot_LINK) $(canberra_boot_OBJECTS) $(canberra_boot_LDADD) $(LIBS)
-canberra-ctk-play$(EXEEXT): $(canberra_ctk_play_OBJECTS) $(canberra_ctk_play_DEPENDENCIES) $(EXTRA_canberra_ctk_play_DEPENDENCIES)
-	@rm -f canberra-ctk-play$(EXEEXT)
-	$(AM_V_CCLD)$(canberra_ctk_play_LINK) $(canberra_ctk_play_OBJECTS) $(canberra_ctk_play_LDADD) $(LIBS)
-test-canberra$(EXEEXT): $(test_canberra_OBJECTS) $(test_canberra_DEPENDENCIES) $(EXTRA_test_canberra_DEPENDENCIES)
-	@rm -f test-canberra$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(test_canberra_OBJECTS) $(test_canberra_LDADD) $(LIBS)
+kanberra-boot$(EXEEXT): $(kanberra_boot_OBJECTS) $(kanberra_boot_DEPENDENCIES) $(EXTRA_kanberra_boot_DEPENDENCIES)
+	@rm -f kanberra-boot$(EXEEXT)
+	$(AM_V_CCLD)$(kanberra_boot_LINK) $(kanberra_boot_OBJECTS) $(kanberra_boot_LDADD) $(LIBS)
+kanberra-ctk-play$(EXEEXT): $(kanberra_ctk_play_OBJECTS) $(kanberra_ctk_play_DEPENDENCIES) $(EXTRA_kanberra_ctk_play_DEPENDENCIES)
+	@rm -f kanberra-ctk-play$(EXEEXT)
+	$(AM_V_CCLD)$(kanberra_ctk_play_LINK) $(kanberra_ctk_play_OBJECTS) $(kanberra_ctk_play_LDADD) $(LIBS)
+test-kanberra$(EXEEXT): $(test_kanberra_OBJECTS) $(test_kanberra_DEPENDENCIES) $(EXTRA_test_kanberra_DEPENDENCIES)
+	@rm -f test-kanberra$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_kanberra_OBJECTS) $(test_kanberra_LDADD) $(LIBS)
 install-gnomeshutdownSCRIPTS: $(gnomeshutdown_SCRIPTS)
 	@$(NORMAL_INSTALL)
 	@list='$(gnomeshutdown_SCRIPTS)'; test -n "$(gnomeshutdowndir)" || list=; \
@@ -1237,37 +1237,37 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/canberra_boot-canberra-boot.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_alsa_la-alsa.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_gstreamer_la-gstreamer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_ctk3_la-canberra-ctk.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_ctk3_module_la-canberra-ctk-module.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_ctk_la-canberra-ctk.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_ctk_module_la-canberra-ctk-module.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-alsa.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-cache.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-common.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-driver-order.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-dso.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-fork-detect.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-gstreamer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-macro.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-malloc.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-mutex-posix.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-null.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-oss.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-proplist.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-pulse.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-read-sound-file.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-read-vorbis.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-read-wav.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_la-sound-theme-spec.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_multi_la-multi.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_null_la-null.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_oss_la-oss.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcanberra_pulse_la-pulse.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-canberra.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kanberra_boot-kanberra-boot.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_alsa_la-alsa.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_gstreamer_la-gstreamer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_ctk3_la-kanberra-ctk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_ctk3_module_la-kanberra-ctk-module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_ctk_la-kanberra-ctk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_ctk_module_la-kanberra-ctk-module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-alsa.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-cache.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-common.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-driver-order.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-dso.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-fork-detect.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-gstreamer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-macro.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-malloc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-mutex-posix.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-null.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-oss.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-proplist.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-pulse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-read-sound-file.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-read-vorbis.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-read-wav.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_la-sound-theme-spec.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_multi_la-multi.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_null_la-null.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_oss_la-oss.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkanberra_pulse_la-pulse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-kanberra.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -1290,229 +1290,229 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libcanberra_alsa_la-alsa.lo: alsa.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_alsa_la_CFLAGS) $(CFLAGS) -MT libcanberra_alsa_la-alsa.lo -MD -MP -MF $(DEPDIR)/libcanberra_alsa_la-alsa.Tpo -c -o libcanberra_alsa_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_alsa_la-alsa.Tpo $(DEPDIR)/libcanberra_alsa_la-alsa.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='alsa.c' object='libcanberra_alsa_la-alsa.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_alsa_la-alsa.lo: alsa.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_alsa_la_CFLAGS) $(CFLAGS) -MT libkanberra_alsa_la-alsa.lo -MD -MP -MF $(DEPDIR)/libkanberra_alsa_la-alsa.Tpo -c -o libkanberra_alsa_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_alsa_la-alsa.Tpo $(DEPDIR)/libkanberra_alsa_la-alsa.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='alsa.c' object='libkanberra_alsa_la-alsa.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_alsa_la_CFLAGS) $(CFLAGS) -c -o libcanberra_alsa_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_alsa_la_CFLAGS) $(CFLAGS) -c -o libkanberra_alsa_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
 
-libcanberra_gstreamer_la-gstreamer.lo: gstreamer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_gstreamer_la_CFLAGS) $(CFLAGS) -MT libcanberra_gstreamer_la-gstreamer.lo -MD -MP -MF $(DEPDIR)/libcanberra_gstreamer_la-gstreamer.Tpo -c -o libcanberra_gstreamer_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_gstreamer_la-gstreamer.Tpo $(DEPDIR)/libcanberra_gstreamer_la-gstreamer.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gstreamer.c' object='libcanberra_gstreamer_la-gstreamer.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_gstreamer_la-gstreamer.lo: gstreamer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_gstreamer_la_CFLAGS) $(CFLAGS) -MT libkanberra_gstreamer_la-gstreamer.lo -MD -MP -MF $(DEPDIR)/libkanberra_gstreamer_la-gstreamer.Tpo -c -o libkanberra_gstreamer_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_gstreamer_la-gstreamer.Tpo $(DEPDIR)/libkanberra_gstreamer_la-gstreamer.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gstreamer.c' object='libkanberra_gstreamer_la-gstreamer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_gstreamer_la_CFLAGS) $(CFLAGS) -c -o libcanberra_gstreamer_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_gstreamer_la_CFLAGS) $(CFLAGS) -c -o libkanberra_gstreamer_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
 
-libcanberra_ctk_module_la-canberra-ctk-module.lo: canberra-ctk-module.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk_module_la_CFLAGS) $(CFLAGS) -MT libcanberra_ctk_module_la-canberra-ctk-module.lo -MD -MP -MF $(DEPDIR)/libcanberra_ctk_module_la-canberra-ctk-module.Tpo -c -o libcanberra_ctk_module_la-canberra-ctk-module.lo `test -f 'canberra-ctk-module.c' || echo '$(srcdir)/'`canberra-ctk-module.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_ctk_module_la-canberra-ctk-module.Tpo $(DEPDIR)/libcanberra_ctk_module_la-canberra-ctk-module.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk-module.c' object='libcanberra_ctk_module_la-canberra-ctk-module.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_ctk_module_la-kanberra-ctk-module.lo: kanberra-ctk-module.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk_module_la_CFLAGS) $(CFLAGS) -MT libkanberra_ctk_module_la-kanberra-ctk-module.lo -MD -MP -MF $(DEPDIR)/libkanberra_ctk_module_la-kanberra-ctk-module.Tpo -c -o libkanberra_ctk_module_la-kanberra-ctk-module.lo `test -f 'kanberra-ctk-module.c' || echo '$(srcdir)/'`kanberra-ctk-module.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_ctk_module_la-kanberra-ctk-module.Tpo $(DEPDIR)/libkanberra_ctk_module_la-kanberra-ctk-module.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk-module.c' object='libkanberra_ctk_module_la-kanberra-ctk-module.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk_module_la_CFLAGS) $(CFLAGS) -c -o libcanberra_ctk_module_la-canberra-ctk-module.lo `test -f 'canberra-ctk-module.c' || echo '$(srcdir)/'`canberra-ctk-module.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk_module_la_CFLAGS) $(CFLAGS) -c -o libkanberra_ctk_module_la-kanberra-ctk-module.lo `test -f 'kanberra-ctk-module.c' || echo '$(srcdir)/'`kanberra-ctk-module.c
 
-libcanberra_ctk_la-canberra-ctk.lo: canberra-ctk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk_la_CFLAGS) $(CFLAGS) -MT libcanberra_ctk_la-canberra-ctk.lo -MD -MP -MF $(DEPDIR)/libcanberra_ctk_la-canberra-ctk.Tpo -c -o libcanberra_ctk_la-canberra-ctk.lo `test -f 'canberra-ctk.c' || echo '$(srcdir)/'`canberra-ctk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_ctk_la-canberra-ctk.Tpo $(DEPDIR)/libcanberra_ctk_la-canberra-ctk.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk.c' object='libcanberra_ctk_la-canberra-ctk.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_ctk_la-kanberra-ctk.lo: kanberra-ctk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk_la_CFLAGS) $(CFLAGS) -MT libkanberra_ctk_la-kanberra-ctk.lo -MD -MP -MF $(DEPDIR)/libkanberra_ctk_la-kanberra-ctk.Tpo -c -o libkanberra_ctk_la-kanberra-ctk.lo `test -f 'kanberra-ctk.c' || echo '$(srcdir)/'`kanberra-ctk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_ctk_la-kanberra-ctk.Tpo $(DEPDIR)/libkanberra_ctk_la-kanberra-ctk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk.c' object='libkanberra_ctk_la-kanberra-ctk.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk_la_CFLAGS) $(CFLAGS) -c -o libcanberra_ctk_la-canberra-ctk.lo `test -f 'canberra-ctk.c' || echo '$(srcdir)/'`canberra-ctk.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk_la_CFLAGS) $(CFLAGS) -c -o libkanberra_ctk_la-kanberra-ctk.lo `test -f 'kanberra-ctk.c' || echo '$(srcdir)/'`kanberra-ctk.c
 
-libcanberra_ctk3_module_la-canberra-ctk-module.lo: canberra-ctk-module.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk3_module_la_CFLAGS) $(CFLAGS) -MT libcanberra_ctk3_module_la-canberra-ctk-module.lo -MD -MP -MF $(DEPDIR)/libcanberra_ctk3_module_la-canberra-ctk-module.Tpo -c -o libcanberra_ctk3_module_la-canberra-ctk-module.lo `test -f 'canberra-ctk-module.c' || echo '$(srcdir)/'`canberra-ctk-module.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_ctk3_module_la-canberra-ctk-module.Tpo $(DEPDIR)/libcanberra_ctk3_module_la-canberra-ctk-module.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk-module.c' object='libcanberra_ctk3_module_la-canberra-ctk-module.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_ctk3_module_la-kanberra-ctk-module.lo: kanberra-ctk-module.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk3_module_la_CFLAGS) $(CFLAGS) -MT libkanberra_ctk3_module_la-kanberra-ctk-module.lo -MD -MP -MF $(DEPDIR)/libkanberra_ctk3_module_la-kanberra-ctk-module.Tpo -c -o libkanberra_ctk3_module_la-kanberra-ctk-module.lo `test -f 'kanberra-ctk-module.c' || echo '$(srcdir)/'`kanberra-ctk-module.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_ctk3_module_la-kanberra-ctk-module.Tpo $(DEPDIR)/libkanberra_ctk3_module_la-kanberra-ctk-module.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk-module.c' object='libkanberra_ctk3_module_la-kanberra-ctk-module.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk3_module_la_CFLAGS) $(CFLAGS) -c -o libcanberra_ctk3_module_la-canberra-ctk-module.lo `test -f 'canberra-ctk-module.c' || echo '$(srcdir)/'`canberra-ctk-module.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk3_module_la_CFLAGS) $(CFLAGS) -c -o libkanberra_ctk3_module_la-kanberra-ctk-module.lo `test -f 'kanberra-ctk-module.c' || echo '$(srcdir)/'`kanberra-ctk-module.c
 
-libcanberra_ctk3_la-canberra-ctk.lo: canberra-ctk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk3_la_CFLAGS) $(CFLAGS) -MT libcanberra_ctk3_la-canberra-ctk.lo -MD -MP -MF $(DEPDIR)/libcanberra_ctk3_la-canberra-ctk.Tpo -c -o libcanberra_ctk3_la-canberra-ctk.lo `test -f 'canberra-ctk.c' || echo '$(srcdir)/'`canberra-ctk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_ctk3_la-canberra-ctk.Tpo $(DEPDIR)/libcanberra_ctk3_la-canberra-ctk.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk.c' object='libcanberra_ctk3_la-canberra-ctk.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_ctk3_la-kanberra-ctk.lo: kanberra-ctk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk3_la_CFLAGS) $(CFLAGS) -MT libkanberra_ctk3_la-kanberra-ctk.lo -MD -MP -MF $(DEPDIR)/libkanberra_ctk3_la-kanberra-ctk.Tpo -c -o libkanberra_ctk3_la-kanberra-ctk.lo `test -f 'kanberra-ctk.c' || echo '$(srcdir)/'`kanberra-ctk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_ctk3_la-kanberra-ctk.Tpo $(DEPDIR)/libkanberra_ctk3_la-kanberra-ctk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk.c' object='libkanberra_ctk3_la-kanberra-ctk.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_ctk3_la_CFLAGS) $(CFLAGS) -c -o libcanberra_ctk3_la-canberra-ctk.lo `test -f 'canberra-ctk.c' || echo '$(srcdir)/'`canberra-ctk.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_ctk3_la_CFLAGS) $(CFLAGS) -c -o libkanberra_ctk3_la-kanberra-ctk.lo `test -f 'kanberra-ctk.c' || echo '$(srcdir)/'`kanberra-ctk.c
 
-libcanberra_multi_la-multi.lo: multi.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_multi_la_CFLAGS) $(CFLAGS) -MT libcanberra_multi_la-multi.lo -MD -MP -MF $(DEPDIR)/libcanberra_multi_la-multi.Tpo -c -o libcanberra_multi_la-multi.lo `test -f 'multi.c' || echo '$(srcdir)/'`multi.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_multi_la-multi.Tpo $(DEPDIR)/libcanberra_multi_la-multi.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='multi.c' object='libcanberra_multi_la-multi.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_multi_la-multi.lo: multi.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_multi_la_CFLAGS) $(CFLAGS) -MT libkanberra_multi_la-multi.lo -MD -MP -MF $(DEPDIR)/libkanberra_multi_la-multi.Tpo -c -o libkanberra_multi_la-multi.lo `test -f 'multi.c' || echo '$(srcdir)/'`multi.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_multi_la-multi.Tpo $(DEPDIR)/libkanberra_multi_la-multi.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='multi.c' object='libkanberra_multi_la-multi.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_multi_la_CFLAGS) $(CFLAGS) -c -o libcanberra_multi_la-multi.lo `test -f 'multi.c' || echo '$(srcdir)/'`multi.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_multi_la_CFLAGS) $(CFLAGS) -c -o libkanberra_multi_la-multi.lo `test -f 'multi.c' || echo '$(srcdir)/'`multi.c
 
-libcanberra_null_la-null.lo: null.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_null_la_CFLAGS) $(CFLAGS) -MT libcanberra_null_la-null.lo -MD -MP -MF $(DEPDIR)/libcanberra_null_la-null.Tpo -c -o libcanberra_null_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_null_la-null.Tpo $(DEPDIR)/libcanberra_null_la-null.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='null.c' object='libcanberra_null_la-null.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_null_la-null.lo: null.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_null_la_CFLAGS) $(CFLAGS) -MT libkanberra_null_la-null.lo -MD -MP -MF $(DEPDIR)/libkanberra_null_la-null.Tpo -c -o libkanberra_null_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_null_la-null.Tpo $(DEPDIR)/libkanberra_null_la-null.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='null.c' object='libkanberra_null_la-null.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_null_la_CFLAGS) $(CFLAGS) -c -o libcanberra_null_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_null_la_CFLAGS) $(CFLAGS) -c -o libkanberra_null_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
 
-libcanberra_oss_la-oss.lo: oss.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_oss_la_CFLAGS) $(CFLAGS) -MT libcanberra_oss_la-oss.lo -MD -MP -MF $(DEPDIR)/libcanberra_oss_la-oss.Tpo -c -o libcanberra_oss_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_oss_la-oss.Tpo $(DEPDIR)/libcanberra_oss_la-oss.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='oss.c' object='libcanberra_oss_la-oss.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_oss_la-oss.lo: oss.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_oss_la_CFLAGS) $(CFLAGS) -MT libkanberra_oss_la-oss.lo -MD -MP -MF $(DEPDIR)/libkanberra_oss_la-oss.Tpo -c -o libkanberra_oss_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_oss_la-oss.Tpo $(DEPDIR)/libkanberra_oss_la-oss.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='oss.c' object='libkanberra_oss_la-oss.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_oss_la_CFLAGS) $(CFLAGS) -c -o libcanberra_oss_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_oss_la_CFLAGS) $(CFLAGS) -c -o libkanberra_oss_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
 
-libcanberra_pulse_la-pulse.lo: pulse.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_pulse_la_CFLAGS) $(CFLAGS) -MT libcanberra_pulse_la-pulse.lo -MD -MP -MF $(DEPDIR)/libcanberra_pulse_la-pulse.Tpo -c -o libcanberra_pulse_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_pulse_la-pulse.Tpo $(DEPDIR)/libcanberra_pulse_la-pulse.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='pulse.c' object='libcanberra_pulse_la-pulse.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_pulse_la-pulse.lo: pulse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_pulse_la_CFLAGS) $(CFLAGS) -MT libkanberra_pulse_la-pulse.lo -MD -MP -MF $(DEPDIR)/libkanberra_pulse_la-pulse.Tpo -c -o libkanberra_pulse_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_pulse_la-pulse.Tpo $(DEPDIR)/libkanberra_pulse_la-pulse.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='pulse.c' object='libkanberra_pulse_la-pulse.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_pulse_la_CFLAGS) $(CFLAGS) -c -o libcanberra_pulse_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_pulse_la_CFLAGS) $(CFLAGS) -c -o libkanberra_pulse_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
 
-libcanberra_la-common.lo: common.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-common.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-common.Tpo -c -o libcanberra_la-common.lo `test -f 'common.c' || echo '$(srcdir)/'`common.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-common.Tpo $(DEPDIR)/libcanberra_la-common.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='common.c' object='libcanberra_la-common.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-common.lo: common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-common.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-common.Tpo -c -o libkanberra_la-common.lo `test -f 'common.c' || echo '$(srcdir)/'`common.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-common.Tpo $(DEPDIR)/libkanberra_la-common.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='common.c' object='libkanberra_la-common.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-common.lo `test -f 'common.c' || echo '$(srcdir)/'`common.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-common.lo `test -f 'common.c' || echo '$(srcdir)/'`common.c
 
-libcanberra_la-mutex-posix.lo: mutex-posix.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-mutex-posix.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-mutex-posix.Tpo -c -o libcanberra_la-mutex-posix.lo `test -f 'mutex-posix.c' || echo '$(srcdir)/'`mutex-posix.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-mutex-posix.Tpo $(DEPDIR)/libcanberra_la-mutex-posix.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mutex-posix.c' object='libcanberra_la-mutex-posix.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-mutex-posix.lo: mutex-posix.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-mutex-posix.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-mutex-posix.Tpo -c -o libkanberra_la-mutex-posix.lo `test -f 'mutex-posix.c' || echo '$(srcdir)/'`mutex-posix.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-mutex-posix.Tpo $(DEPDIR)/libkanberra_la-mutex-posix.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mutex-posix.c' object='libkanberra_la-mutex-posix.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-mutex-posix.lo `test -f 'mutex-posix.c' || echo '$(srcdir)/'`mutex-posix.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-mutex-posix.lo `test -f 'mutex-posix.c' || echo '$(srcdir)/'`mutex-posix.c
 
-libcanberra_la-proplist.lo: proplist.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-proplist.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-proplist.Tpo -c -o libcanberra_la-proplist.lo `test -f 'proplist.c' || echo '$(srcdir)/'`proplist.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-proplist.Tpo $(DEPDIR)/libcanberra_la-proplist.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='proplist.c' object='libcanberra_la-proplist.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-proplist.lo: proplist.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-proplist.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-proplist.Tpo -c -o libkanberra_la-proplist.lo `test -f 'proplist.c' || echo '$(srcdir)/'`proplist.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-proplist.Tpo $(DEPDIR)/libkanberra_la-proplist.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='proplist.c' object='libkanberra_la-proplist.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-proplist.lo `test -f 'proplist.c' || echo '$(srcdir)/'`proplist.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-proplist.lo `test -f 'proplist.c' || echo '$(srcdir)/'`proplist.c
 
-libcanberra_la-read-sound-file.lo: read-sound-file.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-read-sound-file.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-read-sound-file.Tpo -c -o libcanberra_la-read-sound-file.lo `test -f 'read-sound-file.c' || echo '$(srcdir)/'`read-sound-file.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-read-sound-file.Tpo $(DEPDIR)/libcanberra_la-read-sound-file.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-sound-file.c' object='libcanberra_la-read-sound-file.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-read-sound-file.lo: read-sound-file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-read-sound-file.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-read-sound-file.Tpo -c -o libkanberra_la-read-sound-file.lo `test -f 'read-sound-file.c' || echo '$(srcdir)/'`read-sound-file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-read-sound-file.Tpo $(DEPDIR)/libkanberra_la-read-sound-file.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-sound-file.c' object='libkanberra_la-read-sound-file.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-read-sound-file.lo `test -f 'read-sound-file.c' || echo '$(srcdir)/'`read-sound-file.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-read-sound-file.lo `test -f 'read-sound-file.c' || echo '$(srcdir)/'`read-sound-file.c
 
-libcanberra_la-read-vorbis.lo: read-vorbis.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-read-vorbis.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-read-vorbis.Tpo -c -o libcanberra_la-read-vorbis.lo `test -f 'read-vorbis.c' || echo '$(srcdir)/'`read-vorbis.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-read-vorbis.Tpo $(DEPDIR)/libcanberra_la-read-vorbis.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-vorbis.c' object='libcanberra_la-read-vorbis.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-read-vorbis.lo: read-vorbis.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-read-vorbis.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-read-vorbis.Tpo -c -o libkanberra_la-read-vorbis.lo `test -f 'read-vorbis.c' || echo '$(srcdir)/'`read-vorbis.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-read-vorbis.Tpo $(DEPDIR)/libkanberra_la-read-vorbis.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-vorbis.c' object='libkanberra_la-read-vorbis.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-read-vorbis.lo `test -f 'read-vorbis.c' || echo '$(srcdir)/'`read-vorbis.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-read-vorbis.lo `test -f 'read-vorbis.c' || echo '$(srcdir)/'`read-vorbis.c
 
-libcanberra_la-read-wav.lo: read-wav.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-read-wav.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-read-wav.Tpo -c -o libcanberra_la-read-wav.lo `test -f 'read-wav.c' || echo '$(srcdir)/'`read-wav.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-read-wav.Tpo $(DEPDIR)/libcanberra_la-read-wav.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-wav.c' object='libcanberra_la-read-wav.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-read-wav.lo: read-wav.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-read-wav.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-read-wav.Tpo -c -o libkanberra_la-read-wav.lo `test -f 'read-wav.c' || echo '$(srcdir)/'`read-wav.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-read-wav.Tpo $(DEPDIR)/libkanberra_la-read-wav.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='read-wav.c' object='libkanberra_la-read-wav.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-read-wav.lo `test -f 'read-wav.c' || echo '$(srcdir)/'`read-wav.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-read-wav.lo `test -f 'read-wav.c' || echo '$(srcdir)/'`read-wav.c
 
-libcanberra_la-sound-theme-spec.lo: sound-theme-spec.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-sound-theme-spec.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-sound-theme-spec.Tpo -c -o libcanberra_la-sound-theme-spec.lo `test -f 'sound-theme-spec.c' || echo '$(srcdir)/'`sound-theme-spec.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-sound-theme-spec.Tpo $(DEPDIR)/libcanberra_la-sound-theme-spec.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sound-theme-spec.c' object='libcanberra_la-sound-theme-spec.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-sound-theme-spec.lo: sound-theme-spec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-sound-theme-spec.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-sound-theme-spec.Tpo -c -o libkanberra_la-sound-theme-spec.lo `test -f 'sound-theme-spec.c' || echo '$(srcdir)/'`sound-theme-spec.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-sound-theme-spec.Tpo $(DEPDIR)/libkanberra_la-sound-theme-spec.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sound-theme-spec.c' object='libkanberra_la-sound-theme-spec.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-sound-theme-spec.lo `test -f 'sound-theme-spec.c' || echo '$(srcdir)/'`sound-theme-spec.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-sound-theme-spec.lo `test -f 'sound-theme-spec.c' || echo '$(srcdir)/'`sound-theme-spec.c
 
-libcanberra_la-macro.lo: macro.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-macro.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-macro.Tpo -c -o libcanberra_la-macro.lo `test -f 'macro.c' || echo '$(srcdir)/'`macro.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-macro.Tpo $(DEPDIR)/libcanberra_la-macro.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='macro.c' object='libcanberra_la-macro.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-macro.lo: macro.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-macro.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-macro.Tpo -c -o libkanberra_la-macro.lo `test -f 'macro.c' || echo '$(srcdir)/'`macro.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-macro.Tpo $(DEPDIR)/libkanberra_la-macro.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='macro.c' object='libkanberra_la-macro.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-macro.lo `test -f 'macro.c' || echo '$(srcdir)/'`macro.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-macro.lo `test -f 'macro.c' || echo '$(srcdir)/'`macro.c
 
-libcanberra_la-malloc.lo: malloc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-malloc.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-malloc.Tpo -c -o libcanberra_la-malloc.lo `test -f 'malloc.c' || echo '$(srcdir)/'`malloc.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-malloc.Tpo $(DEPDIR)/libcanberra_la-malloc.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='malloc.c' object='libcanberra_la-malloc.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-malloc.lo: malloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-malloc.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-malloc.Tpo -c -o libkanberra_la-malloc.lo `test -f 'malloc.c' || echo '$(srcdir)/'`malloc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-malloc.Tpo $(DEPDIR)/libkanberra_la-malloc.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='malloc.c' object='libkanberra_la-malloc.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-malloc.lo `test -f 'malloc.c' || echo '$(srcdir)/'`malloc.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-malloc.lo `test -f 'malloc.c' || echo '$(srcdir)/'`malloc.c
 
-libcanberra_la-fork-detect.lo: fork-detect.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-fork-detect.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-fork-detect.Tpo -c -o libcanberra_la-fork-detect.lo `test -f 'fork-detect.c' || echo '$(srcdir)/'`fork-detect.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-fork-detect.Tpo $(DEPDIR)/libcanberra_la-fork-detect.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fork-detect.c' object='libcanberra_la-fork-detect.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-fork-detect.lo: fork-detect.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-fork-detect.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-fork-detect.Tpo -c -o libkanberra_la-fork-detect.lo `test -f 'fork-detect.c' || echo '$(srcdir)/'`fork-detect.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-fork-detect.Tpo $(DEPDIR)/libkanberra_la-fork-detect.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fork-detect.c' object='libkanberra_la-fork-detect.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-fork-detect.lo `test -f 'fork-detect.c' || echo '$(srcdir)/'`fork-detect.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-fork-detect.lo `test -f 'fork-detect.c' || echo '$(srcdir)/'`fork-detect.c
 
-libcanberra_la-cache.lo: cache.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-cache.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-cache.Tpo -c -o libcanberra_la-cache.lo `test -f 'cache.c' || echo '$(srcdir)/'`cache.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-cache.Tpo $(DEPDIR)/libcanberra_la-cache.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cache.c' object='libcanberra_la-cache.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-cache.lo: cache.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-cache.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-cache.Tpo -c -o libkanberra_la-cache.lo `test -f 'cache.c' || echo '$(srcdir)/'`cache.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-cache.Tpo $(DEPDIR)/libkanberra_la-cache.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cache.c' object='libkanberra_la-cache.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-cache.lo `test -f 'cache.c' || echo '$(srcdir)/'`cache.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-cache.lo `test -f 'cache.c' || echo '$(srcdir)/'`cache.c
 
-libcanberra_la-dso.lo: dso.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-dso.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-dso.Tpo -c -o libcanberra_la-dso.lo `test -f 'dso.c' || echo '$(srcdir)/'`dso.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-dso.Tpo $(DEPDIR)/libcanberra_la-dso.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dso.c' object='libcanberra_la-dso.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-dso.lo: dso.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-dso.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-dso.Tpo -c -o libkanberra_la-dso.lo `test -f 'dso.c' || echo '$(srcdir)/'`dso.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-dso.Tpo $(DEPDIR)/libkanberra_la-dso.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dso.c' object='libkanberra_la-dso.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-dso.lo `test -f 'dso.c' || echo '$(srcdir)/'`dso.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-dso.lo `test -f 'dso.c' || echo '$(srcdir)/'`dso.c
 
-libcanberra_la-driver-order.lo: driver-order.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-driver-order.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-driver-order.Tpo -c -o libcanberra_la-driver-order.lo `test -f 'driver-order.c' || echo '$(srcdir)/'`driver-order.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-driver-order.Tpo $(DEPDIR)/libcanberra_la-driver-order.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-order.c' object='libcanberra_la-driver-order.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-driver-order.lo: driver-order.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-driver-order.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-driver-order.Tpo -c -o libkanberra_la-driver-order.lo `test -f 'driver-order.c' || echo '$(srcdir)/'`driver-order.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-driver-order.Tpo $(DEPDIR)/libkanberra_la-driver-order.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='driver-order.c' object='libkanberra_la-driver-order.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-driver-order.lo `test -f 'driver-order.c' || echo '$(srcdir)/'`driver-order.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-driver-order.lo `test -f 'driver-order.c' || echo '$(srcdir)/'`driver-order.c
 
-libcanberra_la-pulse.lo: pulse.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-pulse.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-pulse.Tpo -c -o libcanberra_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-pulse.Tpo $(DEPDIR)/libcanberra_la-pulse.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='pulse.c' object='libcanberra_la-pulse.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-pulse.lo: pulse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-pulse.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-pulse.Tpo -c -o libkanberra_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-pulse.Tpo $(DEPDIR)/libkanberra_la-pulse.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='pulse.c' object='libkanberra_la-pulse.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-pulse.lo `test -f 'pulse.c' || echo '$(srcdir)/'`pulse.c
 
-libcanberra_la-alsa.lo: alsa.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-alsa.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-alsa.Tpo -c -o libcanberra_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-alsa.Tpo $(DEPDIR)/libcanberra_la-alsa.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='alsa.c' object='libcanberra_la-alsa.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-alsa.lo: alsa.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-alsa.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-alsa.Tpo -c -o libkanberra_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-alsa.Tpo $(DEPDIR)/libkanberra_la-alsa.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='alsa.c' object='libkanberra_la-alsa.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-alsa.lo `test -f 'alsa.c' || echo '$(srcdir)/'`alsa.c
 
-libcanberra_la-oss.lo: oss.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-oss.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-oss.Tpo -c -o libcanberra_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-oss.Tpo $(DEPDIR)/libcanberra_la-oss.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='oss.c' object='libcanberra_la-oss.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-oss.lo: oss.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-oss.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-oss.Tpo -c -o libkanberra_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-oss.Tpo $(DEPDIR)/libkanberra_la-oss.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='oss.c' object='libkanberra_la-oss.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-oss.lo `test -f 'oss.c' || echo '$(srcdir)/'`oss.c
 
-libcanberra_la-gstreamer.lo: gstreamer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-gstreamer.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-gstreamer.Tpo -c -o libcanberra_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-gstreamer.Tpo $(DEPDIR)/libcanberra_la-gstreamer.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gstreamer.c' object='libcanberra_la-gstreamer.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-gstreamer.lo: gstreamer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-gstreamer.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-gstreamer.Tpo -c -o libkanberra_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-gstreamer.Tpo $(DEPDIR)/libkanberra_la-gstreamer.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gstreamer.c' object='libkanberra_la-gstreamer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-gstreamer.lo `test -f 'gstreamer.c' || echo '$(srcdir)/'`gstreamer.c
 
-libcanberra_la-null.lo: null.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -MT libcanberra_la-null.lo -MD -MP -MF $(DEPDIR)/libcanberra_la-null.Tpo -c -o libcanberra_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcanberra_la-null.Tpo $(DEPDIR)/libcanberra_la-null.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='null.c' object='libcanberra_la-null.lo' libtool=yes @AMDEPBACKSLASH@
+libkanberra_la-null.lo: null.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -MT libkanberra_la-null.lo -MD -MP -MF $(DEPDIR)/libkanberra_la-null.Tpo -c -o libkanberra_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkanberra_la-null.Tpo $(DEPDIR)/libkanberra_la-null.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='null.c' object='libkanberra_la-null.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcanberra_la_CFLAGS) $(CFLAGS) -c -o libcanberra_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libkanberra_la_CFLAGS) $(CFLAGS) -c -o libkanberra_la-null.lo `test -f 'null.c' || echo '$(srcdir)/'`null.c
 
-canberra_boot-canberra-boot.o: canberra-boot.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_boot_CFLAGS) $(CFLAGS) -MT canberra_boot-canberra-boot.o -MD -MP -MF $(DEPDIR)/canberra_boot-canberra-boot.Tpo -c -o canberra_boot-canberra-boot.o `test -f 'canberra-boot.c' || echo '$(srcdir)/'`canberra-boot.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/canberra_boot-canberra-boot.Tpo $(DEPDIR)/canberra_boot-canberra-boot.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-boot.c' object='canberra_boot-canberra-boot.o' libtool=no @AMDEPBACKSLASH@
+kanberra_boot-kanberra-boot.o: kanberra-boot.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_boot_CFLAGS) $(CFLAGS) -MT kanberra_boot-kanberra-boot.o -MD -MP -MF $(DEPDIR)/kanberra_boot-kanberra-boot.Tpo -c -o kanberra_boot-kanberra-boot.o `test -f 'kanberra-boot.c' || echo '$(srcdir)/'`kanberra-boot.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/kanberra_boot-kanberra-boot.Tpo $(DEPDIR)/kanberra_boot-kanberra-boot.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-boot.c' object='kanberra_boot-kanberra-boot.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_boot_CFLAGS) $(CFLAGS) -c -o canberra_boot-canberra-boot.o `test -f 'canberra-boot.c' || echo '$(srcdir)/'`canberra-boot.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_boot_CFLAGS) $(CFLAGS) -c -o kanberra_boot-kanberra-boot.o `test -f 'kanberra-boot.c' || echo '$(srcdir)/'`kanberra-boot.c
 
-canberra_boot-canberra-boot.obj: canberra-boot.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_boot_CFLAGS) $(CFLAGS) -MT canberra_boot-canberra-boot.obj -MD -MP -MF $(DEPDIR)/canberra_boot-canberra-boot.Tpo -c -o canberra_boot-canberra-boot.obj `if test -f 'canberra-boot.c'; then $(CYGPATH_W) 'canberra-boot.c'; else $(CYGPATH_W) '$(srcdir)/canberra-boot.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/canberra_boot-canberra-boot.Tpo $(DEPDIR)/canberra_boot-canberra-boot.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-boot.c' object='canberra_boot-canberra-boot.obj' libtool=no @AMDEPBACKSLASH@
+kanberra_boot-kanberra-boot.obj: kanberra-boot.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_boot_CFLAGS) $(CFLAGS) -MT kanberra_boot-kanberra-boot.obj -MD -MP -MF $(DEPDIR)/kanberra_boot-kanberra-boot.Tpo -c -o kanberra_boot-kanberra-boot.obj `if test -f 'kanberra-boot.c'; then $(CYGPATH_W) 'kanberra-boot.c'; else $(CYGPATH_W) '$(srcdir)/kanberra-boot.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/kanberra_boot-kanberra-boot.Tpo $(DEPDIR)/kanberra_boot-kanberra-boot.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-boot.c' object='kanberra_boot-kanberra-boot.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_boot_CFLAGS) $(CFLAGS) -c -o canberra_boot-canberra-boot.obj `if test -f 'canberra-boot.c'; then $(CYGPATH_W) 'canberra-boot.c'; else $(CYGPATH_W) '$(srcdir)/canberra-boot.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_boot_CFLAGS) $(CFLAGS) -c -o kanberra_boot-kanberra-boot.obj `if test -f 'kanberra-boot.c'; then $(CYGPATH_W) 'kanberra-boot.c'; else $(CYGPATH_W) '$(srcdir)/kanberra-boot.c'; fi`
 
-canberra_ctk_play-canberra-ctk-play.o: canberra-ctk-play.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_ctk_play_CFLAGS) $(CFLAGS) -MT canberra_ctk_play-canberra-ctk-play.o -MD -MP -MF $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Tpo -c -o canberra_ctk_play-canberra-ctk-play.o `test -f 'canberra-ctk-play.c' || echo '$(srcdir)/'`canberra-ctk-play.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Tpo $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk-play.c' object='canberra_ctk_play-canberra-ctk-play.o' libtool=no @AMDEPBACKSLASH@
+kanberra_ctk_play-kanberra-ctk-play.o: kanberra-ctk-play.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_ctk_play_CFLAGS) $(CFLAGS) -MT kanberra_ctk_play-kanberra-ctk-play.o -MD -MP -MF $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Tpo -c -o kanberra_ctk_play-kanberra-ctk-play.o `test -f 'kanberra-ctk-play.c' || echo '$(srcdir)/'`kanberra-ctk-play.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Tpo $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk-play.c' object='kanberra_ctk_play-kanberra-ctk-play.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_ctk_play_CFLAGS) $(CFLAGS) -c -o canberra_ctk_play-canberra-ctk-play.o `test -f 'canberra-ctk-play.c' || echo '$(srcdir)/'`canberra-ctk-play.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_ctk_play_CFLAGS) $(CFLAGS) -c -o kanberra_ctk_play-kanberra-ctk-play.o `test -f 'kanberra-ctk-play.c' || echo '$(srcdir)/'`kanberra-ctk-play.c
 
-canberra_ctk_play-canberra-ctk-play.obj: canberra-ctk-play.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_ctk_play_CFLAGS) $(CFLAGS) -MT canberra_ctk_play-canberra-ctk-play.obj -MD -MP -MF $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Tpo -c -o canberra_ctk_play-canberra-ctk-play.obj `if test -f 'canberra-ctk-play.c'; then $(CYGPATH_W) 'canberra-ctk-play.c'; else $(CYGPATH_W) '$(srcdir)/canberra-ctk-play.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Tpo $(DEPDIR)/canberra_ctk_play-canberra-ctk-play.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='canberra-ctk-play.c' object='canberra_ctk_play-canberra-ctk-play.obj' libtool=no @AMDEPBACKSLASH@
+kanberra_ctk_play-kanberra-ctk-play.obj: kanberra-ctk-play.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_ctk_play_CFLAGS) $(CFLAGS) -MT kanberra_ctk_play-kanberra-ctk-play.obj -MD -MP -MF $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Tpo -c -o kanberra_ctk_play-kanberra-ctk-play.obj `if test -f 'kanberra-ctk-play.c'; then $(CYGPATH_W) 'kanberra-ctk-play.c'; else $(CYGPATH_W) '$(srcdir)/kanberra-ctk-play.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Tpo $(DEPDIR)/kanberra_ctk_play-kanberra-ctk-play.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='kanberra-ctk-play.c' object='kanberra_ctk_play-kanberra-ctk-play.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(canberra_ctk_play_CFLAGS) $(CFLAGS) -c -o canberra_ctk_play-canberra-ctk-play.obj `if test -f 'canberra-ctk-play.c'; then $(CYGPATH_W) 'canberra-ctk-play.c'; else $(CYGPATH_W) '$(srcdir)/canberra-ctk-play.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(kanberra_ctk_play_CFLAGS) $(CFLAGS) -c -o kanberra_ctk_play-kanberra-ctk-play.obj `if test -f 'kanberra-ctk-play.c'; then $(CYGPATH_W) 'kanberra-ctk-play.c'; else $(CYGPATH_W) '$(srcdir)/kanberra-ctk-play.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1881,17 +1881,17 @@ uninstall-am: uninstall-binPROGRAMS uninstall-dist_gsdctkmodulesDATA \
 @HAVE_CTK3_TRUE@install-exec-hook:
 @HAVE_CTK3_TRUE@	$(MKDIR_P) -m 755 $(DESTDIR)$(ctk3moduledir)
 @HAVE_CTK3_TRUE@	( cd $(DESTDIR)$(ctk3moduledir) && \
-@HAVE_CTK3_TRUE@		rm -f libcanberra-ctk-module.so && \
-@HAVE_CTK3_TRUE@	        $(LN_S) libcanberra-ctk3-module.so libcanberra-ctk-module.so )
+@HAVE_CTK3_TRUE@		rm -f libkanberra-ctk-module.so && \
+@HAVE_CTK3_TRUE@	        $(LN_S) libkanberra-ctk3-module.so libkanberra-ctk-module.so )
 
-@HAVE_CTK_ANY_TRUE@libcanberra-logout-sound.sh: libcanberra-logout-sound.sh.in Makefile
+@HAVE_CTK_ANY_TRUE@libkanberra-logout-sound.sh: libkanberra-logout-sound.sh.in Makefile
 @HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@ && \
 @HAVE_CTK_ANY_TRUE@		chmod +x $@
 
-@HAVE_CTK_ANY_TRUE@libcanberra-login-sound.desktop: libcanberra-login-sound.desktop.in Makefile
+@HAVE_CTK_ANY_TRUE@libkanberra-login-sound.desktop: libkanberra-login-sound.desktop.in Makefile
 @HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
-@HAVE_CTK_ANY_TRUE@libcanberra-ready-sound.desktop: libcanberra-ready-sound.desktop.in Makefile
+@HAVE_CTK_ANY_TRUE@libkanberra-ready-sound.desktop: libkanberra-ready-sound.desktop.in Makefile
 @HAVE_CTK_ANY_TRUE@	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

@@ -1,25 +1,25 @@
-# This file is part of libcanberra.
+# This file is part of libkanberra.
 #
 # Copyright 2008 Lennart Poettering
 #
-# libcanberra is free software; you can redistribute it and/or modify
+# libkanberra is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
 # published by the Free Software Foundation, either version 2.1 of the
 # License, or (at your option) any later version.
 #
-# libcanberra is distributed in the hope that it will be useful, but
+# libkanberra is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with libcanberra. If not, see
+# License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
 ctkmoduledir = @CTK_MODULES_DIR@
 ctk3moduledir = @CTK3_MODULES_DIR@
 
-plugindir = $(libdir)/libcanberra-@PACKAGE_VERSION@
+plugindir = $(libdir)/libkanberra-@PACKAGE_VERSION@
 
 gnomeshutdowndir = $(datadir)/gnome/shutdown
 
@@ -30,7 +30,7 @@ gdmautostartdir = $(datadir)/gdm/autostart/LoginWindow
 gsdctkmodulesdir = $(libdir)/gnome-settings-daemon-3.0/ctk-modules
 
 AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"$(plugindir)\"
-#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libcanberra/src/.libs\"
+#AM_CFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS) -DCA_PLUGIN_PATH=\"/home/lennart/projects/libkanberra/src/.libs\"
 AM_CXXFLAGS = $(WARNINGFLAGS) $(PTHREAD_CFLAGS)
 AM_LDADD = $(PTHREAD_LIBS)
 AM_LDFLAGS = $(GCLDFLAGS)
@@ -39,16 +39,16 @@ EXTRA_DIST = \
 	map-file
 
 lib_LTLIBRARIES = \
-        libcanberra.la
+        libkanberra.la
 
 include_HEADERS = \
-	canberra.h
+	kanberra.h
 
 noinst_PROGRAMS = \
-	test-canberra
+	test-kanberra
 
-libcanberra_la_SOURCES = \
-	canberra.h \
+libkanberra_la_SOURCES = \
+	kanberra.h \
 	common.c common.h \
 	mutex-posix.c mutex.h \
 	proplist.c proplist.h \
@@ -61,27 +61,27 @@ libcanberra_la_SOURCES = \
 	macro.h macro.c \
 	malloc.c malloc.h \
 	fork-detect.c fork-detect.h
-libcanberra_la_CFLAGS = \
+libkanberra_la_CFLAGS = \
 	$(AM_CFLAGS) \
 	$(VORBIS_CFLAGS)
-libcanberra_la_LIBADD = \
+libkanberra_la_LIBADD = \
 	$(VORBIS_LIBS)
-libcanberra_la_LDFLAGS = \
+libkanberra_la_LDFLAGS = \
 	-export-dynamic \
 	-version-info $(LIBCANBERRA_VERSION_INFO)
 
 if USE_VERSION_SCRIPT
-libcanberra_la_LDFLAGS += -Wl,-version-script=$(srcdir)/map-file
+libkanberra_la_LDFLAGS += -Wl,-version-script=$(srcdir)/map-file
 endif
 
 if HAVE_CACHE
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	cache.c cache.h
-libcanberra_la_CFLAGS += \
+libkanberra_la_CFLAGS += \
 	$(TDB_CLFAGS) \
 	-DCA_MACHINE_ID=\"$(localstatedir)/lib/dbus/machine-id\"
-libcanberra_la_LIBADD += \
+libkanberra_la_LIBADD += \
 	$(TDB_LIBS)
 
 endif
@@ -90,18 +90,18 @@ plugin_LTLIBRARIES =
 
 if BUILTIN_DSO
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	dso.c \
 	driver-order.c driver-order.h
-libcanberra_la_LIBADD += \
+libkanberra_la_LIBADD += \
 	$(LIBLTDL)
 
 plugin_LTLIBRARIES += \
-	libcanberra-multi.la
+	libkanberra-multi.la
 
-libcanberra_multi_la_SOURCES = \
+libkanberra_multi_la_SOURCES = \
 	multi.c
-libcanberra_multi_la_CFLAGS = \
+libkanberra_multi_la_CFLAGS = \
 	 -Ddriver_open=multi_driver_open \
 	 -Ddriver_destroy=multi_driver_destroy \
 	 -Ddriver_change_device=multi_driver_change_device \
@@ -109,30 +109,30 @@ libcanberra_multi_la_CFLAGS = \
 	 -Ddriver_play=multi_driver_play \
 	 -Ddriver_cancel=multi_driver_cancel \
 	 -Ddriver_cache=multi_driver_cache
-libcanberra_multi_la_LIBADD = \
-	libcanberra.la
-libcanberra_multi_la_LDFLAGS = \
+libkanberra_multi_la_LIBADD = \
+	libkanberra.la
+libkanberra_multi_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 endif
 
 if HAVE_PULSE
 if BUILTIN_PULSE
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	pulse.c
-libcanberra_la_CFLAGS += \
+libkanberra_la_CFLAGS += \
 	$(PULSE_CFLAGS)
-libcanberra_la_LIBADD += \
+libkanberra_la_LIBADD += \
 	$(PULSE_LIBS)
 
 else
 
 plugin_LTLIBRARIES += \
-	libcanberra-pulse.la
+	libkanberra-pulse.la
 
-libcanberra_pulse_la_SOURCES = \
+libkanberra_pulse_la_SOURCES = \
 	pulse.c
-libcanberra_pulse_la_CFLAGS = \
+libkanberra_pulse_la_CFLAGS = \
 	$(PULSE_CFLAGS) \
 	 -Ddriver_open=pulse_driver_open \
 	 -Ddriver_destroy=pulse_driver_destroy \
@@ -141,10 +141,10 @@ libcanberra_pulse_la_CFLAGS = \
 	 -Ddriver_play=pulse_driver_play \
 	 -Ddriver_cancel=pulse_driver_cancel \
 	 -Ddriver_cache=pulse_driver_cache
-libcanberra_pulse_la_LIBADD = \
+libkanberra_pulse_la_LIBADD = \
 	$(PULSE_LIBS) \
-	libcanberra.la
-libcanberra_pulse_la_LDFLAGS = \
+	libkanberra.la
+libkanberra_pulse_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 endif
@@ -153,21 +153,21 @@ endif
 if HAVE_ALSA
 if BUILTIN_ALSA
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	alsa.c
-libcanberra_la_CFLAGS += \
+libkanberra_la_CFLAGS += \
 	$(ALSA_CFLAGS)
-libcanberra_la_LIBADD += \
+libkanberra_la_LIBADD += \
 	 $(ALSA_LIBS)
 
 else
 
 plugin_LTLIBRARIES += \
-	libcanberra-alsa.la
+	libkanberra-alsa.la
 
-libcanberra_alsa_la_SOURCES = \
+libkanberra_alsa_la_SOURCES = \
 	alsa.c
-libcanberra_alsa_la_CFLAGS = \
+libkanberra_alsa_la_CFLAGS = \
 	$(ALSA_CFLAGS) \
 	 -Ddriver_open=alsa_driver_open \
 	 -Ddriver_destroy=alsa_driver_destroy \
@@ -176,10 +176,10 @@ libcanberra_alsa_la_CFLAGS = \
 	 -Ddriver_play=alsa_driver_play \
 	 -Ddriver_cancel=alsa_driver_cancel \
 	 -Ddriver_cache=alsa_driver_cache
-libcanberra_alsa_la_LIBADD = \
+libkanberra_alsa_la_LIBADD = \
 	$(ALSA_LIBS) \
-	libcanberra.la
-libcanberra_alsa_la_LDFLAGS = \
+	libkanberra.la
+libkanberra_alsa_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 endif
@@ -188,17 +188,17 @@ endif
 if HAVE_OSS
 if BUILTIN_OSS
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	oss.c
 
 else
 
 plugin_LTLIBRARIES += \
-	libcanberra-oss.la
+	libkanberra-oss.la
 
-libcanberra_oss_la_SOURCES = \
+libkanberra_oss_la_SOURCES = \
 	oss.c
-libcanberra_oss_la_CFLAGS = \
+libkanberra_oss_la_CFLAGS = \
 	 -Ddriver_open=oss_driver_open \
 	 -Ddriver_destroy=oss_driver_destroy \
 	 -Ddriver_change_device=oss_driver_change_device \
@@ -206,9 +206,9 @@ libcanberra_oss_la_CFLAGS = \
 	 -Ddriver_play=oss_driver_play \
 	 -Ddriver_cancel=oss_driver_cancel \
 	 -Ddriver_cache=oss_driver_cache
-libcanberra_oss_la_LIBADD = \
-	libcanberra.la
-libcanberra_oss_la_LDFLAGS = \
+libkanberra_oss_la_LIBADD = \
+	libkanberra.la
+libkanberra_oss_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 endif
 endif
@@ -216,21 +216,21 @@ endif
 if HAVE_GSTREAMER
 if BUILTIN_GSTREAMER
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	gstreamer.c
-libcanberra_la_CFLAGS += \
+libkanberra_la_CFLAGS += \
 	$(GST_CFLAGS)
-libcanberra_la_LIBADD += \
+libkanberra_la_LIBADD += \
 	 $(GST_LIBS)
 
 else
 
 plugin_LTLIBRARIES += \
-	libcanberra-gstreamer.la
+	libkanberra-gstreamer.la
 
-libcanberra_gstreamer_la_SOURCES = \
+libkanberra_gstreamer_la_SOURCES = \
 	gstreamer.c
-libcanberra_gstreamer_la_CFLAGS = \
+libkanberra_gstreamer_la_CFLAGS = \
 	$(GST_CFLAGS) \
 	 -Ddriver_open=gstreamer_driver_open \
 	 -Ddriver_destroy=gstreamer_driver_destroy \
@@ -239,10 +239,10 @@ libcanberra_gstreamer_la_CFLAGS = \
 	 -Ddriver_play=gstreamer_driver_play \
 	 -Ddriver_cancel=gstreamer_driver_cancel \
 	 -Ddriver_cache=gstreamer_driver_cache
-libcanberra_gstreamer_la_LIBADD = \
+libkanberra_gstreamer_la_LIBADD = \
 	$(GST_LIBS) \
-	libcanberra.la
-libcanberra_gstreamer_la_LDFLAGS = \
+	libkanberra.la
+libkanberra_gstreamer_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 endif
@@ -251,17 +251,17 @@ endif
 if HAVE_NULL
 if BUILTIN_NULL
 
-libcanberra_la_SOURCES += \
+libkanberra_la_SOURCES += \
 	null.c
 
 else
 
 plugin_LTLIBRARIES += \
-	libcanberra-null.la
+	libkanberra-null.la
 
-libcanberra_null_la_SOURCES = \
+libkanberra_null_la_SOURCES = \
 	null.c
-libcanberra_null_la_CFLAGS = \
+libkanberra_null_la_CFLAGS = \
 	 -Ddriver_open=null_driver_open \
 	 -Ddriver_destroy=null_driver_destroy \
 	 -Ddriver_change_device=null_driver_change_device \
@@ -269,9 +269,9 @@ libcanberra_null_la_CFLAGS = \
 	 -Ddriver_play=null_driver_play \
 	 -Ddriver_cancel=null_driver_cancel \
 	 -Ddriver_cache=null_driver_cache
-libcanberra_null_la_LIBADD = \
-	libcanberra.la
-libcanberra_null_la_LDFLAGS = \
+libkanberra_null_la_LIBADD = \
+	libkanberra.la
+libkanberra_null_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 endif
 endif
@@ -283,29 +283,29 @@ if HAVE_UDEV
 if HAVE_ALSA
 
 bin_PROGRAMS += \
-	canberra-boot
+	kanberra-boot
 
-canberra_boot_SOURCES = \
-	canberra-boot.c
+kanberra_boot_SOURCES = \
+	kanberra-boot.c
 
-canberra_boot_LDADD = \
+kanberra_boot_LDADD = \
 	$(UDEV_LIBS) \
-	libcanberra.la
+	libkanberra.la
 
-canberra_boot_CFLAGS = \
+kanberra_boot_CFLAGS = \
 	$(UDEV_CFLAGS)
 
 if HAVE_SYSTEMD
 
 systemdsystemunit_DATA = \
-	canberra-system-bootup.service \
-	canberra-system-shutdown.service \
-	canberra-system-shutdown-reboot.service
+	kanberra-system-bootup.service \
+	kanberra-system-shutdown.service \
+	kanberra-system-shutdown-reboot.service
 
 EXTRA_DIST += \
-	canberra-system-bootup.service.in \
-	canberra-system-shutdown.service.in \
-	canberra-system-shutdown-reboot.service.in
+	kanberra-system-bootup.service.in \
+	kanberra-system-shutdown.service.in \
+	kanberra-system-shutdown-reboot.service.in
 
 %.service: %.service.in
 	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' $< > $@
@@ -320,106 +320,106 @@ endif
 if HAVE_CTK_ANY
 
 bin_PROGRAMS += \
-	canberra-ctk-play
+	kanberra-ctk-play
 
 include_HEADERS += \
-	canberra-ctk.h
+	kanberra-ctk.h
 
 endif
 
 if HAVE_CTK3
 
 lib_LTLIBRARIES += \
-	libcanberra-ctk3.la
+	libkanberra-ctk3.la
 
 ctk3module_LTLIBRARIES = \
-	libcanberra-ctk3-module.la
+	libkanberra-ctk3-module.la
 
-libcanberra_ctk3_la_SOURCES = \
-	canberra-ctk.h \
-	canberra-ctk.c
-libcanberra_ctk3_la_CFLAGS = \
+libkanberra_ctk3_la_SOURCES = \
+	kanberra-ctk.h \
+	kanberra-ctk.c
+libkanberra_ctk3_la_CFLAGS = \
 	$(CTK3_CFLAGS)
-libcanberra_ctk3_la_LIBADD = \
+libkanberra_ctk3_la_LIBADD = \
 	$(CTK3_LIBS) \
 	-lX11 \
-	libcanberra.la
-libcanberra_ctk3_la_LDFLAGS = \
+	libkanberra.la
+libkanberra_ctk3_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-libcanberra_ctk3_module_la_SOURCES = \
-	canberra-ctk-module.c
-libcanberra_ctk3_module_la_CFLAGS = \
+libkanberra_ctk3_module_la_SOURCES = \
+	kanberra-ctk-module.c
+libkanberra_ctk3_module_la_CFLAGS = \
 	$(CTK3_CFLAGS)
-libcanberra_ctk3_module_la_LIBADD = \
+libkanberra_ctk3_module_la_LIBADD = \
 	$(CTK3_LIBS) \
 	-lX11 \
 	-lgmodule-2.0 \
-	libcanberra.la \
-	libcanberra-ctk3.la
-libcanberra_ctk3_module_la_LDFLAGS = \
+	libkanberra.la \
+	libkanberra-ctk3.la
+libkanberra_ctk3_module_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 install-exec-hook:
 	$(MKDIR_P) -m 755 $(DESTDIR)$(ctk3moduledir)
 	( cd $(DESTDIR)$(ctk3moduledir) && \
-		rm -f libcanberra-ctk-module.so && \
-	        $(LN_S) libcanberra-ctk3-module.so libcanberra-ctk-module.so )
+		rm -f libkanberra-ctk-module.so && \
+	        $(LN_S) libkanberra-ctk3-module.so libkanberra-ctk-module.so )
 
 endif
 
 if HAVE_CTK
 
 lib_LTLIBRARIES += \
-	libcanberra-ctk.la
+	libkanberra-ctk.la
 
 ctkmodule_LTLIBRARIES = \
-	libcanberra-ctk-module.la
+	libkanberra-ctk-module.la
 
-libcanberra_ctk_la_SOURCES = \
-	canberra-ctk.h \
-	canberra-ctk.c
-libcanberra_ctk_la_CFLAGS = \
+libkanberra_ctk_la_SOURCES = \
+	kanberra-ctk.h \
+	kanberra-ctk.c
+libkanberra_ctk_la_CFLAGS = \
 	$(CTK_CFLAGS)
-libcanberra_ctk_la_LIBADD = \
+libkanberra_ctk_la_LIBADD = \
 	$(CTK_LIBS) \
 	-lX11 \
-	libcanberra.la
-libcanberra_ctk_la_LDFLAGS = \
+	libkanberra.la
+libkanberra_ctk_la_LDFLAGS = \
 	-export-dynamic -version-info $(LIBCANBERRA_CTK_VERSION_INFO)
 
-libcanberra_ctk_module_la_SOURCES = \
-	canberra-ctk-module.c
-libcanberra_ctk_module_la_CFLAGS = \
+libkanberra_ctk_module_la_SOURCES = \
+	kanberra-ctk-module.c
+libkanberra_ctk_module_la_CFLAGS = \
 	$(CTK_CFLAGS)
-libcanberra_ctk_module_la_LIBADD = \
+libkanberra_ctk_module_la_LIBADD = \
 	$(CTK_LIBS) \
 	-lX11 \
 	-lgmodule-2.0 \
-	libcanberra.la \
-	libcanberra-ctk.la
-libcanberra_ctk_module_la_LDFLAGS = \
+	libkanberra.la \
+	libkanberra-ctk.la
+libkanberra_ctk_module_la_LDFLAGS = \
 	-avoid-version -module -export-dynamic
 
 endif
 
 if HAVE_CTK3
 
-canberra_ctk_play_LDADD = \
+kanberra_ctk_play_LDADD = \
 	$(CTK3_LIBS) \
-	libcanberra.la \
-	libcanberra-ctk3.la
-canberra_ctk_play_CFLAGS = \
+	libkanberra.la \
+	libkanberra-ctk3.la
+kanberra_ctk_play_CFLAGS = \
 	$(CTK3_CFLAGS)
 
 else
 if HAVE_CTK
 
-canberra_ctk_play_LDADD = \
+kanberra_ctk_play_LDADD = \
 	$(CTK_LIBS) \
-	libcanberra.la \
-	libcanberra-ctk.la
-canberra_ctk_play_CFLAGS = \
+	libkanberra.la \
+	libkanberra-ctk.la
+kanberra_ctk_play_CFLAGS = \
 	$(CTK_CFLAGS)
 
 endif
@@ -428,44 +428,44 @@ endif
 if HAVE_CTK_ANY
 
 dist_gsdctkmodules_DATA = \
-	canberra-ctk-module.desktop
+	kanberra-ctk-module.desktop
 
-canberra_ctk_play_SOURCES = \
-	canberra-ctk-play.c
+kanberra_ctk_play_SOURCES = \
+	kanberra-ctk-play.c
 
 EXTRA_DIST += \
-	libcanberra-login-sound.desktop.in \
-	libcanberra-ready-sound.desktop.in \
-	libcanberra-logout-sound.sh.in
+	libkanberra-login-sound.desktop.in \
+	libkanberra-ready-sound.desktop.in \
+	libkanberra-logout-sound.sh.in
 
 gnomeautostart_DATA = \
-	libcanberra-login-sound.desktop
+	libkanberra-login-sound.desktop
 
 gdmautostart_DATA = \
-	libcanberra-ready-sound.desktop
+	libkanberra-ready-sound.desktop
 
 gnomeshutdown_SCRIPTS = \
-	libcanberra-logout-sound.sh
+	libkanberra-logout-sound.sh
 
 CLEANFILES += \
-	libcanberra-login-sound.desktop \
-	libcanberra-ready-sound.desktop \
-	libcanberra-logout-sound.sh
+	libkanberra-login-sound.desktop \
+	libkanberra-ready-sound.desktop \
+	libkanberra-logout-sound.sh
 
-libcanberra-logout-sound.sh: libcanberra-logout-sound.sh.in Makefile
+libkanberra-logout-sound.sh: libkanberra-logout-sound.sh.in Makefile
 	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@ && \
 		chmod +x $@
 
-libcanberra-login-sound.desktop: libcanberra-login-sound.desktop.in Makefile
+libkanberra-login-sound.desktop: libkanberra-login-sound.desktop.in Makefile
 	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
-libcanberra-ready-sound.desktop: libcanberra-ready-sound.desktop.in Makefile
+libkanberra-ready-sound.desktop: libkanberra-ready-sound.desktop.in Makefile
 	$(AM_V_GEN)sed -e 's,@bindir\@,$(bindir),g' < $< > $@
 
 endif
 
-test_canberra_SOURCES = \
-        test-canberra.c
-test_canberra_LDADD = \
+test_kanberra_SOURCES = \
+        test-kanberra.c
+test_kanberra_LDADD = \
         $(AM_LDADD) \
-        libcanberra.la
+        libkanberra.la

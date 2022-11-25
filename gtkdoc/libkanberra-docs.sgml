@@ -3,16 +3,16 @@
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
-    <title>libcanberra Reference Manual</title>
+    <title>libkanberra Reference Manual</title>
     <releaseinfo>
       The latest version of this documentation can be found on-line at
-      <ulink role="online-location" url="http://0pointer.de/lennart/projects/libcanberra/gtkdoc/index.html">http://0pointer.de/lennart/projects/libcanberra/gtkdoc/index.html</ulink>.
+      <ulink role="online-location" url="http://0pointer.de/lennart/projects/libkanberra/gtkdoc/index.html">http://0pointer.de/lennart/projects/libkanberra/gtkdoc/index.html</ulink>.
     </releaseinfo>
   </bookinfo>
 
   <chapter>
-    <title>libcanberra</title>
-    <xi:include href="xml/canberra.xml"/>
-    <xi:include href="xml/canberra-ctk.xml"/>
+    <title>libkanberra</title>
+    <xi:include href="xml/kanberra.xml"/>
+    <xi:include href="xml/kanberra-ctk.xml"/>
   </chapter>
 </book>

@@ -9,8 +9,8 @@ ConditionPathExists=/usr/share/sounds/freedesktop/stereo/system-shutdown.oga
 
 [Service]
 Type=oneshot
-ExecStart=-@bindir@/canberra-boot system-shutdown
+ExecStart=-@bindir@/kanberra-boot system-shutdown
 
 [Install]
 WantedBy=halt.target poweroff.target
-Also=canberra-system-shutdown-reboot.service canberra-system-shutdown-reboot.service
+Also=kanberra-system-shutdown-reboot.service kanberra-system-shutdown-reboot.service

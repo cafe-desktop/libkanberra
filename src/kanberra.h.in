@@ -1,25 +1,25 @@
 /*-*- Mode: C; c-basic-offset: 8 -*-*/
 
-#ifndef foocanberrahfoo
-#define foocanberrahfoo
+#ifndef fookanberrahfoo
+#define fookanberrahfoo
 
 /***
-  This file is part of libcanberra.
+  This file is part of libkanberra.
 
   Copyright 2008 Lennart Poettering
 
-  libcanberra is free software; you can redistribute it and/or modify
+  libkanberra is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as
   published by the Free Software Foundation, either version 2.1 of the
   License, or (at your option) any later version.
 
-  libcanberra is distributed in the hope that it will be useful, but
+  libkanberra is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with libcanberra. If not, see
+  License along with libkanberra. If not, see
   <http://www.gnu.org/licenses/>.
 ***/
 
@@ -39,14 +39,14 @@ extern "C" {
 /**
  * CA_MAJOR:
  *
- * Evaluates to the major version number of libcanberra.
+ * Evaluates to the major version number of libkanberra.
  */
 #define CA_MAJOR (@CA_MAJOR@)
 
 /**
  * CA_MINOR:
  *
- * Evaluates to the minor version number of libcanberra.
+ * Evaluates to the minor version number of libkanberra.
  */
 #define CA_MINOR (@CA_MINOR@)
 
@@ -421,7 +421,7 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_CACHE_CONTROL             "canberra.cache-control"
+#define CA_PROP_CANBERRA_CACHE_CONTROL             "kanberra.cache-control"
 
 /**
  * CA_PROP_CANBERRA_VOLUME:
@@ -434,7 +434,7 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_VOLUME                    "canberra.volume"
+#define CA_PROP_CANBERRA_VOLUME                    "kanberra.volume"
 
 /**
  * CA_PROP_CANBERRA_XDG_THEME_NAME:
@@ -445,7 +445,7 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_XDG_THEME_NAME            "canberra.xdg-theme.name"
+#define CA_PROP_CANBERRA_XDG_THEME_NAME            "kanberra.xdg-theme.name"
 
 /**
  * CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE:
@@ -456,7 +456,7 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE  "canberra.xdg-theme.output-profile"
+#define CA_PROP_CANBERRA_XDG_THEME_OUTPUT_PROFILE  "kanberra.xdg-theme.output-profile"
 
 /**
  * CA_PROP_CANBERRA_ENABLE:
@@ -469,7 +469,7 @@ extern "C" {
  * If the list of properties is handed on to the sound server this
  * property is stripped from it.
  */
-#define CA_PROP_CANBERRA_ENABLE                    "canberra.enable"
+#define CA_PROP_CANBERRA_ENABLE                    "kanberra.enable"
 
 /**
  * CA_PROP_CANBERRA_FORCE_CHANNEL:
@@ -488,18 +488,18 @@ extern "C" {
  *
  * Since: 0.13
  */
-#define CA_PROP_CANBERRA_FORCE_CHANNEL             "canberra.force_channel"
+#define CA_PROP_CANBERRA_FORCE_CHANNEL             "kanberra.force_channel"
 
 /**
  * ca_context:
  *
- * A libcanberra context object.
+ * A libkanberra context object.
  */
 typedef struct ca_context ca_context;
 
 /**
  * ca_finish_callback_t:
- * @c: The libcanberra context this callback is called for
+ * @c: The libkanberra context this callback is called for
  * @id: The numerical id passed to the ca_context_play_full() when starting the event sound playback.
  * @error_code: A numerical error code describing the reason this callback is called. If CA_SUCCESS is passed in the playback of the event sound was successfully completed.
  * @userdata: Some arbitrary user data the caller of ca_context_play_full() passed in.
@@ -507,7 +507,7 @@ typedef struct ca_context ca_context;
  * Playback completion event callback. The context this callback is
  * called in is undefined, it might or might not be called from a
  * background thread, and from any stack frame. The code implementing
- * this function may not call any libcanberra API call from this
+ * this function may not call any libkanberra API call from this
  * callback -- this might result in a deadlock. Instead it may only be
  * used to asynchronously signal some kind of notification object
  * (semaphore, message queue, ...).
@@ -546,7 +546,7 @@ enum {
 /**
  * ca_proplist:
  *
- * A canberra property list object. Basically a hashtable.
+ * A kanberra property list object. Basically a hashtable.
  */
 typedef struct ca_proplist ca_proplist;
 
