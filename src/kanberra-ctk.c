@@ -314,7 +314,7 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                                 return ret;
 
                 if (x >= 0 && width > 0) {
-                        screen_width = cdk_screen_get_width(ctk_widget_get_screen(CTK_WIDGET(w)));
+                        screen_width = WidthOfScreen(cdk_x11_screen_get_xscreen(ctk_widget_get_screen(CTK_WIDGET(w))));
 
                         x += width/2;
                         x = KA_CLAMP(x, 0, screen_width-1);
@@ -329,7 +329,7 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
                 }
 
                 if (y >= 0 && height > 0) {
-                        screen_height = cdk_screen_get_height(ctk_widget_get_screen(CTK_WIDGET(w)));
+                        screen_height = HeightOfScreen(cdk_x11_screen_get_xscreen(ctk_widget_get_screen(CTK_WIDGET(w))));
 
                         y += height/2;
                         y = KA_CLAMP(y, 0, screen_height-1);
@@ -386,8 +386,8 @@ int ka_ctk_proplist_set_for_event(ka_proplist *p, CdkEvent *e) {
                 if (w)  {
                         int width, height;
 
-                        width = cdk_screen_get_width(ctk_widget_get_screen(w));
-                        height = cdk_screen_get_height(ctk_widget_get_screen(w));
+                        width = WidthOfScreen(cdk_x11_screen_get_xscreen(ctk_widget_get_screen(w)));
+                        height = HeightOfScreen(cdk_x11_screen_get_xscreen(ctk_widget_get_screen(w)));
 
                         /* We use these strange format strings here to avoid that
                          * libc applies locale information on the formatting of
