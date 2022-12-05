@@ -142,7 +142,7 @@ ka_context *ka_ctk_context_get_for_screen(CdkScreen *screen) {
         if ((name = cdk_display_get_name(cdk_screen_get_display(screen))))
                 ka_proplist_sets(p, KA_PROP_WINDOW_X11_DISPLAY, name);
 
-        ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen));
+        ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_x11_screen_get_screen_number(screen));
 
         ka_context_change_props_full(c, p);
         ka_proplist_destroy(p);
@@ -283,7 +283,7 @@ int ka_ctk_proplist_set_for_widget(ka_proplist *p, CtkWidget *widget) {
 
                 if ((screen = ctk_widget_get_screen(CTK_WIDGET(w)))) {
 
-                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_screen_get_number(screen))) < 0)
+                        if ((ret = ka_proplist_setf(p, KA_PROP_WINDOW_X11_SCREEN, "%i", cdk_x11_screen_get_screen_number(screen))) < 0)
                                 return ret;
 
                         if (dw)
