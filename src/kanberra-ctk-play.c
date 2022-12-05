@@ -133,8 +133,6 @@ int main (int argc, char *argv[]) {
 
         setlocale(LC_ALL, "");
 
-        g_type_init();
-
         ka_proplist_create(&proplist);
 
         oc = g_option_context_new("- kanberra-ctk-play");
