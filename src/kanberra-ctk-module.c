@@ -386,7 +386,7 @@ static gboolean window_is_xembed(CdkDisplay *d, CdkWindow *w) {
         xembed = cdk_x11_get_xatom_by_name_for_display(d, "_XEMBED_INFO");
 
         /* be robust against not existing XIDs (LP: #834403) */
-        cdk_error_trap_push();
+        cdk_x11_display_error_trap_push (d);
         if (XGetWindowProperty(CDK_DISPLAY_XDISPLAY(d), CDK_WINDOW_XID(w),
                                xembed,
                                0, 2, False, xembed, &type_return,
@@ -395,12 +395,7 @@ static gboolean window_is_xembed(CdkDisplay *d, CdkWindow *w) {
                 return FALSE;
         }
 
-#if CTK_CHECK_VERSION(3,0,0)
-        cdk_error_trap_pop_ignored();
-#else
-        cdk_flush();
-        cdk_error_trap_pop();
-#endif
+        cdk_x11_display_error_trap_pop_ignored (d);
 
         if (type_return == xembed && format_return == 32 && data)
                 ret = TRUE;
