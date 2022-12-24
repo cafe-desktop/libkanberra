@@ -1,0 +1,20 @@
+### libkanberra 0.31
+
+  * initial commit: libcanberra 0.30 fork
+  * ci: enable Github Actions
+  * Play login sound in Unity too if it's enabled (it's disabled by default in Ubuntu)
+  * gtk: Don't assume all GdkDisplays are GdkX11Displays
+  * Fix FTBFS with binutils-gold
+  * port from GTK to CTK
+  * drop vala code
+  * remove Makefile.in
+  * gtkdoc,tmpl: remove blank lines at EOF
+  * remove trailing whitespaces
+  * rename canberra -> kanberra
+  * rename ca_ -> ka_
+  * kanberra-ctk-play: avoid deprecated 'g_type_init'
+  * kanberra-ctk: avoid deprecated 'cdk_screen_get_number'
+  * kanberra-ctk: WidthOfScreen and HeightOfScreen implementation
+  * kanberra-ctk-module: avoid deprecated 'cdk_error_trap_push' and 'cdk_error_trap_pop_ignored'
+  * update README
+  * remove 'configure' file
