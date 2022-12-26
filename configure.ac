@@ -27,9 +27,9 @@ AC_PREREQ([2.68])
 
 AC_INIT([libkanberra],
         [ka_version],
-        [mzyvopnaoreen (at) 0pointer (dot) de],
+        [scow (at) riseup (dot) net],
         [libkanberra],
-        [http://0pointer.de/lennart/projects/libkanberra/])
+        [https://github.com/cafe-desktop/libkanberra])
 
 AC_CONFIG_SRCDIR([src/common.c])
 AC_CONFIG_HEADERS([config.h])
