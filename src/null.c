@@ -43,7 +43,9 @@ int driver_destroy(ka_context *c) {
         return KA_SUCCESS;
 }
 
-int driver_change_device(ka_context *c, const char *device) {
+int driver_change_device (ka_context *c,
+			  const char *device GNUC_UNUSED)
+{
         ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         return KA_SUCCESS;
@@ -68,7 +70,9 @@ int driver_play(ka_context *c, uint32_t id, ka_proplist *proplist, ka_finish_cal
         return KA_SUCCESS;
 }
 
-int driver_cancel(ka_context *c, uint32_t id) {
+int driver_cancel (ka_context *c,
+		   uint32_t    id GNUC_UNUSED)
+{
         ka_return_val_if_fail(c, KA_ERROR_INVALID);
 
         return KA_SUCCESS;

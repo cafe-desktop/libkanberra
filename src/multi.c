@@ -199,7 +199,9 @@ int driver_destroy(ka_context *c) {
         return ret;
 }
 
-int driver_change_device(ka_context *c, const char *device) {
+int driver_change_device (ka_context *c,
+			  const char *device GNUC_UNUSED)
+{
         ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 
@@ -237,7 +239,11 @@ struct closure {
         void *userdata;
 };
 
-static void call_closure(ka_context *c, uint32_t id, int error_code, void *userdata) {
+static void call_closure (ka_context *c GNUC_UNUSED,
+			  uint32_t    id,
+			  int         error_code,
+			  void       *userdata)
+{
         struct closure *closure = userdata;
 
         closure->callback(closure->context, id, error_code, closure->userdata);

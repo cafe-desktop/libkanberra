@@ -183,7 +183,9 @@ int driver_destroy(ka_context *c) {
         return KA_SUCCESS;
 }
 
-int driver_change_device(ka_context *c, const char *device) {
+int driver_change_device (ka_context *c,
+			  const char *device GNUC_UNUSED)
+{
         ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_return_val_if_fail(c->private, KA_ERROR_STATE);
 

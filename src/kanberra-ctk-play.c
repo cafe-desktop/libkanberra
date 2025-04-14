@@ -36,12 +36,14 @@ static int n_loops = 1;
 
 static void callback(ka_context *c, uint32_t id, int error, void *userdata);
 
-static gboolean idle_quit(gpointer userdata) {
+static gboolean idle_quit (gpointer userdata GNUC_UNUSED)
+{
         ctk_main_quit();
         return FALSE;
 }
 
-static gboolean idle_play(gpointer userdata) {
+static gboolean idle_play (gpointer userdata GNUC_UNUSED)
+{
         int r;
 
         g_assert(n_loops > 1);
@@ -59,7 +61,11 @@ static gboolean idle_play(gpointer userdata) {
         return FALSE;
 }
 
-static void callback(ka_context *c, uint32_t id, int error, void *userdata) {
+static void callback (ka_context *c GNUC_UNUSED,
+		      uint32_t    id GNUC_UNUSED,
+		      int         error,
+		      void       *userdata GNUC_UNUSED)
+{
 
         if (error < 0) {
                 g_printerr("Failed to play sound (callback): %s\n", ka_strerror(error));
@@ -86,11 +92,11 @@ static GQuark error_domain(void) {
         return g_quark_from_static_string("kanberra-error-quark");
 }
 
-static gboolean property_callback(
-                const gchar *option_name,
-                const gchar *value,
-                gpointer data,
-                GError **error) {
+static gboolean property_callback (const gchar *option_name GNUC_UNUSED,
+				   const gchar *value,
+				   gpointer     data GNUC_UNUSED,
+				   GError     **error)
+{
 
         const char *equal;
         char *t;

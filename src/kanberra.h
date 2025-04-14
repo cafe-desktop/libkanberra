@@ -31,6 +31,9 @@
 extern "C" {
 #endif
 
+#define GNUC_UNUSED \
+  __attribute__ ((__unused__))
+
 #ifndef __GNUC__
 /* Make sure __attribute__ works on non-gcc systems. Yes, might be a bit ugly */
 #define __attribute__(x)
@@ -48,7 +51,7 @@ extern "C" {
  *
  * Evaluates to the minor version number of libkanberra.
  */
-#define KA_MINOR (30)
+#define KA_MINOR (31)
 
 /**
  * KA_CHECK_VERSION:

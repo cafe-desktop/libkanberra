@@ -195,7 +195,9 @@ int driver_destroy(ka_context *c) {
         return KA_SUCCESS;
 }
 
-int driver_change_device(ka_context *c, const char *device) {
+int driver_change_device (ka_context *c,
+			  const char *device GNUC_UNUSED)
+{
         ka_return_val_if_fail(c, KA_ERROR_INVALID);
         ka_return_val_if_fail(PRIVATE(c), KA_ERROR_STATE);
 
@@ -297,7 +299,10 @@ static int ka_gst_sound_file_open(ka_sound_file **_f, const char *fn) {
         return KA_SUCCESS;
 }
 
-static void on_pad_added(GstElement *element, GstPad *pad, gboolean arg1, gpointer data)
+static void on_pad_added (GstElement *element GNUC_UNUSED,
+			  GstPad     *pad,
+			  gboolean    arg1 GNUC_UNUSED,
+			  gpointer    data)
 {
         GstStructure *structure;
         GstElement *sinkelement;

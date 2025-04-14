@@ -31,6 +31,9 @@
 extern "C" {
 #endif
 
+#define GNUC_UNUSED \
+  __attribute__ ((__unused__))
+
 #ifndef __GNUC__
 /* Make sure __attribute__ works on non-gcc systems. Yes, might be a bit ugly */
 #define __attribute__(x)

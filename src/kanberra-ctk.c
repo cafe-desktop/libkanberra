@@ -70,11 +70,17 @@ static void read_enable_event_sounds(ka_context *c, CtkSettings *s) {
         ka_context_change_props(c, KA_PROP_KANBERRA_ENABLE, enable_event_sounds ? "1" : "0", NULL);
 }
 
-static void sound_theme_name_changed(CtkSettings *s, GParamSpec *arg1, ka_context *c) {
+static void sound_theme_name_changed (CtkSettings *s,
+				      GParamSpec  *arg1 GNUC_UNUSED,
+				      ka_context  *c)
+{
         read_sound_theme_name(c, s);
 }
 
-static void enable_event_sounds_changed(CtkSettings *s, GParamSpec *arg1, ka_context *c) {
+static void enable_event_sounds_changed (CtkSettings *s,
+					 GParamSpec  *arg1 GNUC_UNUSED,
+					 ka_context  *c)
+{
         read_enable_event_sounds(c, s);
 }
 

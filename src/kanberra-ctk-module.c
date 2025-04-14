@@ -836,7 +836,8 @@ static void dispatch_queue(void) {
         }
 }
 
-static gboolean idle_cb(void *userdata) {
+static gboolean idle_cb (void *userdata GNUC_UNUSED)
+{
         idle_id = 0;
 
         dispatch_queue();
@@ -846,7 +847,11 @@ static gboolean idle_cb(void *userdata) {
 
 static void connect_settings(void);
 
-static gboolean emission_hook_cb(GSignalInvocationHint *hint, guint n_param_values, const GValue *param_values, gpointer data) {
+static gboolean emission_hook_cb (GSignalInvocationHint *hint,
+				  guint                  n_param_values,
+				  const GValue          *param_values,
+				  gpointer               data GNUC_UNUSED)
+{
         static SoundEventData *d = NULL;
         CdkEvent *e;
         GObject *object;
@@ -928,7 +933,10 @@ static void read_enable_input_feedback_sounds(CtkSettings *s) {
         }
 }
 
-static void enable_input_feedback_sounds_changed(CtkSettings *s, GParamSpec *arg1, gpointer userdata) {
+static void enable_input_feedback_sounds_changed (CtkSettings *s,
+						  GParamSpec  *arg1 GNUC_UNUSED,
+						  gpointer     userdata GNUC_UNUSED)
+{
         read_enable_input_feedback_sounds(s);
 }
 
@@ -960,7 +968,9 @@ static gboolean quit_handler(gpointer data) {
 }
 #endif
 
-G_MODULE_EXPORT void ctk_module_init(gint *argc, gchar ***argv[]) {
+G_MODULE_EXPORT void ctk_module_init (gint    *argc GNUC_UNUSED,
+				      gchar ***argv[] GNUC_UNUSED)
+{
 
         /* This is the same quark libgnomeui uses! */
         disable_sound_quark = g_quark_from_string("gnome_disable_sound_events");
