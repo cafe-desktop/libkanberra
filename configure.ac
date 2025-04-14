@@ -167,9 +167,6 @@ AM_CONDITIONAL(USE_VERSION_SCRIPT, test "x$supports_anon_versioning" = "xyes" )
 
 #### Checks for header files. ####
 
-# ISO
-AC_HEADER_STDC
-
 # XPG4-UNIX
 AC_CHECK_HEADERS([sys/poll.h])
 
