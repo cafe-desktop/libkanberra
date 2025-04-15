@@ -31,6 +31,8 @@ AC_INIT([libkanberra],
         [libkanberra],
         [https://github.com/cafe-desktop/libkanberra])
 
+AC_USE_SYSTEM_EXTENSIONS
+
 AC_CONFIG_SRCDIR([src/common.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR(m4)
@@ -60,7 +62,6 @@ AM_PROG_AR
 
 AC_PROG_CC
 AM_PROG_CC_C_O
-AC_USE_SYSTEM_EXTENSIONS
 
 # C++
 
