@@ -3,6 +3,7 @@
 ##########################################################
 requires:
   debian:
+    # cafe B-D: libctk-3-dev
     - aptitude
     - clang-tools
     - cppcheck
