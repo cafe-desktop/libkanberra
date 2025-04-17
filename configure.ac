@@ -19,8 +19,8 @@
 # License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
-m4_define([ka_major],[0])
-m4_define([ka_minor],[31])
+m4_define([ka_major],[1])
+m4_define([ka_minor],[0])
 m4_define([ka_version],[ka_major.ka_minor])
 
 AC_PREREQ([2.68])

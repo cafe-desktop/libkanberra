@@ -1,3 +1,17 @@
+### libkanberra 1.0
+
+  * add GNUC_UNUSED in unused parameters
+  * build:
+    - update AC_INIT
+    - avoid obsolete:
+      - AC_PROG_CC_C99
+      - AC_PROG_GCC_TRADITIONAL
+      - AC_HEADER_STDC
+      - AC_LANG_C
+      - AC_TRY_LINK
+    - avoid the warning: AC_COMPILE_IFELSE was called before AC_USE_SYSTEM_EXTENSIONS
+  * ci: some improvements
+
 ### libkanberra 0.31
 
   * initial commit: libcanberra 0.30 fork
