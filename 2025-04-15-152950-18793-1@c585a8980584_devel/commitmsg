@@ -1,0 +1,1 @@
+build: avoid the warning: AC_COMPILE_IFELSE was called before AC_USE_SYSTEM_EXTENSIONS
