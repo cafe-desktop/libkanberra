@@ -16,6 +16,7 @@ requires:
     - libtdb-dev
     - libpulse-dev
     - libgstreamer1.0-dev
+    - pulseaudio
 
 before_scripts:
   - ./html-cppcheck
