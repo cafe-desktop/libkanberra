@@ -3,13 +3,30 @@
 ##########################################################
 requires:
   debian:
+    # cafe B-D: libctk-3-dev
+    - aptitude
+    - clang-tools
+    - cppcheck
+    - expect #required for unbuffer
+    - git
+    - gnome-pkg-tools
+    - gtk-doc-tools
+    - libltdl-dev
+    - libasound2-dev
+    - libvorbis-dev
+    - libtdb-dev
+    - libpulse-dev
+    - libgstreamer1.0-dev
     - pulseaudio
 
-
 before_scripts:
-  - ./debrepo-install
+#  - ./html-cppcheck
+  - ./debrepo-install 'libctk-3-dev gir1.2-ctk-3.0 libctk-3-common libctk-3-0 libctk-3-doc'
 
 build_scripts:
+#  - ./before-build
+#  - ./make-scanbuild
+#  - ./after-build
   - ./build-debs https://github.com/cafe-desktop/debian-packages devel libkanberra
 
 after_scripts:
