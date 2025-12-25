@@ -3,6 +3,7 @@
 ##########################################################
 requires:
   debian:
+  -pulseaudio
 
 
 before_scripts:
