@@ -4,8 +4,6 @@
 requires:
   debian:
     # cafe B-D: libctk-3-dev
-    - ca-certificates
-    - pulseaudio
 
 before_scripts:
 #  - ./html-cppcheck
