@@ -36,18 +36,18 @@
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="libkanberra-kanberra-ctk.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><a class="link" href="libkanberra-kanberra.html#ca-context" title="ka_context"><span class="returnvalue">ka_context</span></a> *        <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-context-get" title="ka_ctk_context_get ()">ka_ctk_context_get</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()">ka_ctk_proplist_set_for_widget</a>      (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ca-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
+<pre class="synopsis"><a class="link" href="libkanberra-kanberra.html#ka-context" title="ka_context"><span class="returnvalue">ka_context</span></a> *        <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-context-get" title="ka_ctk_context_get ()">ka_ctk_context_get</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()">ka_ctk_proplist_set_for_widget</a>      (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ka-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-play-for-widget" title="ka_ctk_play_for_widget ()">ka_ctk_play_for_widget</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
+<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-play-for-widget" title="ka_ctk_play_for_widget ()">ka_ctk_play_for_widget</a>              (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
                                                          <em class="parameter"><code><span class="type">uint32_t</span> id</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-event" title="ka_ctk_proplist_set_for_event ()">ka_ctk_proplist_set_for_event</a>       (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ca-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
+<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-proplist-set-for-event" title="ka_ctk_proplist_set_for_event ()">ka_ctk_proplist_set_for_event</a>       (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ka-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/cdk3/cdk-Event-Structures.html#CdkEvent"><span class="type">CdkEvent</span></a> *e</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-play-for-event" title="ka_ctk_play_for_event ()">ka_ctk_play_for_event</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/cdk3/cdk-Event-Structures.html#CdkEvent"><span class="type">CdkEvent</span></a> *e</code></em>,
+<span class="returnvalue">int</span>                 <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-play-for-event" title="ka_ctk_play_for_event ()">ka_ctk_play_for_event</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/cdk3/cdk-Event-Structures.html#CdkEvent"><span class="type">CdkEvent</span></a> *e</code></em>,
                                                          <em class="parameter"><code><span class="type">uint32_t</span> id</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-widget-disable-sounds" title="ka_ctk_widget_disable_sounds ()">ka_ctk_widget_disable_sounds</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-widget-disable-sounds" title="ka_ctk_widget_disable_sounds ()">ka_ctk_widget_disable_sounds</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enable</code></em>);
 </pre>
 </div>
@@ -57,7 +57,7 @@
 libkanberra-ctk provides a few functions that simplify libkanberra
 usage from Ctk+ programs. It maintains a single ka_context object
 per <a href="http://library.gnome.org/devel/cdk3/CdkScreen.html"><span class="type">CdkScreen</span></a> that is made accessible via
-<code class="function">ka_ctk_context_get_for_screen()</code>, with a shortcut <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-context-get" title="ka_ctk_context_get ()"><code class="function">ka_ctk_context_get()</code></a>
+<code class="function">ka_ctk_context_get_for_screen()</code>, with a shortcut <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-context-get" title="ka_ctk_context_get ()"><code class="function">ka_ctk_context_get()</code></a>
 to get the context for the default screen. More importantly, it provides
 a few functions
 to compile event sound property lists based on CtkWidget objects or
@@ -67,8 +67,8 @@ CdkEvent events.
 <div class="refsect1">
 <a name="libkanberra-kanberra-ctk.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="ca-ctk-context-get"></a><h3>ka_ctk_context_get ()</h3>
-<pre class="programlisting"><a class="link" href="libkanberra-kanberra.html#ca-context" title="ka_context"><span class="returnvalue">ka_context</span></a> *        ka_ctk_context_get                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<a name="ka-ctk-context-get"></a><h3>ka_ctk_context_get ()</h3>
+<pre class="programlisting"><a class="link" href="libkanberra-kanberra.html#ka-context" title="ka_context"><span class="returnvalue">ka_context</span></a> *        ka_ctk_context_get                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Gets the single ka_context object for the default screen. See
 <code class="function">ka_ctk_context_get_for_screen()</code>.
@@ -87,8 +87,8 @@ and must not be destroyed</td>
 </div>
 <hr>
 <div class="refsect2">
-<a name="ca-ctk-proplist-set-for-widget"></a><h3>ka_ctk_proplist_set_for_widget ()</h3>
-<pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_proplist_set_for_widget      (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ca-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
+<a name="ka-ctk-proplist-set-for-widget"></a><h3>ka_ctk_proplist_set_for_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_proplist_set_for_widget      (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ka-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>);</pre>
 <p>
 Fill in a ka_proplist object for a sound event that shall originate
@@ -118,15 +118,15 @@ from the specified Ctk Widget. This will fill in properties like
 </div>
 <hr>
 <div class="refsect2">
-<a name="ca-ctk-play-for-widget"></a><h3>ka_ctk_play_for_widget ()</h3>
+<a name="ka-ctk-play-for-widget"></a><h3>ka_ctk_play_for_widget ()</h3>
 <pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_play_for_widget              (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
                                                          <em class="parameter"><code><span class="type">uint32_t</span> id</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
 Play a sound event for the specified widget. This will internally
-call <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()"><code class="function">ka_ctk_proplist_set_for_widget()</code></a> and then merge them with the
+call <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()"><code class="function">ka_ctk_proplist_set_for_widget()</code></a> and then merge them with the
 properties passed in via the NULL terminated argument
-list. Finally, it will call <a class="link" href="libkanberra-kanberra.html#ca-context-play-full" title="ka_context_play_full ()"><code class="function">ka_context_play_full()</code></a> to actually play
+list. Finally, it will call <a class="link" href="libkanberra-kanberra.html#ka-context-play-full" title="ka_context_play_full ()"><code class="function">ka_context_play_full()</code></a> to actually play
 the event sound.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
@@ -142,11 +142,11 @@ the event sound.
 <tr>
 <td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
 <td>The event id that can later be used to cancel this event sound
-using <a class="link" href="libkanberra-kanberra.html#ca-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a>. This can be any integer and shall be
+using <a class="link" href="libkanberra-kanberra.html#ka-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a>. This can be any integer and shall be
 chosen be the client program. It is a good idea to pass 0 here if
 cancelling the sound later is not needed. If the same id is passed
 to multiple sounds they can be canceled with a single
-<a class="link" href="libkanberra-kanberra.html#ca-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a> call.</td>
+<a class="link" href="libkanberra-kanberra.html#ka-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a> call.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
@@ -161,14 +161,14 @@ to multiple sounds they can be canceled with a single
 </div>
 <hr>
 <div class="refsect2">
-<a name="ca-ctk-proplist-set-for-event"></a><h3>ka_ctk_proplist_set_for_event ()</h3>
-<pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_proplist_set_for_event       (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ca-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
+<a name="ka-ctk-proplist-set-for-event"></a><h3>ka_ctk_proplist_set_for_event ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_proplist_set_for_event       (<em class="parameter"><code><a class="link" href="libkanberra-kanberra.html#ka-proplist" title="ka_proplist"><span class="type">ka_proplist</span></a> *p</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/cdk3/cdk-Event-Structures.html#CdkEvent"><span class="type">CdkEvent</span></a> *e</code></em>);</pre>
 <p>
 Fill in a ka_proplist object for a sound event that is being
 triggered by the specified Cdk Event. This will fill in properties
 like <a class="link" href="libkanberra-kanberra.html#CA-PROP-EVENT-MOUSE-X:CAPS" title="KA_PROP_EVENT_MOUSE_X"><code class="literal">KA_PROP_EVENT_MOUSE_X</code></a> or <a class="link" href="libkanberra-kanberra.html#CA-PROP-EVENT-MOUSE-BUTTON:CAPS" title="KA_PROP_EVENT_MOUSE_BUTTON"><code class="literal">KA_PROP_EVENT_MOUSE_BUTTON</code></a> for
-you. This will internally also cal <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()"><code class="function">ka_ctk_proplist_set_for_widget()</code></a>
+you. This will internally also cal <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-proplist-set-for-widget" title="ka_ctk_proplist_set_for_widget ()"><code class="function">ka_ctk_proplist_set_for_widget()</code></a>
 on the widget this event belongs to.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
@@ -194,15 +194,15 @@ on the widget this event belongs to.
 </div>
 <hr>
 <div class="refsect2">
-<a name="ca-ctk-play-for-event"></a><h3>ka_ctk_play_for_event ()</h3>
+<a name="ka-ctk-play-for-event"></a><h3>ka_ctk_play_for_event ()</h3>
 <pre class="programlisting"><span class="returnvalue">int</span>                 ka_ctk_play_for_event               (<em class="parameter"><code><a href="http://library.gnome.org/devel/cdk3/cdk-Event-Structures.html#CdkEvent"><span class="type">CdkEvent</span></a> *e</code></em>,
                                                          <em class="parameter"><code><span class="type">uint32_t</span> id</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
 Play a sound event for the specified event. This will internally
-call <a class="link" href="libkanberra-kanberra-ctk.html#ca-ctk-proplist-set-for-event" title="ka_ctk_proplist_set_for_event ()"><code class="function">ka_ctk_proplist_set_for_event()</code></a> and then merge them with the
+call <a class="link" href="libkanberra-kanberra-ctk.html#ka-ctk-proplist-set-for-event" title="ka_ctk_proplist_set_for_event ()"><code class="function">ka_ctk_proplist_set_for_event()</code></a> and then merge them with the
 properties passed in via the NULL terminated argument
-list. Finally, it will call <a class="link" href="libkanberra-kanberra.html#ca-context-play-full" title="ka_context_play_full ()"><code class="function">ka_context_play_full()</code></a> to actually play
+list. Finally, it will call <a class="link" href="libkanberra-kanberra.html#ka-context-play-full" title="ka_context_play_full ()"><code class="function">ka_context_play_full()</code></a> to actually play
 the event sound.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
@@ -218,11 +218,11 @@ the event sound.
 <tr>
 <td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
 <td>The event id that can later be used to cancel this event sound
-using <a class="link" href="libkanberra-kanberra.html#ca-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a>. This can be any integer and shall be
+using <a class="link" href="libkanberra-kanberra.html#ka-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a>. This can be any integer and shall be
 chosen be the client program. It is a good idea to pass 0 here if
 cancelling the sound later is not needed. If the same id is passed
 to multiple sounds they can be canceled with a single
-<a class="link" href="libkanberra-kanberra.html#ca-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a> call.</td>
+<a class="link" href="libkanberra-kanberra.html#ka-context-cancel" title="ka_context_cancel ()"><code class="function">ka_context_cancel()</code></a> call.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
@@ -237,7 +237,7 @@ to multiple sounds they can be canceled with a single
 </div>
 <hr>
 <div class="refsect2">
-<a name="ca-ctk-widget-disable-sounds"></a><h3>ka_ctk_widget_disable_sounds ()</h3>
+<a name="ka-ctk-widget-disable-sounds"></a><h3>ka_ctk_widget_disable_sounds ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                ka_ctk_widget_disable_sounds        (<em class="parameter"><code><a href="http://library.gnome.org/devel/ctk3/CtkWidget.html"><span class="type">CtkWidget</span></a> *w</code></em>,
                                                          <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enable</code></em>);</pre>
 <p>
