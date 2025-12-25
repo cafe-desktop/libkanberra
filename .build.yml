@@ -4,19 +4,6 @@
 requires:
   debian:
     # cafe B-D: libctk-3-dev
-    - aptitude
-    - clang-tools
-    - cppcheck
-    - expect #required for unbuffer
-    - git
-    - gnome-pkg-tools
-    - gtk-doc-tools
-    - libltdl-dev
-    - libasound2-dev
-    - libvorbis-dev
-    - libtdb-dev
-    - libpulse-dev
-    - libgstreamer1.0-dev
     - pulseaudio
 
 before_scripts:
