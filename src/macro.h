@@ -48,7 +48,7 @@
         do {                                                            \
                 if (KA_UNLIKELY(!(expr))) {                             \
                         if (ka_debug())                                 \
-                                fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                                fprintf(stderr, "Assertion '%s' failed at %s:%d, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                         return;                                         \
                 }                                                       \
         } while(FALSE)
@@ -57,7 +57,7 @@
         do {                                                            \
                 if (KA_UNLIKELY(!(expr))) {                             \
                         if (ka_debug())                                 \
-                                fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                                fprintf(stderr, "Assertion '%s' failed at %s:%d, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                         return (val);                                   \
                 }                                                       \
         } while(FALSE)
@@ -68,7 +68,7 @@
         do {                                                            \
                 if (KA_UNLIKELY(!(expr))) {                             \
                         if (ka_debug())                                 \
-                                fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                                fprintf(stderr, "Assertion '%s' failed at %s:%d, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                         ka_mutex_unlock(mutex);                         \
                         return;                                         \
                 }                                                       \
@@ -78,7 +78,7 @@
         do {                                                            \
                 if (KA_UNLIKELY(!(expr))) {                             \
                         if (ka_debug())                                 \
-                                fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                                fprintf(stderr, "Assertion '%s' failed at %s:%d, function %s().\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                         ka_mutex_unlock(mutex);                         \
                         return (val);                                   \
                 }                                                       \
@@ -91,7 +91,7 @@
 #define ka_assert_se(expr)                                              \
         do {                                                            \
                 if (KA_UNLIKELY(!(expr))) {                             \
-                        fprintf(stderr, "Assertion '%s' failed at %s:%u, function %s(). Aborting.\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                        fprintf(stderr, "Assertion '%s' failed at %s:%d, function %s(). Aborting.\n", #expr , __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                         abort();                                        \
                 }                                                       \
         } while (FALSE)
@@ -105,7 +105,7 @@
 
 #define ka_assert_not_reached()                                         \
         do {                                                            \
-                fprintf(stderr, "Code should not be reached at %s:%u, function %s(). Aborting.\n", __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
+                fprintf(stderr, "Code should not be reached at %s:%d, function %s(). Aborting.\n", __FILE__, __LINE__, KA_PRETTY_FUNCTION); \
                 abort();                                                \
         } while (FALSE)
 
