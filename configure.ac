@@ -21,7 +21,8 @@
 
 m4_define([ka_major],[1])
 m4_define([ka_minor],[0])
-m4_define([ka_version],[ka_major.ka_minor])
+m4_define([ka_micro],[0])
+m4_define([ka_version],[ka_major.ka_minor.ka_micro])
 
 AC_PREREQ([2.68])
 
@@ -697,6 +698,7 @@ AM_CONDITIONAL([BUILTIN_NULL], [test "x$BUILTIN_NULL" = x1])
 
 AC_SUBST([KA_MAJOR],[ka_major])
 AC_SUBST([KA_MINOR],[ka_minor])
+AC_SUBST([KA_MICRO],[ka_micro])
 
 GTK_DOC_CHECK(1.9)
 
