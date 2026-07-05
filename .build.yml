@@ -17,6 +17,7 @@ requires:
     - libtdb-dev
     - libpulse-dev
     - libgstreamer1.0-dev
+    - lynx #required for generating README file
     - pulseaudio
 
 before_scripts:
