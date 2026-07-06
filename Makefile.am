@@ -22,10 +22,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	LGPL
 
-SUBDIRS = src gtkdoc doc
-
-MAINTAINERCLEANFILES = README
-noinst_DATA = README
+SUBDIRS = src gtkdoc
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libkanberra.pc
@@ -47,18 +44,3 @@ DISTCHECK_CONFIGURE_FLAGS =  \
 	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
 
 ACLOCAL_AMFLAGS = -I m4
-
-README:
-	rm -f README
-	$(MAKE) -C doc README
-	ln -s doc/README README
-
-homepage: dist
-	test -d $$HOME/homepage/private
-	mkdir -p $$HOME/homepage/private/projects/libkanberra $$HOME/homepage/private/projects/libkanberra/gtkdoc
-	cp libkanberra-@PACKAGE_VERSION@.tar.xz $$HOME/homepage/private/projects/libkanberra
-	cp doc/README.html doc/style.css $$HOME/homepage/private/projects/libkanberra
-	cp -a gtkdoc/html/* $$HOME/homepage/private/projects/libkanberra/gtkdoc
-	ln -sf README.html $$HOME/homepage/private/projects/libkanberra/index.html
-
-.PHONY: homepage
