@@ -19,7 +19,7 @@
 # License along with libkanberra. If not, see
 # <http://www.gnu.org/licenses/>.
 
-m4_define([ka_major],[1])
+m4_define([ka_major],[2])
 m4_define([ka_minor],[0])
 m4_define([ka_micro],[0])
 m4_define([ka_version],[ka_major.ka_minor.ka_micro])
